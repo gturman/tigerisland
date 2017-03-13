@@ -3,4 +3,6 @@
  */
 public class Hex {
     //this is... the BEGINNING!
+
+    // does Kevin remember how to commit to github?
 }
