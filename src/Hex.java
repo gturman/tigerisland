@@ -24,12 +24,12 @@ public class Hex {
 
     }
 
-    public void mergeHexes(Hex firstHex, Hex secondHex, int firstEdge, int secondEdge){
-        if(firstEdge > 6 || firstEdge < 0 || secondEdge > 6 || secondEdge < 0){
+    public void mergeHexes(Hex outsideHex, int homeEdge, int outsideEdge){
+        if(homeEdge > 6 || homeEdge < 0 || outsideEdge > 6 || outsideEdge < 0){
             throw new RuntimeException("Edge index is outside of valid edge list index");
         }
-        firstHex.getHexEdgeList()[firstEdge].setPairValues(secondHex.getHexID(), secondEdge);
-        secondHex.getHexEdgeList()[secondEdge].setPairValues(firstHex.getHexID(), secondEdge);
+        this.getHexEdgeList()[homeEdge].setPairValues(outsideHex.getHexID(), outsideEdge);
+        outsideHex.getHexEdgeList()[outsideEdge].setPairValues(this.getHexID(), homeEdge);
     }
 
     public Pair[] getHexEdgeList(){
@@ -43,8 +43,4 @@ public class Hex {
    /* public int getConnectedHexEdge(Pair[] hexEdgeList, int edge){
         return hexEdgeList[edge].getConnectedEdgeID();
     }*/
-
-
-
-
 }

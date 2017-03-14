@@ -10,11 +10,11 @@ public class Pair {
         this.connectedEdgeID = connectedEdgeID;
     }
 
-    public int getHexID(){
+    public int getPairHexID(){
         return this.hexID;
     }
 
-    public int getConnectedEdgeID(){
+    public int getPairEdge(){
         return this.connectedEdgeID;
     }
 
@@ -22,10 +22,4 @@ public class Pair {
         this.hexID = hexID;
         this.connectedEdgeID = connectedEdgeID;
     }
-
-
-
-
-
-
 }
