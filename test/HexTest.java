@@ -1,6 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Created by KJ on 3/13/2017.
@@ -9,14 +8,14 @@ public class HexTest {
 
     @Test
     public void testAbilityToCreateHex() {
-        Hex testHex = new Hex(0 , 0, terrainTypes.GRASSLANDS);
+        Hex testHex = new Hex(0 , terrainTypes.GRASSLANDS);
         Assert.assertTrue(testHex instanceof Hex);
     }
 
     @Test
     public void testAbilityToMergeHexes() {
-        Hex firstHex = new Hex(0, 1, terrainTypes.GRASSLANDS);
-        Hex secondHex = new Hex(59, 4, terrainTypes.VOLCANO);
+        Hex firstHex = new Hex(0, terrainTypes.GRASSLANDS);
+        Hex secondHex = new Hex(59, terrainTypes.VOLCANO);
         int firstEdge = 4;
         int secondEdge = 5;
 
@@ -29,3 +28,4 @@ public class HexTest {
         Assert.assertTrue(secondHex.getHexEdgeList()[secondEdge].getPairEdge() == firstEdge);
     }
 }
+

@@ -5,23 +5,20 @@
 import java.util.*;
 
 public class Hex {
-    //this is... the BEGINNING!
-
     private int hexID;
     private int hexLevel;
     private Pair[] hexEdgeList = new Pair[6];
     private terrainTypes hexTerrainType;
 
-    public Hex(int hexID, int hexLevel, terrainTypes hexTerrainType)
+    public Hex(int hexID, terrainTypes hexTerrainType)
     {
         this.hexID = hexID;
-        this.hexLevel = hexLevel;
+        this.hexLevel = 0;
         for(int i = 0; i < 6; i++)
         {
             hexEdgeList[i] = new Pair(-1, -1);
         }
         this.hexTerrainType = hexTerrainType;
-
     }
 
     public void mergeHexes(Hex outsideHex, int homeEdge, int outsideEdge){
@@ -40,7 +37,7 @@ public class Hex {
         return hexID;
     }
 
-   /* public int getConnectedHexEdge(Pair[] hexEdgeList, int edge){
-        return hexEdgeList[edge].getConnectedEdgeID();
-    }*/
+    public void setHexLevel(int hexLevel){
+        this.hexLevel = hexLevel;
+    }
 }
