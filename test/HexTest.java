@@ -17,9 +17,15 @@ public class HexTest {
     public void testAbilityToMergeHexes() {
         Hex firstHex = new Hex(0, 1, terrainTypes.GRASSLANDS);
         Hex secondHex = new Hex(59, 4, terrainTypes.VOLCANO);
+        int edgeOne = 4;
+        int edgeTwo = 5;
 
-        mergeHexes(firstHex, secondHex);
+        firstHex.mergeHexes(firstHex, secondHex, edgeOne, edgeTwo);
 
-        Assert.assertTrue();
+        Assert.assertTrue(firstHex.getHexEdgeList()[edgeOne].getHexID() == secondHex.getHexID());
+        Assert.assertTrue(firstHex.getHexEdgeList()[edgeOne].getConnectedEdgeID() == edgeTwo);
+
+        Assert.assertTrue(secondHex.getHexEdgeList()[edgeTwo].getHexID() == firstHex.getHexID());
+        Assert.assertTrue(secondHex.getHexEdgeList()[edgeTwo].getConnectedEdgeID() == edgeOne);
     }
 }
