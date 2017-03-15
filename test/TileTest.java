@@ -1,23 +1,41 @@
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
- * Created by KJ on 3/14/2017.
+ * Created by William on 3/14/2017.
  */
+import org.junit.*;
+
 public class TileTest {
 
     @Test
-    public void testAbilityToCreateTile() {
+    public void createTileTest(){
+        Hex one = new Hex(0,0, terrainTypes.JUNGLE);
+        Hex two = new Hex(1, 0, terrainTypes.LAKE);
+        Hex three = new Hex(2,0,terrainTypes.VOLCANO);
+        Tile tile = new Tile(one,two,three);
 
-        int tileID = 0;
-        int hexID = 0;
-
-        terrainTypes hexTerrainA = terrainTypes.GRASSLANDS;
-        terrainTypes hexTerrainB = terrainTypes.JUNGLE;
-        terrainTypes hexTerrainC = terrainTypes.VOLCANO;
-
-        Tile testTile = new Tile(tileID, hexID, hexTerrainA, hexTerrainB, hexTerrainC);
-
-        Assert.assertTrue(testTile instanceof Tile);
+        Assert.assertTrue(tile instanceof Tile);
     }
+
+    @Test
+    public void returnHexTest() {
+        Hex one = new Hex(0,0, terrainTypes.JUNGLE);
+        Hex two = new Hex(1, 0, terrainTypes.LAKE);
+        Hex three = new Hex(2,0,terrainTypes.VOLCANO);
+        Tile tile = new Tile(one, two, three);
+
+        Hex hexTest = tile.getHex(0);
+        Assert.assertTrue(hexTest instanceof Hex);
+    }
+
+    @Test
+    public void returnHexesTest(){
+        Hex one = new Hex(0,0, terrainTypes.JUNGLE);
+        Hex two = new Hex(1, 0, terrainTypes.LAKE);
+        Hex three = new Hex(2,0,terrainTypes.VOLCANO);
+        Tile tile = new Tile(one, two, three);
+
+        Hex[] hexesTest = tile.getHexes();
+        Assert.assertTrue(hexesTest instanceof Hex[]);
+    }
+
+
 }
