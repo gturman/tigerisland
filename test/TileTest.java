@@ -1,13 +1,9 @@
 import org.junit.Assert;
 import org.junit.Test;
-import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
-
 
 /**
  * Created by KJ on 3/14/2017.
  */
-@RunWith(Cucumber.class)
 public class TileTest {
 
     @Test

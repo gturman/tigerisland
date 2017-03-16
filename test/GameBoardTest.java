@@ -1,9 +1,9 @@
-import org.junit.*;
-
+/*import org.junit.*;
+*/
 /**
  * Created by geoff on 3/8/17.
  */
-
+/*
 public class GameBoardTest {
     //some testing stuff should happen in here, for sure
 
@@ -38,7 +38,7 @@ public class GameBoardTest {
             }
             System.out.println();
         }*/
-
+/*
         System.out.println(gameBoard.getBoard()[10][10].getHexTerrainType());
         if(gameBoard.getBoard()[10][10].getHexTerrainType() != terrainTypes.JUNGLE){
             flag = false;
@@ -56,4 +56,4 @@ public class GameBoardTest {
 
         Assert.assertTrue(flag);
     }
-}
+}*/

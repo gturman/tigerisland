@@ -7,7 +7,7 @@ public class Tile {
     private Hex hexA;
     private Hex hexB;
     private Hex hexC;
-                // todo: tileID and hexID will eventually be static global variables
+    // todo: tileID and hexID will eventually be static global variables
     public Tile(int tileID, int hexID, terrainTypes hexTerrainA, terrainTypes hexTerrainB, terrainTypes hexTerrainC) {
         this.tileID = tileID;
         tileID++;

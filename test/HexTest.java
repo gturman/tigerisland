@@ -28,4 +28,3 @@ public class HexTest {
         Assert.assertTrue(secondHex.getHexEdgeList()[secondEdge].getPairEdge() == firstEdge);
     }
 }
-

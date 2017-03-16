@@ -1,9 +1,11 @@
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.lang.Math;
 
-/**
+/*
  * Created by William on 3/14/2017.
  */
+
+/*
 public class GameBoard {
 
     //starting size is 20x20, can change if we find better values
@@ -39,3 +41,4 @@ public class GameBoard {
 
 
 }
+*/
