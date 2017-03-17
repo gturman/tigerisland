@@ -6,70 +6,79 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
-import sun.security.util.PendingException;
 
 public class stepDefTilePlacement {
 
     @Given("^I am the player$")
     public void i_AmthePlayer() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        Player P1 = new Player();
-        int P1ID = P1.getPlayerID();
-        //Assert.assertEquals(P1.getPlayerID(),1);
-        System.out.print("player: " + P1ID + "\n");
-//        throw new cucumber.api.PendingException();
+        Player player = new Player();
     }
 
 
     @And("^I am in the tile placement phase of my turn$")
     public void iAmInTheTilePlacementPhaseOfMyTurn() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
+        Player player = new Player();
+        int tileID = 0;
+        int hexID = 0;
 
-
-        System.out.print("test2" + "\n");
-        //   throw new cucumber.api.PendingException();
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT && tileID == 0)
+        {
+            Tile placeTile = new Tile(tileID, hexID, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        }
     }
 
     @And("^I have drawn a tile$")
     public void iHaveDrawnATile() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
+        int tileID = 0;
+        int hexID = 0;
 
-        System.out.print("test3" + "\n");
-        // throw new cucumber.api.PendingException();
+        Tile placeTile = new Tile(tileID, hexID, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
     }
 
     @And("^I am placing a tile on the board at a certain level$")
     public void iAmPlacingATileOnTheBoardAtACertainLevel() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
+        int tileID = 0;
+        int hexID = 0;
 
-        System.out.print("test4" + "\n");
-        // throw new cucumber.api.PendingException();
+        Tile placeTile = new Tile(tileID, hexID, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
     }
 
     @Given("^the board is empty$")
     public void theBoardIsEmpty() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-
-        System.out.print("test5" + "\n");
-        // throw new cucumber.api.PendingException();
+        int tileID = 0;
     }
 
     @When("^I try to place a tile$")
     public void iTryToPlaceATile() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
+        int tileID = 0;
+        int hexID = 0;
 
-        System.out.print("test6" + "\n");
-        // throw new cucumber.api.PendingException();
+        Tile placeTile = new Tile(tileID, hexID, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
     }
 
     @Then("^my tile is placed on the center of the board$")
     public void myTileIsPlacedOnTheCenterOfTheBoard() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
+        Player player = new Player();
+        int tileID = 0;
+        int hexID = 0;
 
-        System.out.print("test7" + "\n");
-        // throw new cucumber.api.PendingException();
+        turnPhase nextTurnDesired = turnPhase.FOUND_SETTLEMENT;
+
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT && tileID == 0)
+        {
+            Tile placeTile = new Tile(tileID, hexID, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+            if(nextTurnDesired == turnPhase.FOUND_SETTLEMENT)
+            {
+                player.setTurnPhase(turnPhase.FOUND_SETTLEMENT);
+            }
+            else if(nextTurnDesired == turnPhase.EXPAND_SETTLEMENT)
+            {
+                player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+            }
+            else if(nextTurnDesired == turnPhase.PLACE_TOTORO)
+            {
+                player.setTurnPhase(turnPhase.PLACE_TOTORO);
+            }
+        }
     }
-
-
 }

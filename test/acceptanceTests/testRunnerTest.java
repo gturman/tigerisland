@@ -1,3 +1,5 @@
+package acceptanceTests;
+
 import static org.junit.Assert.*;
 
 /**

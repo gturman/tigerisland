@@ -10,22 +10,17 @@ public class Player {
     private int score;
     private int settlementCount;
     private int tilesDrawn;
+    private turnPhase playerTurnPhase;
 
     Player(){
         //todo: assign playerID or initialize as Player P1 and Player P2
-        int playerID = 1;
-        int score = 0;
-        int meepleCount = 20;
-        int totoroCount = 3;
-        int settlementCount = 0;
-        int tilesDrawn =0;
-
-        this.playerID = playerID;
-        this.score = score;
-        this.meepleCount = meepleCount;
-        this.totoroCount = totoroCount;
-        this.settlementCount = settlementCount;
-        this.tilesDrawn = tilesDrawn;
+        this.playerID = 1;
+        this.score = 0;
+        this.meepleCount = 20;
+        this.totoroCount = 3;
+        this.settlementCount = 0;
+        this.tilesDrawn = 0;
+        this.playerTurnPhase = turnPhase.TILE_PLACEMENT;
     }
 
     public int getMeepleCount(){
@@ -87,5 +82,12 @@ public class Player {
         return tilesDrawn;
     }
 
+    public turnPhase getTurnPhase() {
+        return playerTurnPhase;
+    }
+
+    public void setTurnPhase(turnPhase playerTurnPhase) {
+        this.playerTurnPhase = playerTurnPhase;
+    }
 }
 

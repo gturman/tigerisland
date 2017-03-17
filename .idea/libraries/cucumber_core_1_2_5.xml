@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="cucumber-core-1.2.5">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../cucumber-core-1.2.5.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/info/cukes/cucumber-core/1.2.5/cucumber-core-1.2.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
