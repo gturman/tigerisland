@@ -22,4 +22,8 @@ public class Tile {
         hexA.mergeHexes(hexC, 3, 0);
         hexB.mergeHexes(hexC, 4, 1);
     }
+
+    public int getTileID(){
+        return tileID;
+    }
 }

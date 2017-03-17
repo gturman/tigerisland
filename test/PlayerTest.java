@@ -71,4 +71,26 @@ public class PlayerTest {
         Assert.assertEquals(P1.getSettlementCount(),3);
     }
 
+    @Test
+    public void testSetPlayerOver2(){
+        Player P1 = new Player();
+        P1.setPlayerID(3);
+        Assert.assertEquals(P1.getPlayerID(),2);
+    }
+
+    @Test
+    public void testSetPlayer1(){
+        Player P1 = new Player();
+        P1.setPlayerID(1);
+        Assert.assertEquals(P1.getPlayerID(),1);
+    }
+
+    @Test
+    public void testTileIncrease(){
+        Player P1 = new Player();
+        P1.increaseTileCount();
+        Assert.assertEquals(P1.getTileCount(),1);
+
+    }
+
 }
