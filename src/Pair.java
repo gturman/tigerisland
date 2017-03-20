@@ -2,24 +2,24 @@
  * Created by James on 3/14/2017.
  */
 public class Pair {
-    private int hexID;
-    private int connectedEdgeID;
+    private int columnPosition;
+    private int rowPosition;
 
-    public Pair(int hexID, int connectedEdgeID){
-        this.hexID = hexID;
-        this.connectedEdgeID = connectedEdgeID;
+    public Pair(int columnPosition, int rowPosition){
+        this.columnPosition = columnPosition;
+        this.rowPosition = rowPosition;
     }
 
-    public int getPairHexID(){
-        return this.hexID;
+    public int getColumnPosition(){
+        return this.columnPosition;
     }
 
-    public int getPairEdge(){
-        return this.connectedEdgeID;
+    public int getRowPosition(){
+        return this.rowPosition;
     }
 
-    public void setPairValues(int hexID, int connectedEdgeID){
-        this.hexID = hexID;
-        this.connectedEdgeID = connectedEdgeID;
+    public void setCoordinates(int columnPosition, int rowPosition){
+        this.columnPosition = columnPosition;
+        this.rowPosition = rowPosition;
     }
 }

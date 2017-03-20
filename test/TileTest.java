@@ -17,7 +17,6 @@ public class TileTest {
         terrainTypes hexTerrainC = terrainTypes.VOLCANO;
 
         Tile testTile = new Tile(tileID, hexID, hexTerrainA, hexTerrainB, hexTerrainC);
-
         Assert.assertTrue(testTile instanceof Tile);
     }
 }

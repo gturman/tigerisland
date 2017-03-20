@@ -21,7 +21,7 @@ public class stepDefTilePlacement {
         int tileID = 0;
         int hexID = 0;
 
-        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT && tileID == 0)
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
         {
             Tile placeTile = new Tile(tileID, hexID, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         }

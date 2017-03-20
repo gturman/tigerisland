@@ -8,7 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import sun.security.util.PendingException;
-
+/*
 public class stepDefinition {
 
     @Given("^I am a player$")
@@ -46,4 +46,4 @@ public class stepDefinition {
 
        // throw new cucumber.api.PendingException();
     }
-}
+}*/
