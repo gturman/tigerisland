@@ -66,8 +66,6 @@ public class Player {
             return player;
 
         }
-
-        //return playerID;
     }
 
     public void setPlayerID(int playerID){

@@ -9,13 +9,12 @@ public class Tile {
 
     public Tile(int tileID, int hexID, terrainTypes hexTerrainA, terrainTypes hexTerrainB, terrainTypes hexTerrainC) {
         this.tileID = tileID;
-        tileID++;
 
-            hexA = new Hex(hexID, tileID, hexTerrainA);
+            hexA = new Hex(tileID, hexID, hexTerrainA);
             hexID++;
-            hexB = new Hex(hexID, tileID, hexTerrainB);
+            hexB = new Hex(tileID, hexID, hexTerrainB);
             hexID++;
-            hexC = new Hex(hexID, tileID, hexTerrainC);
+            hexC = new Hex(tileID, hexID, hexTerrainC);
             hexID++;
 
     }
@@ -34,9 +33,6 @@ public class Tile {
             this.hexC.setTerrainType(temp);
         }
     }
-
-
-
 
     public Hex getHexA(){
         return this.hexA;

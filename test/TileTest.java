@@ -8,28 +8,23 @@ public class TileTest {
 
     @Test
     public void testAbilityToCreateTile() {
+        GameBoard gameboard = new GameBoard();
 
-        int tileID = 0;
-        int hexID = 0;
-
-        terrainTypes hexTerrainA = terrainTypes.VOLCANO;
-        terrainTypes hexTerrainB = terrainTypes.JUNGLE;
-        terrainTypes hexTerrainC = terrainTypes.GRASSLANDS;
-
-        Tile testTile = new Tile(tileID, hexID, hexTerrainA, hexTerrainB, hexTerrainC);
+        Tile testTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         Assert.assertTrue(testTile instanceof Tile);
     }
 
     @Test
     public void testAbilityToRotateATile(){
-        int tileID = 0;
-        int hexID = 0;
+        GameBoard gameboard = new GameBoard();
 
         terrainTypes hexTerrainA = terrainTypes.VOLCANO;
         terrainTypes hexTerrainB = terrainTypes.JUNGLE;
         terrainTypes hexTerrainC = terrainTypes.LAKE;
 
-        Tile testTile = new Tile(tileID, hexID, hexTerrainA, hexTerrainB, hexTerrainC);
+        Tile testTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                                hexTerrainA, hexTerrainB, hexTerrainC);
 
         testTile.tileRotationClockwise(0);
         Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.VOLCANO);
