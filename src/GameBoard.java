@@ -15,25 +15,49 @@ public class GameBoard {
     }
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(checkIfEven(rowPos)) {
-            if(checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos-1, rowPos-1) && checkIfHexOccupiesPosition(colPos, rowPos-1)){
-                tileToBePlaced.getHexA().getHexCoordinate().setCoordinates(colPos, rowPos);
-                tileToBePlaced.getHexB().getHexCoordinate().setCoordinates(colPos-1, rowPos-1);
-                tileToBePlaced.getHexC().getHexCoordinate().setCoordinates(colPos, rowPos-1);
+        if(tileToBePlaced.isFlipped()){
+            if(checkIfEven(rowPos)) {
+                if(checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos-1, rowPos+1) && checkIfHexOccupiesPosition(colPos, rowPos+1)){
+                    tileToBePlaced.getHexA().getHexCoordinate().setCoordinates(colPos, rowPos);
+                    tileToBePlaced.getHexB().getHexCoordinate().setCoordinates(colPos-1, rowPos+1);
+                    tileToBePlaced.getHexC().getHexCoordinate().setCoordinates(colPos, rowPos+1);
 
-                this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
-                this.gameBoardPositionArray[colPos-1][rowPos-1] = tileToBePlaced.getHexB();
-                this.gameBoardPositionArray[colPos][rowPos-1] = tileToBePlaced.getHexC();
+                    this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
+                    this.gameBoardPositionArray[colPos-1][rowPos+1] = tileToBePlaced.getHexB();
+                    this.gameBoardPositionArray[colPos][rowPos+1] = tileToBePlaced.getHexC();
+                }
+            } else {
+                if (checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos, rowPos +1) && checkIfHexOccupiesPosition(colPos + 1, rowPos + 1)) {
+                    tileToBePlaced.getHexA().getHexCoordinate().setCoordinates(colPos, rowPos);
+                    tileToBePlaced.getHexB().getHexCoordinate().setCoordinates(colPos, rowPos + 1);
+                    tileToBePlaced.getHexC().getHexCoordinate().setCoordinates(colPos + 1, rowPos + 1);
+
+                    this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
+                    this.gameBoardPositionArray[colPos][rowPos + 1] = tileToBePlaced.getHexB();
+                    this.gameBoardPositionArray[colPos + 1][rowPos + 1] = tileToBePlaced.getHexC();
+                }
             }
-        } else {
-            if (checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos, rowPos - 1) && checkIfHexOccupiesPosition(colPos + 1, rowPos - 1)) {
-                tileToBePlaced.getHexA().getHexCoordinate().setCoordinates(colPos, rowPos);
-                tileToBePlaced.getHexB().getHexCoordinate().setCoordinates(colPos, rowPos - 1);
-                tileToBePlaced.getHexC().getHexCoordinate().setCoordinates(colPos + 1, rowPos - 1);
+        }else {
+            if(checkIfEven(rowPos)) {
+                if(checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos-1, rowPos-1) && checkIfHexOccupiesPosition(colPos, rowPos-1)){
+                    tileToBePlaced.getHexA().getHexCoordinate().setCoordinates(colPos, rowPos);
+                    tileToBePlaced.getHexB().getHexCoordinate().setCoordinates(colPos-1, rowPos-1);
+                    tileToBePlaced.getHexC().getHexCoordinate().setCoordinates(colPos, rowPos-1);
 
-                this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
-                this.gameBoardPositionArray[colPos][rowPos - 1] = tileToBePlaced.getHexB();
-                this.gameBoardPositionArray[colPos + 1][rowPos - 1] = tileToBePlaced.getHexC();
+                    this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
+                    this.gameBoardPositionArray[colPos-1][rowPos-1] = tileToBePlaced.getHexB();
+                    this.gameBoardPositionArray[colPos][rowPos-1] = tileToBePlaced.getHexC();
+                }
+            } else {
+                if (checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos, rowPos - 1) && checkIfHexOccupiesPosition(colPos + 1, rowPos - 1)) {
+                    tileToBePlaced.getHexA().getHexCoordinate().setCoordinates(colPos, rowPos);
+                    tileToBePlaced.getHexB().getHexCoordinate().setCoordinates(colPos, rowPos - 1);
+                    tileToBePlaced.getHexC().getHexCoordinate().setCoordinates(colPos + 1, rowPos - 1);
+
+                    this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
+                    this.gameBoardPositionArray[colPos][rowPos - 1] = tileToBePlaced.getHexB();
+                    this.gameBoardPositionArray[colPos + 1][rowPos - 1] = tileToBePlaced.getHexC();
+                }
             }
         }
 

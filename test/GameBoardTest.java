@@ -34,6 +34,27 @@ public class GameBoardTest {
     }
 
     @Test
+    public void placeFlippedTileTest(){
+        GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        initialTile.flip();
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Assert.assertEquals(initialTile.getHexA().getHexCoordinate().getColumnPosition(), 102);
+        Assert.assertEquals(initialTile.getHexA().getHexCoordinate().getRowPosition(), 102);
+        Assert.assertEquals(initialTile.getHexB().getHexCoordinate().getColumnPosition(), 101);
+        Assert.assertEquals(initialTile.getHexB().getHexCoordinate().getRowPosition(), 103);
+        Assert.assertEquals(initialTile.getHexC().getHexCoordinate().getColumnPosition(), 102);
+        Assert.assertEquals(initialTile.getHexC().getHexCoordinate().getRowPosition(), 103);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][102], initialTile.getHexA());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103], initialTile.getHexB());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103], initialTile.getHexC());
+
+    }
+
+    @Test
     public void testAbilityToIncrementHexAndTileID() {
         GameBoard gameboard = new GameBoard();
 

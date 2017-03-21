@@ -7,6 +7,8 @@ public class Tile {
     private Hex hexB;
     private Hex hexC;
 
+    private boolean isFlipped;
+
     public Tile(int tileID, int hexID, terrainTypes hexTerrainA, terrainTypes hexTerrainB, terrainTypes hexTerrainC) {
         this.tileID = tileID;
 
@@ -21,17 +23,32 @@ public class Tile {
 
     public void tileRotationClockwise(int numberOfRotations){
         terrainTypes temp;
-        if(numberOfRotations%3 == 1){
-            temp = this.hexA.getHexTerrainType();
-            this.hexA.setTerrainType(this.hexC.getHexTerrainType());
-            this.hexC.setTerrainType(this.hexB.getHexTerrainType());
-            this.hexB.setTerrainType(temp); //has to be in this order
-        }else if(numberOfRotations%3 == 2){
-            temp = this.hexA.getHexTerrainType();
-            this.hexA.setTerrainType(this.hexB.getHexTerrainType());
-            this.hexB.setTerrainType(this.hexC.getHexTerrainType());
-            this.hexC.setTerrainType(temp);
+        if(this.isFlipped()) {
+            if(numberOfRotations%3 == 1){
+                temp = this.hexA.getHexTerrainType();
+                this.hexA.setTerrainType(this.hexB.getHexTerrainType());
+                this.hexB.setTerrainType(this.hexC.getHexTerrainType());
+                this.hexC.setTerrainType(temp); //has to be in this order
+            }else if(numberOfRotations%3 == 2){
+                temp = this.hexA.getHexTerrainType();
+                this.hexA.setTerrainType(this.hexC.getHexTerrainType());
+                this.hexC.setTerrainType(this.hexB.getHexTerrainType());
+                this.hexB.setTerrainType(temp);
+            }
+        }else{
+            if(numberOfRotations%3 == 1){
+                temp = this.hexA.getHexTerrainType();
+                this.hexA.setTerrainType(this.hexC.getHexTerrainType());
+                this.hexC.setTerrainType(this.hexB.getHexTerrainType());
+                this.hexB.setTerrainType(temp); //has to be in this order
+            }else if(numberOfRotations%3 == 2){
+                temp = this.hexA.getHexTerrainType();
+                this.hexA.setTerrainType(this.hexB.getHexTerrainType());
+                this.hexB.setTerrainType(this.hexC.getHexTerrainType());
+                this.hexC.setTerrainType(temp);
+            }
         }
+
     }
 
     public Hex getHexA(){
@@ -42,5 +59,17 @@ public class Tile {
     }
     public Hex getHexC(){
         return this.hexC;
+    }
+
+    public boolean isFlipped() {
+        return isFlipped;
+    }
+
+    public void flip() {
+        isFlipped = (isFlipped) ? false : true;
+
+        Hex temp = this.hexB;
+        this.hexB = this.hexC;
+        this.hexC = temp;
     }
 }
