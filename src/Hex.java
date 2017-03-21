@@ -28,4 +28,13 @@ public class Hex {
         return hexCoordinate;
     }
 
+    public void setTerrainType(terrainTypes newTerrain){
+        this.hexTerrainType = newTerrain;
+    }
+
+    public terrainTypes getHexTerrainType(){
+        return this.hexTerrainType;
+
+    }
+
 }

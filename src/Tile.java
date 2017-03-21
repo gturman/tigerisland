@@ -20,13 +20,31 @@ public class Tile {
 
     }
 
+    public void tileRotationClockwise(int numberOfRotations){
+        terrainTypes temp;
+        if(numberOfRotations%3 == 1){
+            temp = this.hexA.getHexTerrainType();
+            this.hexA.setTerrainType(this.hexC.getHexTerrainType());
+            this.hexC.setTerrainType(this.hexB.getHexTerrainType());
+            this.hexB.setTerrainType(temp); //has to be in this order
+        }else if(numberOfRotations%3 == 2){
+            temp = this.hexA.getHexTerrainType();
+            this.hexA.setTerrainType(this.hexB.getHexTerrainType());
+            this.hexB.setTerrainType(this.hexC.getHexTerrainType());
+            this.hexC.setTerrainType(temp);
+        }
+    }
+
+
+
+
     public Hex getHexA(){
-        return hexA;
+        return this.hexA;
     }
     public Hex getHexB(){
-        return hexB;
+        return this.hexB;
     }
     public Hex getHexC(){
-        return hexC;
+        return this.hexC;
     }
 }
