@@ -69,4 +69,19 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getGameBoardHexID(), 4);
         Assert.assertEquals(gameboard.getGameboardTileID(), 2);
     }
+
+    @Test
+    public void testAbilityToPreventNonAdjacentTilePlacement() {
+        GameBoard gameboard = new GameBoard();
+
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile nonAdjacentTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                                        terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
+        //Assert.assertEquals(gameboard.getGameBoardPositionArray()[][], );
+    }
 }

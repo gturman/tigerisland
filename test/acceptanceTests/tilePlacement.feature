@@ -10,3 +10,4 @@ Feature: Allowing player tile placement
     Given the board is empty
     When I try to place a tile
     Then my tile is placed on the center of the board
+
