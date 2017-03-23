@@ -8,7 +8,7 @@ public class GameBoardTest {
     //some testing stuff should happen in here, for sure
 
     @Test
-    public void createGameBoardTest(){
+    public void createGameBoardTest() {
         GameBoard gameboard = new GameBoard();
 
         Assert.assertTrue(gameboard instanceof GameBoard);
@@ -18,7 +18,7 @@ public class GameBoardTest {
     public void placingFirstTileTest() {
         GameBoard gameboard = new GameBoard();
         Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                                    terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         gameboard.setTileAtPosition(102, 102, initialTile);
 
         Assert.assertEquals(initialTile.getHexA().getHexCoordinate().getColumnPosition(), 102);
@@ -34,7 +34,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void placeFlippedTileTest(){
+    public void placeFlippedTileTest() {
         GameBoard gameboard = new GameBoard();
         Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
@@ -62,7 +62,7 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getGameboardTileID(), 1);
 
         Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                                    terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
         gameboard.setTileAtPosition(102, 102, initialTile);
 
@@ -99,7 +99,7 @@ public class GameBoardTest {
         gameboard.setTileAtPosition(102, 100, secondTile);
 
         Assert.assertEquals(gameboard.getValidPlacementArray()[102][102], -1);
-        Assert.assertEquals(gameboard.getValidPlacementArray()[101][101],-1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][101], -1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[102][101], -1);
 
         Assert.assertEquals(gameboard.getValidPlacementArray()[102][100], -1);
@@ -119,7 +119,6 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getValidPlacementArray()[102][103], 1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[101][103], 1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[101][102], 1);
-
 
 
     }
@@ -177,31 +176,51 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getValidPlacementArray()[101][104], 1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[100][103], 1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[101][102], 1);
-}
-
-  /*  @Test
-    public void testAbilityToPreventNonAdjacentTilePlacement() {
-        GameBoard gameboard = new GameBoard();
-
-        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
-
-        gameboard.setTileAtPosition(102, 102, initialTile);
-
-        Tile nonAdjacentTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                                        terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.LAKE);
-
-
-
-        //Assert.assertEquals(gameboard.getGameBoardPositionArray()[][], );
     }
-*/
+
+    /*  @Test
+      public void testAbilityToPreventNonAdjacentTilePlacement() {
+          GameBoard gameboard = new GameBoard();
+
+          Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                  terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
+          gameboard.setTileAtPosition(102, 102, initialTile);
+
+          Tile nonAdjacentTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                                          terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
+
+
+          //Assert.assertEquals(gameboard.getGameBoardPositionArray()[][], );
+      }
+  */
     @Test
-    public void checkingIfValidArrayInitializesToZero(){
+    public void checkingIfValidArrayInitializesToZero() {
         GameBoard gameboard = new GameBoard();
 
         Assert.assertEquals(gameboard.getValidPlacementArray()[0][0], 0);
         Assert.assertEquals(gameboard.getValidPlacementArray()[102][102], 0);
 
+    }
+
+    @Test
+    public void checkIfTileBeingPlacedWillBeAdjacentTest() {
+        GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(103, 101, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(100, 101, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(100, 100, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(104, 104, secondTile), true);
+
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(99, 99, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(50, 50, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(105, 105, secondTile), false);
     }
 }

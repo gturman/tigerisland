@@ -121,6 +121,51 @@ public class GameBoard {
         incrementGameboardHexID();
     }
 
+    boolean checkIfTileBeingPlacedWillBeAdjadent(int colPos, int rowPos, Tile tileBeingPlaced){
+        if(tileBeingPlaced.isFlipped()){
+            if(validPlacementArray[colPos+1][rowPos+2] == 1){
+                return true;
+            }else if( validPlacementArray[colPos][rowPos+2] == 1 ){
+                return true;
+            }else if( validPlacementArray[colPos-1][rowPos+2] == 1){
+                return true;
+            }else if( validPlacementArray[colPos-2][rowPos+1] == 1) {
+                return true;
+            }else if( validPlacementArray[colPos-1][rowPos] == 1){
+                return true;
+            }else if(validPlacementArray[colPos-1][rowPos-1] == 1){
+                return true;
+            }else if(validPlacementArray[colPos][rowPos-1] == 1){
+                return true;
+            }else if(validPlacementArray[colPos+1][rowPos] == 1){
+                return true;
+            }else if(validPlacementArray[colPos+1][rowPos+1] == 1) {
+                return true;
+            }
+        }else{
+            if(validPlacementArray[colPos][rowPos+1] == 1){
+                return true;
+            }else if( validPlacementArray[colPos-1][rowPos+1] == 1 ){
+                return true;
+            }else if( validPlacementArray[colPos-1][rowPos] == 1){
+                return true;
+            }else if( validPlacementArray[colPos-2][rowPos-1] == 1) {
+                return true;
+            }else if( validPlacementArray[colPos-1][rowPos-2] == 1){
+                return true;
+            }else if(validPlacementArray[colPos][rowPos-2] == 1){
+                return true;
+            }else if(validPlacementArray[colPos+1][rowPos-2] == 1){
+                return true;
+            }else if(validPlacementArray[colPos+1][rowPos-1] == 1){
+                return true;
+            }else if(validPlacementArray[colPos+1][rowPos] == 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     boolean checkIfHexOccupiesPosition(int colPos, int rowPos) {
         if(gameBoardPositionArray[colPos][rowPos] == null) {
             return true;
