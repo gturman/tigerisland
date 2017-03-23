@@ -93,6 +93,34 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getValidPlacementArray()[101][102], 1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[100][101], 1);
 
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
+        gameboard.setTileAtPosition(102, 100, secondTile);
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][102], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][101],-1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][101], -1);
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][100], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][99], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][99], -1);
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][100], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[100][99], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][98], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][98], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][98], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][99], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][100], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][100], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][101], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][102], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][103], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][103], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][102], 1);
+
+
 
     }
 
@@ -121,7 +149,35 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getValidPlacementArray()[100][103], 1);
         Assert.assertEquals(gameboard.getValidPlacementArray()[101][102], 1);
 
-    }
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
+        secondTile.flip();
+
+        gameboard.setTileAtPosition(102, 104, secondTile);
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][102], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][103], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][103], -1);
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][104], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][105], -1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][105], -1);
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][101], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][101], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][102], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][103], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][104], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][105], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[103][106], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][106], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][106], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[100][105], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][104], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[100][103], 1);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[101][102], 1);
+}
 
   /*  @Test
     public void testAbilityToPreventNonAdjacentTilePlacement() {

@@ -140,25 +140,43 @@ public class GameBoard {
 
     void updateValidTilePlacementList(Tile tileThatWasPlaced) {
         if(tileThatWasPlaced.isFlipped()) {
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-2][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] == 0);
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+2] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-2][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-2][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
         } else {
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-2][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
-            validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-2][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-2][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())-2] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())-1] = 1;
+            if(validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())] == 0)
+                validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 1;
         }
 
         validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())] = -1;
