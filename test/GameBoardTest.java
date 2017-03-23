@@ -327,6 +327,11 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, fifthTile), true);
     }
 
+    @Test
+    public void testIfNukeOverwritesHexValues() {
+
+    }
+
         /*  @Test
       public void testAbilityToPreventNonAdjacentTilePlacement() {
           GameBoard gameboard = new GameBoard();
