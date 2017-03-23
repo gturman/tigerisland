@@ -16,6 +16,59 @@ public class GameBoard {
         this.GameboardHexID = 1;
     }
 
+    boolean checkIfTileCanBePlacedAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
+        if(tileToBePlaced.isFlipped()) {
+            if(checkIfEven(rowPos)) {
+                if(validPlacementArray[colPos][rowPos] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos-1][rowPos+1] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos][rowPos+1] == -1) {
+                    return false;
+                }
+            }
+            else {
+                if(validPlacementArray[colPos][rowPos] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos-1][rowPos+1] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos+1][rowPos+1] == -1) {
+                    return false;
+                }
+            }
+        }
+        else {
+            if(checkIfEven(rowPos)) {
+                if(validPlacementArray[colPos][rowPos] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos-1][rowPos-1] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos][rowPos-1] == -1) {
+                    return false;
+                }
+            }
+            else {
+                if(validPlacementArray[colPos][rowPos] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos][rowPos-1] == -1) {
+                    return false;
+                }
+                if(validPlacementArray[colPos+1][rowPos-1] == -1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
         if(tileToBePlaced.isFlipped()){
             if(checkIfEven(rowPos)) {
@@ -63,6 +116,7 @@ public class GameBoard {
             }
         }
 
+        updateValidTilePlacementList(tileToBePlaced);
         incrementGameboardTileID();
         incrementGameboardHexID();
     }
@@ -83,8 +137,8 @@ public class GameBoard {
             return false;
         }
     }
-    // todo: odd home hex calculations
-    void validTilePlacementList(Tile tileThatWasPlaced) {
+
+    void updateValidTilePlacementList(Tile tileThatWasPlaced) {
         if(tileThatWasPlaced.isFlipped()) {
             validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
             validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())-1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
@@ -108,19 +162,18 @@ public class GameBoard {
             validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())+1][accessGameboardYValue(tileThatWasPlaced.getHexA())+1] = 1;
         }
 
-        validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())] = 0;
-        validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexB())][accessGameboardYValue(tileThatWasPlaced.getHexB())] = 0;
-        validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexC())][accessGameboardYValue(tileThatWasPlaced.getHexC())] = 0;
+        validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexA())][accessGameboardYValue(tileThatWasPlaced.getHexA())] = -1;
+        validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexB())][accessGameboardYValue(tileThatWasPlaced.getHexB())] = -1;
+        validPlacementArray[accessGameboardXValue(tileThatWasPlaced.getHexC())][accessGameboardYValue(tileThatWasPlaced.getHexC())] = -1;
     }
 
     int accessGameboardXValue(Hex hexToCheck) {
         return hexToCheck.getHexCoordinate().getColumnPosition();
     }
+
     int accessGameboardYValue(Hex hexToCheck) {
         return hexToCheck.getHexCoordinate().getRowPosition();
     }
-
-
 
     int getGameboardTileID() {
         return GameboardTileID;
@@ -142,5 +195,7 @@ public class GameBoard {
         return gameBoardPositionArray;
     }
 
-    int[][] getValidPlacementArray(){ return validPlacementArray; }
+    int[][] getValidPlacementArray(){
+        return validPlacementArray;
+    }
 }

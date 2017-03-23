@@ -71,6 +71,11 @@ public class GameBoardTest {
     }
 
     @Test
+    public void testAbilityToUpdateValidTilePlacementList() {
+
+    }
+
+/*    @Test
     public void testAbilityToPreventNonAdjacentTilePlacement() {
         GameBoard gameboard = new GameBoard();
 
@@ -84,7 +89,7 @@ public class GameBoardTest {
 
         //Assert.assertEquals(gameboard.getGameBoardPositionArray()[][], );
     }
-
+*/
     @Test
     public void checkingIfValidArrayInitializesToZero(){
         GameBoard gameboard = new GameBoard();
