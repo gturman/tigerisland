@@ -69,6 +69,138 @@ public class GameBoard {
         return true;
     }
 
+    // TODO: REFACTOR ME PLEASE OH GOD
+    boolean checkIfValidNuke(int colPos, int rowPos, Tile tileToBePlaced) {
+        // first check flip for orientation
+        // then check if on even or odd row
+        // then check if levels are all the same / no level is at level 0
+        // if same, check if volcano is on volcano
+        // check if all hexes in game board array do not have same tile ID
+        // then overwrite terrain value, hex ID, parent Tile ID, increment level
+        if(tileToBePlaced.isFlipped()) {
+            if(checkIfEven(rowPos)) { // FLIPPED, EVEN ROW
+                if((gameBoardPositionArray[colPos][rowPos] != null
+                   && gameBoardPositionArray[colPos][rowPos+1] != null
+                   && gameBoardPositionArray[colPos-1][rowPos+1] != null)
+                   &&
+                   (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos+1].getHexLevel()
+                   && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos-1][rowPos+1].getHexLevel()
+                   && gameBoardPositionArray[colPos][rowPos+1].getHexLevel() == gameBoardPositionArray[colPos-1][rowPos+1].getHexLevel())
+                   &&
+                   !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos+1].getParentTileID()
+                   && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos-1][rowPos+1].getParentTileID()
+                   && gameBoardPositionArray[colPos][rowPos+1].getParentTileID() == gameBoardPositionArray[colPos-1][rowPos+1].getParentTileID())) {
+                    if(tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos+1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos-1][rowPos+1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else { // FLIPPED, ODD ROW
+                if((gameBoardPositionArray[colPos][rowPos] != null
+                   && gameBoardPositionArray[colPos+1][rowPos+1] != null
+                   && gameBoardPositionArray[colPos][rowPos+1] != null)
+                   &&
+                   (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos+1][rowPos+1].getHexLevel()
+                   && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos+1].getHexLevel()
+                   && gameBoardPositionArray[colPos+1][rowPos+1].getHexLevel() == gameBoardPositionArray[colPos][rowPos+1].getHexLevel())
+                   &&
+                   !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos+1][rowPos+1].getParentTileID()
+                   && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos+1].getParentTileID()
+                   && gameBoardPositionArray[colPos+1][rowPos+1].getParentTileID() == gameBoardPositionArray[colPos][rowPos+1].getParentTileID())) {
+                    if(tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos+1][rowPos+1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos+1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            if(checkIfEven(rowPos)) { // NOT FLIPPED, EVEN ROW
+                if((gameBoardPositionArray[colPos][rowPos] != null
+                    && gameBoardPositionArray[colPos-1][rowPos-1] != null
+                    && gameBoardPositionArray[colPos][rowPos-1] != null)
+                    &&
+                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos-1][rowPos-1].getHexLevel()
+                   && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos-1].getHexLevel()
+                   && gameBoardPositionArray[colPos-1][rowPos-1].getHexLevel() == gameBoardPositionArray[colPos][rowPos-1].getHexLevel())
+                   &&
+                   !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos-1][rowPos-1].getParentTileID()
+                   && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos-1].getParentTileID()
+                   && gameBoardPositionArray[colPos-1][rowPos-1].getParentTileID() == gameBoardPositionArray[colPos][rowPos-1].getParentTileID())) {
+                    if(tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos-1][rowPos-1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos-1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else { // NOT FLIPPED, ODD ROW
+                if((gameBoardPositionArray[colPos][rowPos] != null
+                   && gameBoardPositionArray[colPos][rowPos-1] != null
+                   && gameBoardPositionArray[colPos+1][rowPos-1] != null)
+                   &&
+                   (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos-1].getHexLevel()
+                   && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos+1][rowPos-1].getHexLevel()
+                   && gameBoardPositionArray[colPos][rowPos-1].getHexLevel() == gameBoardPositionArray[colPos+1][rowPos-1].getHexLevel())
+                   &&
+                   !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos-1].getParentTileID()
+                   && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos+1][rowPos-1].getParentTileID()
+                   && gameBoardPositionArray[colPos][rowPos-1].getParentTileID() == gameBoardPositionArray[colPos+1][rowPos-1].getParentTileID())) {
+                    if(tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos][rowPos-1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                    else if(tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
+                        if(gameBoardPositionArray[colPos+1][rowPos-1].getHexTerrainType() == terrainTypes.VOLCANO) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
         if(tileToBePlaced.isFlipped()){
             if(checkIfEven(rowPos)) {

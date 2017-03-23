@@ -37,4 +37,11 @@ public class Hex {
 
     }
 
+    public int getHexLevel() {
+        return this.hexLevel;
+    }
+
+    public int getParentTileID() {
+        return this.parentTileID;
+    }
 }
