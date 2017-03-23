@@ -84,4 +84,13 @@ public class GameBoardTest {
 
         //Assert.assertEquals(gameboard.getGameBoardPositionArray()[][], );
     }
+
+    @Test
+    public void checkingIfValidArrayInitializesToZero(){
+        GameBoard gameboard = new GameBoard();
+
+        Assert.assertEquals(gameboard.getValidPlacementArray()[0][0], 0);
+        Assert.assertEquals(gameboard.getValidPlacementArray()[102][102], 0);
+
+    }
 }

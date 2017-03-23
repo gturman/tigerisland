@@ -8,7 +8,7 @@ public class GameBoard {
     private int GameboardTileID;
     private int GameboardHexID;
 
-    public int[][] validPlacementArray = new Hex[boardHeight][boardWidth];
+    public int[][] validPlacementArray = new int[boardHeight][boardWidth];
     public Hex[][] gameBoardPositionArray = new Hex[boardHeight][boardWidth];
 
     GameBoard(){
@@ -141,4 +141,6 @@ public class GameBoard {
     Hex[][] getGameBoardPositionArray() {
         return gameBoardPositionArray;
     }
+
+    int[][] getValidPlacementArray(){ return validPlacementArray; }
 }
