@@ -403,4 +403,57 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[100][101], eigthTile.getHexB());
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101], eigthTile.getHexC());
     }
+
+    @Test
+    public void TestHexLevelIncreasesWhenNuking(){
+        GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.ROCKY, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        gameboard.setTileAtPosition(103, 101, secondTile);
+
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        gameboard.setTileAtPosition(103, 103, thirdTile);
+
+        Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        fourthTile.flip();
+        gameboard.setTileAtPosition(101, 99, fourthTile);
+
+        Tile fifthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        fifthTile.flip();
+        gameboard.setTileAtPosition(101, 102, fifthTile);
+
+        Tile sixthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+        sixthTile.flip();
+        gameboard.setTileAtPosition(100, 100, sixthTile);
+
+        Tile seventhTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.ROCKY);
+        seventhTile.flip();
+
+        Tile eigthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+
+        gameboard.nukeTiles(102, 101, seventhTile);
+        gameboard.nukeTiles(101, 102, eigthTile);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getHexLevel(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getHexLevel(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][102].getHexLevel(), 1);
+
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][102].getHexLevel(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[100][101].getHexLevel(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getHexLevel(), 1);
+
+    }
 }

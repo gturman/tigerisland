@@ -21,22 +21,35 @@ public class GameBoard {
         if(checkIfValidNuke(colPos, rowPos, tileToBePlaced)) {
             if(tileToBePlaced.isFlipped()) {
                 if(checkIfEven(rowPos)) {
+                    tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel()+1);
+                    tileToBePlaced.getHexB().setHexLevel(gameBoardPositionArray[colPos][rowPos+1].getHexLevel()+1);
+                    tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos-1][rowPos+1].getHexLevel()+1);
                     gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
                     gameBoardPositionArray[colPos][rowPos+1] = tileToBePlaced.getHexB();
                     gameBoardPositionArray[colPos-1][rowPos+1] = tileToBePlaced.getHexC();
+
                 }
                 else {
+                    tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel()+1);
+                    tileToBePlaced.getHexB().setHexLevel(gameBoardPositionArray[colPos+1][rowPos+1].getHexLevel()+1);
+                    tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos][rowPos+1].getHexLevel()+1);
                     gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
                     gameBoardPositionArray[colPos+1][rowPos+1] = tileToBePlaced.getHexB();
                     gameBoardPositionArray[colPos][rowPos+1] = tileToBePlaced.getHexC();
                 }
             } else {
                 if(checkIfEven(rowPos)) {
+                    tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel()+1);
+                    tileToBePlaced.getHexB().setHexLevel(gameBoardPositionArray[colPos-1][rowPos-1].getHexLevel()+1);
+                    tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos][rowPos-1].getHexLevel()+1);
                     gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
                     gameBoardPositionArray[colPos-1][rowPos-1] = tileToBePlaced.getHexB();
                     gameBoardPositionArray[colPos][rowPos-1] = tileToBePlaced.getHexC();
                 }
                 else {
+                    tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel()+1);
+                    tileToBePlaced.getHexB().setHexLevel(gameBoardPositionArray[colPos][rowPos-1].getHexLevel()+1);
+                    tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos+1][rowPos-1].getHexLevel()+1);
                     gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
                     gameBoardPositionArray[colPos][rowPos-1] = tileToBePlaced.getHexB();
                     gameBoardPositionArray[colPos+1][rowPos-1] = tileToBePlaced.getHexC();
@@ -169,6 +182,11 @@ public class GameBoard {
 
         return false;
     }
+    /*
+    boolean checkIfGameBoardPositionIsNotEmpty(int colPos, int rowPos, int colOffset, int rowOffset){
+        return gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset] != null;
+    }*/
+
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
         if(!checkIfTileCanBePlacedAtPosition(colPos,rowPos,tileToBePlaced)) {
