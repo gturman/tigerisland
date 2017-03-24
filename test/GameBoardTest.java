@@ -315,38 +315,80 @@ public class GameBoardTest {
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
 
         gameboard.setTileAtPosition(103, 103, thirdTile);
-        gameboard.getGameBoardPositionArray()[103][102].setHexLevel(2);
 
         Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
-        gameboard.setTileAtPosition(102, 100, fourthTile);
+        fourthTile.flip();
+        gameboard.setTileAtPosition(101, 99, fourthTile);
 
         Tile fifthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        fifthTile.flip();
+        gameboard.setTileAtPosition(101, 102, fifthTile);
 
-        Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, fifthTile), true);
+        Tile sixthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+        sixthTile.flip();
+        gameboard.setTileAtPosition(100, 100, sixthTile);
+
+        Tile seventhTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.ROCKY);
+
+        Tile eigthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+
+        Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, seventhTile), true);
+        Assert.assertEquals(gameboard.checkIfValidNuke(101, 102, eigthTile), true);
     }
 
     @Test
     public void testIfNukeOverwritesHexValues() {
+                GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.ROCKY, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(102, 102, initialTile);
 
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        gameboard.setTileAtPosition(103, 101, secondTile);
+
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        gameboard.setTileAtPosition(103, 103, thirdTile);
+
+        Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        fourthTile.flip();
+        gameboard.setTileAtPosition(101, 99, fourthTile);
+
+        Tile fifthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        fifthTile.flip();
+        gameboard.setTileAtPosition(101, 102, fifthTile);
+
+        Tile sixthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+        sixthTile.flip();
+        gameboard.setTileAtPosition(100, 100, sixthTile);
+
+        Tile seventhTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.ROCKY);
+        seventhTile.flip();
+
+        Tile eigthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+
+        gameboard.nukeTiles(102, 101, seventhTile);
+        gameboard.nukeTiles(101, 102, eigthTile);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101], seventhTile.getHexA());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102], seventhTile.getHexB());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][102], seventhTile.getHexC());
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][102], eigthTile.getHexA());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[100][101], eigthTile.getHexB());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101], eigthTile.getHexC());
     }
-
-        /*  @Test
-      public void testAbilityToPreventNonAdjacentTilePlacement() {
-          GameBoard gameboard = new GameBoard();
-
-          Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                  terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
-
-          gameboard.setTileAtPosition(102, 102, initialTile);
-
-          Tile nonAdjacentTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                                          terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.LAKE);
-
-
-
-          //Assert.assertEquals(gameboard.getGameBoardPositionArray()[][], );
-      }
-  */
 }
