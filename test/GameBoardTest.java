@@ -198,14 +198,26 @@ public class GameBoardTest {
         Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
 
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(103, 101, secondTile), true);
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(100, 101, secondTile), true);
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(100, 100, secondTile), true);
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(104, 104, secondTile), true);
+        //unflipped
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(103, 101, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(100, 101, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(100, 100, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(104, 104, secondTile), true);
 
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(99, 99, secondTile), false);
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(50, 50, secondTile), false);
-        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjadent(105, 105, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(99, 99, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(50, 50, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(105, 105, secondTile), false);
+
+        //flipped
+        secondTile.flip();
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(103, 103, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(101, 102, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(99, 99, secondTile), true);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(103, 101, secondTile), true);
+
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(98, 99, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(50, 50, secondTile), false);
+        Assert.assertEquals(gameboard.checkIfTileBeingPlacedWillBeAdjacent(105, 105, secondTile), false);
     }
 
     @Test

@@ -171,6 +171,9 @@ public class GameBoard {
     }
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
+        if(!checkIfTileCanBePlacedAtPosition(colPos,rowPos,tileToBePlaced)) {
+            return;
+        }
         if(tileToBePlaced.isFlipped()){
             if(checkIfEven(rowPos)) {
                 if(checkIfHexOccupiesPosition(colPos, rowPos) && checkIfHexOccupiesPosition(colPos-1, rowPos+1) && checkIfHexOccupiesPosition(colPos, rowPos+1)){
@@ -275,7 +278,7 @@ public class GameBoard {
         return true;
     }
 
-    boolean checkIfTileBeingPlacedWillBeAdjadent(int colPos, int rowPos, Tile tileBeingPlaced){
+    boolean checkIfTileBeingPlacedWillBeAdjacent(int colPos, int rowPos, Tile tileBeingPlaced){
         if(tileBeingPlaced.isFlipped()){
             if(validPlacementArray[colPos+1][rowPos+2] == 1){
                 return true;

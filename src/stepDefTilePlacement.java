@@ -2,6 +2,7 @@
  * Created by christine on 3/17/2017.
  */
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -84,4 +85,34 @@ public class stepDefTilePlacement {
             }
         }
     }
+
+    @Given("^one or more edge of my tiles touches one or more of another tile's edge$")
+    public void oneOrMoreEdgeSOfMyTilesTouchesOneOrMoreOfAnotherTileSEdgeS() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+
+        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.JUNGLE, terrainTypes.VOLCANO);
+
+        gameboard.setTileAtPosition(102,102,placeTile);
+        gameboard.checkIfTileCanBePlacedAtPosition(103, 103, secondTile);
+    }
+
+
+
+    @Then("^my tile is placed correctly$")
+    public void myTileIsPlacedCorrectly(){
+        GameBoard gameboard = new GameBoard();
+
+        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.JUNGLE, terrainTypes.VOLCANO);
+        secondTile.flip();
+
+        gameboard.setTileAtPosition(102,102,placeTile);
+        gameboard.setTileAtPosition(103,103,secondTile);
+    }
+
 }

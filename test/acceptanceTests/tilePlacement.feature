@@ -11,3 +11,7 @@ Feature: Allowing player tile placement
     When I try to place a tile
     Then my tile is placed on the center of the board
 
+  Scenario: I place a tile on the same level
+    Given one or more edge of my tiles touches one or more of another tile's edge
+    When I try to place a tile
+    Then my tile is placed correctly
