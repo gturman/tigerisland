@@ -18,7 +18,7 @@ public class PlayerTest {
     @Test
     public void testGetMeepleCount(){
         Player P1 = new Player();
-        Assert.assertEquals(P1.getMeepleCount(),20);
+        Assert.assertEquals(P1.getVillagerCount(),20);
 
     }
 
@@ -51,9 +51,9 @@ public class PlayerTest {
     @Test
     public void testModifiedMeepleCount(){
         Player P1 = new Player();
-        Assert.assertEquals(P1.getMeepleCount(),20);
-        P1.modifyMeepleCount(5);
-        Assert.assertEquals(P1.getMeepleCount(),15);
+        Assert.assertEquals(P1.getVillagerCount(),20);
+        P1.setVillagerCount(15);
+        Assert.assertEquals(P1.getVillagerCount(),15);
     }
 
     @Test

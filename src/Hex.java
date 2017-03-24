@@ -11,6 +11,7 @@ public class Hex {
     private int settlerCount;
     private int totoroCount;
     private int tigerCount;
+    private int settlementID;
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {
         this.hexID = hexID;
@@ -20,6 +21,10 @@ public class Hex {
         this.settlerCount = 0;
         this.totoroCount = 0;
         this.tigerCount = 0;
+        this.settlerCount = 0;
+        this.totoroCount = 0;
+        this.tigerCount = 0;
+        this.settlementID = 0;
     }
 
     public int getHexID() {
@@ -73,5 +78,13 @@ public class Hex {
 
     public void setTigerCount(int tigerCount) {
         this.tigerCount = tigerCount;
+    }
+
+    public int getSettlementID() {
+        return settlementID;
+    }
+
+    public void setSettlementID(int settlementID) {
+        this.settlementID = settlementID;
     }
 }

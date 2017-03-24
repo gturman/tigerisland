@@ -4,7 +4,7 @@
  */
 public class Player {
 
-    private int meepleCount;
+    private int villagerCount;
     private int totoroCount;
     private int tigerCount;
     private int playerID;
@@ -18,7 +18,7 @@ public class Player {
         this.tigerCount = 2;
         this.playerID = 1;
         this.score = 0;
-        this.meepleCount = 20;
+        this.villagerCount = 20;
         this.totoroCount = 3;
         this.settlementCount = 0;
         this.tilesDrawn = 0;
@@ -27,12 +27,12 @@ public class Player {
 
     public int getTigerCount(){return tigerCount;}
 
-    public int getMeepleCount(){
-        return meepleCount;
+    public int getVillagerCount(){
+        return villagerCount;
     }
 
-    public void modifyMeepleCount(int modifier){
-        meepleCount -= modifier;
+    public void modifyVillagerCount(int modifier){
+        villagerCount -= modifier;
     }
 
     public int getTotoroCount(){
@@ -90,6 +90,10 @@ public class Player {
 
     public void setTurnPhase(turnPhase playerTurnPhase) {
         this.playerTurnPhase = playerTurnPhase;
+    }
+
+    public void setVillagerCount(int villagerCount) {
+        this.villagerCount = villagerCount;
     }
 }
 
