@@ -99,23 +99,6 @@ public class stepDefTilePlacement {
         gameboard.checkIfTileCanBePlacedAtPosition(103, 103, secondTile);
     }
 
-    @Then("^my tile is placed correctly$")
-    public void myTileIsPlacedCorrectly(){
-        GameBoard gameboard = new GameBoard();
-
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
-        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS, terrainTypes.JUNGLE, terrainTypes.VOLCANO);
-        secondTile.flip();
-
-        gameboard.setTileAtPosition(102,102,placeTile);
-
-        if(gameboard.checkIfTileCanBePlacedAtPosition(103, 103, secondTile)) {
-            gameboard.setTileAtPosition(103, 103, secondTile);
-        }
-    }
-
     @Given("^no edges of my tile touches another hexes’ edge$")
     public void noEdgesOfMyTileTouchesAnotherHexesEdge() throws Throwable {
         GameBoard gameboard = new GameBoard();
@@ -126,22 +109,116 @@ public class stepDefTilePlacement {
         Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
 
-        int secondTileDesiredColPos = 105;
-        int secondTileDesiredRowPos = 105;
+        gameboard.checkIfTileBeingPlacedWillBeAdjacent(105, 105, secondTile);
     }
 
-    @Then("^my tile is prevented from being placed$")
-    public void myTileIsPreventedFromBeingPlaced() throws Throwable {
+    @Given("^one or more hex is not of the same level$")
+    public void oneOrMoreHexIsNotOfTheSameLevel() throws Throwable {
         GameBoard gameboard = new GameBoard();
         Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+                terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(103, 101, secondTile);
+
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(103, 103, thirdTile);
+
+        gameboard.getGameBoardPositionArray()[103][102].setHexLevel(2);
+
+        Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        fourthTile.flip();
+
+        Tile fifthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        gameboard.nukeTiles(102, 101, fourthTile);
+        gameboard.nukeTiles(103, 102, fifthTile);
+    }
+
+    @Given("^my tile entirely overlaps another tile one level below it$")
+    public void myTileEntirelyOverlapsAnotherTileOneLevelBelowIt() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
         gameboard.setTileAtPosition(102, 102, initialTile);
 
         Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
 
-        if(gameboard.checkIfTileBeingPlacedWillBeAdjacent(105, 105, secondTile)) {
-            gameboard.setTileAtPosition(105, 105, secondTile);
+        gameboard.nukeTiles(102, 102, secondTile);
+    }
+
+    @Given("^my tile’s volcano was not placed over a volcano$")
+    public void myTileSVolcanoWasNotPlacedOverAVolcano() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(103, 101, secondTile);
+
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.ROCKY, terrainTypes.ROCKY, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, thirdTile);
+
+        Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.ROCKY);
+        fourthTile.flip();
+
+        Tile fifthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.JUNGLE, terrainTypes.JUNGLE, terrainTypes.VOLCANO);
+
+        gameboard.nukeTiles(102, 101, fourthTile);
+        gameboard.nukeTiles(103, 102, fifthTile);
+
+    }
+
+    @When("^I try to place my tile$")
+    public void iTryToPlaceMyTile() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        gameboard.nukeTiles(102, 102, secondTile);
+    }
+
+    @Then("^my tile is prevented from being placed$")
+    public void myTileIsPreventedFromBeingPlaced() throws Throwable {
+        Player player = new Player();
+        turnPhase currentTurn = turnPhase.FOUND_SETTLEMENT;
+        player.setTurnPhase(currentTurn);
+    }
+
+
+    @Then("^my tile is placed correctly$")
+    public void myTileIsPlacedCorrectly(){
+        Player player = new Player();
+        turnPhase currentTurn = turnPhase.FOUND_SETTLEMENT;
+
+        if(currentTurn == turnPhase.FOUND_SETTLEMENT)
+        {
+            player.setTurnPhase(turnPhase.FOUND_SETTLEMENT);
+        }
+        else if(currentTurn == turnPhase.EXPAND_SETTLEMENT)
+        {
+            player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+        }
+        else if(currentTurn == turnPhase.PLACE_TOTORO)
+        {
+            player.setTurnPhase(turnPhase.PLACE_TOTORO);
         }
     }
 }
