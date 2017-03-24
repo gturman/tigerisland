@@ -66,7 +66,7 @@ public class stepDefTilePlacement {
         GameBoard gameboard = new GameBoard();
         turnPhase nextTurnDesired = turnPhase.FOUND_SETTLEMENT;
 
-        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT && gameboard.getGameboardTileID() == 0)
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT && gameboard.getGameboardTileID() == 1)
         {
             Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                                       terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
@@ -99,8 +99,6 @@ public class stepDefTilePlacement {
         gameboard.checkIfTileCanBePlacedAtPosition(103, 103, secondTile);
     }
 
-
-
     @Then("^my tile is placed correctly$")
     public void myTileIsPlacedCorrectly(){
         GameBoard gameboard = new GameBoard();
@@ -112,7 +110,38 @@ public class stepDefTilePlacement {
         secondTile.flip();
 
         gameboard.setTileAtPosition(102,102,placeTile);
-        gameboard.setTileAtPosition(103,103,secondTile);
+
+        if(gameboard.checkIfTileCanBePlacedAtPosition(103, 103, secondTile)) {
+            gameboard.setTileAtPosition(103, 103, secondTile);
+        }
     }
 
+    @Given("^no edges of my tile touches another hexes’ edge$")
+    public void noEdgesOfMyTileTouchesAnotherHexesEdge() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        int secondTileDesiredColPos = 105;
+        int secondTileDesiredRowPos = 105;
+    }
+
+    @Then("^my tile is prevented from being placed$")
+    public void myTileIsPreventedFromBeingPlaced() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(102, 102, initialTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+
+        if(gameboard.checkIfTileBeingPlacedWillBeAdjacent(105, 105, secondTile)) {
+            gameboard.setTileAtPosition(105, 105, secondTile);
+        }
+    }
 }

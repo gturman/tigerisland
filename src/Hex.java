@@ -8,12 +8,18 @@ public class Hex {
     private int parentTileID;
     private Pair hexCoordinate = new Pair(0, 0);
     private terrainTypes hexTerrainType;
+    private int settlerCount;
+    private int totoroCount;
+    private int tigerCount;
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {
         this.hexID = hexID;
         this.hexLevel = 0;
         this.parentTileID = parentTileID;
         this.hexTerrainType = hexTerrainType;
+        this.settlerCount = 0;
+        this.totoroCount = 0;
+        this.tigerCount = 0;
     }
 
     public int getHexID() {
@@ -43,5 +49,29 @@ public class Hex {
 
     public int getParentTileID() {
         return this.parentTileID;
+    }
+
+    public int getSettlerCount() {
+        return settlerCount;
+    }
+
+    public int getTotoroCount() {
+        return totoroCount;
+    }
+
+    public int getTigerCount() {
+        return tigerCount;
+    }
+
+    public void setSettlerCount(int settlerCount) {
+        this.settlerCount = settlerCount;
+    }
+
+    public void setTotoroCount(int totoroCount) {
+        this.totoroCount = totoroCount;
+    }
+
+    public void setTigerCount(int tigerCount) {
+        this.tigerCount = tigerCount;
     }
 }
