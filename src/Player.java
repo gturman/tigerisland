@@ -1,11 +1,12 @@
 /**
  * Created by William on 3/14/2017.
- * Edited by BC and CC
+ *
  */
 public class Player {
 
     private int meepleCount;
     private int totoroCount;
+    private int tigerCount;
     private int playerID;
     private int score;
     private int settlementCount;
@@ -14,6 +15,7 @@ public class Player {
 
     Player(){
         //todo: assign playerID or initialize as Player P1 and Player P2
+        this.tigerCount = 2;
         this.playerID = 1;
         this.score = 0;
         this.meepleCount = 20;
@@ -22,6 +24,8 @@ public class Player {
         this.tilesDrawn = 0;
         this.playerTurnPhase = turnPhase.TILE_PLACEMENT;
     }
+
+    public int getTigerCount(){return tigerCount;}
 
     public int getMeepleCount(){
         return meepleCount;

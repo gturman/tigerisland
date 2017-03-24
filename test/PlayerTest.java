@@ -93,4 +93,11 @@ public class PlayerTest {
 
     }
 
+    @Test
+    public void testGetTigerCount(){
+        Player P1 = new Player();
+        Assert.assertEquals(P1.getTigerCount(),2);
+
+    }
+
 }
