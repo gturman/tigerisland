@@ -15,7 +15,7 @@ public class Hex {
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {
         this.hexID = hexID;
-        this.hexLevel = 0;
+        this.hexLevel = 1;
         this.parentTileID = parentTileID;
         this.hexTerrainType = hexTerrainType;
         this.settlerCount = 0;
@@ -25,6 +25,17 @@ public class Hex {
         this.totoroCount = 0;
         this.tigerCount = 0;
         this.settlementID = 0;
+    }
+
+    public boolean isNotBuiltOn(){
+        if(settlerCount != 0)
+            return false;
+        if(totoroCount != 0)
+            return false;
+        if(tigerCount != 0)
+            return false;
+
+        return true;
     }
 
     public int getHexID() {

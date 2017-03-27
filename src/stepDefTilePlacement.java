@@ -20,7 +20,7 @@ public class stepDefTilePlacement {
         Player player = new Player();
         GameBoard gameboard = new GameBoard();
 
-        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        if(player.getTurnPhase() == turnPhase.TILE_PLACEMENT)
         {
             Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                     terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);

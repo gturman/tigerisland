@@ -441,13 +441,13 @@ public class GameBoardTest {
         gameboard.nukeTiles(102, 101, seventhTile);
         gameboard.nukeTiles(101, 102, eigthTile);
 
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getHexLevel(), 1);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getHexLevel(), 1);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][102].getHexLevel(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getHexLevel(), 2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getHexLevel(), 2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][102].getHexLevel(), 2);
 
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][102].getHexLevel(), 1);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[100][101].getHexLevel(), 1);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getHexLevel(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][102].getHexLevel(), 2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[100][101].getHexLevel(), 2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getHexLevel(), 2);
     }
 
     @Test
@@ -563,6 +563,44 @@ public class GameBoardTest {
         Assert.assertEquals(secondGameboard.getGameBoardPositionArray()[102][102].getHexTerrainType(), terrainTypes.ROCKY);
         Assert.assertEquals(secondGameboard.getGameBoardPositionArray()[101][103].getHexTerrainType(), terrainTypes.VOLCANO);
         Assert.assertEquals(secondGameboard.getGameBoardPositionArray()[102][103].getHexTerrainType(), terrainTypes.LAKE);
+
+    }
+
+    @Test
+    public void testAbilityToBuildSettlements(){
+        GameBoard gameboard = new GameBoard();
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.ROCKY,terrainTypes.JUNGLE,terrainTypes.VOLCANO);
+        firstTile.flip();
+        gameboard.setTileAtPosition(99,98,firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.JUNGLE,terrainTypes.VOLCANO,terrainTypes.ROCKY);
+        secondTile.flip();
+        gameboard.setTileAtPosition(99,100,secondTile);
+
+        gameboard.buildSettlement(99,98);
+        gameboard.buildSettlement(98,99);
+        gameboard.buildSettlement(99,99);
+        gameboard.buildSettlement(99,100);
+        gameboard.buildSettlement(98,101);
+        gameboard.buildSettlement(99,101);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][99].getSettlerCount(),0); //volcano
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getSettlerCount(),1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][101].getSettlerCount(),1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][101].getSettlerCount(),0); //volcano
+
+        //nuke
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.LAKE,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        gameboard.nukeTiles(99,100,thirdTile);
+
+        gameboard.buildSettlement(98,99);
+        gameboard.buildSettlement(99,99);
+        gameboard.buildSettlement(99,100);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][99].getSettlerCount(),0); //volcano + level 2
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),0); //level 2
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getSettlerCount(),0); //level 2
 
     }
 }
