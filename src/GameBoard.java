@@ -590,13 +590,45 @@ public class GameBoard {
         return hexToCheck.getHexCoordinate().getRowPosition();
     }
 
-    void buildSettlement(int colPos, int rowPos) {
-        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()) { //IS NOT BUILT ON
-            if (gameBoardPositionArray[colPos][rowPos].getHexLevel() == 1) {//IS ON LEVEL ONE
-                if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType().getHabitablity() == 1) { //IS HABITABLE
-                    gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
+    boolean isNotBuiltOn(int colPos, int rowPos){
+        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    boolean isOnLevelOne(int colPos, int rowPos){
+        if(gameBoardPositionArray[colPos][rowPos].getHexLevel() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    boolean isHabitable(int colPos, int rowPos){
+        if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType().getHabitablity() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    boolean isValidSettlementLocation(int colPos, int rowPos){
+        if (isNotBuiltOn(colPos,rowPos)) {
+            if (isOnLevelOne(colPos,rowPos)) {
+                if (isHabitable(colPos,rowPos)) {
+                    return true;
                 }
             }
+        }
+        return false;
+    }
+
+    void buildSettlement(int colPos, int rowPos, Player playerBuilding) {
+        if (isValidSettlementLocation(colPos,rowPos)){
+            gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
+            gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
         }
     }
 

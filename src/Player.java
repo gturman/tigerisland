@@ -16,7 +16,19 @@ public class Player {
     Player(){
         //todo: assign playerID or initialize as Player P1 and Player P2
         this.tigerCount = 2;
-        this.playerID = 1;
+        this.playerID = 0;
+        this.score = 0;
+        this.villagerCount = 20;
+        this.totoroCount = 3;
+        this.settlementCount = 0;
+        this.tilesDrawn = 0;
+        this.playerTurnPhase = turnPhase.TILE_PLACEMENT;
+    }
+
+    Player(int playerID){
+        //todo: assign playerID or initialize as Player P1 and Player P2
+        this.tigerCount = 2;
+        this.playerID = playerID;
         this.score = 0;
         this.villagerCount = 20;
         this.totoroCount = 3;
@@ -31,7 +43,7 @@ public class Player {
         return villagerCount;
     }
 
-    public void modifyVillagerCount(int modifier){
+    public void decreaseVillagerCount(int modifier){
         villagerCount -= modifier;
     }
 

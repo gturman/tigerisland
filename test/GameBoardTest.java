@@ -766,18 +766,20 @@ public class GameBoardTest {
         GameBoard gameboard = new GameBoard();
         Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.ROCKY,terrainTypes.JUNGLE,terrainTypes.VOLCANO);
         firstTile.flip();
+        Player player = new Player(1);
+
         gameboard.setTileAtPosition(99,98,firstTile);
 
         Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.JUNGLE,terrainTypes.VOLCANO,terrainTypes.ROCKY);
         secondTile.flip();
         gameboard.setTileAtPosition(99,100,secondTile);
 
-        gameboard.buildSettlement(99,98);
-        gameboard.buildSettlement(98,99);
-        gameboard.buildSettlement(99,99);
-        gameboard.buildSettlement(99,100);
-        gameboard.buildSettlement(98,101);
-        gameboard.buildSettlement(99,101);
+        gameboard.buildSettlement(99,98,player);
+        gameboard.buildSettlement(98,99,player);
+        gameboard.buildSettlement(99,99,player);
+        gameboard.buildSettlement(99,100,player);
+        gameboard.buildSettlement(98,101,player);
+        gameboard.buildSettlement(99,101,player);
 
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][99].getSettlerCount(),0); //volcano
@@ -790,9 +792,9 @@ public class GameBoardTest {
         Tile thirdTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.LAKE,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
         gameboard.nukeTiles(99,100,thirdTile);
 
-        gameboard.buildSettlement(98,99);
-        gameboard.buildSettlement(99,99);
-        gameboard.buildSettlement(99,100);
+        gameboard.buildSettlement(98,99,player);
+        gameboard.buildSettlement(99,99,player);
+        gameboard.buildSettlement(99,100,player);
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][99].getSettlerCount(),0); //volcano + level 2
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),0); //level 2
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getSettlerCount(),0); //level 2
