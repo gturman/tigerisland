@@ -811,4 +811,51 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),0); //level 2
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getSettlerCount(),0); //level 2
     }
+
+    @Test
+    public void testCalculateVillagersNeededForExpansionOnLevelOne(){
+        GameBoard gameboard = new GameBoard();
+        Player testPlayer = new Player(5);
+        Tile tileOne = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO,terrainTypes.LAKE,terrainTypes.GRASSLANDS);
+        Tile tileTwo = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
+        Tile tileThree = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
+        tileThree.flip();
+
+        gameboard.setTileAtPosition(100,100,tileOne);
+        gameboard.setTileAtPosition(101,101,tileTwo);
+        gameboard.setTileAtPosition(100,101,tileThree);
+
+        gameboard.buildSettlement(99,99,testPlayer);
+        int testInt = gameboard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS);
+
+        Assert.assertEquals(testInt,5);
+    }
+
+    @Test
+    public void testCalculateVillagersNeededForExpansionOnMultipleLevels(){
+
+        GameBoard gameboard = new GameBoard();
+        Player testPlayer = new Player(5);
+        Tile tileOne = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO,terrainTypes.LAKE,terrainTypes.GRASSLANDS);
+        Tile tileTwo = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
+        Tile tileThree = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS,terrainTypes.LAKE,terrainTypes.VOLCANO);
+        tileThree.flip();
+        Tile tileFour = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
+                terrainTypes.ROCKY,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+
+        gameboard.setTileAtPosition(100,100,tileOne);
+        gameboard.setTileAtPosition(101,101,tileTwo);
+        gameboard.setTileAtPosition(100,101,tileThree);
+        gameboard.nukeTiles(100,101,tileFour);
+        gameboard.buildSettlement(99,99,testPlayer);
+        int testInt = gameboard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS);
+
+        Assert.assertEquals(testInt,4);
+    }
 }

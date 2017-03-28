@@ -632,6 +632,82 @@ public class GameBoard {
         }
     }
 
+    int calculateVillagersForExpansion(int colPos, int rowPos, terrainTypes expansionType){
+        int returnValue;
+
+        if(gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()==false){//is part of a settlement
+            returnValue = recursiveExpansionCalculation(colPos,rowPos,expansionType);
+            resetHexPlayerIDs(colPos,rowPos);
+            return returnValue;
+        }
+        return -1;
+    }
+
+    void resetHexPlayerIDsHelper(int colPos, int rowPos, int colOffset, int rowOffset){
+        try {
+            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == -1) {//has been seen
+                gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(0); //marks as unseen
+                resetHexPlayerIDs(colPos+colOffset,rowPos+rowOffset);
+            }
+        }catch(Exception e){
+
+        }
+    }
+
+    void resetHexPlayerIDs(int colPos, int rowPos){
+        if(checkIfEven(rowPos)){
+            resetHexPlayerIDsHelper(colPos,rowPos,-1,-1);
+            resetHexPlayerIDsHelper(colPos,rowPos,0,-1);
+            resetHexPlayerIDsHelper(colPos,rowPos,-1,0);
+            resetHexPlayerIDsHelper(colPos,rowPos,+1,0);
+            resetHexPlayerIDsHelper(colPos,rowPos,-1,+1);
+            resetHexPlayerIDsHelper(colPos,rowPos,0,+1);
+        }else{
+            resetHexPlayerIDsHelper(colPos,rowPos,0,-1);
+            resetHexPlayerIDsHelper(colPos,rowPos,+1,-1);
+            resetHexPlayerIDsHelper(colPos,rowPos,-1,0);
+            resetHexPlayerIDsHelper(colPos,rowPos,+1,0);
+            resetHexPlayerIDsHelper(colPos,rowPos,0,+1);
+            resetHexPlayerIDsHelper(colPos,rowPos,+1,+1);
+        }
+    }
+
+    int recursiveExpansionHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset){
+        try {
+            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
+                if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
+                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(-1); //mark as seen, add level to return val
+                    return gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel() + recursiveExpansionCalculation(colPos+colOffset,rowPos+rowOffset,expansionType);
+                }
+            }
+        }catch(Exception e){
+            return 0; //ignore null hexes
+        }
+
+        return 0;
+    }
+
+    int recursiveExpansionCalculation(int colPos, int rowPos, terrainTypes expansionType){
+        int returnVal=0;
+        if(checkIfEven(rowPos)){
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,-1);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,-1);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,0);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,0);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,+1);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,+1);
+        }else{
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,-1);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,-1);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,0);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,0);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,+1);
+            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,+1);
+        }
+        return returnVal;
+    }
+
+
     int getGameboardTileID() {
         return GameboardTileID;
     }
@@ -663,4 +739,6 @@ public class GameBoard {
     int getSettlementSizeBasedOnID(int id) {
         return this.settlementSizeList[id];
     }
+
+
 }
