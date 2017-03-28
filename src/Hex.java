@@ -12,9 +12,6 @@ public class Hex {
     private int totoroCount;
     private int tigerCount;
     private int settlementID;
-
-
-
     private int playerID;
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {

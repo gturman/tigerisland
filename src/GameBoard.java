@@ -18,7 +18,6 @@ public class GameBoard {
         this.GameboardHexID = 1;
     }
 
-
     void nukeTiles(int colPos, int rowPos, Tile tileToBePlaced) {
         if (checkIfValidNuke(colPos, rowPos, tileToBePlaced)) {
             if (tileIsEvenAndFlipped(rowPos, tileToBePlaced))
@@ -70,7 +69,6 @@ public class GameBoard {
         tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
         gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
     }
-
 
     // TODO: REFACTOR (James started will continue later)
     boolean checkIfValidNuke(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -628,6 +626,8 @@ public class GameBoard {
     void buildSettlement(int colPos, int rowPos, Player playerBuilding) {
         if (isValidSettlementLocation(colPos,rowPos)){
             gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
+            playerBuilding.decreaseVillagerCount(1);
+            playerBuilding.increaseScore(1);
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
         }
     }

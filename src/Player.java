@@ -80,7 +80,6 @@ public class Player {
         {
             int player = 2;
             return player;
-
         }
     }
 

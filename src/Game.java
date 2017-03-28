@@ -21,8 +21,6 @@ public class Game {
     public void buildSettlement(int colPos, int rowPos, Player playerBuildingSettlement, GameBoard gameboard){
         if(gameboard.isValidSettlementLocation(colPos, rowPos)){
             gameboard.buildSettlement(colPos, rowPos, playerBuildingSettlement);
-            playerBuildingSettlement.decreaseVillagerCount(1);
-            playerBuildingSettlement.increaseScore(1);
         }
     }
 
