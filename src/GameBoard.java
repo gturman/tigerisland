@@ -707,6 +707,97 @@ public class GameBoard {
         return returnVal;
     }
 
+    void expandSettlementsHelper(int colPos, int rowPos, terrainTypes expansionType, Player player, int colOffset, int rowOffset){
+        try {
+            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
+                if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
+                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(player.getPlayerID());
+                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setSettlerCount(gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel());
+                    expandSettlements(colPos + colOffset, rowPos + rowOffset, expansionType,player);
+                }
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
+    void expandSettlements(int colPos, int rowPos, terrainTypes expansionType, Player player){
+        if(checkIfEven(rowPos)){
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,-1);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,-1);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,0);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,0);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,+1);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,+1);
+        }else{
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,-1);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,-1);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,0);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,0);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,+1);
+            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,+1);
+        }
+
+    }
+
+    int calculateScoreForExpansion(int colPos, int rowPos, terrainTypes expansionType){
+        int returnValue;
+
+        if(gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()==false){//is part of a settlement
+            returnValue = expansionScore(colPos,rowPos,expansionType);
+            resetHexPlayerIDs(colPos,rowPos);
+            return returnValue;
+        }
+        return -1;
+    }
+
+    int expansionScoreHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset){
+        try {
+            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
+                if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
+                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(-1); //mark as seen, add level to return val
+                    int returnValue = gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel();
+                    returnValue *= returnValue;
+                    returnValue += expansionScore(colPos+colOffset,rowPos+rowOffset,expansionType);
+                    return returnValue;
+                }
+            }
+        }catch(Exception e){
+            return 0; //ignore null hexes
+        }
+
+        return 0;
+    }
+
+    int expansionScore(int colPos, int rowPos, terrainTypes expansionType){
+        int returnVal=0;
+        if(checkIfEven(rowPos)){
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,-1);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,-1);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,0);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,0);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,+1);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,+1);
+        }else{
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,-1);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,-1);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,0);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,0);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,+1);
+            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,+1);
+        }
+        return returnVal;
+    }
+
+    void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player){
+        int villagersNeededForExpansion = calculateVillagersForExpansion(colPos,rowPos,expansionType);
+        if(villagersNeededForExpansion < player.getVillagerCount()){
+            int score = calculateScoreForExpansion(colPos,rowPos,expansionType);
+            expandSettlements(colPos,rowPos,expansionType,player);
+            player.decreaseVillagerCount(villagersNeededForExpansion);
+            player.increaseScore(score);
+        }
+    }
 
     int getGameboardTileID() {
         return GameboardTileID;

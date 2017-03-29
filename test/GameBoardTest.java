@@ -836,26 +836,52 @@ public class GameBoardTest {
 
     @Test
     public void testCalculateVillagersNeededForExpansionOnMultipleLevels(){
-
         GameBoard gameboard = new GameBoard();
         Player testPlayer = new Player(5);
-        Tile tileOne = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
-                terrainTypes.VOLCANO,terrainTypes.LAKE,terrainTypes.GRASSLANDS);
-        Tile tileTwo = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
-                terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
-        Tile tileThree = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS,terrainTypes.LAKE,terrainTypes.VOLCANO);
-        tileThree.flip();
-        Tile tileFour = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),
-                terrainTypes.ROCKY,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
+        firstTile.flip();
+        gameboard.setTileAtPosition(99,98,firstTile);
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        secondTile.flip();
+        gameboard.setTileAtPosition(99,100,secondTile);
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        gameboard.nukeTiles(99,100,thirdTile);
 
-        gameboard.setTileAtPosition(100,100,tileOne);
-        gameboard.setTileAtPosition(101,101,tileTwo);
-        gameboard.setTileAtPosition(100,101,tileThree);
-        gameboard.nukeTiles(100,101,tileFour);
-        gameboard.buildSettlement(99,99,testPlayer);
-        int testInt = gameboard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS);
+        gameboard.buildSettlement(99,98,testPlayer);
 
-        Assert.assertEquals(testInt,4);
+
+
+        System.out.println(gameboard.getGameBoardPositionArray()[99][100].getHexLevel());
+        int testInt = gameboard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
+
+        Assert.assertEquals(testInt,5);
+    }
+
+    @Test
+    public void testExpansionFromExistingSettlement(){
+
+        GameBoard gameboard = new GameBoard();
+        Player testPlayer = new Player();
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
+        firstTile.flip();
+        gameboard.setTileAtPosition(99,98,firstTile);
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        secondTile.flip();
+        gameboard.setTileAtPosition(99,100,secondTile);
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        gameboard.nukeTiles(99,100,thirdTile);
+
+        gameboard.buildSettlement(99,98,testPlayer);
+
+        gameboard.expandSettlement(99,98,terrainTypes.GRASSLANDS,testPlayer);
+
+        Assert.assertEquals(testPlayer.getScore(),10); //1 for settlement founding, 9 for expansion (4*2 + 1)
+        Assert.assertEquals(testPlayer.getVillagerCount(),14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getPlayerID(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getSettlerCount(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getPlayerID(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][101].getSettlerCount(),1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getPlayerID(),2);
     }
 }
