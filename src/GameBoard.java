@@ -18,6 +18,39 @@ public class GameBoard {
         this.GameboardHexID = 1;
     }
 
+    void placeFirstTileAndUpdateValidPlacementList()
+    {
+        gameBoardPositionArray[102][102] = new Hex(1, 1, terrainTypes.VOLCANO);
+        gameBoardPositionArray[101][101] = new Hex(2, 1, terrainTypes.JUNGLE);;
+        gameBoardPositionArray[102][101] = new Hex(3, 1, terrainTypes.LAKE);;
+        gameBoardPositionArray[101][103] = new Hex(4, 1, terrainTypes.ROCKY);;
+        gameBoardPositionArray[102][103] = new Hex(5, 1, terrainTypes.GRASSLANDS);
+
+        int hexAmount = 5;
+
+        incrementGameboardHexID(hexAmount);
+        incrementGameboardTileID();
+
+        validPlacementArray[102][102] = -1;
+        validPlacementArray[101][101] = -1;
+        validPlacementArray[102][101] = -1;
+        validPlacementArray[101][103] = -1;
+        validPlacementArray[102][103] = -1;
+
+        validPlacementArray[101][102] = 1;
+        validPlacementArray[100][101] = 1;
+        validPlacementArray[101][100] = 1;
+        validPlacementArray[102][100] = 1;
+        validPlacementArray[103][100] = 1;
+        validPlacementArray[103][101] = 1;
+        validPlacementArray[103][102] = 1;
+        validPlacementArray[103][103] = 1;
+        validPlacementArray[103][104] = 1;
+        validPlacementArray[102][104] = 1;
+        validPlacementArray[101][104] = 1;
+        validPlacementArray[100][103] = 1;
+    }
+
     void nukeTiles(int colPos, int rowPos, Tile tileToBePlaced) {
         if (checkIfValidNuke(colPos, rowPos, tileToBePlaced)) {
             if (tileIsEvenAndFlipped(rowPos, tileToBePlaced))
@@ -350,7 +383,8 @@ public class GameBoard {
 
         updateValidTilePlacementList(tileToBePlaced);
         incrementGameboardTileID();
-        incrementGameboardHexID();
+        int hexAmount = 3;
+        incrementGameboardHexID(hexAmount);
     }
 
     void setOddNotFlippedCoordinatesAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -811,8 +845,8 @@ public class GameBoard {
         this.GameboardTileID += 1;
     }
 
-    void incrementGameboardHexID() {
-        this.GameboardHexID += 3;
+    void incrementGameboardHexID(int hexAmount) {
+        this.GameboardHexID += hexAmount;
     }
 
     Hex[][] getGameBoardPositionArray() {
@@ -830,6 +864,4 @@ public class GameBoard {
     int getSettlementSizeBasedOnID(int id) {
         return this.settlementSizeList[id];
     }
-
-
 }
