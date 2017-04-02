@@ -3,6 +3,7 @@
  */
 
 public enum turnPhase {
+    BUILD,
     TILE_PLACEMENT,
     FOUND_SETTLEMENT,
     EXPAND_SETTLEMENT,
@@ -13,6 +14,7 @@ public enum turnPhase {
             case TILE_PLACEMENT:
                 return 0; // phase 1
             case FOUND_SETTLEMENT:
+            case BUILD:
             case EXPAND_SETTLEMENT:
             case PLACE_TOTORO:
                 return 1; // phase 2

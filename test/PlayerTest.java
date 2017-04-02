@@ -16,7 +16,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetMeepleCount(){
+    public void testGetVillagerCount(){
         Player P1 = new Player();
         Assert.assertEquals(P1.getVillagerCount(),20);
 
