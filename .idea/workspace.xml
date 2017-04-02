@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e97a45f6-70ca-44a8-bff3-6e7556d4179d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/GameBoard.class" afterPath="$PROJECT_DIR$/src/com/GameBoard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Player.class" afterPath="$PROJECT_DIR$/src/com/Player.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameBoard.java" afterPath="$PROJECT_DIR$/src/GameBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/GameBoardTest.java" afterPath="$PROJECT_DIR$/test/GameBoardTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/src/com/" />
     <ignored path="C:/test/tigerisland/" />
@@ -23,7 +19,105 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="132" column="8" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
+              <folding>
+                <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#increaseEvenNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#increaseOddFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#increaseEvenFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setHexALevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setHexBLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setHexCLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#canValidlyPlaceOddNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#canValidlyPlaceEvenNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#canValidlyPlaceOddFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#canValidlyPlaceEvenFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#hexBelowIsAVolcano#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#hexCOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#hexBOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#hexAOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTotoroBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTotoroBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTotoroBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTotoroBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTigerPenBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTigerPenBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTigerPenBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noTigerPenBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#notCoveringEntireOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#notCoveringEntireEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#notCoveringEntireOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#notCoveringEntireEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#sameHexLevelBelowAsNewOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#sameHexLevelBelowAsNewEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#sameHexLevelBelowAsNewOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#sameHexLevelBelowAsNewEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noEmptySpacesBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noEmptySpacesBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noEmptySpacesBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#noEmptySpacesBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setOddFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setEvenFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#thereIsNotANonFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#thereIsNotANonFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#thereIsNotAFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#thereIsNotAFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setHexACoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setHexBCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setHexCCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#tileIsOddAndNotFlipped#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfHexDoesNotOccupyPosition#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#checkIfEven#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#updateValidTilePlacementList#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setValidNotFlippedPositions#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setValidFlippedPositions#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setBoardPositionAsOccupied#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#setBoardPositionRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#boardPositionRelativeToHomeHexIsEmpty#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Hex.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+              <folding>
+                <element signature="method#getHexTerrainType#0;class#Hex#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -90,16 +184,16 @@
         <option value="$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java" />
         <option value="$PROJECT_DIR$/src/settlementListDataTypes.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
-        <option value="$PROJECT_DIR$/src/GameBoard.java" />
         <option value="$PROJECT_DIR$/test/GameBoardTest.java" />
+        <option value="$PROJECT_DIR$/src/GameBoard.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -116,6 +210,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,9 +283,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -460,44 +554,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -524,25 +580,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
       <method />
     </configuration>
     <configuration default="false" name="tileTests" type="JUnit" factoryName="JUnit">
@@ -685,39 +722,40 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="allTests - 2017.04.02 at 12h 40m 43s.xml">
+    <history-entry file="allTests - 2017.04.02 at 15h 48m 43s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.02 at 14h 18m 04s.xml">
+    <history-entry file="allTests - 2017.04.02 at 16h 02m 18s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.02 at 14h 18m 24s.xml">
+    <history-entry file="allTests - 2017.04.02 at 16h 23m 41s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.02 at 14h 20m 39s.xml">
+    <history-entry file="allTests - 2017.04.02 at 16h 26m 07s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.02 at 14h 22m 51s.xml">
+    <history-entry file="allTests - 2017.04.02 at 16h 27m 57s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.02 at 14h 28m 22s.xml">
+    <history-entry file="allTests - 2017.04.02 at 16h 30m 44s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.02 at 14h 29m 08s.xml">
+    <history-entry file="allTests - 2017.04.02 at 16h 35m 21s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 56m 40s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 16h 36m 02s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 56m 55s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 16h 36m 32s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 58m 20s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 16h 37m 03s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -726,15 +764,15 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23817034" sideWeight="0.23426062" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23710209" sideWeight="0.2375" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23817034" sideWeight="0.7657394" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23710209" sideWeight="0.7625" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27013177" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.240625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -754,7 +792,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/GameBoard.java</url>
+          <line>101</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -852,7 +898,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="24" column="1" lean-forward="false" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -875,7 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,7 +927,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -911,7 +954,7 @@
           <caret line="149" column="32" lean-forward="false" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
           <folding>
             <element signature="n#!!doc" expanded="false" />
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -928,7 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -944,7 +986,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
           <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -970,83 +1011,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding>
-            <element signature="method#getHexTerrainType#0;class#Hex#0" expanded="false" />
-            <element signature="e#1650#1651#0" expanded="true" />
-            <element signature="e#1685#1686#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/settlementListDataTypes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/settlementListDataTypes.java" />
     <entry file="file://$PROJECT_DIR$/src/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
           <caret line="116" column="5" lean-forward="true" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
-          <folding>
-            <element signature="e#2568#2569#0" expanded="true" />
-            <element signature="e#2616#2617#0" expanded="true" />
-            <element signature="e#2676#2677#0" expanded="true" />
-            <element signature="e#2738#2739#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="861" column="38" lean-forward="true" selection-start-line="861" selection-start-column="38" selection-end-line="861" selection-end-column="38" />
-          <folding>
-            <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#increaseEvenNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#increaseOddFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#increaseEvenFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setHexALevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setHexBLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setHexCLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setOddFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setEvenFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#thereIsNotANonFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#thereIsNotANonFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#thereIsNotAFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#thereIsNotAFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setHexACoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setHexBCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setHexCCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#tileIsOddAndNotFlipped#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#checkIfHexDoesNotOccupyPosition#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#checkIfEven#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#updateValidTilePlacementList#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setValidNotFlippedPositions#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setValidFlippedPositions#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setBoardPositionAsOccupied#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#setBoardPositionRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#boardPositionRelativeToHomeHexIsEmpty#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
-            <element signature="e#50389#50390#0" expanded="true" />
-            <element signature="e#50457#50458#0" expanded="true" />
-            <element signature="e#50796#50797#0" expanded="true" />
-            <element signature="e#50864#50865#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1085,6 +1054,99 @@
         <state relative-caret-position="85">
           <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding>
+            <element signature="method#getHexTerrainType#0;class#Hex#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="132" column="8" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
+          <folding>
+            <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseEvenNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseOddFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseEvenFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexALevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexBLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexCLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceOddNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceEvenNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceOddFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceEvenFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexBelowIsAVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexCOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexBOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexAOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#sameHexLevelBelowAsNewOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#sameHexLevelBelowAsNewEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#sameHexLevelBelowAsNewOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#sameHexLevelBelowAsNewEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setOddFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setEvenFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereIsNotANonFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereIsNotANonFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereIsNotAFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereIsNotAFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexACoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexBCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexCCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsOddAndNotFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfHexDoesNotOccupyPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfEven#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateValidTilePlacementList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setValidNotFlippedPositions#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setValidFlippedPositions#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setBoardPositionAsOccupied#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setBoardPositionRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#boardPositionRelativeToHomeHexIsEmpty#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

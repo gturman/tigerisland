@@ -103,271 +103,380 @@ public class GameBoard {
         gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
     }
 
-    // TODO: REFACTOR (James started will continue later)
     boolean checkIfValidNuke(int colPos, int rowPos, Tile tileToBePlaced) {
-        if (tileIsEvenAndFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos][rowPos + 1] != null
-                    && gameBoardPositionArray[colPos - 1][rowPos + 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos + 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos + 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos - 1][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        if (tileIsOddAndFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos + 1][rowPos + 1] != null
-                    && gameBoardPositionArray[colPos][rowPos + 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos + 1][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (tileIsEvenAndFlipped(rowPos, tileToBePlaced) && canValidlyPlaceEvenFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                    return checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos + 1) )
+                    return checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtB(colPos, rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos - 1, rowPos + 1))
+                    return checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtC(gameBoardPositionArray[colPos], rowPos);
         }
 
-        if (tileIsEvenAndNotFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos - 1][rowPos - 1] != null
-                    && gameBoardPositionArray[colPos][rowPos - 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos - 1][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (tileIsOddAndFlipped(rowPos, tileToBePlaced) && canValidlyPlaceOddFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                    return checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos + 1, rowPos + 1))
+                    return checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtB(gameBoardPositionArray[colPos], rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos + 1))
+                    return checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtC(colPos, rowPos);
         }
-        if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos][rowPos - 1] != null
-                    && gameBoardPositionArray[colPos + 1][rowPos - 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos - 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos - 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
-                                == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos + 1][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
+
+        if (tileIsEvenAndNotFlipped(rowPos, tileToBePlaced) && canValidlyPlaceEvenNotFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                    return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos - 1, rowPos - 1))
+                    return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtB(gameBoardPositionArray[colPos], rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos - 1))
+                    return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC(colPos, rowPos);
+        }
+        
+        if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced) && canValidlyPlaceOddNotFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                    return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos - 1))
+                    return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtB(colPos, rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos + 1, rowPos - 1))
+                    return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtC(colPos, rowPos);
         }
         return false;
     }
+
+        boolean canValidlyPlaceOddNotFlippedTileInLocation(int colPos, int rowPos) {
+            return noEmptySpacesBelowOddNotFlippedTile(colPos, rowPos) &&
+                    sameHexLevelBelowAsNewOddNotFlippedTile(colPos, rowPos) &&
+                    notCoveringEntireOddNotFlippedTile(colPos, rowPos) &&
+                    noTigerPenBelowOddNotFlippedTile(colPos, rowPos) &&
+                    noTotoroBelowOddNotFlippedTile(colPos, rowPos);
+        }
+
+        boolean canValidlyPlaceEvenNotFlippedTileInLocation(int colPos, int rowPos) {
+            return noEmptySpacesBelowEvenNotFlippedTile(colPos, rowPos) &&
+                    sameHexLevelBelowAsNewEvenNotFlippedTile(colPos, rowPos) &&
+                    notCoveringEntireEvenNotFlippedTile(colPos, rowPos) &&
+                    noTigerPenBelowEvenNotFlippedTile(colPos, rowPos) &&
+                    noTotoroBelowEvenNotFlippedTile(colPos, rowPos);
+        }
+
+        boolean canValidlyPlaceOddFlippedTileInLocation(int colPos, int rowPos) {
+            return noEmptySpacesBelowOddFlippedTile(colPos, rowPos) &&
+                    sameHexLevelBelowAsNewOddFlippedTile(colPos, rowPos) &&
+                    notCoveringEntireOddFlippedTile(colPos, rowPos) &&
+                    noTigerPenBelowOddFlippedTile(colPos, rowPos) &&
+                    noTotoroBelowOddFlippedTile(colPos, rowPos);
+        }
+
+        boolean canValidlyPlaceEvenFlippedTileInLocation(int colPos, int rowPos) {
+            return noEmptySpacesBelowEvenFlippedTile(colPos, rowPos) &&
+                    sameHexLevelBelowAsNewEvenFlippedTile(colPos, rowPos) &&
+                    notCoveringEntireEvenFlippedTile(colPos, rowPos) &&
+                    noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&
+                    noTotoroBelowEvenFlippedTile(colPos, rowPos);
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                    == gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                    == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
+                    == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                    == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtB(Hex[] hexes, int rowPos) {
+            if ((hexes[rowPos - 1].getSettlementID()
+                    == hexes[rowPos].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(hexes[rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(hexes[rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(hexes[rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
+                    == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                    == gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtB(Hex[] hexes, int rowPos) {
+            if ((hexes[rowPos].getSettlementID()
+                    == hexes[rowPos + 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(hexes[rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(hexes[rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(hexes[rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()
+                    == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtC(Hex[] hexes, int rowPos) {
+            if ((hexes[rowPos + 1].getSettlementID()
+                    == hexes[rowPos].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(hexes[rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(hexes[rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(hexes[rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                    == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+            if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
+                    == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
+                    (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {  // checking settlement shit
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        boolean hexBelowIsAVolcano(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO;
+        }
+
+        boolean hexCOfNewTileIsTheVolcano(Tile tileToBePlaced) {
+            return tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO;
+        }
+
+        boolean hexBOfNewTileIsTheVolcano(Tile tileToBePlaced) {
+            return tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO;
+        }
+
+        boolean hexAOfNewTileIsTheVolcano(Tile tileToBePlaced) {
+            return tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO;
+        }
+
+        boolean noTotoroBelowOddNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos + 1][rowPos - 1].getTotoroCount() == 0;
+        }
+
+        boolean noTotoroBelowEvenNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos - 1][rowPos - 1].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0;
+        }
+
+        boolean noTotoroBelowOddFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos + 1][rowPos + 1].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0;
+        }
+
+        boolean noTotoroBelowEvenFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0 // not nuking over a totoro
+                    && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0
+                    && gameBoardPositionArray[colPos - 1][rowPos + 1].getTotoroCount() == 0;
+        }
+
+        boolean noTigerPenBelowOddNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos + 1][rowPos - 1].getTigerCount() == 0;
+        }
+
+        boolean noTigerPenBelowEvenNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos - 1][rowPos - 1].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0;
+        }
+
+        boolean noTigerPenBelowOddFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos + 1][rowPos + 1].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0;
+        }
+
+        boolean noTigerPenBelowEvenFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0 // not nuking over a tiger pen
+                    && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0
+                    && gameBoardPositionArray[colPos - 1][rowPos + 1].getTigerCount() == 0;
+        }
+
+        boolean notCoveringEntireOddNotFlippedTile(int colPos, int rowPos) {
+            return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
+                    && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID()
+                    && gameBoardPositionArray[colPos][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID());
+        }
+
+        boolean notCoveringEntireEvenNotFlippedTile(int colPos, int rowPos) {
+            return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID()
+                    && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
+                    && gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID());
+        }
+
+        boolean notCoveringEntireOddFlippedTile(int colPos, int rowPos) {
+            return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID()
+                    && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID()
+                    && gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID());
+        }
+
+        boolean notCoveringEntireEvenFlippedTile(int colPos, int rowPos) {
+            return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID() // making sure not nuking over same entire tile
+                    && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID()
+                    && gameBoardPositionArray[colPos][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID());
+        }
+
+        boolean sameHexLevelBelowAsNewOddNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
+                    && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel()
+                    && gameBoardPositionArray[colPos][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel();
+        }
+
+        boolean sameHexLevelBelowAsNewEvenNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel()
+                    && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
+                    && gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel();
+        }
+
+        boolean sameHexLevelBelowAsNewOddFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel()
+                    && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel()
+                    && gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel();
+        }
+
+        boolean sameHexLevelBelowAsNewEvenFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel() //making sure hex level of new tile placing is same as one below
+                    && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel()
+                    && gameBoardPositionArray[colPos][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel();
+        }
+
+        boolean noEmptySpacesBelowOddNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos] != null
+                    && gameBoardPositionArray[colPos][rowPos - 1] != null
+                    && gameBoardPositionArray[colPos + 1][rowPos - 1] != null;
+        }
+
+        boolean noEmptySpacesBelowOddFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos] != null
+                    && gameBoardPositionArray[colPos + 1][rowPos + 1] != null
+                    && gameBoardPositionArray[colPos][rowPos + 1] != null;
+        }
+
+        boolean noEmptySpacesBelowEvenNotFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos] != null
+                    && gameBoardPositionArray[colPos - 1][rowPos - 1] != null
+                    && gameBoardPositionArray[colPos][rowPos - 1] != null;
+        }
+
+        boolean noEmptySpacesBelowEvenFlippedTile(int colPos, int rowPos) {
+            return gameBoardPositionArray[colPos][rowPos] != null // not nuking over empty gameboard
+                    && gameBoardPositionArray[colPos][rowPos + 1] != null
+                    && gameBoardPositionArray[colPos - 1][rowPos + 1] != null;
+        }
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
         if (!checkIfTileCanBePlacedAtPosition(colPos, rowPos, tileToBePlaced)) return;
@@ -858,7 +967,7 @@ public class GameBoard {
         return validPlacementArray;
     }
 
-    void assignPlayerToSettlmentList(Player owningPlayer) {
+    void assignPlayerToSettlementList(Player owningPlayer) {
         for(int i = 0; i < 256; i++) {
             if(this.gameboardSettlementList[i][0] == 0) {
                 this.gameboardSettlementList[i][0] = owningPlayer.getPlayerID();
