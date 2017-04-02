@@ -130,7 +130,7 @@ public class GameBoard {
             if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos - 1))
                     return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC(colPos, rowPos);
         }
-        
+
         if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced) && canValidlyPlaceOddNotFlippedTileInLocation(colPos, rowPos)) {
             if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
                     return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA(colPos, rowPos);
