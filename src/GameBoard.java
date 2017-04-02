@@ -658,7 +658,7 @@ public class GameBoard {
     }
 
     void buildSettlement(int colPos, int rowPos, Player playerBuilding) {
-        if (isValidSettlementLocation(colPos,rowPos)){
+        if (isValidSettlementLocation(colPos,rowPos) && playerBuilding.getVillagerCount()>=1){
             gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
             playerBuilding.decreaseVillagerCount(1);
             playerBuilding.increaseScore(1);
@@ -825,7 +825,7 @@ public class GameBoard {
 
     void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player){
         int villagersNeededForExpansion = calculateVillagersForExpansion(colPos,rowPos,expansionType);
-        if(villagersNeededForExpansion < player.getVillagerCount()){
+        if(villagersNeededForExpansion <= player.getVillagerCount()){
             int score = calculateScoreForExpansion(colPos,rowPos,expansionType);
             expandSettlements(colPos,rowPos,expansionType,player);
             player.decreaseVillagerCount(villagersNeededForExpansion);
