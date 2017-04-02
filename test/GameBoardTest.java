@@ -398,6 +398,57 @@ public class GameBoardTest {
     }
 
     @Test
+    public void testIfNukeWorksVolcanoOnA() {
+        GameBoard gameboard = new GameBoard();
+
+        Tile tileOne = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.ROCKY, terrainTypes.ROCKY, terrainTypes.JUNGLE);
+        gameboard.setTileAtPosition(102, 102, tileOne);
+
+        Tile tileTwo = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.ROCKY, terrainTypes.VOLCANO, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(102, 104, tileTwo);
+
+        Tile tileThree = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.ROCKY, terrainTypes.VOLCANO);
+        tileThree.flip();
+
+        Assert.assertEquals(gameboard.checkIfValidNuke(102, 102, tileThree), true);
+    }
+
+    @Test
+    public void testIfNukeWorksVolcanoOnB() {
+        GameBoard gameboard = new GameBoard();
+
+        Tile tileOne = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.JUNGLE);
+        gameboard.setTileAtPosition(102, 102, tileOne);
+
+        Tile tileTwo = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.ROCKY, terrainTypes.JUNGLE);
+        tileTwo.flip();
+        gameboard.setTileAtPosition(101, 102, tileTwo);
+
+        Tile tileThree = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.ROCKY, terrainTypes.JUNGLE);
+        tileThree.flip();
+
+        Assert.assertEquals(gameboard.checkIfValidNuke(101, 101, tileThree), true);
+    }
+
+    @Test
+    public void testIfNukeWorksVolcanoOnC() {
+        GameBoard gameboard = new GameBoard();
+
+        Tile tileOne = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(102, 102, tileOne);
+
+        Tile tileTwo = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.ROCKY, terrainTypes.ROCKY);
+        tileTwo.flip();
+        gameboard.setTileAtPosition(103, 102, tileTwo);
+
+        Tile tileThree = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.JUNGLE);
+        tileThree.flip();
+
+        Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, tileThree), true);
+    }
+
+
+    @Test
     public void testIfNukeOverwritesHexValues() {
         GameBoard gameboard = new GameBoard();
         Tile initialTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
@@ -819,7 +870,7 @@ public class GameBoardTest {
         Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.JUNGLE,terrainTypes.VOLCANO,terrainTypes.ROCKY);
         secondTile.flip();
         gameboard.setTileAtPosition(99,100,secondTile);
-
+/* // TODO: UNCOMMENT THIS WHEN NUKE SETTLEMENT MANAGEMENT IS DONE
         gameboard.buildSettlement(99,98,player);
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
         Assert.assertEquals(player.getVillagerCount(), 19);
@@ -845,14 +896,17 @@ public class GameBoardTest {
         Assert.assertEquals(player.getVillagerCount(), 16);
 
         Assert.assertEquals(player.getScore(), 4);
-
+*/
         //nuke
         Tile thirdTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.LAKE,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        Assert.assertEquals(gameboard.checkIfValidNuke(99, 100, thirdTile), true);
         gameboard.nukeTiles(99,100,thirdTile);
 
         gameboard.buildSettlement(98,99, player);
         gameboard.buildSettlement(99,99, player);
         gameboard.buildSettlement(99,100, player);
+
+
 
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][99].getSettlerCount(),0); //volcano + level 2
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),0); //level 2

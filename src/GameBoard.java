@@ -11,7 +11,7 @@ public class GameBoard {
     // TODO: implement valid placement array but for settlement IDs for each instance of array
     public int[][] validPlacementArray = new int[boardHeight][boardWidth];
     public Hex[][] gameBoardPositionArray = new Hex[boardHeight][boardWidth];
-    public int [][] gameboardSettlementList = new int[256][4]; // NEVER USE 0 FOR SETTLEMENT ID
+    public int[][] gameboardSettlementList = new int[256][4]; // NEVER USE 0 FOR SETTLEMENT ID
 
     GameBoard() {
         this.GameboardTileID = 1;
@@ -19,12 +19,11 @@ public class GameBoard {
         this.gameboardSettlementList[0][1] = -1; // invalid settlement ID;
     }
 
-    void placeFirstTileAndUpdateValidPlacementList()
-    {
+    void placeFirstTileAndUpdateValidPlacementList() {
         gameBoardPositionArray[102][102] = new Hex(1, 1, terrainTypes.VOLCANO);
-        gameBoardPositionArray[101][101] = new Hex(2, 1, terrainTypes.JUNGLE);;
-        gameBoardPositionArray[102][101] = new Hex(3, 1, terrainTypes.LAKE);;
-        gameBoardPositionArray[101][103] = new Hex(4, 1, terrainTypes.ROCKY);;
+        gameBoardPositionArray[101][101] = new Hex(2, 1, terrainTypes.JUNGLE);
+        gameBoardPositionArray[102][101] = new Hex(3, 1, terrainTypes.LAKE);
+        gameBoardPositionArray[101][103] = new Hex(4, 1, terrainTypes.ROCKY);
         gameBoardPositionArray[102][103] = new Hex(5, 1, terrainTypes.GRASSLANDS);
 
         int hexAmount = 5;
@@ -88,7 +87,8 @@ public class GameBoard {
         setHexBLevelAndUpdateGameboard(colPos, rowPos + 1, tileToBePlaced);
         setHexCLevelAndUpdateGameboard(colPos - 1, rowPos + 1, tileToBePlaced);
     }
-// TODO: UPDATE LISTS AFTER NUKE; IMPLEMENT LOGIC FOR DELETING SETTLEMENT IF NUKE DELETES SIZE 1 SETTLEMENT
+
+    // TODO: UPDATE LISTS AFTER NUKE; IMPLEMENT LOGIC FOR DELETING SETTLEMENT IF NUKE DELETES SIZE 1 SETTLEMENT
     void setHexALevelAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
 
         tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
@@ -107,270 +107,387 @@ public class GameBoard {
         gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
     }
 
-    // TODO: REFACTOR (James started will continue later)
     boolean checkIfValidNuke(int colPos, int rowPos, Tile tileToBePlaced) {
-        if (tileIsEvenAndFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos][rowPos + 1] != null
-                    && gameBoardPositionArray[colPos - 1][rowPos + 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos + 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos + 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos - 1][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        if (tileIsOddAndFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos + 1][rowPos + 1] != null
-                    && gameBoardPositionArray[colPos][rowPos + 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel()
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID()
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos + 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos + 1][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (tileIsEvenAndFlipped(rowPos, tileToBePlaced) && canValidlyPlaceEvenFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                return checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos + 1))
+                return checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtB(colPos, rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos - 1, rowPos + 1))
+                return checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtC(colPos, rowPos);
         }
 
-        if (tileIsEvenAndNotFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos - 1][rowPos - 1] != null
-                    && gameBoardPositionArray[colPos][rowPos - 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos - 1][rowPos - 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos - 1][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (tileIsOddAndFlipped(rowPos, tileToBePlaced) && canValidlyPlaceOddFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                return checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos + 1, rowPos + 1))
+                return checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtB(colPos, rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos + 1))
+                return checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtC(colPos, rowPos);
         }
-        if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced)) {
-            if ((gameBoardPositionArray[colPos][rowPos] != null
-                    && gameBoardPositionArray[colPos][rowPos - 1] != null
-                    && gameBoardPositionArray[colPos + 1][rowPos - 1] != null)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel()
-                            && gameBoardPositionArray[colPos][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel())
-                    &&
-                    !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID()
-                            && gameBoardPositionArray[colPos][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID())
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos - 1].getTigerCount() == 0)
-                    &&
-                    (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0
-                            && gameBoardPositionArray[colPos + 1][rowPos - 1].getTotoroCount() == 0)) {
-                if (tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
-                                == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                } else if (tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO) {
-                    if (gameBoardPositionArray[colPos + 1][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
-                        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
-                                == gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) &&
-                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
-                            return false;
-                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            }
+
+        if (tileIsEvenAndNotFlipped(rowPos, tileToBePlaced) && canValidlyPlaceEvenNotFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos - 1, rowPos - 1))
+                return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtB(colPos, rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos - 1))
+                return checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC(colPos, rowPos);
+        }
+
+        if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced) && canValidlyPlaceOddNotFlippedTileInLocation(colPos, rowPos)) {
+            if (hexAOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos))
+                return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA(colPos, rowPos);
+            if (hexBOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos, rowPos - 1))
+                return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtB(colPos, rowPos);
+            if (hexCOfNewTileIsTheVolcano(tileToBePlaced) && hexBelowIsAVolcano(colPos + 1, rowPos - 1))
+                return checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtC(colPos, rowPos);
         }
         return false;
+    }
+
+    boolean canValidlyPlaceOddNotFlippedTileInLocation(int colPos, int rowPos) {
+        return noEmptySpacesBelowOddNotFlippedTile(colPos, rowPos) &&
+                sameHexLevelBelowAsNewOddNotFlippedTile(colPos, rowPos) &&
+                notCoveringEntireOddNotFlippedTile(colPos, rowPos) &&
+                noTigerPenBelowOddNotFlippedTile(colPos, rowPos) &&
+                noTotoroBelowOddNotFlippedTile(colPos, rowPos);
+    }
+
+    boolean canValidlyPlaceEvenNotFlippedTileInLocation(int colPos, int rowPos) {
+        return noEmptySpacesBelowEvenNotFlippedTile(colPos, rowPos) &&
+                sameHexLevelBelowAsNewEvenNotFlippedTile(colPos, rowPos) &&
+                notCoveringEntireEvenNotFlippedTile(colPos, rowPos) &&
+                noTigerPenBelowEvenNotFlippedTile(colPos, rowPos) &&
+                noTotoroBelowEvenNotFlippedTile(colPos, rowPos);
+    }
+
+    boolean canValidlyPlaceOddFlippedTileInLocation(int colPos, int rowPos) {
+        return noEmptySpacesBelowOddFlippedTile(colPos, rowPos) &&
+                sameHexLevelBelowAsNewOddFlippedTile(colPos, rowPos) &&
+                notCoveringEntireOddFlippedTile(colPos, rowPos) &&
+                noTigerPenBelowOddFlippedTile(colPos, rowPos) &&
+                noTotoroBelowOddFlippedTile(colPos, rowPos);
+    }
+
+    boolean canValidlyPlaceEvenFlippedTileInLocation(int colPos, int rowPos) {
+        return noEmptySpacesBelowEvenFlippedTile(colPos, rowPos) &&
+                sameHexLevelBelowAsNewEvenFlippedTile(colPos, rowPos) &&
+                notCoveringEntireEvenFlippedTile(colPos, rowPos) &&
+                noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&
+                noTotoroBelowEvenFlippedTile(colPos, rowPos);
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                == gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForOddNotFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
+                == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
+                == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForEvenNotFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
+                == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                == gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForOddFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()
+                == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtC(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
+                == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
+                == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean checkIfNoInvalidSettlementNukingForEvenFlippedTileWithVolcanoAtA(int colPos, int rowPos) {
+        if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
+                == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
+                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {  // checking settlement shit
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean hexBelowIsAVolcano(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO;
+    }
+
+    boolean hexCOfNewTileIsTheVolcano(Tile tileToBePlaced) {
+        if(tileToBePlaced.isFlipped())
+        return tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO;
+        else {
+            return tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO;
+        }
+    }
+
+    boolean hexBOfNewTileIsTheVolcano(Tile tileToBePlaced) {
+        if(tileToBePlaced.isFlipped())
+        return tileToBePlaced.getHexC().getHexTerrainType() == terrainTypes.VOLCANO;
+        else {
+            return tileToBePlaced.getHexB().getHexTerrainType() == terrainTypes.VOLCANO;
+        }
+    }
+
+    boolean hexAOfNewTileIsTheVolcano(Tile tileToBePlaced) {
+        return tileToBePlaced.getHexA().getHexTerrainType() == terrainTypes.VOLCANO;
+    }
+
+    boolean noTotoroBelowOddNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos + 1][rowPos - 1].getTotoroCount() == 0;
+    }
+
+    boolean noTotoroBelowEvenNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos - 1][rowPos - 1].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos][rowPos - 1].getTotoroCount() == 0;
+    }
+
+    boolean noTotoroBelowOddFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos + 1][rowPos + 1].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0;
+    }
+
+    boolean noTotoroBelowEvenFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0 // not nuking over a totoro
+                && gameBoardPositionArray[colPos][rowPos + 1].getTotoroCount() == 0
+                && gameBoardPositionArray[colPos - 1][rowPos + 1].getTotoroCount() == 0;
+    }
+
+    boolean noTigerPenBelowOddNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
+                && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0
+                && gameBoardPositionArray[colPos + 1][rowPos - 1].getTigerCount() == 0;
+    }
+
+    boolean noTigerPenBelowEvenNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
+                && gameBoardPositionArray[colPos - 1][rowPos - 1].getTigerCount() == 0
+                && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0;
+    }
+
+    boolean noTigerPenBelowOddFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
+                && gameBoardPositionArray[colPos + 1][rowPos + 1].getTigerCount() == 0
+                && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0;
+    }
+
+    boolean noTigerPenBelowEvenFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0 // not nuking over a tiger pen
+                && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0
+                && gameBoardPositionArray[colPos - 1][rowPos + 1].getTigerCount() == 0;
+    }
+
+    boolean notCoveringEntireOddNotFlippedTile(int colPos, int rowPos) {
+        return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
+                && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID()
+                && gameBoardPositionArray[colPos][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID());
+    }
+
+    boolean notCoveringEntireEvenNotFlippedTile(int colPos, int rowPos) {
+        return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID()
+                && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID()
+                && gameBoardPositionArray[colPos - 1][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos - 1].getParentTileID());
+    }
+
+    boolean notCoveringEntireOddFlippedTile(int colPos, int rowPos) {
+        return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID()
+                && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID()
+                && gameBoardPositionArray[colPos + 1][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID());
+    }
+
+    boolean notCoveringEntireEvenFlippedTile(int colPos, int rowPos) {
+        return !(gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos][rowPos + 1].getParentTileID() // making sure not nuking over same entire tile
+                && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID()
+                && gameBoardPositionArray[colPos][rowPos + 1].getParentTileID() == gameBoardPositionArray[colPos - 1][rowPos + 1].getParentTileID());
+    }
+
+    boolean sameHexLevelBelowAsNewOddNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
+                && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel()
+                && gameBoardPositionArray[colPos][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos - 1].getHexLevel();
+    }
+
+    boolean sameHexLevelBelowAsNewEvenNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel()
+                && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel()
+                && gameBoardPositionArray[colPos - 1][rowPos - 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos - 1].getHexLevel();
+    }
+
+    boolean sameHexLevelBelowAsNewOddFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel()
+                && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel()
+                && gameBoardPositionArray[colPos + 1][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel();
+    }
+
+    boolean sameHexLevelBelowAsNewEvenFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos][rowPos + 1].getHexLevel() //making sure hex level of new tile placing is same as one below
+                && gameBoardPositionArray[colPos][rowPos].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel()
+                && gameBoardPositionArray[colPos][rowPos + 1].getHexLevel() == gameBoardPositionArray[colPos - 1][rowPos + 1].getHexLevel();
+    }
+
+    boolean noEmptySpacesBelowOddNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos] != null
+                && gameBoardPositionArray[colPos][rowPos - 1] != null
+                && gameBoardPositionArray[colPos + 1][rowPos - 1] != null;
+    }
+
+    boolean noEmptySpacesBelowOddFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos] != null
+                && gameBoardPositionArray[colPos + 1][rowPos + 1] != null
+                && gameBoardPositionArray[colPos][rowPos + 1] != null;
+    }
+
+    boolean noEmptySpacesBelowEvenNotFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos] != null
+                && gameBoardPositionArray[colPos - 1][rowPos - 1] != null
+                && gameBoardPositionArray[colPos][rowPos - 1] != null;
+    }
+
+    boolean noEmptySpacesBelowEvenFlippedTile(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos] != null // not nuking over empty gameboard
+                && gameBoardPositionArray[colPos][rowPos + 1] != null
+                && gameBoardPositionArray[colPos - 1][rowPos + 1] != null;
     }
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -626,34 +743,34 @@ public class GameBoard {
         return hexToCheck.getHexCoordinate().getRowPosition();
     }
 
-    boolean isNotBuiltOn(int colPos, int rowPos){
+    boolean isNotBuiltOn(int colPos, int rowPos) {
         if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    boolean isOnLevelOne(int colPos, int rowPos){
-        if(gameBoardPositionArray[colPos][rowPos].getHexLevel() == 1){
+    boolean isOnLevelOne(int colPos, int rowPos) {
+        if (gameBoardPositionArray[colPos][rowPos].getHexLevel() == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    boolean isHabitable(int colPos, int rowPos){
-        if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType().getHabitablity() == 1){
+    boolean isHabitable(int colPos, int rowPos) {
+        if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType().getHabitablity() == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    boolean isValidSettlementLocation(int colPos, int rowPos){
-        if (isNotBuiltOn(colPos,rowPos)) {
-            if (isOnLevelOne(colPos,rowPos)) {
-                if (isHabitable(colPos,rowPos)) {
+    boolean isValidSettlementLocation(int colPos, int rowPos) {
+        if (isNotBuiltOn(colPos, rowPos)) {
+            if (isOnLevelOne(colPos, rowPos)) {
+                if (isHabitable(colPos, rowPos)) {
                     return true;
                 }
             }
@@ -662,7 +779,7 @@ public class GameBoard {
     }
 
     void buildSettlement(int colPos, int rowPos, Player playerBuilding) {
-        if (isValidSettlementLocation(colPos,rowPos) && playerBuilding.getVillagerCount()>=1) {
+        if (isValidSettlementLocation(colPos, rowPos) && playerBuilding.getVillagerCount() >= 1) {
             gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
 
             int newSettlementID = getNewestAssignableSettlementID();
@@ -676,82 +793,82 @@ public class GameBoard {
         }
     }
 
-    int calculateVillagersForExpansion(int colPos, int rowPos, terrainTypes expansionType){
+    int calculateVillagersForExpansion(int colPos, int rowPos, terrainTypes expansionType) {
         int returnValue;
 
-        if(gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()==false){//is part of a settlement
-            returnValue = recursiveExpansionCalculation(colPos,rowPos,expansionType);
-            resetHexPlayerIDs(colPos,rowPos);
+        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn() == false) {//is part of a settlement
+            returnValue = recursiveExpansionCalculation(colPos, rowPos, expansionType);
+            resetHexPlayerIDs(colPos, rowPos);
             return returnValue;
         }
         return -1;
     }
 
-    void resetHexPlayerIDsHelper(int colPos, int rowPos, int colOffset, int rowOffset){
+    void resetHexPlayerIDsHelper(int colPos, int rowPos, int colOffset, int rowOffset) {
         try {
             if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == -1) {//has been seen
                 gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(0); //marks as unseen
-                resetHexPlayerIDs(colPos+colOffset,rowPos+rowOffset);
+                resetHexPlayerIDs(colPos + colOffset, rowPos + rowOffset);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    void resetHexPlayerIDs(int colPos, int rowPos){
-        if(checkIfEven(rowPos)){
-            resetHexPlayerIDsHelper(colPos,rowPos,-1,-1);
-            resetHexPlayerIDsHelper(colPos,rowPos,0,-1);
-            resetHexPlayerIDsHelper(colPos,rowPos,-1,0);
-            resetHexPlayerIDsHelper(colPos,rowPos,+1,0);
-            resetHexPlayerIDsHelper(colPos,rowPos,-1,+1);
-            resetHexPlayerIDsHelper(colPos,rowPos,0,+1);
-        }else{
-            resetHexPlayerIDsHelper(colPos,rowPos,0,-1);
-            resetHexPlayerIDsHelper(colPos,rowPos,+1,-1);
-            resetHexPlayerIDsHelper(colPos,rowPos,-1,0);
-            resetHexPlayerIDsHelper(colPos,rowPos,+1,0);
-            resetHexPlayerIDsHelper(colPos,rowPos,0,+1);
-            resetHexPlayerIDsHelper(colPos,rowPos,+1,+1);
+    void resetHexPlayerIDs(int colPos, int rowPos) {
+        if (checkIfEven(rowPos)) {
+            resetHexPlayerIDsHelper(colPos, rowPos, -1, -1);
+            resetHexPlayerIDsHelper(colPos, rowPos, 0, -1);
+            resetHexPlayerIDsHelper(colPos, rowPos, -1, 0);
+            resetHexPlayerIDsHelper(colPos, rowPos, +1, 0);
+            resetHexPlayerIDsHelper(colPos, rowPos, -1, +1);
+            resetHexPlayerIDsHelper(colPos, rowPos, 0, +1);
+        } else {
+            resetHexPlayerIDsHelper(colPos, rowPos, 0, -1);
+            resetHexPlayerIDsHelper(colPos, rowPos, +1, -1);
+            resetHexPlayerIDsHelper(colPos, rowPos, -1, 0);
+            resetHexPlayerIDsHelper(colPos, rowPos, +1, 0);
+            resetHexPlayerIDsHelper(colPos, rowPos, 0, +1);
+            resetHexPlayerIDsHelper(colPos, rowPos, +1, +1);
         }
     }
 
-    int recursiveExpansionHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset){
+    int recursiveExpansionHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset) {
         try {
             if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
                 if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
                     gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(-1); //mark as seen, add level to return val
-                    return gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel() + recursiveExpansionCalculation(colPos+colOffset,rowPos+rowOffset,expansionType);
+                    return gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel() + recursiveExpansionCalculation(colPos + colOffset, rowPos + rowOffset, expansionType);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return 0; //ignore null hexes
         }
 
         return 0;
     }
 
-    int recursiveExpansionCalculation(int colPos, int rowPos, terrainTypes expansionType){
-        int returnVal=0;
-        if(checkIfEven(rowPos)){
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,-1);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,-1);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,0);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,0);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,+1);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,+1);
-        }else{
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,-1);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,-1);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,-1,0);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,0);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,0,+1);
-            returnVal += recursiveExpansionHelper(colPos,rowPos,expansionType,+1,+1);
+    int recursiveExpansionCalculation(int colPos, int rowPos, terrainTypes expansionType) {
+        int returnVal = 0;
+        if (checkIfEven(rowPos)) {
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, -1);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, -1);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, 0);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, 0);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, +1);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, +1);
+        } else {
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, -1);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, -1);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, 0);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, 0);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, +1);
+            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, +1);
         }
         return returnVal;
     }
 
-    void expandSettlementsHelper(int colPos, int rowPos, terrainTypes expansionType, Player player, int colOffset, int rowOffset, int homeHexSettlementID){
+    void expandSettlementsHelper(int colPos, int rowPos, terrainTypes expansionType, Player player, int colOffset, int rowOffset, int homeHexSettlementID) {
         try {
             if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
                 if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
@@ -762,84 +879,84 @@ public class GameBoard {
                     expandSettlements(colPos + colOffset, rowPos + rowOffset, expansionType, player, homeHexSettlementID);
                 }
             }
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
-    
-    void expandSettlements(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexSettlementID){
-        if(checkIfEven(rowPos)){
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,-1, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,-1, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,0, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,0, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,+1, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,+1, homeHexSettlementID);
-        }else{
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,-1, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,-1, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,-1,0, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,0, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,0,+1, homeHexSettlementID);
-            expandSettlementsHelper(colPos,rowPos,expansionType,player,+1,+1, homeHexSettlementID);
+
+    void expandSettlements(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexSettlementID) {
+        if (checkIfEven(rowPos)) {
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, -1, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, -1, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, 0, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, 0, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, +1, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, +1, homeHexSettlementID);
+        } else {
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, -1, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, -1, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, 0, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, 0, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, +1, homeHexSettlementID);
+            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, +1, homeHexSettlementID);
         }
 
     }
 
-    int calculateScoreForExpansion(int colPos, int rowPos, terrainTypes expansionType){
+    int calculateScoreForExpansion(int colPos, int rowPos, terrainTypes expansionType) {
         int returnValue;
 
-        if(gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()==false){//is part of a settlement
-            returnValue = expansionScore(colPos,rowPos,expansionType);
-            resetHexPlayerIDs(colPos,rowPos);
+        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn() == false) {//is part of a settlement
+            returnValue = expansionScore(colPos, rowPos, expansionType);
+            resetHexPlayerIDs(colPos, rowPos);
             return returnValue;
         }
         return -1;
     }
 
-    int expansionScoreHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset){
+    int expansionScoreHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset) {
         try {
             if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
                 if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
                     gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(-1); //mark as seen, add level to return val
                     int returnValue = gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel();
                     returnValue *= returnValue;
-                    returnValue += expansionScore(colPos+colOffset,rowPos+rowOffset,expansionType);
+                    returnValue += expansionScore(colPos + colOffset, rowPos + rowOffset, expansionType);
                     return returnValue;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return 0; //ignore null hexes
         }
 
         return 0;
     }
 
-    int expansionScore(int colPos, int rowPos, terrainTypes expansionType){
-        int returnVal=0;
-        if(checkIfEven(rowPos)){
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,-1);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,-1);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,0);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,0);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,+1);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,+1);
-        }else{
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,-1);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,-1);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,-1,0);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,0);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,0,+1);
-            returnVal += expansionScoreHelper(colPos,rowPos,expansionType,+1,+1);
+    int expansionScore(int colPos, int rowPos, terrainTypes expansionType) {
+        int returnVal = 0;
+        if (checkIfEven(rowPos)) {
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, -1);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, -1);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, 0);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, 0);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, +1);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, +1);
+        } else {
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, -1);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, -1);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, 0);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, 0);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, +1);
+            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, +1);
         }
         return returnVal;
     }
 
-    void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player){
-        int villagersNeededForExpansion = calculateVillagersForExpansion(colPos,rowPos,expansionType);
-        if(villagersNeededForExpansion <= player.getVillagerCount()){
-            int score = calculateScoreForExpansion(colPos,rowPos,expansionType);
-            expandSettlements(colPos,rowPos,expansionType,player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
+    void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player) {
+        int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType);
+        if (villagersNeededForExpansion <= player.getVillagerCount()) {
+            int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
+            expandSettlements(colPos, rowPos, expansionType, player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
             player.decreaseVillagerCount(villagersNeededForExpansion);
             player.increaseScore(score);
         }
@@ -865,17 +982,17 @@ public class GameBoard {
         return gameBoardPositionArray;
     }
 
-    int[][] getValidPlacementArray(){
+    int[][] getValidPlacementArray() {
         return validPlacementArray;
     }
 
     int getNewestAssignableSettlementID() {
-        for(int i = 1; i < 256; i++) {
+        for (int i = 1; i < 256; i++) {
             if (this.gameboardSettlementList[i][0] == 0) {
                 return i;
             }
         }
-        throw new RuntimeException("error: available settlement not found");
+        throw new RuntimeException("error: no available settlements found");
     }
 
     void assignPlayerNewSettlementInList(Player owningPlayer, int settlementID, int settlementSize) {
@@ -922,5 +1039,4 @@ public class GameBoard {
         this.gameboardSettlementList[settlementID][2] = 0;
         this.gameboardSettlementList[settlementID][3] = 0;
     }
-
 }
