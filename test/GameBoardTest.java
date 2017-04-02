@@ -571,7 +571,7 @@ public class GameBoardTest {
         gameboard.setTileAtPosition(103, 103, thirdTile);
 
         gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
-        gameboard.setSettlementSizeList(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 1);
 
         Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
@@ -581,7 +581,7 @@ public class GameBoardTest {
                 terrainTypes.ROCKY, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO);
 
         gameboard.getGameBoardPositionArray()[102][102].setSettlementID(2);
-        gameboard.setSettlementSizeList(2, 1);
+        gameboard.assignSizeToGameboardSettlementList(2, 1);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, fourthTile), false);
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 102, fifthTile), false);
@@ -610,9 +610,8 @@ public class GameBoardTest {
                 terrainTypes.ROCKY, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO);
 
         gameboard.getGameBoardPositionArray()[102][102].setSettlementID(2);
-        gameboard.setSettlementSizeList(2, 1);
         gameboard.getGameBoardPositionArray()[103][102].setSettlementID(2);
-        gameboard.setSettlementSizeList(2,2);
+        gameboard.assignSizeToGameboardSettlementList(2, 2);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, fourthTile), false);
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 102, fifthTile), false);
@@ -634,7 +633,7 @@ public class GameBoardTest {
         gameboard.setTileAtPosition(103, 103, thirdTile);
 
         gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
-        gameboard.setSettlementSizeList(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 1);
 
         Tile fourthTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
@@ -644,7 +643,7 @@ public class GameBoardTest {
                 terrainTypes.ROCKY, terrainTypes.GRASSLANDS, terrainTypes.VOLCANO);
 
         gameboard.getGameBoardPositionArray()[103][102].setSettlementID(2);
-        gameboard.setSettlementSizeList(2, 1);
+        gameboard.assignSizeToGameboardSettlementList(2, 1);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 101, fourthTile), false);
         Assert.assertEquals(gameboard.checkIfValidNuke(102, 102, fifthTile), false);
@@ -670,11 +669,10 @@ public class GameBoardTest {
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.ROCKY);
         fourthTile.flip();
 
-
         gameboard.getGameBoardPositionArray()[104][102].setSettlementID(4);
-        gameboard.setSettlementSizeList(4,1);
+        gameboard.assignSizeToGameboardSettlementList(4, 1);
         gameboard.getGameBoardPositionArray()[103][102].setSettlementID(3);
-        gameboard.setSettlementSizeList(3,1);
+        gameboard.assignSizeToGameboardSettlementList(3, 1);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(103,101,fourthTile),false);
 
@@ -700,7 +698,7 @@ public class GameBoardTest {
 
         gameboard.getGameBoardPositionArray()[103][103].setSettlementID(2);
         gameboard.getGameBoardPositionArray()[102][103].setSettlementID(2);
-        gameboard.setSettlementSizeList(2,2);
+        gameboard.assignSizeToGameboardSettlementList(2, 2);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(103,103,fourthTile),true);
 
@@ -724,16 +722,16 @@ public class GameBoardTest {
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.ROCKY);
 
         gameboard.getGameBoardPositionArray()[102][101].setSettlementID(2);
-        gameboard.setSettlementSizeList(2,1);
+        gameboard.assignSizeToGameboardSettlementList(2, 1);
         gameboard.getGameBoardPositionArray()[103][101].setSettlementID(3);
-        gameboard.setSettlementSizeList(3,1);
+        gameboard.assignSizeToGameboardSettlementList(3, 1);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(103,102,fourthTile),false);
 
 
         gameboard.getGameBoardPositionArray()[103][101].setSettlementID(2);
-        gameboard.setSettlementSizeList(2,2);
-        gameboard.setSettlementSizeList(3,0);
+        gameboard.assignSizeToGameboardSettlementList(2, 2);
+        gameboard.assignSizeToGameboardSettlementList(3, 0);
 
         Assert.assertEquals(gameboard.checkIfValidNuke(103,102,fourthTile),false);
 
@@ -773,8 +771,7 @@ public class GameBoardTest {
 
         gameboard.getGameBoardPositionArray()[102][101].setSettlementID(2);
         gameboard.getGameBoardPositionArray()[103][101].setSettlementID(2);
-        gameboard.setSettlementSizeList(2,2);
-
+        gameboard.assignSizeToGameboardSettlementList(2, 2);
         Tile seventhTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS,terrainTypes.LAKE);
 

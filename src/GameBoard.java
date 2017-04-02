@@ -11,7 +11,7 @@ public class GameBoard {
     // TODO: implement valid placement array but for settlement IDs for each instance of array
     public int[][] validPlacementArray = new int[boardHeight][boardWidth];
     public Hex[][] gameBoardPositionArray = new Hex[boardHeight][boardWidth];
-    public int[] settlementSizeList = new int[51];
+    public int [][] gameboardSettlementList = new int[256][4];
 
     GameBoard() {
         this.GameboardTileID = 1;
@@ -129,11 +129,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
                                 == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -143,11 +143,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
                                 == gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos + 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -157,11 +157,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos - 1][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()
                                 == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -194,11 +194,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()
                                 == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -208,11 +208,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos + 1][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
                                 == gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -222,11 +222,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos + 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
                                 == gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos + 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -260,11 +260,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
                                 == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -274,11 +274,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos - 1][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
                                 == gameBoardPositionArray[colPos][rowPos].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -288,11 +288,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
                                 == gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos - 1][rowPos - 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -325,11 +325,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()
                                 == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -339,11 +339,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
                                 == gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos + 1].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos + 1][rowPos - 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -353,11 +353,11 @@ public class GameBoard {
                     if (gameBoardPositionArray[colPos + 1][rowPos - 1].getHexTerrainType() == terrainTypes.VOLCANO) {
                         if ((gameBoardPositionArray[colPos][rowPos].getSettlementID()
                                 == gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) &&
-                                (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 2)) {
+                                (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 2)) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) {
                             return false;
-                        } else if (settlementSizeList[gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()] == 1) {
+                        } else if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos - 1].getSettlementID()) == 1) {
                             return false;
                         } else {
                             return true;
@@ -663,6 +663,7 @@ public class GameBoard {
             playerBuilding.decreaseVillagerCount(1);
             playerBuilding.increaseScore(1);
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+
         }
     }
 
@@ -857,11 +858,41 @@ public class GameBoard {
         return validPlacementArray;
     }
 
-    void setSettlementSizeList(int id, int size) {
-        this.settlementSizeList[id] = size;
+    void assignPlayerToSettlmentList(Player owningPlayer) {
+        for(int i = 0; i < 256; i++) {
+            if(this.gameboardSettlementList[i][0] == 0) {
+                this.gameboardSettlementList[i][0] = owningPlayer.getPlayerID();
+                owningPlayer.setOwnedSettlementList(i);
+            }
+        }
     }
 
-    int getSettlementSizeBasedOnID(int id) {
-        return this.settlementSizeList[id];
+    void assignSizeToGameboardSettlementList(int settlementID, int settlementSize) {
+        this.gameboardSettlementList[settlementID][1] = settlementSize;
     }
+
+    void incrementGameboardSettlementListTotoroCount(int settlementID) {
+        this.gameboardSettlementList[settlementID][2] += 1;
+    }
+
+    void incrementGameboardSettlementListTigerCount(int settlementID) {
+        this.gameboardSettlementList[settlementID][3] += 1;
+    }
+
+    int getGameboardSettlementListOwner(int settlementID) {
+        return this.gameboardSettlementList[settlementID][0];
+    }
+
+    int getGameboardSettlementListSettlementSize(int settlementID) {
+        return this.gameboardSettlementList[settlementID][1];
+    }
+
+    int getGameboardSettlementListTotoroCount(int settlementID) {
+        return this.gameboardSettlementList[settlementID][2];
+    }
+
+    int getGameboardSettlementListTigerCount(int settlementID) {
+        return this.gameboardSettlementList[settlementID][3];
+    }
+
 }

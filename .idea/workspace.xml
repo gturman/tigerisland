@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e97a45f6-70ca-44a8-bff3-6e7556d4179d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/GameBoard.class" afterPath="$PROJECT_DIR$/src/com/GameBoard.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Player.class" afterPath="$PROJECT_DIR$/src/com/Player.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/turnPhase.java" afterPath="$PROJECT_DIR$/src/turnPhase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/PlayerTest.java" afterPath="$PROJECT_DIR$/test/PlayerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameBoard.java" afterPath="$PROJECT_DIR$/src/GameBoard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/GameBoardTest.java" afterPath="$PROJECT_DIR$/test/GameBoardTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/src/com/" />
     <ignored path="C:/test/tigerisland/" />
@@ -20,158 +23,13 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Player.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1489">
-                  <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
-                  <folding>
-                    <element signature="method#getPlayerID#0;class#Player#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="stepDefDisallowBuildingSettlement.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="792">
-                  <caret line="108" column="8" lean-forward="false" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="8" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="testRunnerDisallowBuildingSettlement.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test/GameTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="592">
-                  <caret line="27" column="87" lean-forward="true" selection-start-line="27" selection-start-column="87" selection-end-line="27" selection-end-column="87" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Hex.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Hex.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="552">
-                  <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
-                  <folding>
-                    <element signature="method#getHexTerrainType#0;class#Hex#0" expanded="false" />
-                    <element signature="e#1650#1651#0" expanded="true" />
-                    <element signature="e#1685#1686#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="354">
-                  <caret line="642" column="24" lean-forward="true" selection-start-line="642" selection-start-column="24" selection-end-line="642" selection-end-column="24" />
-                  <folding>
-                    <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#increaseEvenNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#increaseOddFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#increaseEvenFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setHexALevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setHexBLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setHexCLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#checkIfValidNuke#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setOddFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setEvenFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#thereIsNotANonFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#thereIsNotANonFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#thereIsNotAFlippedOddTileThere#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#thereIsNotAFlippedEvenTileThere#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setHexACoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setHexBCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setHexCCoordinateAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#tileIsOddAndNotFlipped#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#checkIfHexDoesNotOccupyPosition#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#checkIfEven#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#updateValidTilePlacementList#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setValidNotFlippedPositions#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setValidFlippedPositions#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setBoardPositionAsOccupied#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#setBoardPositionRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#boardPositionRelativeToHomeHexIsEmpty#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#isValidSettlementLocation#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#recursiveExpansionCalculation#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#expandSettlementsHelper#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#expandSettlements#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#calculateScoreForExpansion#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#expansionScoreHelper#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#expansionScore#0;class#GameBoard#0" expanded="false" />
-                    <element signature="method#expandSettlement#0;class#GameBoard#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="stepDefAllowBuildingSettlement.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="767">
-                  <caret line="142" column="9" lean-forward="false" selection-start-line="142" selection-start-column="9" selection-end-line="142" selection-end-column="9" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="DisallowingBuildingSettlements.feature" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="231">
-                  <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -180,6 +38,9 @@
       <find>no edges of my tile touches another hexes’ edge</find>
       <find>incrementGameboardHexID</find>
       <find>totoro</find>
+      <find>validnuke</find>
+      <find>settlementSize</find>
+      <find>settlementSizeList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -214,10 +75,7 @@
         <option value="$PROJECT_DIR$/src/testRunnerValidTestPlacement.java" />
         <option value="$PROJECT_DIR$/src/testRunnerInvalidTilePlacement.java" />
         <option value="$PROJECT_DIR$/src/Hex.java" />
-        <option value="$PROJECT_DIR$/src/Player.java" />
-        <option value="$PROJECT_DIR$/test/GameBoardTest.java" />
         <option value="$PROJECT_DIR$/test/acceptanceTests/ValidTilePlacement.feature" />
-        <option value="$PROJECT_DIR$/src/GameBoard.java" />
         <option value="$PROJECT_DIR$/test/acceptanceTests/InvalidTilePlacement.feature" />
         <option value="$PROJECT_DIR$/src/stepDefTilePlacement.java" />
         <option value="$PROJECT_DIR$/src/stepDefInvalidTilePlacement.java" />
@@ -230,13 +88,18 @@
         <option value="$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature" />
         <option value="$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java" />
         <option value="$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java" />
+        <option value="$PROJECT_DIR$/src/settlementListDataTypes.java" />
+        <option value="$PROJECT_DIR$/src/Player.java" />
+        <option value="$PROJECT_DIR$/src/GameBoard.java" />
+        <option value="$PROJECT_DIR$/test/GameBoardTest.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2546" />
-    <option name="width" value="1308" />
-    <option name="height" value="2074" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -253,8 +116,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -325,7 +186,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -597,6 +460,44 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -623,6 +524,25 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
       <method />
     </configuration>
     <configuration default="false" name="tileTests" type="JUnit" factoryName="JUnit">
@@ -765,26 +685,26 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="allTests - 2017.04.01 at 20h 00m 42s.xml">
+    <history-entry file="allTests - 2017.04.02 at 12h 40m 43s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 43m 11s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 14h 18m 04s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 46m 20s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 14h 18m 24s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 47m 20s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 14h 20m 39s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 48m 10s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 14h 22m 51s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 49m 22s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 14h 28m 22s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 55m 56s.xml">
-      <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
+    <history-entry file="allTests - 2017.04.02 at 14h 29m 08s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
     <history-entry file="testRunnerDisallowBuildingSettlement - 2017.04.01 at 19h 56m 40s.xml">
       <configuration name="testRunnerDisallowBuildingSettlement" configurationId="JUnit" />
@@ -797,25 +717,24 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2546" y="0" width="1308" height="2074" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4148265" sideWeight="0.48023427" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4148265" sideWeight="0.477306" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45892662" sideWeight="0.22570533" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23817034" sideWeight="0.23426062" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45892662" sideWeight="0.7742947" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23817034" sideWeight="0.7657394" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4247649" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27013177" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -844,17 +763,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/stepDefinition.java" />
     <entry file="file://$PROJECT_DIR$/test/acceptanceTests/tilePlacement.feature" />
     <entry file="file://$PROJECT_DIR$/src/testRunner.java" />
     <entry file="file://$PROJECT_DIR$/src/stepDefTilePlacement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -870,7 +785,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="20" column="52" lean-forward="true" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
-          <folding />
+          <folding>
+            <element signature="method#testAbilityToRotateATile#0;class#TileTest#0" expanded="false" />
+            <element signature="method#testAbilityToRotateAFlippedTile#0;class#TileTest#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -925,13 +843,6 @@
     <entry file="file://$PROJECT_DIR$/src/stepDefinition.java" />
     <entry file="file://$PROJECT_DIR$/src/testRunner.java" />
     <entry file="file://$PROJECT_DIR$/test/acceptanceTests/test.feature" />
-    <entry file="file://$PROJECT_DIR$/src/terrainTypes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunnerTest.java" />
     <entry file="file://$PROJECT_DIR$/src/testRunnerTestPlacement.java" />
     <entry file="file://$PROJECT_DIR$/src/invalidAdjacentTilePlacementTestRunner.java" />
@@ -957,7 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -988,51 +898,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/GameBoardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
-          <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
-          <folding>
-            <element signature="method#createGameBoardTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#placingFirstTileUpdatesHexAndTileIDsProperlyTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#placingFirstTileUpdatesPositionArrayProperlyTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#placingFirstTileUpdatesValidPlacementArrayProperlyTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#placeFlippedTileTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testAbilityToIncrementHexAndTileID#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testAbilityToUpdateNonFlippedValidTilePlacementList#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testAbilityToUpdateFlippedValidTilePlacementList#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#checkingIfValidArrayInitializesToZero#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#checkIfTileBeingPlacedWillBeAdjacentTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testIfNukeTestFailsOnEntireTileCoverup#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testIfNukeTestFailsOnDifferentLevelCoverup#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testIfNukeTestFailsOnNukingOverEmptyGameboard#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testlIfNukeTestFailsOnVolcanoOverNonVolcano#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testIfNukeTestPassesForValidNuking#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testIfNukeOverwritesHexValues#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#TestHexLevelIncreasesWhenNuking#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testPreventingNukeIfTotoroIsOnAHex#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testPreventingNukeIfTigerPenIsOnAHex#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testPreventingNukeIfNukeCoversSize1Settlement#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testPreventingNukeIfNukeCoversSize2Settlement#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testPreventingNukeIfNukeCoversSize1Settlement2#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testPreventingNukeIfNukeCoversSize2Settlement2#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testIfWillNukeSize2SettlementWhileOnlyNuking1TileThatHasSettlement2#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#anotherNukeSettlementSizeTest#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testForLevel2NukeOnSettlements#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#whereTheFuckAreOurTerrains#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testAbilityToBuildSettlements#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testCalculateVillagersNeededForExpansionOnLevelOne#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testCalculateVillagersNeededForExpansionOnMultipleLevels#0;class#GameBoardTest#0" expanded="false" />
-            <element signature="method#testExpansionFromExistingSettlement#0;class#GameBoardTest#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/acceptanceTests/InvalidTilePlacement.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="957">
           <caret line="29" column="54" lean-forward="true" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1041,7 +910,7 @@
         <state relative-caret-position="885">
           <caret line="149" column="32" lean-forward="false" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -1071,14 +940,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/GameTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="27" column="87" lean-forward="true" selection-start-line="27" selection-start-column="87" selection-end-line="27" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/turnPhase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
@@ -1087,14 +948,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerAllowBuildingSettlements.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testRunnerAllowBuildingSettlements.java" />
     <entry file="file://$PROJECT_DIR$/src/stepDefTilePlacement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3573">
@@ -1103,18 +957,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/AllowBuildingSettlements.feature">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/AllowBuildingSettlements.feature" />
+    <entry file="file://$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature" />
+    <entry file="file://$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java" />
+    <entry file="file://$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java" />
+    <entry file="file://$PROJECT_DIR$/test/GameTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="16" column="69" lean-forward="true" selection-start-line="16" selection-start-column="69" selection-end-line="16" selection-end-column="69" />
+        <state relative-caret-position="459">
+          <caret line="27" column="87" lean-forward="false" selection-start-line="27" selection-start-column="87" selection-end-line="27" selection-end-column="87" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Hex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+        <state relative-caret-position="102">
+          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
           <folding>
             <element signature="method#getHexTerrainType#0;class#Hex#0" expanded="false" />
             <element signature="e#1650#1651#0" expanded="true" />
@@ -1123,30 +982,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/settlementListDataTypes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1489">
-          <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
-          <folding>
-            <element signature="method#getPlayerID#0;class#Player#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java">
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state relative-caret-position="279">
+          <caret line="116" column="5" lean-forward="true" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2568#2569#0" expanded="true" />
+            <element signature="e#2616#2617#0" expanded="true" />
+            <element signature="e#2676#2677#0" expanded="true" />
+            <element signature="e#2738#2739#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="642" column="24" lean-forward="true" selection-start-line="642" selection-start-column="24" selection-end-line="642" selection-end-column="24" />
+        <state relative-caret-position="179">
+          <caret line="861" column="38" lean-forward="true" selection-start-line="861" selection-start-column="38" selection-end-line="861" selection-end-column="38" />
           <folding>
             <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
             <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
@@ -1156,7 +1016,6 @@
             <element signature="method#setHexALevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
             <element signature="method#setHexBLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
             <element signature="method#setHexCLevelAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#checkIfValidNuke#0;class#GameBoard#0" expanded="false" />
             <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
             <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
             <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameboard#0;class#GameBoard#0" expanded="false" />
@@ -1183,43 +1042,49 @@
             <element signature="method#setBoardPositionRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
             <element signature="method#boardPositionRelativeToHomeHexIsEmpty#0;class#GameBoard#0" expanded="false" />
             <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#isValidSettlementLocation#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#recursiveExpansionCalculation#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#expandSettlementsHelper#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#expandSettlements#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#calculateScoreForExpansion#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#expansionScoreHelper#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#expansionScore#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#expandSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="e#50389#50390#0" expanded="true" />
+            <element signature="e#50457#50458#0" expanded="true" />
+            <element signature="e#50796#50797#0" expanded="true" />
+            <element signature="e#50864#50865#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature">
+    <entry file="file://$PROJECT_DIR$/test/GameBoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+        <state relative-caret-position="55">
+          <caret line="567" column="0" lean-forward="true" selection-start-line="567" selection-start-column="0" selection-end-line="567" selection-end-column="0" />
+          <folding>
+            <element signature="method#createGameBoardTest#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#placingFirstTileUpdatesHexAndTileIDsProperlyTest#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#placingFirstTileUpdatesPositionArrayProperlyTest#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#placingFirstTileUpdatesValidPlacementArrayProperlyTest#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#placeFlippedTileTest#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testAbilityToIncrementHexAndTileID#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testAbilityToUpdateNonFlippedValidTilePlacementList#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testAbilityToUpdateFlippedValidTilePlacementList#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#checkingIfValidArrayInitializesToZero#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#checkIfTileBeingPlacedWillBeAdjacentTest#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testIfNukeTestFailsOnEntireTileCoverup#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testIfNukeTestFailsOnDifferentLevelCoverup#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testIfNukeTestFailsOnNukingOverEmptyGameboard#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testlIfNukeTestFailsOnVolcanoOverNonVolcano#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testIfNukeTestPassesForValidNuking#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testIfNukeOverwritesHexValues#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#TestHexLevelIncreasesWhenNuking#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testPreventingNukeIfTotoroIsOnAHex#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testPreventingNukeIfTigerPenIsOnAHex#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#whereTheFuckAreOurTerrains#0;class#GameBoardTest#0" expanded="false" />
+            <element signature="method#testAbilityToBuildSettlements#0;class#GameBoardTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/terrainTypes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="108" column="8" lean-forward="false" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="767">
-          <caret line="142" column="9" lean-forward="false" selection-start-line="142" selection-start-column="9" selection-end-line="142" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
