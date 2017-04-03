@@ -13,6 +13,7 @@ public class Hex {
     private int tigerCount;
     private int settlementID;
     private int playerID;
+    private boolean alreadyTraversed;
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {
         this.hexID = hexID;
@@ -27,6 +28,7 @@ public class Hex {
         this.tigerCount = 0;
         this.settlementID = 0;
         this.playerID = 0;
+        this.alreadyTraversed = false;
     }
 
     public boolean isNotBuiltOn(){
@@ -51,7 +53,6 @@ public class Hex {
 
     public terrainTypes getHexTerrainType(){
         return this.hexTerrainType;
-
     }
 
     public int getHexLevel() {
@@ -100,5 +101,13 @@ public class Hex {
 
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
+    }
+
+    public boolean getIfAlreadyTraversed() {
+        return this.alreadyTraversed;
+    }
+
+    public boolean setIfAlreadyTraversed(boolean value) {
+        return this.alreadyTraversed = value;
     }
 }

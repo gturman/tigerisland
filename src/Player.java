@@ -43,7 +43,6 @@ public class Player {
         return villagerCount;
     }
 
-
     boolean haveVillagers(){
         if(villagerCount !=0){
             return true;
@@ -51,7 +50,6 @@ public class Player {
         else
             return false;
     }
-
 
     public void decreaseVillagerCount(int modifier){
         villagerCount -= modifier;

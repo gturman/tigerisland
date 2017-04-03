@@ -5,6 +5,8 @@
 import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper;
 import sun.security.util.PendingException;
 
+import java.util.*;
+
 public class GameBoard {
     private int boardHeight = 202;
     private int boardWidth = 202;
@@ -14,6 +16,10 @@ public class GameBoard {
     public int[][] validPlacementArray = new int[boardHeight][boardWidth];
     public Hex[][] gameBoardPositionArray = new Hex[boardHeight][boardWidth];
     public int[][] gameboardSettlementList = new int[256][4]; // NEVER USE 0 FOR SETTLEMENT ID
+    public int[] disallowedSplitSettlementIDs = new int[256];
+
+    public Vector<Pair> hexesBuiltOnThisTurn = new Vector();
+    private int lastBuiltSettlementID;
 
     GameBoard() {
         this.GameboardTileID = 1;
@@ -63,31 +69,418 @@ public class GameBoard {
                 increaseEvenNotFlippedTileLevelAndUpdateGameboard(colPos, rowPos, tileToBePlaced);
             if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced))
                 increaseOddNotFlippedTileLevelAndUpdateGameboard(colPos, rowPos, tileToBePlaced);
+           splitSettlements();
+           for(int i = 1; i < 256; i++) {
+               if(disallowedSplitSettlementIDs[i] == 1){
+                    deleteGameBoardSettlementListValues(i);
+               }
+           }
         }
+    }
+
+    void splitSettlements() {
+        if(hexesBuiltOnThisTurn.isEmpty()) {
+            return;
+        }
+
+        Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
+        hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
+        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(true);
+
+        int playerID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
+
+        int oldSettlementID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlementID();
+        disallowedSplitSettlementIDs[oldSettlementID] = 1;
+
+        int masterSettlementID;
+
+        do{
+            masterSettlementID = getNewestAssignableSettlementID();
+        }while(disallowedSplitSettlementIDs[masterSettlementID] == 1);
+
+        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setSettlementID(masterSettlementID);
+
+
+        if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0) { // update newly acquired hex with master settlement values and vice versa
+            incrementGameboardSettlementListSize(masterSettlementID);
+        } else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTotoroCount() == 1) {
+            incrementGameboardSettlementListSize(masterSettlementID);
+            incrementGameboardSettlementListTotoroCount(masterSettlementID);
+        } else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTigerCount() == 1) {
+            incrementGameboardSettlementListSize(masterSettlementID);
+            incrementGameboardSettlementListTigerCount(masterSettlementID);
+        }
+
+        if(checkIfEven(currentCoordinates.getRowPosition())) {
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()-1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()+1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+        }
+        else {
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()-1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()+1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+            splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+        }
+
+        try { // do rest of calculations if possible
+            Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
+            lastBuiltSettlementID = gameBoardPositionArray[nextCoordinates.getColumnPosition()][nextCoordinates.getRowPosition()].getSettlementID();
+            splitSettlements();
+        }
+        catch (Exception e){
+            return;
+        }
+
+        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(false);
+    }
+
+    void splitSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
+        try { // is not null
+            if(gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false) { // hasn't been checked yet
+                if (gameBoardPositionArray[colPos][rowPos].getPlayerID() == playerID) { // owned by player
+                    gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark as traversed
+
+                    Pair currentCoordinates = new Pair(colPos, rowPos);
+                    try {
+                        Stack<Integer> indiciesToRemove = new Stack<>();
+                        int i = 0;
+                        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn
+                            if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
+                                indiciesToRemove.push(i);
+                            }
+                            i++;
+                        }
+                        while(!indiciesToRemove.isEmpty()) {
+                            hexesBuiltOnThisTurn.removeElementAt(indiciesToRemove.lastElement());
+                            indiciesToRemove.pop();
+                        }
+                    }
+                    catch (NullPointerException e) {}
+
+                    gameBoardPositionArray[colPos][rowPos].setSettlementID(masterSettlementID); // set hex settlement ID to new ID
+
+                    if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) { // update newly acquired hex with master settlement values and vice versa
+                        incrementGameboardSettlementListSize(masterSettlementID);
+                    } else if (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 1) {
+                        incrementGameboardSettlementListSize(masterSettlementID);
+                        incrementGameboardSettlementListTotoroCount(masterSettlementID);
+                    } else if (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 1) {
+                        incrementGameboardSettlementListSize(masterSettlementID);
+                        incrementGameboardSettlementListTigerCount(masterSettlementID);
+                    }
+
+                    if(checkIfEven(currentCoordinates.getRowPosition())) { // go to next hexes
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()-1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()+1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+                    }
+                    else {
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()-1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()+1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+                        splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+                    }
+
+                    gameBoardPositionArray[rowPos][colPos].setIfAlreadyTraversed(false); // un-mark as traversed
+                }
+            }
+        }
+        catch(NullPointerException e) {
+            return; // end search if we reach null hex
+        }
+
+        return;
     }
 
     void increaseOddNotFlippedTileLevelAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
         setHexALevelAndUpdateGameboard(colPos, rowPos, tileToBePlaced);
         setHexBLevelAndUpdateGameboard(colPos, rowPos - 1, tileToBePlaced);
         setHexCLevelAndUpdateGameboard(colPos + 1, rowPos - 1, tileToBePlaced);
+
+        if(gameBoardPositionArray[colPos+1][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos-2] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos][rowPos-2] != null){
+            if(gameBoardPositionArray[colPos][rowPos-2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos-2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos-2] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+2][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos+2][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+2, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+2][rowPos-1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
+            }
+        }
     }
 
     void increaseEvenNotFlippedTileLevelAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
         setHexALevelAndUpdateGameboard(colPos, rowPos, tileToBePlaced);
         setHexBLevelAndUpdateGameboard(colPos - 1, rowPos - 1, tileToBePlaced);
         setHexCLevelAndUpdateGameboard(colPos, rowPos - 1, tileToBePlaced);
+
+        if(gameBoardPositionArray[colPos][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-2][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos-2][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-2, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-2][rowPos-1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos-2] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos][rowPos-2] != null){
+            if(gameBoardPositionArray[colPos][rowPos-2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos-2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos-2] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
+            }
+        }
     }
 
     void increaseOddFlippedTileLevelAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
         setHexALevelAndUpdateGameboard(colPos, rowPos, tileToBePlaced);
         setHexBLevelAndUpdateGameboard(colPos + 1, rowPos + 1, tileToBePlaced);
         setHexCLevelAndUpdateGameboard(colPos, rowPos + 1, tileToBePlaced);
+
+        if(gameBoardPositionArray[colPos+1][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+2][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos+2][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+2, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+2][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos+2] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos][rowPos+2] != null){
+            if(gameBoardPositionArray[colPos][rowPos+2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos+2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos+2] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-1].getSettlementID();
+            }
+        }
     }
 
     void increaseEvenFlippedTileLevelAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
         setHexALevelAndUpdateGameboard(colPos, rowPos, tileToBePlaced);
         setHexBLevelAndUpdateGameboard(colPos, rowPos + 1, tileToBePlaced);
         setHexCLevelAndUpdateGameboard(colPos - 1, rowPos + 1, tileToBePlaced);
+
+        if(gameBoardPositionArray[colPos][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos+1][rowPos+2] != null){
+            if(gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos][rowPos+2] != null){
+            if(gameBoardPositionArray[colPos][rowPos+2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos, rowPos+2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos+2] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+2);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-2][rowPos+1] != null){
+            if(gameBoardPositionArray[colPos-2][rowPos+1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-2, rowPos+1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-2][rowPos+1].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
+            }
+        }
+        if(gameBoardPositionArray[colPos-1][rowPos-1] != null){
+            if(gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID() != 0){
+                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-1);
+                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID();
+            }
+        }
     }
 
     void setHexALevelAndUpdateGameboard(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -794,9 +1187,13 @@ public class GameBoard {
             gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
 
             int newSettlementID = getNewestAssignableSettlementID();
+            lastBuiltSettlementID = newSettlementID;
             gameBoardPositionArray[colPos][rowPos].setSettlementID(newSettlementID);
 
             assignPlayerNewSettlementInList(playerBuilding, newSettlementID, 1);
+
+            Pair lastHexSettledOn = new Pair(colPos, rowPos);
+            hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
 
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
             playerBuilding.decreaseVillagerCount(1);
@@ -1010,6 +1407,12 @@ public class GameBoard {
                     gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setSettlerCount(gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel());
                     gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setSettlementID(homeHexSettlementID);
                     incrementGameboardSettlementListSize(homeHexSettlementID);
+
+                    Pair lastHexSettledOn = new Pair(colPos + colOffset, rowPos + rowOffset);
+                    hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+
+                    lastBuiltSettlementID = homeHexSettlementID;
+
                     expandSettlements(colPos + colOffset, rowPos + rowOffset, expansionType, player, homeHexSettlementID);
                 }
             }
@@ -1096,6 +1499,131 @@ public class GameBoard {
         }
     }
 
+    void mergeSettlements() {
+        if(hexesBuiltOnThisTurn.isEmpty()) {
+            return;
+        }
+
+        Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
+        hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
+        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(true);
+        int playerID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
+
+        int masterSettlementID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlementID();
+
+        if(checkIfEven(currentCoordinates.getRowPosition())) {
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()-1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()+1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+        }
+        else {
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()-1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()+1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+            mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+        }
+
+        try { // do rest of calculations if possible
+            Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
+            lastBuiltSettlementID = gameBoardPositionArray[nextCoordinates.getColumnPosition()][nextCoordinates.getRowPosition()].getSettlementID();
+            mergeSettlements();
+        }
+        catch (Exception e){
+            return;
+        }
+
+        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(false);
+    }
+
+    void mergeSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
+        try { // is not null
+            if(gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false) { // hasn't been checked yet
+                if (gameBoardPositionArray[colPos][rowPos].getPlayerID() == playerID) { // owned by player
+                    gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark as traversed
+
+                     Pair currentCoordinates = new Pair(colPos, rowPos);
+                    try { // TODO: get this working to save time on traversal; it doesn't seem to delete values from hexesBuiltOnThisTurn and method gets called for already traversed values (but nothing happens with them)
+                        Stack<Integer> indiciesToRemove = new Stack<>();
+                        int i = 0;
+                        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn
+                            if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
+                                indiciesToRemove.push(i);
+                            }
+                            i++;
+                        }
+                        while(!indiciesToRemove.isEmpty()) {
+                            hexesBuiltOnThisTurn.remove(indiciesToRemove.lastElement()); // TODO: for some reason, using removeElementAt for this line breaks splitting settlements code even though in
+                            indiciesToRemove.pop();                                      // for splitting settlements code I use the same function in the same context
+                        }
+                    }
+                    catch (NullPointerException e) {}
+
+                    if(gameBoardPositionArray[colPos][rowPos].getSettlementID() != masterSettlementID) { // if we are not at a part of the master settlement, we need to decrement the values of the settlement currently
+                                                                                                         // here, increment the necessary values for the master settlement and update the hex settlementID
+                         if (getGameboardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) { // if the settlement we are currently merging is of size 1,
+                                                                                                                                        // delete that settlement from player list and game list
+                            deleteGameBoardSettlementListValues(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
+                            //currentPlayer.setOwnedSettlementsListIsNotOwned(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // remove ownership
+                         }
+                         else { // else just decrement values in list of that settlement for size/totoro/tiger pen
+                            if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) {
+                                decrementGameboardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
+                            }
+                            else if (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 1) {
+                                 decrementGameboardSettlementListSize(masterSettlementID);
+                                 decrementGameboardSettlementListSize(masterSettlementID);
+                            }
+                            else if (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 1) {
+                                decrementGameboardSettlementListSize(masterSettlementID);
+                                decrementGameboardSettlementListSize(masterSettlementID);
+                            }
+                         }
+
+                        gameBoardPositionArray[colPos][rowPos].setSettlementID(masterSettlementID); // set hex settlement ID to new ID
+
+                        if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) { // update newly acquired hex with master settlement values and vice versa
+                            incrementGameboardSettlementListSize(masterSettlementID);
+                        } else if (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 1) {
+                            incrementGameboardSettlementListSize(masterSettlementID);
+                            incrementGameboardSettlementListTotoroCount(masterSettlementID);
+                        } else if (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 1) {
+                            incrementGameboardSettlementListSize(masterSettlementID);
+                            incrementGameboardSettlementListTigerCount(masterSettlementID);
+                        }
+                    }
+                    if(checkIfEven(currentCoordinates.getRowPosition())) { // go to next hexes
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()-1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()+1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+                    }
+                    else {
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()-1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()+1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
+                        mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
+                    }
+
+                    gameBoardPositionArray[rowPos][colPos].setIfAlreadyTraversed(false); // un-mark as traversed
+                }
+            }
+        }
+        catch(NullPointerException e) {
+            return; // end search if we reach null hex
+        }
+
+        return;
+    }
+
     int getGameboardTileID() {
         return GameboardTileID;
     }
@@ -1122,7 +1650,7 @@ public class GameBoard {
 
     int getNewestAssignableSettlementID() {
         for (int i = 1; i < 256; i++) {
-            if (this.gameboardSettlementList[i][0] == 0) {
+            if (this.gameboardSettlementList[i][1] == 0) {
                 return i;
             }
         }
@@ -1155,8 +1683,16 @@ public class GameBoard {
         this.gameboardSettlementList[settlementID][2] += 1;
     }
 
+    void deccrementGameboardSettlementListTotoroCount(int settlementID) {
+        this.gameboardSettlementList[settlementID][2] -= 1;
+    }
+
     void incrementGameboardSettlementListTigerCount(int settlementID) {
         this.gameboardSettlementList[settlementID][3] += 1;
+    }
+
+    void deccrementGameboardSettlementListTigerCount(int settlementID) {
+        this.gameboardSettlementList[settlementID][3] -= 1;
     }
 
     int getGameboardSettlementListOwner(int settlementID) {
@@ -1188,5 +1724,9 @@ public class GameBoard {
         this.gameboardSettlementList[settlementID][1] = 0;
         this.gameboardSettlementList[settlementID][2] = 0;
         this.gameboardSettlementList[settlementID][3] = 0;
+    }
+
+    public int getLastBuiltSettlementID() {
+        return this.lastBuiltSettlementID;
     }
 }
