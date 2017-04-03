@@ -10,7 +10,7 @@ public class TileTest {
     public void testAbilityToCreateTile() {
         GameBoard gameboard = new GameBoard();
 
-        Tile testTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile testTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
                                  terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         Assert.assertTrue(testTile instanceof Tile);
     }
@@ -23,7 +23,7 @@ public class TileTest {
         terrainTypes hexTerrainB = terrainTypes.JUNGLE;
         terrainTypes hexTerrainC = terrainTypes.LAKE;
 
-        Tile testTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile testTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
                                 hexTerrainA, hexTerrainB, hexTerrainC);
 
         testTile.tileRotationClockwise(0);
@@ -56,7 +56,7 @@ public class TileTest {
         terrainTypes hexTerrainB = terrainTypes.JUNGLE;
         terrainTypes hexTerrainC = terrainTypes.LAKE;
 
-        Tile testTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile testTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
                 hexTerrainA, hexTerrainB, hexTerrainC);
         testTile.flip();
 

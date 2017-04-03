@@ -1,4 +1,3 @@
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,7 +9,7 @@ import cucumber.api.java.en.When;
 public class stepDefDisallowBuildingSettlement {
 
     private Player playerOne = new Player(1);
-    private GameBoard gameboard = new GameBoard();
+    private GameBoard gameBoard = new GameBoard();
 
 
 
@@ -26,7 +25,7 @@ public class stepDefDisallowBuildingSettlement {
 
         if(playerOne.getTurnPhase() == turnPhase.BUILD)
         {
-            gameboard.placeFirstTileAndUpdateValidPlacementList();
+            gameBoard.placeFirstTileAndUpdateValidPlacementList();
         }
 
     }
@@ -36,7 +35,7 @@ public class stepDefDisallowBuildingSettlement {
 
         if(playerOne.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
         {
-            Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+            Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                     terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
         }
 
@@ -45,12 +44,12 @@ public class stepDefDisallowBuildingSettlement {
     @Given("^the hex is an uninhabitable terrain hex$")
     public void theHexIsAnUninhabitableTerrainHex() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-       boolean habitable = gameboard.isHabitable(101,101);
+       boolean habitable = gameBoard.isHabitable(101,101);
        //System.out.print("habitable: " + habitable + "\n");
 
     }
@@ -58,16 +57,16 @@ public class stepDefDisallowBuildingSettlement {
     @When("^I try to place my piece on a hex$")
     public void iTryToPlaceMyPieceOnAHex() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-        boolean valid = gameboard.isValidSettlementLocation(101,101);
+        boolean valid = gameBoard.isValidSettlementLocation(101,101);
 
-        gameboard.buildSettlement(101,101,playerOne);
+        gameBoard.buildSettlement(101,101,playerOne);
 
-        int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
+        int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
 
         //System.out.print("valid hex: " + valid + "\n");
        // System.out.print("settlement Count: " + settlerCount + "\n");
@@ -77,12 +76,12 @@ public class stepDefDisallowBuildingSettlement {
     @Then("^my piece is prevented from being placed$")
     public void myPieceIsPreventedFromBeingPlaced() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-        int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
+        int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
         //System.out.print("settlement Count: " + settlerCount + "\n");
 
     }
@@ -100,12 +99,12 @@ public class stepDefDisallowBuildingSettlement {
     @Given("^the hex level is greater than one$")
     public void theHexLevelIsGreaterThanOne() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-       boolean level = gameboard.isOnLevelOne(101,101);
+       boolean level = gameBoard.isOnLevelOne(101,101);
       // System.out.print("builtOn: " + level + "\n");
 
     }

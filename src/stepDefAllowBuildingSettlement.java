@@ -1,9 +1,7 @@
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
 
 /**
  * Created by Christine Chierico on 4/1/2017.
@@ -12,7 +10,7 @@ public class stepDefAllowBuildingSettlement {
 
 
     private Player playerOne = new Player(1);
-    private GameBoard gameboard = new GameBoard();
+    private GameBoard gameBoard = new GameBoard();
 
 
 
@@ -31,7 +29,7 @@ public class stepDefAllowBuildingSettlement {
 
         if(playerOne.getTurnPhase() == turnPhase.BUILD)
         {
-            gameboard.placeFirstTileAndUpdateValidPlacementList();
+            gameBoard.placeFirstTileAndUpdateValidPlacementList();
         }
 
     }
@@ -41,7 +39,7 @@ public class stepDefAllowBuildingSettlement {
 
         if(playerOne.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
         {
-            Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+            Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                     terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         }
     }
@@ -56,12 +54,12 @@ public class stepDefAllowBuildingSettlement {
     @Given("^the hex is habitable$")
     public void theHexIsHabitable() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-        gameboard.isHabitable(101,101);
+        gameBoard.isHabitable(101,101);
 
     }
 
@@ -71,31 +69,31 @@ public class stepDefAllowBuildingSettlement {
         Hex testHex1 = new Hex(0,0,terrainTypes.LAKE);
         testHex1.isNotBuiltOn();
 
-        int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
+        int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
 
     }
 
     @And("^the hex is level one$")
     public void theHexIsLevelOne() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-        gameboard.isOnLevelOne(101,101);
+        gameBoard.isOnLevelOne(101,101);
 
     }
 
     @When("^I try to place a villager on a hex$")
     public void iTryToPlaceAVillagerOnAHex() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
-        gameboard.buildSettlement(101,101,playerOne);
+        gameBoard.buildSettlement(101,101,playerOne);
 
 
     }
@@ -103,10 +101,10 @@ public class stepDefAllowBuildingSettlement {
     @Then("^I should see that my settlement was placed$")
     public void iShouldSeeThatMySettlementWasPlaced() throws Throwable {
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
-        gameboard.setTileAtPosition(101,101,placeTile);
+        gameBoard.setTileAtPosition(101,101,placeTile);
 
 
 
@@ -135,7 +133,7 @@ public class stepDefAllowBuildingSettlement {
         int score = playerOne.getScore();
 
 
-        int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
+        int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
 
 
     }

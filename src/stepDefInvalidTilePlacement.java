@@ -2,7 +2,6 @@
  * Created by christine on 3/17/2017.
  */
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,185 +17,185 @@ public class stepDefInvalidTilePlacement {
     @And("^I am in the tile placement phase of my turn for an invalid placement$")
     public void iAmInTheTilePlacementPhaseOfMyTurnForAnInvalidPlacement() throws Throwable {
         Player player = new Player();
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         if(player.getTurnPhase() == turnPhase.TILE_PLACEMENT)
         {
-            Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+            Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                     terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         }
     }
 
     @And("^I have drawn a tile for an invalid placement$")
     public void iHaveDrawnATileForAnInvalidPlacement() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
     }
 
     @And("^I am placing a tile on the board at a certain level$")
     public void iAmPlacingATileOnTheBoardAtACertainLevel() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
-        Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
     }
 
     @Given("^no edges of my tile touches another hexes’ edge$")
     public void noEdgesOfMyTileTouchesAnotherHexesEdge() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(55, 32, tileToPlace);
+        gameBoard.setTileAtPosition(55, 32, tileToPlace);
     }
 
     @When("^I try to place a tile$")
     public void iTryToPlaceATile() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(55, 32, tileToPlace);
+        gameBoard.setTileAtPosition(55, 32, tileToPlace);
     }
 
     @Then("^my tile is prevented from being placed$")
     public void myTileIsPreventedFromBeingPlaced() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(55, 32, tileToPlace);
+        gameBoard.setTileAtPosition(55, 32, tileToPlace);
     }
 
     @Given("^my tile entirely overlaps another tile one level below it$")
     public void myTileEntirelyOverlapsAnotherTileOneLevelBelowIt() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(102, 100, tileToPlace);
+        gameBoard.setTileAtPosition(102, 100, tileToPlace);
 
-        Tile tileToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.nukeTiles(102, 100, tileToNuke);
+        gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 
     @Given("^my tile overlaps a size one settlement$")
     public void myTileOverlapsASizeOneSettlement() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(102, 100, tileToPlace);
+        gameBoard.setTileAtPosition(102, 100, tileToPlace);
 
-        gameboard.buildSettlement(102, 100, player);
+        gameBoard.buildSettlement(102, 100, player);
 
-        Tile tileToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
         tileToNuke.flip();
 
-        gameboard.nukeTiles(102, 100, tileToNuke);
+        gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 
     @Given("^one or more hex is not of the same level$")
     public void oneOrMoreHexIsNotOfTheSameLevel() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(102, 100, tileToPlace);
+        gameBoard.setTileAtPosition(102, 100, tileToPlace);
 
-        Tile tileToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
         tileToNuke.flip();
 
-        gameboard.nukeTiles(102, 100, tileToNuke);
+        gameBoard.nukeTiles(102, 100, tileToNuke);
 
-        Tile nextToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile nextToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.nukeTiles(102, 102, nextToNuke);
+        gameBoard.nukeTiles(102, 102, nextToNuke);
     }
 
     @Given("^at least once hex below my tile has a Totoro$")
     public void atLeastOnceHexBelowMyTileHasATotoro() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(102, 100, tileToPlace);
+        gameBoard.setTileAtPosition(102, 100, tileToPlace);
 
-        gameboard.getGameBoardPositionArray()[101][101].setTotoroCount(1);
+        gameBoard.getGameBoardPositionArray()[101][101].setTotoroCount(1);
 
-        Tile tileToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
         tileToNuke.flip();
 
-        gameboard.nukeTiles(102, 100, tileToNuke);
+        gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 
     @Given("^at least one hex below m tile has a Tiger Playground$")
     public void atLeastOneHexBelowMTileHasATigerPlayground() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(102, 100, tileToPlace);
+        gameBoard.setTileAtPosition(102, 100, tileToPlace);
 
-        gameboard.getGameBoardPositionArray()[101][101].setTigerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][101].setTigerCount(1);
 
-        Tile tileToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
         tileToNuke.flip();
 
-        gameboard.nukeTiles(102, 100, tileToNuke);
+        gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 
     @Given("^my tile’s volcano was not placed over a volcano$")
     public void myTileSVolcanoWasNotPlacedOverAVolcano() throws Throwable {
-        GameBoard gameboard = new GameBoard();
+        GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
-        Tile tileToPlace = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
 
-        gameboard.setTileAtPosition(102, 100, tileToPlace);
+        gameBoard.setTileAtPosition(102, 100, tileToPlace);
 
-        Tile tileToNuke = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
         tileToNuke.flip();
         tileToNuke.tileRotationClockwise(1);
 
-        gameboard.nukeTiles(102, 100, tileToNuke);
+        gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 }

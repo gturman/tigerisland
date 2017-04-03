@@ -1,4 +1,3 @@
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,11 +10,11 @@ public class stepDefAllowExpansion {
 
 
     private Player playerOne = new Player(1);
-    private GameBoard gameboard = new GameBoard();
+    private GameBoard gameBoard = new GameBoard();
 
-    private Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
-    private Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
-    private Tile thirdTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+    private Tile firstTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
+    private Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+    private Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
 
     @Given("^I am an player$")
     public void i_AmAnPlayer() throws Throwable {
@@ -24,11 +23,11 @@ public class stepDefAllowExpansion {
         int score = playerOne.getScore();
 
         firstTile.flip();
-        gameboard.setTileAtPosition(99,98,firstTile);
+        gameBoard.setTileAtPosition(99,98,firstTile);
 
         secondTile.flip();
-        gameboard.setTileAtPosition(99,100,secondTile);
-        gameboard.buildSettlement(99,98,playerOne);
+        gameBoard.setTileAtPosition(99,100,secondTile);
+        gameBoard.buildSettlement(99,98,playerOne);
 
         int score1 = playerOne.getScore();
 
@@ -41,7 +40,7 @@ public class stepDefAllowExpansion {
 
         if(playerOne.getTurnPhase() == turnPhase.BUILD)
         {
-            gameboard.placeFirstTileAndUpdateValidPlacementList();
+            gameBoard.placeFirstTileAndUpdateValidPlacementList();
         }
 
     }
@@ -60,7 +59,7 @@ public class stepDefAllowExpansion {
 
         if(playerOne.getTurnPhase() == turnPhase.EXPAND_SETTLEMENT)
         {
-            Tile placeTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(),
+            Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                     terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         }
 
@@ -70,7 +69,7 @@ public class stepDefAllowExpansion {
     public void theHexIsAHabitableTerrain() throws Throwable {
 
 
-        gameboard.isHabitable(99,98);
+        gameBoard.isHabitable(99,98);
 
 
     }
@@ -81,7 +80,7 @@ public class stepDefAllowExpansion {
         Hex testHex1 = new Hex(0,0,terrainTypes.GRASSLANDS);
         testHex1.isNotBuiltOn();
 
-        int settlerCount = gameboard.getGameBoardPositionArray()[99][98].getSettlerCount();
+        int settlerCount = gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount();
 
 
     }
@@ -96,8 +95,8 @@ public class stepDefAllowExpansion {
     @And("^I have enough villagers to expand fully$")
     public void iHaveEnoughVillagersToExpandFully() throws Throwable {
 
-        gameboard.buildSettlement(99,98,playerOne);
-        int villagersNeeded = gameboard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
+        gameBoard.buildSettlement(99,98,playerOne);
+        int villagersNeeded = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
 
 
     }
@@ -105,21 +104,21 @@ public class stepDefAllowExpansion {
     @When("^I try to expand to a hex$")
     public void iTryToExpandToAHex() throws Throwable {
 
-        int one = gameboard.getGameBoardPositionArray()[99][99].getSettlerCount();
-        int two = gameboard.getGameBoardPositionArray()[99][100].getSettlerCount();
-        int three = gameboard.getGameBoardPositionArray()[98][101].getSettlerCount();
+        int one = gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount();
+        int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
+        int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
 
 
-        gameboard.buildSettlement(99,98,playerOne);
-        gameboard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
+        gameBoard.buildSettlement(99,98,playerOne);
+        gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
     }
 
     @Then("^I should see that each hex I can expand to has acquired the number of villagers equal to the hexes’ level$")
     public void iShouldSeeThatEachHexICanExpandToHasAcquiredTheNumberOfVillagersEqualToTheHexesLevel() throws Throwable {
 
-        int one = gameboard.getGameBoardPositionArray()[99][99].getSettlerCount();
-        int two = gameboard.getGameBoardPositionArray()[99][100].getSettlerCount();
-        int three = gameboard.getGameBoardPositionArray()[98][101].getSettlerCount();
+        int one = gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount();
+        int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
+        int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
 
 
     }
