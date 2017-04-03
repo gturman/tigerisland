@@ -1,6 +1,5 @@
 /**
  * Created by William on 3/14/2017.
- *
  */
 public class Player {
 
@@ -83,15 +82,7 @@ public class Player {
     }
 
     public int getPlayerID(){
-        if (playerID == 1){
-            int player = 1;
-            return player;
-        }
-        else
-        {
-            int player = 2;
-            return player;
-        }
+        return playerID;
     }
 
     public void setPlayerID(int playerID){
@@ -132,6 +123,18 @@ public class Player {
 
     public boolean playerOwnsSettlementWithID(int settlementID) {
         return this.ownedSettlementsList[settlementID];
+    }
+
+    public void setTotoroCount(int totoroCount) {
+        this.totoroCount = totoroCount;
+    }
+
+    public void setTigerCount(int tigerCount) {
+        this.tigerCount = tigerCount;
+    }
+
+    public void decreaseTigerCount() {
+        this.tigerCount -= 1;
     }
 }
 

@@ -30,14 +30,7 @@ public class Hex {
     }
 
     public boolean isNotBuiltOn(){
-        if(settlerCount != 0)
-            return false;
-        if(totoroCount != 0)
-            return false;
-        if(tigerCount != 0)
-            return false;
-
-        return true;
+        return (settlerCount == 0 && totoroCount == 0 && tigerCount == 0);
     }
 
     public int getHexID() {

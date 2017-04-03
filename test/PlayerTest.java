@@ -12,21 +12,18 @@ public class PlayerTest {
     public void testPlayerCreation(){
         Player P1 = new Player();
         Assert.assertTrue(P1 instanceof Player);
-
     }
 
     @Test
     public void testGetVillagerCount(){
         Player P1 = new Player();
         Assert.assertEquals(P1.getVillagerCount(),20);
-
     }
 
     @Test
     public void testGetTotoroCount(){
         Player P1 = new Player();
         Assert.assertEquals(P1.getTotoroCount(),3);
-
     }
 
     @Test
@@ -73,8 +70,7 @@ public class PlayerTest {
 
     @Test
     public void testSetPlayerOver2(){
-        Player P1 = new Player();
-        P1.setPlayerID(3);
+        Player P1 = new Player(2);
         Assert.assertEquals(P1.getPlayerID(),2);
     }
 

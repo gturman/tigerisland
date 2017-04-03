@@ -870,7 +870,7 @@ public class GameBoardTest {
         Tile secondTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.JUNGLE,terrainTypes.VOLCANO,terrainTypes.ROCKY);
         secondTile.flip();
         gameboard.setTileAtPosition(99,100,secondTile);
-/* // TODO: UNCOMMENT THIS WHEN NUKE SETTLEMENT MANAGEMENT IS DONE
+/* // TODO: UNCOMMENT THIS WHEN NUKE SETTLEMENT MANAGEMENT IS DONE AND MERGING IS DONE
         gameboard.buildSettlement(99,98,player);
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
         Assert.assertEquals(player.getVillagerCount(), 19);
@@ -905,8 +905,6 @@ public class GameBoardTest {
         gameboard.buildSettlement(98,99, player);
         gameboard.buildSettlement(99,99, player);
         gameboard.buildSettlement(99,100, player);
-
-
 
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][99].getSettlerCount(),0); //volcano + level 2
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),0); //level 2
@@ -959,7 +957,7 @@ public class GameBoardTest {
     public void testExpansionFromExistingSettlement(){
 
         GameBoard gameboard = new GameBoard();
-        Player testPlayer = new Player();
+        Player testPlayer = new Player(1);
         Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
         firstTile.flip();
         gameboard.setTileAtPosition(99,98,firstTile);
@@ -976,11 +974,11 @@ public class GameBoardTest {
         Assert.assertEquals(testPlayer.getScore(),10); //1 for settlement founding, 9 for expansion (4*2 + 1)
         Assert.assertEquals(testPlayer.getVillagerCount(),14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getSettlerCount(),2);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getPlayerID(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][99].getPlayerID(),1);
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getSettlerCount(),2);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getPlayerID(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getPlayerID(),1);
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[98][101].getSettlerCount(),1);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getPlayerID(),2);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[99][100].getPlayerID(),1);
     }
 
     @Test
@@ -1030,7 +1028,7 @@ public class GameBoardTest {
     @Test
     public void testIfExpandUpdatesdGameboardSettlementDataListsSize() {
         GameBoard gameboard = new GameBoard();
-        Player testPlayer = new Player();
+        Player testPlayer = new Player(1);
 
         Tile firstTile = new Tile(gameboard.getGameboardTileID(),gameboard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
         firstTile.flip();
@@ -1048,7 +1046,7 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.getGameboardSettlementListSettlementSize(1), 4);
 
         GameBoard gameboardTwo = new GameBoard();
-        Player playerTwo = new Player();
+        Player playerTwo = new Player(1);
 
         gameboardTwo.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1075,5 +1073,897 @@ public class GameBoardTest {
         Assert.assertEquals(gameboardTwo.getGameBoardPositionArray()[101][105].getSettlementID(), 1);
         Assert.assertEquals(gameboardTwo.getGameBoardPositionArray()[102][106].getSettlementID(), 1);
         Assert.assertEquals(gameboardTwo.getGameBoardPositionArray()[101][107].getSettlementID(), 1);
+    }
+
+    @Test
+    public void testIfNukeUpdatesGameBoardSettlementDataList() {
+        GameBoard gameboard = new GameBoard();
+        Player testPlayer = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile thirdTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, thirdTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+
+        gameboard.assignSizeToGameboardSettlementList(1, 4);
+        testPlayer.setOwnedSettlementsListIsOwned(1);
+
+        Assert.assertEquals(gameboard.getGameboardSettlementListSettlementSize(1), 4);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][103].getSettlementID(), 1);
+
+        Assert.assertEquals(testPlayer.getOwnedSettlementList()[1], true);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getPlayerID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getPlayerID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getPlayerID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][103].getPlayerID(), 1);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.ROCKY, terrainTypes.GRASSLANDS);
+
+        gameboard.nukeTiles(102, 104, secondTile);
+
+        Assert.assertEquals(gameboard.getGameboardSettlementListSettlementSize(1), 2);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getSettlementID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][103].getSettlementID(), 1);
+
+        Assert.assertEquals(testPlayer.getOwnedSettlementList()[1], true);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getPlayerID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getPlayerID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getPlayerID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][103].getPlayerID(), 1);
+    }
+
+    @Test
+    public void testIfTotoroPlacementIsPreventedForLessThanSize5SettlementAndOnVolcano() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 4);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(101, 101, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 104, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 103, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 102, 1, player), false); // volcano
+
+        gameboard.placeTotoroSanctuary(101, 101, 1, player);
+        gameboard.placeTotoroSanctuary(102, 104, 1, player);
+        gameboard.placeTotoroSanctuary(102, 101, 1, player);
+        gameboard.placeTotoroSanctuary(102, 103, 1, player);
+        gameboard.placeTotoroSanctuary(102, 102, 1, player);
+
+        Assert.assertEquals(gameboard.getGameboardSettlementListTotoroCount(1), 0);
+    }
+
+    @Test
+    public void testIfTotoroPlacementIsPreventedForSettlementWithTotoroAlreadyInIt() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+
+        gameboard.assignSizeToGameboardSettlementList(1, 5);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 101, 1, player), true);
+        gameboard.placeTotoroSanctuary(102, 101, 1, player);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(101, 105, 1, player), false);
+
+        gameboard.placeTotoroSanctuary(101, 105, 1, player);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getTotoroCount(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][105].getTotoroCount(), 0);
+    }
+
+    @Test
+    public void testIfTotoroCanNotBePlacedOverOccupiedPiece() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+
+        gameboard.getGameBoardPositionArray()[102][101].setTotoroCount(1);
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+
+        gameboard.getGameBoardPositionArray()[102][101].setTigerCount(1);
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+    }
+
+    @Test
+    public void testIfTotoroCanNotBePlacedFarAwayFromSettlement() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 5);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(101, 105, 1, player), false);
+    }
+
+    @Test
+    public void testIfTotoroPlacementDeniedIfNoTotorosLeft() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        player.setTotoroCount(0);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(101, 105, 1, player), false);
+    }
+
+    @Test
+    public void testIfTotoroPlacementIsAllowed() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        Assert.assertEquals(gameboard.checkIfValidTotoroPlacement(101, 105, 1, player), true);
+    }
+
+    @Test
+    public void testIfTotoroPlacementUpdatesHex() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        gameboard.placeTotoroSanctuary(101, 105, 1, player);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][105].getTotoroCount(), 1);
+    }
+
+        @Test
+    public void testIfTotoroPlacementUpdatesPlayerScoreAndRemovesPieceFromInventory() {
+            GameBoard gameboard = new GameBoard();
+
+            Player player = new Player(1);
+
+            gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+            Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+            firstTile.flip();
+            gameboard.setTileAtPosition(102, 104, firstTile);
+
+            Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+            gameboard.setTileAtPosition(103, 103, secondTile);
+
+            gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+            gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+            gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+            gameboard.setGameBoardSettlementListPlayerID(1, 1);
+            gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+            Assert.assertEquals(player.getScore(), 0);
+            Assert.assertEquals(player.getTotoroCount(), 3);
+
+            gameboard.placeTotoroSanctuary(101, 105, 1, player);
+
+            Assert.assertEquals(player.getScore(), 200);
+            Assert.assertEquals(player.getTotoroCount(), 2);
+    }
+
+    @Test
+    public void testIfTotoroPlacementUpdatesGameboardSettlementListSizeAndTotoroCount() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        gameboard.placeTotoroSanctuary(101, 105, 1, player);
+
+        Assert.assertEquals(gameboard.getGameboardSettlementListTotoroCount(1), 1);
+        Assert.assertEquals(gameboard.getGameboardSettlementListSettlementSize(1), 7);
+    }
+
+    @Test
+    public void testIfTigerPlacementIsPreventedForLessThanLevel3HexAndVolcano() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 4);
+
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(101, 101, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 103, 1, player), false);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 102, 1, player), false); // volcano
+
+        gameboard.placeTigerPen(101, 101, 1, player);
+        gameboard.placeTigerPen(102, 101, 1, player);
+        gameboard.placeTigerPen(102, 103, 1, player);
+        gameboard.placeTigerPen(102, 102, 1, player);
+
+        Assert.assertEquals(gameboard.getGameboardSettlementListTigerCount(1), 0);
+    }
+
+    @Test
+    public void testIfTigerPlacementIsPreventedForSettlementWithTigerAlreadyInIt() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+
+        gameboard.assignSizeToGameboardSettlementList(1, 5);
+
+        gameboard.getGameBoardPositionArray()[102][101].setHexLevel(3);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 101, 1, player), true);
+        gameboard.placeTigerPen(102, 101, 1, player);
+
+        gameboard.getGameBoardPositionArray()[102][101].setHexLevel(2);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(101, 105, 1, player), false);
+        gameboard.placeTigerPen(101, 105, 1, player);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getTigerCount(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][105].getTigerCount(), 0);
+    }
+
+    @Test
+    public void testIfTigerCanNotBePlacedOverOccupiedPiece() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+
+        gameboard.getGameBoardPositionArray()[102][101].setTigerCount(1);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+
+        gameboard.getGameBoardPositionArray()[102][101].setTigerCount(1);
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+    }
+
+    @Test
+    public void testIfTigerCanNotBePlacedFarAwayFromSettlement() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 5);
+
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(101, 105, 1, player), false);
+    }
+
+    @Test
+    public void testIfTigerPlacementIsNotAllowedIfPlayerDoesntHaveEnoughPieces() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+        gameboard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+
+        player.setTigerCount(0);
+
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(101, 105, 1, player), false);
+
+    }
+
+    @Test
+    public void testIfTigerPlacementIsAllowed() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+        gameboard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(101, 105, 1, player), true);
+
+        gameboard.getGameBoardPositionArray()[101][101].setHexLevel(50);
+
+        Assert.assertEquals(gameboard.checkIfValidTigerPlacement(101, 101, 1, player), true);
+    }
+
+    @Test
+    public void testIfTigerPlacementUpdatesHex() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        gameboard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameboard.placeTigerPen(101, 105, 1, player);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][105].getTigerCount(), 1);
+    }
+
+        @Test
+    public void testIfTigerPlacementUpdatesPlayerScoreAndInventory() {
+            GameBoard gameboard = new GameBoard();
+
+            Player player = new Player(1);
+
+            gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+            Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+            firstTile.flip();
+            gameboard.setTileAtPosition(102, 104, firstTile);
+
+            Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+            gameboard.setTileAtPosition(103, 103, secondTile);
+
+            gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+            gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+            gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+            gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+            gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+            gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+            gameboard.setGameBoardSettlementListPlayerID(1, 1);
+            gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+            Assert.assertEquals(player.getScore(), 0);
+            Assert.assertEquals(player.getTigerCount(), 2);
+
+            gameboard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+            gameboard.placeTigerPen(101, 105, 1, player);
+
+            Assert.assertEquals(player.getTigerCount(), 1);
+            Assert.assertEquals(player.getScore(), 75);
+    }
+
+    @Test
+    public void testIfTigerPlacementUpdatesGameboardSettlementListSizeAndTigerCount() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameboard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameboardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameboard.setTileAtPosition(103, 103, secondTile);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlementID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlementID(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameboard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+
+        gameboard.getGameBoardPositionArray()[101][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][102].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameboard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+
+        gameboard.setGameBoardSettlementListPlayerID(1, 1);
+        gameboard.assignSizeToGameboardSettlementList(1, 6);
+
+        Assert.assertEquals(player.getScore(), 0);
+
+        gameboard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameboard.placeTigerPen(101, 105, 1, player);
+
+        Assert.assertEquals(gameboard.getGameboardSettlementListTigerCount(1), 1);
+        Assert.assertEquals(gameboard.getGameboardSettlementListSettlementSize(1), 7);
     }
 }

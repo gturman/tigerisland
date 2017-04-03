@@ -23,8 +23,6 @@ public class stepDefAllowBuildingSettlement {
 
         int score = playerOne.getScore();
 
-       // System.out.print("Initial Score: " + score + "\n");
-
     }
 
 
@@ -53,7 +51,6 @@ public class stepDefAllowBuildingSettlement {
 
         int villagerCount =  playerOne.getVillagerCount();
 
-        //System.out.print("Villager Count: " + villagerCount + "\n");
     }
 
     @Given("^the hex is habitable$")
@@ -75,7 +72,6 @@ public class stepDefAllowBuildingSettlement {
         testHex1.isNotBuiltOn();
 
         int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
-      //  System.out.print("settlement Count: " + settlerCount + "\n");
 
     }
 
@@ -112,8 +108,7 @@ public class stepDefAllowBuildingSettlement {
 
         gameboard.setTileAtPosition(101,101,placeTile);
 
-        int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
-        //System.out.print("settlement Count: " + settlerCount + "\n");
+
 
     }
 
@@ -122,7 +117,6 @@ public class stepDefAllowBuildingSettlement {
 
         int villagerCount= playerOne.getVillagerCount();
 
-      //  System.out.print("Villager Count: " + villagerCount + "\n");
     }
 
     @And("^my point total has increased by one$")
@@ -140,10 +134,9 @@ public class stepDefAllowBuildingSettlement {
 
         int score = playerOne.getScore();
 
-       // System.out.print("Score Total: " + score + "\n");
 
         int settlerCount = gameboard.getGameBoardPositionArray()[101][101].getSettlerCount();
-       // System.out.print("settlement Count: " + settlerCount + "\n");
+
 
     }
 }

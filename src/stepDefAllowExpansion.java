@@ -23,8 +23,6 @@ public class stepDefAllowExpansion {
         Player player = new Player();
         int score = playerOne.getScore();
 
-        System.out.print("Initial Score: " + score + "\n");
-
         firstTile.flip();
         gameboard.setTileAtPosition(99,98,firstTile);
 
@@ -33,7 +31,6 @@ public class stepDefAllowExpansion {
         gameboard.buildSettlement(99,98,playerOne);
 
         int score1 = playerOne.getScore();
-        System.out.print("Score : " + score1 + "\n");
 
 
     }
@@ -54,10 +51,6 @@ public class stepDefAllowExpansion {
     public void iStillHaveVillagers() throws Throwable {
 
         int villagerCount =  playerOne.getVillagerCount();
-        System.out.print("Villager Count: " + villagerCount + "\n");
-
-        boolean hasvillagers = playerOne.haveVillagers();
-        // System.out.print("Villager Count: " + hasvillagers + "\n");
 
 
     }
@@ -89,14 +82,14 @@ public class stepDefAllowExpansion {
         testHex1.isNotBuiltOn();
 
         int settlerCount = gameboard.getGameBoardPositionArray()[99][98].getSettlerCount();
-        //  System.out.print("settlement Count: " + settlerCount + "\n");
+
 
     }
 
     @And("^the hex is adjacent to my settlement$")
     public void theHexIsAdjacentToMySettlement() throws Throwable {
 
-
+        GameBoard game = new GameBoard();
 
     }
 
@@ -105,7 +98,7 @@ public class stepDefAllowExpansion {
 
         gameboard.buildSettlement(99,98,playerOne);
         int villagersNeeded = gameboard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
-        System.out.print("villagersNeeded: " + villagersNeeded + "\n");
+
 
     }
 
@@ -116,9 +109,6 @@ public class stepDefAllowExpansion {
         int two = gameboard.getGameBoardPositionArray()[99][100].getSettlerCount();
         int three = gameboard.getGameBoardPositionArray()[98][101].getSettlerCount();
 
-        System.out.print("initial settlement one size: " + one + "\n");
-        System.out.print("initial settlement two size: " + two + "\n");
-        System.out.print("initial settlement three size: " + three + "\n");
 
         gameboard.buildSettlement(99,98,playerOne);
         gameboard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
@@ -131,10 +121,6 @@ public class stepDefAllowExpansion {
         int two = gameboard.getGameBoardPositionArray()[99][100].getSettlerCount();
         int three = gameboard.getGameBoardPositionArray()[98][101].getSettlerCount();
 
-
-        System.out.print("settlement one size: " + one + "\n");
-        System.out.print("settlement two size: " + two + "\n");
-        System.out.print("settlement three size: " + three + "\n");
 
     }
 
@@ -149,7 +135,7 @@ public class stepDefAllowExpansion {
     public void forEachVillagerPlacedDueToTheExpansionIShouldSeeMyVillagerCountDecreaseByOne() throws Throwable {
 
         int villagerCount =  playerOne.getVillagerCount();
-        System.out.print("Villager Count: " + villagerCount + "\n");
+
 
     }
 
@@ -157,7 +143,7 @@ public class stepDefAllowExpansion {
     public void forEachVillagersPlacedDueToTheExpansionIShouldSeeMyScoreIncreaseByTheTotalVillagersOccupyingTheHexMultipliedByTheHexesLevel() throws Throwable {
 
         int score = playerOne.getScore();
-        System.out.print("Score increased by: " + score + "\n");
+
 
     }
 
@@ -165,6 +151,6 @@ public class stepDefAllowExpansion {
     public void forEachHexExpandedToIncreaseTheSettlementSizeByOneAndMergeThoseTilesIntoTheOriginalSettlementExpandedFrom() throws Throwable {
 
 
-
+        int score = playerOne.getScore();
     }
 }
