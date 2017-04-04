@@ -12,8 +12,8 @@ public class GameBoard {
 
     public int[][] validPlacementArray = new int[boardHeight][boardWidth];
     public Hex[][] gameBoardPositionArray = new Hex[boardHeight][boardWidth];
-    public int[][] gameBoardSettlementList = new int[256][4]; // NEVER USE 0 FOR SETTLEMENT ID
-    public int[] disallowedSplitSettlementIDs = new int[256];
+    public int[][] gameBoardSettlementList = new int[256][4];
+    public int[] usedSettlementIDs = new int[256];
 
     public Vector<Pair> hexesBuiltOnThisTurn = new Vector();
     private int lastBuiltSettlementID;
@@ -21,7 +21,6 @@ public class GameBoard {
     GameBoard() {
         this.gameBoardTileID = 1;
         this.gameBoardHexID = 1;
-        this.gameBoardSettlementList[0][1] = -1; // invalid settlement ID;
     }
 
     void placeFirstTileAndUpdateValidPlacementList() {
@@ -74,15 +73,137 @@ public class GameBoard {
                 increaseEvenNotFlippedTileLevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
             if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced))
                 increaseOddNotFlippedTileLevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-           splitSettlements();
-           for(int i = 1; i < 256; i++) {
-               if(disallowedSplitSettlementIDs[i] == 1){
-                    deleteGameBoardSettlementListValues(i);
-               }
-           }
+            splitSettlements();
+            createUsableSettlementID();
         }
     }
 
+        void createUsableSettlementID() {
+            for(int i = 0; i < 256; i++) {
+                if(usedSettlementIDs[i] == 1){
+                     resetGameBoardSettlementListValues(i);
+                     usedSettlementIDs[i] = 0;
+                }
+            }
+        }
+
+        void increaseOddNotFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+            setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            setHexBLevelAndUpdateGameBoard(colPos, rowPos - 1, tileToBePlaced);
+            setHexCLevelAndUpdateGameBoard(colPos + 1, rowPos - 1, tileToBePlaced);
+
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos-1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos-2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos-2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos-2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+2, rowPos-1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos);
+        }
+
+        void increaseEvenNotFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+            setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            setHexBLevelAndUpdateGameBoard(colPos - 1, rowPos - 1, tileToBePlaced);
+            setHexCLevelAndUpdateGameBoard(colPos, rowPos - 1, tileToBePlaced);
+
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-2, rowPos-1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos-2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos-2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos-2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos-1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos);
+        }
+
+        void increaseOddFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+            setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            setHexBLevelAndUpdateGameBoard(colPos + 1, rowPos + 1, tileToBePlaced);
+            setHexCLevelAndUpdateGameBoard(colPos, rowPos + 1, tileToBePlaced);
+
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos-1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+2, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos+2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos+2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos+2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos-1);
+        }
+
+        void increaseEvenFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+            setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            setHexBLevelAndUpdateGameBoard(colPos, rowPos + 1, tileToBePlaced);
+            setHexCLevelAndUpdateGameBoard(colPos - 1, rowPos + 1, tileToBePlaced);
+
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos-1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos+1, rowPos+2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos, rowPos+2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos+2);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-2, rowPos+1);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos);
+            markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(colPos-1, rowPos-1);
+        }
+
+            void markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(int colPos, int rowPos) {
+            if(gameBoardPositionNotEmpty(colPos, rowPos) && existsASettlementAtGameBoardPosition(colPos, rowPos)){
+                addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos , rowPos);
+                setHexAsLastAddedToHexesBuiltOnList(colPos, rowPos);
+            }
+        }
+
+                void setHexAsLastAddedToHexesBuiltOnList(int colPos, int rowPos) {
+                    lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+                }
+
+                void addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(int colPos, int rowPos) {
+                    Pair lastHexSettledOn = new Pair(colPos, rowPos);
+                    hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                }
+
+                boolean existsASettlementAtGameBoardPosition(int colPos, int rowPos) {
+                    return gameBoardPositionArray[colPos][rowPos].getSettlementID() != 0;
+                }
+
+                boolean gameBoardPositionNotEmpty(int colPos, int rowPos) {
+                    return gameBoardPositionArray[colPos][rowPos] != null;
+                }
+
+            void setHexALevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+                if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
+                    decrementGameBoardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
+                }
+                tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
+                gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
+            }
+
+            void setHexBLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+                if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
+                    decrementGameBoardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
+                }
+                tileToBePlaced.getHexB().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
+                gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexB();
+            }
+
+            void setHexCLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
+                if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
+                    decrementGameBoardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
+                }
+                tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
+                gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
+            }
+
+                boolean hexToBeNukedHasSettlement(Hex hex) {
+                return hex.getSettlementID() != 0;
+            }
+
+    //TODO: James will refactor on Thursday
     void splitSettlements() {
         if(hexesBuiltOnThisTurn.isEmpty()) {
             return;
@@ -95,16 +216,15 @@ public class GameBoard {
         int playerID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
 
         int oldSettlementID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlementID();
-        disallowedSplitSettlementIDs[oldSettlementID] = 1;
+        usedSettlementIDs[oldSettlementID] = 1;
 
         int masterSettlementID;
 
         do{
             masterSettlementID = getNewestAssignableSettlementID();
-        }while(disallowedSplitSettlementIDs[masterSettlementID] == 1);
+        }while(usedSettlementIDs[masterSettlementID] == 1);
 
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setSettlementID(masterSettlementID);
-
 
         if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0) { // update newly acquired hex with master settlement values and vice versa
             incrementGameBoardSettlementListSize(masterSettlementID);
@@ -135,7 +255,7 @@ public class GameBoard {
 
         try { // do rest of calculations if possible
             Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
-            lastBuiltSettlementID = gameBoardPositionArray[nextCoordinates.getColumnPosition()][nextCoordinates.getRowPosition()].getSettlementID();
+            setHexAsLastAddedToHexesBuiltOnList(nextCoordinates.getColumnPosition(), nextCoordinates.getRowPosition());
             splitSettlements();
         }
         catch (Exception e){
@@ -145,6 +265,7 @@ public class GameBoard {
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(false);
     }
 
+    //TODO: James will refactor on Thursday
     void splitSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
         try { // is not null
             if(gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false) { // hasn't been checked yet
@@ -152,7 +273,7 @@ public class GameBoard {
                     gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark as traversed
 
                     Pair currentCoordinates = new Pair(colPos, rowPos);
-                    try {
+                    try { // TODO: FIX DELETION
                         Stack<Integer> indicesToRemove = new Stack<>();
                         int i = 0;
                         for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn
@@ -206,314 +327,6 @@ public class GameBoard {
         }
 
         return;
-    }
-
-    void increaseOddNotFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        setHexBLevelAndUpdateGameBoard(colPos, rowPos - 1, tileToBePlaced);
-        setHexCLevelAndUpdateGameBoard(colPos + 1, rowPos - 1, tileToBePlaced);
-
-        if(gameBoardPositionArray[colPos+1][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos-2] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos][rowPos-2] != null){
-            if(gameBoardPositionArray[colPos][rowPos-2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos-2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos-2] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+2][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos+2][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+2, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+2][rowPos-1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
-            }
-        }
-    }
-
-    void increaseEvenNotFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        setHexBLevelAndUpdateGameBoard(colPos - 1, rowPos - 1, tileToBePlaced);
-        setHexCLevelAndUpdateGameBoard(colPos, rowPos - 1, tileToBePlaced);
-
-        if(gameBoardPositionArray[colPos][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-2][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos-2][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-2, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-2][rowPos-1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos-2] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos][rowPos-2] != null){
-            if(gameBoardPositionArray[colPos][rowPos-2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos-2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos-2] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
-            }
-        }
-    }
-
-    void increaseOddFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        setHexBLevelAndUpdateGameBoard(colPos + 1, rowPos + 1, tileToBePlaced);
-        setHexCLevelAndUpdateGameBoard(colPos, rowPos + 1, tileToBePlaced);
-
-        if(gameBoardPositionArray[colPos+1][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos-1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+2][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos+2][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+2, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+2][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos+2] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos][rowPos+2] != null){
-            if(gameBoardPositionArray[colPos][rowPos+2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos+2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos+2] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-1].getSettlementID();
-            }
-        }
-    }
-
-    void increaseEvenFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        setHexBLevelAndUpdateGameBoard(colPos, rowPos + 1, tileToBePlaced);
-        setHexCLevelAndUpdateGameBoard(colPos - 1, rowPos + 1, tileToBePlaced);
-
-        if(gameBoardPositionArray[colPos][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos-1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos+1][rowPos+2] != null){
-            if(gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos+1, rowPos+2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos+1][rowPos+2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos][rowPos+2] != null){
-            if(gameBoardPositionArray[colPos][rowPos+2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos, rowPos+2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos+2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos+2] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos+2);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos+2].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-2][rowPos+1] != null){
-            if(gameBoardPositionArray[colPos-2][rowPos+1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-2, rowPos+1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-2][rowPos+1].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos].getSettlementID();
-            }
-        }
-        if(gameBoardPositionArray[colPos-1][rowPos-1] != null){
-            if(gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID() != 0){
-                Pair lastHexSettledOn = new Pair(colPos-1, rowPos-1);
-                hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
-                lastBuiltSettlementID = gameBoardPositionArray[colPos-1][rowPos-1].getSettlementID();
-            }
-        }
-    }
-
-    void setHexALevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
-            decrementGameBoardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
-        }
-        tileToBePlaced.getHexA().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
-        gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
-    }
-
-    void setHexBLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
-            decrementGameBoardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
-        }
-        tileToBePlaced.getHexB().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
-        gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexB();
-    }
-
-    void setHexCLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
-            decrementGameBoardSettlementListSize(gameBoardPositionArray[colPos][rowPos].getSettlementID());
-        }
-        tileToBePlaced.getHexC().setHexLevel(gameBoardPositionArray[colPos][rowPos].getHexLevel() + 1);
-        gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
-    }
-
-    boolean hexToBeNukedHasSettlement(Hex hex) {
-        return hex.getSettlementID() != 0;
     }
 
     boolean checkIfValidNuke(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -876,27 +689,27 @@ public class GameBoard {
     }
 
     boolean noEmptySpacesBelowOddNotFlippedTile(int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos] != null
-                && gameBoardPositionArray[colPos][rowPos - 1] != null
-                && gameBoardPositionArray[colPos + 1][rowPos - 1] != null;
+        return gameBoardPositionNotEmpty(colPos, rowPos)
+                && gameBoardPositionNotEmpty(colPos, rowPos - 1)
+                && gameBoardPositionNotEmpty(colPos + 1, rowPos - 1);
     }
 
     boolean noEmptySpacesBelowOddFlippedTile(int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos] != null
-                && gameBoardPositionArray[colPos + 1][rowPos + 1] != null
-                && gameBoardPositionArray[colPos][rowPos + 1] != null;
+        return gameBoardPositionNotEmpty(colPos, rowPos)
+                && gameBoardPositionNotEmpty(colPos + 1, rowPos + 1)
+                && gameBoardPositionNotEmpty(colPos, rowPos + 1);
     }
 
     boolean noEmptySpacesBelowEvenNotFlippedTile(int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos] != null
-                && gameBoardPositionArray[colPos - 1][rowPos - 1] != null
-                && gameBoardPositionArray[colPos][rowPos - 1] != null;
+        return gameBoardPositionNotEmpty(colPos, rowPos)
+                && gameBoardPositionNotEmpty(colPos - 1, rowPos - 1)
+                && gameBoardPositionNotEmpty(colPos, rowPos - 1);
     }
 
     boolean noEmptySpacesBelowEvenFlippedTile(int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos] != null // not nuking over empty gameBoard
-                && gameBoardPositionArray[colPos][rowPos + 1] != null
-                && gameBoardPositionArray[colPos - 1][rowPos + 1] != null;
+        return gameBoardPositionNotEmpty(colPos, rowPos) // not nuking over empty gameBoard
+                && gameBoardPositionNotEmpty(colPos, rowPos + 1)
+                && gameBoardPositionNotEmpty(colPos - 1, rowPos + 1);
     }
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -1197,8 +1010,7 @@ public class GameBoard {
 
             assignPlayerNewSettlementInList(playerBuilding, newSettlementID, 1);
 
-            Pair lastHexSettledOn = new Pair(colPos, rowPos);
-            hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+            addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos, rowPos);
 
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
             playerBuilding.decreaseVillagerCount(1);
@@ -1413,8 +1225,7 @@ public class GameBoard {
                     gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setSettlementID(homeHexSettlementID);
                     incrementGameBoardSettlementListSize(homeHexSettlementID);
 
-                    Pair lastHexSettledOn = new Pair(colPos + colOffset, rowPos + rowOffset);
-                    hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
+                    addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos + colOffset, rowPos + rowOffset);
 
                     lastBuiltSettlementID = homeHexSettlementID;
 
@@ -1535,7 +1346,7 @@ public class GameBoard {
 
         try { // do rest of calculations if possible
             Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
-            lastBuiltSettlementID = gameBoardPositionArray[nextCoordinates.getColumnPosition()][nextCoordinates.getRowPosition()].getSettlementID();
+            setHexAsLastAddedToHexesBuiltOnList(nextCoordinates.getColumnPosition(), nextCoordinates.getRowPosition());
             mergeSettlements();
         }
         catch (Exception e){
@@ -1572,7 +1383,7 @@ public class GameBoard {
                                                                                                          // here, increment the necessary values for the master settlement and update the hex settlementID
                          if (getGameBoardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) { // if the settlement we are currently merging is of size 1,
                                                                                                                                         // delete that settlement from player list and game list
-                            deleteGameBoardSettlementListValues(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
+                            resetGameBoardSettlementListValues(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
                             //currentPlayer.setOwnedSettlementsListIsNotOwned(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // remove ownership
                          }
                          else { // else just decrement values in list of that settlement for size/totoro/tiger pen
@@ -1654,7 +1465,7 @@ public class GameBoard {
     }
 
     int getNewestAssignableSettlementID() {
-        for (int i = 1; i < 256; i++) {
+        for (int i = 1; i < 256; i++) { // TODO: FIX ME USE OTHER LIST
             if (this.gameBoardSettlementList[i][1] == 0) {
                 return i;
             }
@@ -1724,7 +1535,7 @@ public class GameBoard {
         this.gameBoardSettlementList[settlementID][3] = tigerCount;
     }
 
-    void deleteGameBoardSettlementListValues(int settlementID) {
+    void resetGameBoardSettlementListValues(int settlementID) {
         this.gameBoardSettlementList[settlementID][0] = 0;
         this.gameBoardSettlementList[settlementID][1] = 0;
         this.gameBoardSettlementList[settlementID][2] = 0;
