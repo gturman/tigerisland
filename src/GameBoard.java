@@ -793,7 +793,6 @@ public class GameBoard {
         this.gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
     }
 
-
     boolean checkIfTileCanBePlacedAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
         if (tileIsEvenAndFlipped(rowPos, tileToBePlaced)) {
             if (validPlacementArray[colPos][rowPos] == -1) return false;
@@ -1013,6 +1012,7 @@ public class GameBoard {
             addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos, rowPos);
 
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+            playerBuilding.increaseSettlementCount();
             playerBuilding.decreaseVillagerCount(1);
             playerBuilding.increaseScore(1);
         }

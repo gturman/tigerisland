@@ -71,6 +71,10 @@ public class Player {
         this.settlementCount = settlementCount;
     }
 
+    public void increaseSettlementCount(){
+        this.settlementCount++;
+    }
+
     public int getScore(){
         return score;
     }
