@@ -1371,12 +1371,23 @@ public class GameBoard {
 
     void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player) {
         int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType);
+
+
         if (villagersNeededForExpansion <= player.getVillagerCount()) {
             int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
             expandSettlements(colPos, rowPos, expansionType, player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
             player.decreaseVillagerCount(villagersNeededForExpansion);
             player.increaseScore(score);
         }
+    }
+
+    boolean isMySettlement(int colPos, int rowPos, Player player){
+        int settlementID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+
+        if(gameBoardSettlementList[settlementID][0] == player.getPlayerID()) {
+            return true;
+        }
+        return false;
     }
 
     void mergeSettlements() {

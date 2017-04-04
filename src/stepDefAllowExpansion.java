@@ -22,13 +22,9 @@ public class stepDefAllowExpansion {
         Player player = new Player();
         int score = playerOne.getScore();
 
-<<<<<<< HEAD
         int settlementsInit = playerOne.getSettlementCount();
         System.out.print("Initial settlement count: " + settlementsInit + "\n");
 
-
-=======
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
         firstTile.flip();
         gameBoard.setTileAtPosition(99,98,firstTile);
 
@@ -37,15 +33,11 @@ public class stepDefAllowExpansion {
         gameBoard.buildSettlement(99,98,playerOne);
 
         int score1 = playerOne.getScore();
-<<<<<<< HEAD
+
         //System.out.print("Initial Score: " + score1 + "\n");
 
         int settlements = playerOne.getSettlementCount();
         System.out.print("settlement count: " + settlements + "\n");
-=======
-
-
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
     }
 
 
@@ -83,17 +75,14 @@ public class stepDefAllowExpansion {
     @Given("^the hex is a habitable terrain$")
     public void theHexIsAHabitableTerrain() throws Throwable {
 
-<<<<<<< HEAD
         boolean bool = gameBoard.isMySettlement(99,98,playerOne);
         //System.out.print("isMySettlement: " + bool + "\n");
 
         boolean bool2 = gameBoard.isMySettlement(99,100,playerOne);
         //System.out.print("isMySettlement: " + bool2 + "\n");
-=======
+
 
         gameBoard.isHabitable(99,98);
-
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
     }
 
@@ -120,12 +109,9 @@ public class stepDefAllowExpansion {
 
         gameBoard.buildSettlement(99,98,playerOne);
         int villagersNeeded = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
-<<<<<<< HEAD
+
         //System.out.print("Villagers Needed to Expand: " + villagersNeeded + "\n");
-=======
 
-
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
     }
 
     @When("^I try to expand to a hex$")
@@ -147,11 +133,10 @@ public class stepDefAllowExpansion {
         int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
         int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
 
-<<<<<<< HEAD
+
         //System.out.print("Villagers placed on hex1: " + one + "\n");
         //System.out.print("Villagers placed on hex1: " + two + "\n");
         //System.out.print("Villagers placed on hex1: " + three + "\n");
-=======
 
     }
 
@@ -160,43 +145,32 @@ public class stepDefAllowExpansion {
 
 
 
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
+
     }
 
     @And("^for each villager placed due to the expansion, I should see my villager count decrease by one$")
     public void forEachVillagerPlacedDueToTheExpansionIShouldSeeMyVillagerCountDecreaseByOne() throws Throwable {
 
         int villagerCount =  playerOne.getVillagerCount();
-<<<<<<< HEAD
-        //System.out.print("villagerCount: " + villagerCount + "\n");
-=======
 
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
+        //System.out.print("villagerCount: " + villagerCount + "\n");
 
     }
 
     @And("^for each villagers placed due to the expansion, I should see my score increase by the total villagers occupying the hex multiplied by the hexes’ level$")
     public void forEachVillagersPlacedDueToTheExpansionIShouldSeeMyScoreIncreaseByTheTotalVillagersOccupyingTheHexMultipliedByTheHexesLevel() throws Throwable {
 
-<<<<<<< HEAD
          int score = playerOne.getScore();
         //System.out.print("score: " + score + "\n");
-=======
-        int score = playerOne.getScore();
-
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
     }
 
     @And("^for each hex expanded to, increase the settlement size by one and merge those tiles into the original settlement expanded from$")
     public void forEachHexExpandedToIncreaseTheSettlementSizeByOneAndMergeThoseTilesIntoTheOriginalSettlementExpandedFrom() throws Throwable {
 
-<<<<<<< HEAD
-        int score = playerOne.getScore();
-        //System.out.print("score: " + score + "\n");
-=======
->>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
         int score = playerOne.getScore();
+        //System.out.print("score: " + score + "\n");
+
     }
 }
