@@ -1308,9 +1308,7 @@ public class GameBoard {
     void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player) {
         int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType);
 
-        //TODO: FIX for checking if it is players own hex
-
-        //if ( yourOwnSettlementForExpansion(colPos, rowPos,player) ) {
+        if ( isMySettlement(colPos, rowPos, player) ) {
 
             if (villagersNeededForExpansion <= player.getVillagerCount()) {
                 int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
@@ -1318,14 +1316,17 @@ public class GameBoard {
                 player.decreaseVillagerCount(villagersNeededForExpansion);
                 player.increaseScore(score);
             }
-        // }
+         }
     }
 
-    boolean yourOwnSettlementForExpansion(int colPos, int rowPos, Player player){
-        if(gameBoardPositionArray[rowPos][colPos].getPlayerID()!= player.getPlayerID()){
-            return false;
+    boolean isMySettlement(int colPos, int rowPos, Player player){
+
+        int settlementID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+
+        if(gameBoardSettlementList[settlementID][0] == player.getPlayerID()){
+            return true;
         }
-        return true;
+        return false;
     }
 
     void mergeSettlements() {
@@ -1487,6 +1488,7 @@ public class GameBoard {
     }
 
     void assignPlayerNewSettlementInList(Player owningPlayer, int settlementID, int settlementSize) {
+
         this.gameBoardSettlementList[settlementID][0] = owningPlayer.getPlayerID();
         owningPlayer.setOwnedSettlementsListIsOwned(settlementID);
         assignSizeToGameBoardSettlementList(settlementID, settlementSize);

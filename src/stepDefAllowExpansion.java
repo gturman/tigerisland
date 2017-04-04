@@ -11,6 +11,8 @@ public class stepDefAllowExpansion {
 
     private Player playerOne = new Player(1);
     private GameBoard gameBoard = new GameBoard();
+    private int playerID = playerOne.getPlayerID();
+
 
     private Tile firstTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
     private Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
@@ -21,6 +23,7 @@ public class stepDefAllowExpansion {
 
         Player player = new Player();
         int score = playerOne.getScore();
+
 
         firstTile.flip();
         gameBoard.setTileAtPosition(99,98,firstTile);
@@ -62,6 +65,11 @@ public class stepDefAllowExpansion {
     @Given("^the hex belongs to a settlement I own$")
     public void theHexBelongsToASettlementIOwn() throws Throwable {
 
+        boolean bool = gameBoard.isMySettlement(99,98,playerOne);
+        System.out.print("isMySettlement: " + bool + "\n");
+
+        boolean bool2 = gameBoard.isMySettlement(99,100,playerOne);
+        System.out.print("isMySettlement: " + bool2 + "\n");
 
 
     }
@@ -97,7 +105,6 @@ public class stepDefAllowExpansion {
 
     @And("^for every empty hex adjacent to the settlement of the specified terrain, add as many villagers as the hex's level$")
     public void forEveryEmptyHexAdjacentToTheSettlementOfTheSpecifiedTerrainAddAsManyVillagersAsTheHexSLevel() throws Throwable {
-
 
 
     }
