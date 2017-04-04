@@ -21,6 +21,8 @@ public class Tile {
 
     }
 
+
+
     public void tileRotationClockwise(int numberOfRotations){
         terrainTypes temp;
         if(this.isFlipped()) {
@@ -54,11 +56,9 @@ public class Tile {
     public Hex getHexA(){
         return this.hexA;
     }
-
     public Hex getHexB(){
         return this.hexB;
     }
-
     public Hex getHexC(){
         return this.hexC;
     }

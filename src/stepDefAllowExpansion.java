@@ -1,18 +1,16 @@
-/**
- * Created by Christine Chierico on 4/2/2017.
- */
-
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+/**
+ * Created by Christine Chierico on 4/2/2017.
+ */
 public class stepDefAllowExpansion {
+
 
     private Player playerOne = new Player(1);
     private GameBoard gameBoard = new GameBoard();
-    private int playerID = playerOne.getPlayerID();
-
 
     private Tile firstTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
     private Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
@@ -24,10 +22,13 @@ public class stepDefAllowExpansion {
         Player player = new Player();
         int score = playerOne.getScore();
 
+<<<<<<< HEAD
         int settlementsInit = playerOne.getSettlementCount();
         System.out.print("Initial settlement count: " + settlementsInit + "\n");
 
 
+=======
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
         firstTile.flip();
         gameBoard.setTileAtPosition(99,98,firstTile);
 
@@ -36,11 +37,17 @@ public class stepDefAllowExpansion {
         gameBoard.buildSettlement(99,98,playerOne);
 
         int score1 = playerOne.getScore();
+<<<<<<< HEAD
         //System.out.print("Initial Score: " + score1 + "\n");
 
         int settlements = playerOne.getSettlementCount();
         System.out.print("settlement count: " + settlements + "\n");
+=======
+
+
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
     }
+
 
     @And("^I am in build phase of my turn$")
     public void iAmInBuildPhaseOfMyTurn() throws Throwable {
@@ -49,6 +56,7 @@ public class stepDefAllowExpansion {
         {
             gameBoard.placeFirstTileAndUpdateValidPlacementList();
         }
+
     }
 
 
@@ -57,6 +65,7 @@ public class stepDefAllowExpansion {
 
         int villagerCount =  playerOne.getVillagerCount();
         //System.out.print("vilalgerCount: " + villagerCount + "\n");
+
 
     }
 
@@ -68,26 +77,55 @@ public class stepDefAllowExpansion {
             Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                     terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
         }
+
     }
 
-    @Given("^the hex belongs to a settlement I own$")
-    public void theHexBelongsToASettlementIOwn() throws Throwable {
+    @Given("^the hex is a habitable terrain$")
+    public void theHexIsAHabitableTerrain() throws Throwable {
 
+<<<<<<< HEAD
         boolean bool = gameBoard.isMySettlement(99,98,playerOne);
         //System.out.print("isMySettlement: " + bool + "\n");
 
         boolean bool2 = gameBoard.isMySettlement(99,100,playerOne);
         //System.out.print("isMySettlement: " + bool2 + "\n");
+=======
+
+        gameBoard.isHabitable(99,98);
+
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
     }
 
+    @And("^the hex is currently unoccupied$")
+    public void theHexIsCurrentlyUnoccupied() throws Throwable {
+
+        Hex testHex1 = new Hex(0,0,terrainTypes.GRASSLANDS);
+        testHex1.isNotBuiltOn();
+
+        int settlerCount = gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount();
+
+
+    }
+
+    @And("^the hex is adjacent to my settlement$")
+    public void theHexIsAdjacentToMySettlement() throws Throwable {
+
+        GameBoard game = new GameBoard();
+
+    }
 
     @And("^I have enough villagers to expand fully$")
     public void iHaveEnoughVillagersToExpandFully() throws Throwable {
 
         gameBoard.buildSettlement(99,98,playerOne);
         int villagersNeeded = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
+<<<<<<< HEAD
         //System.out.print("Villagers Needed to Expand: " + villagersNeeded + "\n");
+=======
+
+
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
     }
 
     @When("^I try to expand to a hex$")
@@ -96,6 +134,7 @@ public class stepDefAllowExpansion {
         int one = gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount();
         int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
         int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
+
 
         gameBoard.buildSettlement(99,98,playerOne);
         gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
@@ -108,32 +147,56 @@ public class stepDefAllowExpansion {
         int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
         int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
 
+<<<<<<< HEAD
         //System.out.print("Villagers placed on hex1: " + one + "\n");
         //System.out.print("Villagers placed on hex1: " + two + "\n");
         //System.out.print("Villagers placed on hex1: " + three + "\n");
+=======
+
+    }
+
+    @And("^for every empty hex adjacent to the settlement of the specified terrain, add as many villagers as the hex's level$")
+    public void forEveryEmptyHexAdjacentToTheSettlementOfTheSpecifiedTerrainAddAsManyVillagersAsTheHexSLevel() throws Throwable {
+
+
+
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
     }
 
     @And("^for each villager placed due to the expansion, I should see my villager count decrease by one$")
     public void forEachVillagerPlacedDueToTheExpansionIShouldSeeMyVillagerCountDecreaseByOne() throws Throwable {
 
         int villagerCount =  playerOne.getVillagerCount();
+<<<<<<< HEAD
         //System.out.print("villagerCount: " + villagerCount + "\n");
+=======
+
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
     }
 
     @And("^for each villagers placed due to the expansion, I should see my score increase by the total villagers occupying the hex multiplied by the hexes’ level$")
     public void forEachVillagersPlacedDueToTheExpansionIShouldSeeMyScoreIncreaseByTheTotalVillagersOccupyingTheHexMultipliedByTheHexesLevel() throws Throwable {
 
+<<<<<<< HEAD
          int score = playerOne.getScore();
         //System.out.print("score: " + score + "\n");
+=======
+        int score = playerOne.getScore();
+
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
     }
 
     @And("^for each hex expanded to, increase the settlement size by one and merge those tiles into the original settlement expanded from$")
     public void forEachHexExpandedToIncreaseTheSettlementSizeByOneAndMergeThoseTilesIntoTheOriginalSettlementExpandedFrom() throws Throwable {
 
+<<<<<<< HEAD
         int score = playerOne.getScore();
         //System.out.print("score: " + score + "\n");
+=======
+>>>>>>> 4d031a1aab8af28e858ef834ab5322923542a5ce
 
+        int score = playerOne.getScore();
     }
 }

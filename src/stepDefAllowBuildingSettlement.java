@@ -1,16 +1,18 @@
-/**
- * Created by Christine Chierico on 4/1/2017.
- */
-
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+/**
+ * Created by Christine Chierico on 4/1/2017.
+ */
 public class stepDefAllowBuildingSettlement {
+
 
     private Player playerOne = new Player(1);
     private GameBoard gameBoard = new GameBoard();
+
+
 
     @Given("^I am player$")
     public void i_AmPlayer() throws Throwable {
@@ -20,6 +22,7 @@ public class stepDefAllowBuildingSettlement {
         int score = playerOne.getScore();
 
     }
+
 
     @And("^I am in the build phase of my turn$")
     public void iAmInTheBuildPhaseOfMyTurn() throws Throwable {
@@ -57,6 +60,7 @@ public class stepDefAllowBuildingSettlement {
         gameBoard.setTileAtPosition(101,101,placeTile);
 
         gameBoard.isHabitable(101,101);
+
     }
 
     @And("^the hex is currently empty$")
@@ -66,6 +70,7 @@ public class stepDefAllowBuildingSettlement {
         testHex1.isNotBuiltOn();
 
         int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
+
     }
 
     @And("^the hex is level one$")
@@ -77,6 +82,7 @@ public class stepDefAllowBuildingSettlement {
         gameBoard.setTileAtPosition(101,101,placeTile);
 
         gameBoard.isOnLevelOne(101,101);
+
     }
 
     @When("^I try to place a villager on a hex$")
@@ -88,6 +94,8 @@ public class stepDefAllowBuildingSettlement {
         gameBoard.setTileAtPosition(101,101,placeTile);
 
         gameBoard.buildSettlement(101,101,playerOne);
+
+
     }
 
     @Then("^I should see that my settlement was placed$")
@@ -97,6 +105,8 @@ public class stepDefAllowBuildingSettlement {
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
         gameBoard.setTileAtPosition(101,101,placeTile);
+
+
 
     }
 
@@ -113,6 +123,7 @@ public class stepDefAllowBuildingSettlement {
         int score = playerOne.getScore();
 
        // System.out.print("Score increased by: " + score + "\n");
+
     }
 
     //TODO: Check for two adjacent settlements merging
@@ -121,7 +132,9 @@ public class stepDefAllowBuildingSettlement {
 
         int score = playerOne.getScore();
 
+
         int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
+
 
     }
 }

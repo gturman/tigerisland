@@ -5,6 +5,7 @@ import org.junit.*;
  */
 
 public class GameBoardTest {
+
     @Test
     public void createGameBoardTest() {
         GameBoard gameBoard = new GameBoard();

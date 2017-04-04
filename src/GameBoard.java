@@ -713,7 +713,7 @@ public class GameBoard {
     }
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
-        if (!checkIfTileCanBePlacedAtPosition(colPos, rowPos, tileToBePlaced)) return;
+        if (!checkIfTileCanBePlacedAtPosition(colPos, rowPos, tileToBePlaced))return;
 
         if (tileIsEvenAndFlipped(rowPos, tileToBePlaced) && thereIsNotAFlippedEvenTileThere(colPos, rowPos))
             setEvenFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
@@ -1065,6 +1065,70 @@ public class GameBoard {
         return true;
    }
 
+   int findAdjacentSettlementWithoutTotoro(int rowPos, int colPos){
+        if(checkIfEven(rowPos)){
+            int sID1 = gameBoardPositionArray[rowPos-1][rowPos-1].getSettlementID();
+            int sID2 = gameBoardPositionArray[rowPos][rowPos-1].getSettlementID();
+            int sID3 = gameBoardPositionArray[rowPos-1][rowPos].getSettlementID();
+            int sID4 = gameBoardPositionArray[rowPos+1][rowPos].getSettlementID();
+            int sID5 = gameBoardPositionArray[rowPos-1][rowPos+1].getSettlementID();
+            int sID6 = gameBoardPositionArray[rowPos][rowPos+1].getSettlementID();
+            if(gameBoardSettlementList[sID1][2]==0){return sID1;}
+            if(gameBoardSettlementList[sID2][2]==0){return sID2;}
+            if(gameBoardSettlementList[sID3][2]==0){return sID3;}
+            if(gameBoardSettlementList[sID4][2]==0){return sID4;}
+            if(gameBoardSettlementList[sID5][2]==0){return sID5;}
+            if(gameBoardSettlementList[sID6][2]==0){return sID6;}
+
+        }else{
+            int sID1 = gameBoardPositionArray[rowPos][rowPos-1].getSettlementID();
+            int sID2 = gameBoardPositionArray[rowPos+1][rowPos-1].getSettlementID();
+            int sID3 = gameBoardPositionArray[rowPos-1][rowPos].getSettlementID();
+            int sID4 = gameBoardPositionArray[rowPos+1][rowPos].getSettlementID();
+            int sID5 = gameBoardPositionArray[rowPos][rowPos+1].getSettlementID();
+            int sID6 = gameBoardPositionArray[rowPos+1][rowPos+1].getSettlementID();
+            if(gameBoardSettlementList[sID1][2]==0){return sID1;}
+            if(gameBoardSettlementList[sID2][2]==0){return sID2;}
+            if(gameBoardSettlementList[sID3][2]==0){return sID3;}
+            if(gameBoardSettlementList[sID4][2]==0){return sID4;}
+            if(gameBoardSettlementList[sID5][2]==0){return sID5;}
+            if(gameBoardSettlementList[sID6][2]==0){return sID6;}
+        }
+        return -1;
+   }
+
+    int findAdjacentSettlementWithoutTiger(int rowPos, int colPos){
+        if(checkIfEven(rowPos)){
+            int sID1 = gameBoardPositionArray[rowPos-1][rowPos-1].getSettlementID();
+            int sID2 = gameBoardPositionArray[rowPos][rowPos-1].getSettlementID();
+            int sID3 = gameBoardPositionArray[rowPos-1][rowPos].getSettlementID();
+            int sID4 = gameBoardPositionArray[rowPos+1][rowPos].getSettlementID();
+            int sID5 = gameBoardPositionArray[rowPos-1][rowPos+1].getSettlementID();
+            int sID6 = gameBoardPositionArray[rowPos][rowPos+1].getSettlementID();
+            if(gameBoardSettlementList[sID1][3]==0){return sID1;}
+            if(gameBoardSettlementList[sID2][3]==0){return sID2;}
+            if(gameBoardSettlementList[sID3][3]==0){return sID3;}
+            if(gameBoardSettlementList[sID4][3]==0){return sID4;}
+            if(gameBoardSettlementList[sID5][3]==0){return sID5;}
+            if(gameBoardSettlementList[sID6][3]==0){return sID6;}
+
+        }else{
+            int sID1 = gameBoardPositionArray[rowPos][rowPos-1].getSettlementID();
+            int sID2 = gameBoardPositionArray[rowPos+1][rowPos-1].getSettlementID();
+            int sID3 = gameBoardPositionArray[rowPos-1][rowPos].getSettlementID();
+            int sID4 = gameBoardPositionArray[rowPos+1][rowPos].getSettlementID();
+            int sID5 = gameBoardPositionArray[rowPos][rowPos+1].getSettlementID();
+            int sID6 = gameBoardPositionArray[rowPos+1][rowPos+1].getSettlementID();
+            if(gameBoardSettlementList[sID1][3]==0){return sID1;}
+            if(gameBoardSettlementList[sID2][3]==0){return sID2;}
+            if(gameBoardSettlementList[sID3][3]==0){return sID3;}
+            if(gameBoardSettlementList[sID4][3]==0){return sID4;}
+            if(gameBoardSettlementList[sID5][3]==0){return sID5;}
+            if(gameBoardSettlementList[sID6][3]==0){return sID6;}
+        }
+        return -1;
+    }
+
     void placeTigerPen(int colPos, int rowPos, int settlementID, Player playerBuilding) {
        if(checkIfValidTigerPlacement(colPos, rowPos, settlementID, playerBuilding)) {
            incrementGameBoardSettlementListTigerCount(settlementID);
@@ -1307,26 +1371,12 @@ public class GameBoard {
 
     void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player) {
         int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType);
-
-        if ( isMySettlement(colPos, rowPos, player) ) {
-
-            if (villagersNeededForExpansion <= player.getVillagerCount()) {
-                int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
-                expandSettlements(colPos, rowPos, expansionType, player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
-                player.decreaseVillagerCount(villagersNeededForExpansion);
-                player.increaseScore(score);
-            }
-         }
-    }
-
-    boolean isMySettlement(int colPos, int rowPos, Player player){
-
-        int settlementID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
-
-        if(gameBoardSettlementList[settlementID][0] == player.getPlayerID()){
-            return true;
+        if (villagersNeededForExpansion <= player.getVillagerCount()) {
+            int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
+            expandSettlements(colPos, rowPos, expansionType, player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
+            player.decreaseVillagerCount(villagersNeededForExpansion);
+            player.increaseScore(score);
         }
-        return false;
     }
 
     void mergeSettlements() {
@@ -1488,7 +1538,6 @@ public class GameBoard {
     }
 
     void assignPlayerNewSettlementInList(Player owningPlayer, int settlementID, int settlementSize) {
-
         this.gameBoardSettlementList[settlementID][0] = owningPlayer.getPlayerID();
         owningPlayer.setOwnedSettlementsListIsOwned(settlementID);
         assignSizeToGameBoardSettlementList(settlementID, settlementSize);
