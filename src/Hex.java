@@ -23,9 +23,6 @@ public class Hex {
         this.settlerCount = 0;
         this.totoroCount = 0;
         this.tigerCount = 0;
-        this.settlerCount = 0;
-        this.totoroCount = 0;
-        this.tigerCount = 0;
         this.settlementID = 0;
         this.playerID = 0;
         this.alreadyTraversed = false;
