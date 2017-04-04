@@ -1307,12 +1307,25 @@ public class GameBoard {
 
     void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player) {
         int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType);
-        if (villagersNeededForExpansion <= player.getVillagerCount()) {
-            int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
-            expandSettlements(colPos, rowPos, expansionType, player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
-            player.decreaseVillagerCount(villagersNeededForExpansion);
-            player.increaseScore(score);
+
+        //TODO: FIX for checking if it is players own hex
+
+        //if ( yourOwnSettlementForExpansion(colPos, rowPos,player) ) {
+
+            if (villagersNeededForExpansion <= player.getVillagerCount()) {
+                int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
+                expandSettlements(colPos, rowPos, expansionType, player, gameBoardPositionArray[colPos][rowPos].getSettlementID());
+                player.decreaseVillagerCount(villagersNeededForExpansion);
+                player.increaseScore(score);
+            }
+        // }
+    }
+
+    boolean yourOwnSettlementForExpansion(int colPos, int rowPos, Player player){
+        if(gameBoardPositionArray[rowPos][colPos].getPlayerID()!= player.getPlayerID()){
+            return false;
         }
+        return true;
     }
 
     void mergeSettlements() {

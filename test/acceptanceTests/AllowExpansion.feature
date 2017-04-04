@@ -7,9 +7,7 @@ Feature: Allowing the building of an expansion
     And I have chosen to expand
 
   Scenario: I choose a hex to expand to
-    Given the hex is a habitable terrain
-    And the hex is currently unoccupied
-    And the hex is adjacent to my settlement
+    Given the hex belongs to a settlement I own
     And I have enough villagers to expand fully
     When I try to expand to a hex
     Then I should see that each hex I can expand to has acquired the number of villagers equal to the hexes’ level

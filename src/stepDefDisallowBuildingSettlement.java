@@ -1,17 +1,16 @@
+/**
+ * Created by Christine Chierico on 4/1/2017.
+ */
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-/**
- * Created by Christine Chierico on 4/1/2017.
- */
 public class stepDefDisallowBuildingSettlement {
 
     private Player playerOne = new Player(1);
     private GameBoard gameBoard = new GameBoard();
-
-
 
     @Given("^I am the player$")
     public void i_AmThePlayer() throws Throwable {
@@ -27,7 +26,6 @@ public class stepDefDisallowBuildingSettlement {
         {
             gameBoard.placeFirstTileAndUpdateValidPlacementList();
         }
-
     }
 
     @And("^I chose to settle$")
@@ -38,7 +36,6 @@ public class stepDefDisallowBuildingSettlement {
             Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                     terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
         }
-
     }
 
     @Given("^the hex is an uninhabitable terrain hex$")
@@ -51,7 +48,6 @@ public class stepDefDisallowBuildingSettlement {
 
        boolean habitable = gameBoard.isHabitable(101,101);
        //System.out.print("habitable: " + habitable + "\n");
-
     }
 
     @When("^I try to place my piece on a hex$")
@@ -70,7 +66,6 @@ public class stepDefDisallowBuildingSettlement {
 
         //System.out.print("valid hex: " + valid + "\n");
        // System.out.print("settlement Count: " + settlerCount + "\n");
-
     }
 
     @Then("^my piece is prevented from being placed$")
@@ -83,7 +78,6 @@ public class stepDefDisallowBuildingSettlement {
 
         int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
         //System.out.print("settlement Count: " + settlerCount + "\n");
-
     }
 
     @Given("^the hex already has a piece on it$")
@@ -104,11 +98,10 @@ public class stepDefDisallowBuildingSettlement {
 
         gameBoard.setTileAtPosition(101,101,placeTile);
 
-       boolean level = gameBoard.isOnLevelOne(101,101);
-      // System.out.print("builtOn: " + level + "\n");
+        boolean level = gameBoard.isOnLevelOne(101,101);
+       // System.out.print("builtOn: " + level + "\n");
 
     }
-
 
 }
 

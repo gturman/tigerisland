@@ -9,6 +9,10 @@ import cucumber.api.java.en.When;
 
 public class stepDefTilePlacement {
 
+    private Player player = new Player(1);
+    private GameBoard gameBoard = new GameBoard();
+
+
     @Given("^I am a player$")
     public void iAmAPlayer() throws Throwable {
         Player player = new Player();
@@ -17,8 +21,6 @@ public class stepDefTilePlacement {
 
     @And("^I am in the tile placement phase of my turn$")
     public void iAmInTheTilePlacementPhaseOfMyTurn() throws Throwable {
-        Player player = new Player();
-        GameBoard gameBoard = new GameBoard();
 
         if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
         {
@@ -29,15 +31,14 @@ public class stepDefTilePlacement {
 
     @And("^I have drawn a tile$")
     public void iHaveJustDrawnATile() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
 
         Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+
     }
 
     @And("^I am placing the tile on the board at a certain level$")
     public void iAmPlacingTheTileOnTheBoardAtACertainLevel() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
 
         Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
@@ -45,25 +46,18 @@ public class stepDefTilePlacement {
 
     @Given("^the board is empty$")
     public void theBoardIsEmpty() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
 
         boolean boardIsEmpty = gameBoard.getGameBoardTileID() == 1;
     }
 
     @Then("^my tile is placed on the center of the board$")
     public void myTileIsPlacedOnTheCenterOfTheBoard() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
     }
 
     @Given("^one or more edges of my tile touches one or more of another tile’s edges$")
     public void oneOrMoreEdgeSOfMyTileTouchesOneOrMoreOfAnotherTileSEdgeS() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -74,9 +68,6 @@ public class stepDefTilePlacement {
 
     @Given("^my tile’s volcano is aligned with the bottom tile’s volcano$")
     public void myTileSVolcanoIsAlignedWithTheBottomTileSVolcano() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -92,9 +83,6 @@ public class stepDefTilePlacement {
 
     @And("^my tile does not completely overlap a single tile$")
     public void myTileDoesNotCompletelyOverlapASingleTile() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -110,9 +98,6 @@ public class stepDefTilePlacement {
 
     @And("^my tile does not completely overlap a settlement or Totoro$")
     public void myTileDoesNotCompletelyOverlapASettlementOrTotoro() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -128,9 +113,6 @@ public class stepDefTilePlacement {
 
     @And("^all of the tiles I am trying to cover are of the same level$")
     public void allOfTheTilesIAmTryingToCoverAreOfTheSameLevel() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -146,9 +128,6 @@ public class stepDefTilePlacement {
 
     @When("^I place the tile$")
     public void iPlaceTheTile() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -159,9 +138,6 @@ public class stepDefTilePlacement {
 
     @Then("^I should see that my tile was placed$")
     public void iShouldSeeThatMyTileWasPlaced() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
