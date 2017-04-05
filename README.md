@@ -9,8 +9,8 @@ The following concepts are currently in development:
     * ~~Hex~~
       * ~~Level~~
       * ~~Terrain~~
-        * ~~Uninhabitable ~~
-        * ~~Habitable ~~
+        * ~~Uninhabitable~~
+        * ~~Habitable~~
       * ~~Edge~~
 
 * ~~Piece~~
