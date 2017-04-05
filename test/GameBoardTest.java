@@ -2165,6 +2165,8 @@ public class GameBoardTest {
 
         gameBoard.mergeSettlements();
 
+        Assert.assertEquals(gameBoard.hexesBuiltOnThisTurn.isEmpty(), true);
+
         Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(9), 9);
 
         Tile fourthTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.ROCKY);

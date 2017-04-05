@@ -17,6 +17,7 @@ public class GameBoard {
     public int[] usedSettlementIDs = new int[256]; // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
 
     public Vector<Pair> hexesBuiltOnThisTurn = new Vector();
+    public Vector<Pair> hexesToResetTraversalValue = new Vector();
 
     GameBoard() {
         this.gameBoardTileID = 1;
@@ -75,18 +76,9 @@ public class GameBoard {
             if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced))
                 increaseOddNotFlippedTileLevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
             splitSettlements();
-     //       freeUsedSettlementID();
         }
     }
 
-       // void freeUsedSettlementID() {
-         //   for(int i = 1; i < 256; i++) {
-           //     if(usedSettlementIDs[i] == 2){
-             //        deleteSettlementFromGame(i);
-               //      usedSettlementIDs[i] = 0;
-                //}
-          //  }
-       // }
         // TODO: skip doing split settlements if tile nukes over hexes that don't have any settlements on them
         void increaseOddNotFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
             setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
@@ -201,12 +193,14 @@ public class GameBoard {
     //TODO: James will refactor on Thursday
     void splitSettlements() {
         if(hexesBuiltOnThisTurn.isEmpty()) {
+            resetTraversalList(); // TODO: come up with non-naive solution to this problem
             return;
         }
 
         Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(true);
+        hexesToResetTraversalValue.add(currentCoordinates);
 
         int playerID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
 
@@ -269,13 +263,7 @@ public class GameBoard {
             splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
         }
 
-        try { // do rest of calculations if possible
-            Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
-            splitSettlements();
-        }
-        catch (Exception e){
-            return;
-        }
+         splitSettlements();
 
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(false);
     }
@@ -288,8 +276,9 @@ public class GameBoard {
                     gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark as traversed
 
                     Pair currentCoordinates = new Pair(colPos, rowPos);
-                    try {
+                    hexesToResetTraversalValue.add(currentCoordinates);
 
+                    try {
                         int i = 0;
                         for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn to not waste time re-splitting/merging already split/merged settlements
                             if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
@@ -1429,6 +1418,7 @@ public class GameBoard {
 
     void mergeSettlements() {
         if(hexesBuiltOnThisTurn.isEmpty()) {
+            resetTraversalList(); // TODO: come up with non-naive solution to this problem
             return;
         }
 
@@ -1436,6 +1426,8 @@ public class GameBoard {
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(true);
         int playerID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
+
+        hexesToResetTraversalValue.add(currentCoordinates);
 
         int masterSettlementID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlementID();
 
@@ -1456,16 +1448,9 @@ public class GameBoard {
             mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
         }
 
-        try { // do rest of calculations if possible
-            Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
-            mergeSettlements();
-        }
-        catch (Exception e){
-            return;
-        }
-
-        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(false);
+        mergeSettlements();
     }
+
 
     void mergeSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
         try { // is not null
@@ -1473,20 +1458,19 @@ public class GameBoard {
                 if (gameBoardPositionArray[colPos][rowPos].getPlayerID() == playerID) { // owned by player
                     gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark as traversed
 
-                     Pair currentCoordinates = new Pair(colPos, rowPos);
-                    try { // TODO: get this working to save time on traversal; it doesn't seem to delete values from hexesBuiltOnThisTurn and method gets called for already traversed values (but nothing happens with them)
-                        Stack<Integer> indicesToRemove = new Stack<>();
+                    Pair currentCoordinates = new Pair(colPos, rowPos);
+                    hexesToResetTraversalValue.add(currentCoordinates);
+
+                    try {
                         int i = 0;
-                        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn
+                        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn to not waste time re-splitting/merging already split/merged settlements
                             if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
-                                indicesToRemove.push(i);
+                                hexesBuiltOnThisTurn.elementAt(i).setCoordinates(-1, -1); // mark pair for deletion
                             }
                             i++;
                         }
-                        while(!indicesToRemove.isEmpty()) {
-                            hexesBuiltOnThisTurn.remove(indicesToRemove.lastElement()); // TODO: for some reason, using removeElementAt for this line breaks splitting settlements code even though in
-                            indicesToRemove.pop();                                      // for splitting settlements code I use the same function in the same context
-                        }
+                        Predicate<Pair> pairPredicate = pair -> pair.getColumnPosition() == -1 && pair.getRowPosition() == -1; // if pair was marked for deletion, delete it
+                        hexesBuiltOnThisTurn.removeIf(pairPredicate);
                     }
                     catch (NullPointerException e) {}
 
@@ -1495,7 +1479,6 @@ public class GameBoard {
                          if (getGameBoardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) { // if the settlement we are currently merging is of size 1,
                                                                                                                                         // delete that settlement from player list and game list
                             deleteSettlementFromGame(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
-                            //currentPlayer.setOwnedSettlementsListIsNotOwned(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // remove ownership
                          }
                          else { // else just decrement values in list of that settlement for size/totoro/tiger pen
                             if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) {
@@ -1539,8 +1522,6 @@ public class GameBoard {
                         mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()+1);
                         mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
                     }
-
-                    gameBoardPositionArray[rowPos][colPos].setIfAlreadyTraversed(false); // un-mark as traversed
                 }
             }
         }
@@ -1655,4 +1636,9 @@ public class GameBoard {
         usedSettlementIDs[settlementID] = 0;
     }
 
+    void resetTraversalList() { // TODO: come up with non-naive solution to this problem
+        for(Pair pair : hexesToResetTraversalValue){
+            gameBoardPositionArray[pair.getColumnPosition()][pair.getRowPosition()].setIfAlreadyTraversed(false);
+        }
+    }
 }
