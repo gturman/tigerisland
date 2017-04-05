@@ -3,6 +3,7 @@
  */
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class GameBoard {
     private int boardHeight = 202;
@@ -13,7 +14,7 @@ public class GameBoard {
     public int[][] validPlacementArray = new int[boardHeight][boardWidth];
     public Hex[][] gameBoardPositionArray = new Hex[boardHeight][boardWidth];
     public int[][] gameBoardSettlementList = new int[256][4];
-    public int[] usedSettlementIDs = new int[256];
+    public int[] usedSettlementIDs = new int[256]; // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
 
     public Vector<Pair> hexesBuiltOnThisTurn = new Vector();
     private int lastBuiltSettlementID;
@@ -21,6 +22,7 @@ public class GameBoard {
     GameBoard() {
         this.gameBoardTileID = 1;
         this.gameBoardHexID = 1;
+        usedSettlementIDs[0] = 1; // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
     }
 
     void placeFirstTileAndUpdateValidPlacementList() {
@@ -74,19 +76,19 @@ public class GameBoard {
             if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced))
                 increaseOddNotFlippedTileLevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
             splitSettlements();
-            createUsableSettlementID();
+     //       freeUsedSettlementID();
         }
     }
 
-        void createUsableSettlementID() {
-            for(int i = 0; i < 256; i++) {
-                if(usedSettlementIDs[i] == 1){
-                     resetGameBoardSettlementListValues(i);
-                     usedSettlementIDs[i] = 0;
-                }
-            }
-        }
-
+       // void freeUsedSettlementID() {
+         //   for(int i = 1; i < 256; i++) {
+           //     if(usedSettlementIDs[i] == 2){
+             //        deleteSettlementFromGame(i);
+               //      usedSettlementIDs[i] = 0;
+                //}
+          //  }
+       // }
+        // TODO: skip doing split settlements if tile nukes over hexes that don't have any settlements on them
         void increaseOddNotFlippedTileLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
             setHexALevelAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
             setHexBLevelAndUpdateGameBoard(colPos, rowPos - 1, tileToBePlaced);
@@ -167,12 +169,12 @@ public class GameBoard {
                     hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
                 }
 
-                boolean existsASettlementAtGameBoardPosition(int colPos, int rowPos) {
-                    return gameBoardPositionArray[colPos][rowPos].getSettlementID() != 0;
-                }
-
                 boolean gameBoardPositionNotEmpty(int colPos, int rowPos) {
                     return gameBoardPositionArray[colPos][rowPos] != null;
+                }
+
+                boolean existsASettlementAtGameBoardPosition(int colPos, int rowPos) {
+                    return gameBoardPositionArray[colPos][rowPos].getSettlementID() != 0;
                 }
 
             void setHexALevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -216,24 +218,45 @@ public class GameBoard {
         int playerID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
 
         int oldSettlementID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlementID();
-        usedSettlementIDs[oldSettlementID] = 1;
 
-        int masterSettlementID;
-
-        do{
-            masterSettlementID = getNewestAssignableSettlementID();
-        }while(usedSettlementIDs[masterSettlementID] == 1);
+        int masterSettlementID = getNewestAssignableSettlementID();
 
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setSettlementID(masterSettlementID);
+        setGameBoardSettlementListPlayerID(masterSettlementID, playerID);
 
-        if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0) { // update newly acquired hex with master settlement values and vice versa
+        if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0) {
             incrementGameBoardSettlementListSize(masterSettlementID);
-        } else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTotoroCount() == 1) {
+
+            if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
+                deleteSettlementFromGame(oldSettlementID);
+            }
+            else {
+                decrementGameBoardSettlementListSize(oldSettlementID);
+            }
+        }
+        else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTotoroCount() == 1) {
             incrementGameBoardSettlementListSize(masterSettlementID);
             incrementGameBoardSettlementListTotoroCount(masterSettlementID);
-        } else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTigerCount() == 1) {
+
+            if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
+                deleteSettlementFromGame(oldSettlementID);
+            }
+            else {
+                decrementGameBoardSettlementListSize(oldSettlementID);
+                decrementGameBoardSettlementListTotoroCount(oldSettlementID);
+            }
+        }
+        else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTigerCount() == 1) {
             incrementGameBoardSettlementListSize(masterSettlementID);
             incrementGameBoardSettlementListTigerCount(masterSettlementID);
+
+            if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
+                deleteSettlementFromGame(oldSettlementID);
+            }
+            else {
+                decrementGameBoardSettlementListSize(oldSettlementID);
+                decrementGameBoardSettlementListTigerCount(oldSettlementID);
+            }
         }
 
         if(checkIfEven(currentCoordinates.getRowPosition())) {
@@ -273,32 +296,57 @@ public class GameBoard {
                     gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark as traversed
 
                     Pair currentCoordinates = new Pair(colPos, rowPos);
-                    try { // TODO: FIX DELETION
-                        Stack<Integer> indicesToRemove = new Stack<>();
+                    try {
+
                         int i = 0;
-                        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn
+                        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn to not waste time re-splitting/merging already split/merged settlements
                             if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
-                                indicesToRemove.push(i);
+                                hexesBuiltOnThisTurn.elementAt(i).setCoordinates(-1, -1); // mark pair for deletion
                             }
                             i++;
                         }
-                        while(!indicesToRemove.isEmpty()) {
-                            hexesBuiltOnThisTurn.removeElementAt(indicesToRemove.lastElement());
-                            indicesToRemove.pop();
-                        }
+                        Predicate<Pair> pairPredicate = pair -> pair.getColumnPosition() == -1 && pair.getRowPosition() == -1; // if pair was marked for deletion, delete it
+                        hexesBuiltOnThisTurn.removeIf(pairPredicate);
                     }
                     catch (NullPointerException e) {}
 
+                    int oldSettlementID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+
                     gameBoardPositionArray[colPos][rowPos].setSettlementID(masterSettlementID); // set hex settlement ID to new ID
 
-                    if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) { // update newly acquired hex with master settlement values and vice versa
+                    if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) {
                         incrementGameBoardSettlementListSize(masterSettlementID);
-                    } else if (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 1) {
+
+                        if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
+                            deleteSettlementFromGame(oldSettlementID);
+                        }
+                        else {
+                            decrementGameBoardSettlementListSize(oldSettlementID);
+                        }
+                    }
+                    else if (gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 1) {
                         incrementGameBoardSettlementListSize(masterSettlementID);
                         incrementGameBoardSettlementListTotoroCount(masterSettlementID);
-                    } else if (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 1) {
+
+                        if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
+                            deleteSettlementFromGame(oldSettlementID);
+                        }
+                        else {
+                            decrementGameBoardSettlementListSize(oldSettlementID);
+                            decrementGameBoardSettlementListTotoroCount(oldSettlementID);
+                        }
+                    }
+                    else if (gameBoardPositionArray[colPos][rowPos].getTigerCount() == 1) {
                         incrementGameBoardSettlementListSize(masterSettlementID);
                         incrementGameBoardSettlementListTigerCount(masterSettlementID);
+
+                        if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
+                            deleteSettlementFromGame(oldSettlementID);
+                        }
+                        else {
+                            decrementGameBoardSettlementListSize(oldSettlementID);
+                            decrementGameBoardSettlementListTigerCount(oldSettlementID);
+                        }
                     }
 
                     if(checkIfEven(currentCoordinates.getRowPosition())) { // go to next hexes
@@ -1458,7 +1506,7 @@ public class GameBoard {
                                                                                                          // here, increment the necessary values for the master settlement and update the hex settlementID
                          if (getGameBoardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) { // if the settlement we are currently merging is of size 1,
                                                                                                                                         // delete that settlement from player list and game list
-                            resetGameBoardSettlementListValues(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
+                            deleteSettlementFromGame(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
                             //currentPlayer.setOwnedSettlementsListIsNotOwned(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // remove ownership
                          }
                          else { // else just decrement values in list of that settlement for size/totoro/tiger pen
@@ -1540,8 +1588,9 @@ public class GameBoard {
     }
 
     int getNewestAssignableSettlementID() {
-        for (int i = 1; i < 256; i++) { // TODO: FIX ME USE OTHER LIST
-            if (this.gameBoardSettlementList[i][1] == 0) {
+        for (int i = 1; i < 256; i++) { // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
+            if (usedSettlementIDs[i] == 0) {
+                usedSettlementIDs[i] = 1;
                 return i;
             }
         }
@@ -1610,11 +1659,12 @@ public class GameBoard {
         this.gameBoardSettlementList[settlementID][3] = tigerCount;
     }
 
-    void resetGameBoardSettlementListValues(int settlementID) {
+    void deleteSettlementFromGame(int settlementID) {
         this.gameBoardSettlementList[settlementID][0] = 0;
         this.gameBoardSettlementList[settlementID][1] = 0;
         this.gameBoardSettlementList[settlementID][2] = 0;
         this.gameBoardSettlementList[settlementID][3] = 0;
+        usedSettlementIDs[settlementID] = 0;
     }
 
     public int getLastBuiltSettlementID() {

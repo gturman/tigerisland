@@ -1137,12 +1137,12 @@ public class GameBoardTest {
 
         gameBoard.nukeTiles(102, 104, secondTile);
 
-        Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(2), 2);
+        Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(1), 2);
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 0);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getSettlementID(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getSettlementID(), 2);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getSettlementID(), 2);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getSettlementID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getSettlementID(), 1);
 
         Assert.assertEquals(testPlayer.getOwnedSettlementList()[1], true);
 
