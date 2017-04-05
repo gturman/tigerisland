@@ -17,7 +17,6 @@ public class GameBoard {
     public int[] usedSettlementIDs = new int[256]; // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
 
     public Vector<Pair> hexesBuiltOnThisTurn = new Vector();
-    private int lastBuiltSettlementID;
 
     GameBoard() {
         this.gameBoardTileID = 1;
@@ -156,14 +155,8 @@ public class GameBoard {
             void markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(int colPos, int rowPos) {
             if(gameBoardPositionNotEmpty(colPos, rowPos) && existsASettlementAtGameBoardPosition(colPos, rowPos)){
                 addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos , rowPos);
-                setHexAsLastAddedToHexesBuiltOnList(colPos, rowPos);
             }
         }
-
-                void setHexAsLastAddedToHexesBuiltOnList(int colPos, int rowPos) {
-                    lastBuiltSettlementID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
-                }
-
                 void addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(int colPos, int rowPos) {
                     Pair lastHexSettledOn = new Pair(colPos, rowPos);
                     hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
@@ -278,7 +271,6 @@ public class GameBoard {
 
         try { // do rest of calculations if possible
             Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
-            setHexAsLastAddedToHexesBuiltOnList(nextCoordinates.getColumnPosition(), nextCoordinates.getRowPosition());
             splitSettlements();
         }
         catch (Exception e){
@@ -1052,7 +1044,6 @@ public class GameBoard {
             gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
 
             int newSettlementID = getNewestAssignableSettlementID();
-            lastBuiltSettlementID = newSettlementID;
             gameBoardPositionArray[colPos][rowPos].setSettlementID(newSettlementID);
 
             assignPlayerNewSettlementInList(playerBuilding, newSettlementID, 1);
@@ -1339,8 +1330,6 @@ public class GameBoard {
 
                     addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos + colOffset, rowPos + rowOffset);
 
-                    lastBuiltSettlementID = homeHexSettlementID;
-
                     expandSettlements(colPos + colOffset, rowPos + rowOffset, expansionType, player, homeHexSettlementID);
                 }
             }
@@ -1469,7 +1458,6 @@ public class GameBoard {
 
         try { // do rest of calculations if possible
             Pair nextCoordinates = hexesBuiltOnThisTurn.lastElement();
-            setHexAsLastAddedToHexesBuiltOnList(nextCoordinates.getColumnPosition(), nextCoordinates.getRowPosition());
             mergeSettlements();
         }
         catch (Exception e){
@@ -1667,7 +1655,4 @@ public class GameBoard {
         usedSettlementIDs[settlementID] = 0;
     }
 
-    public int getLastBuiltSettlementID() {
-        return this.lastBuiltSettlementID;
-    }
 }

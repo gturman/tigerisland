@@ -898,16 +898,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(player.getScore(), 4);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlementID(), gameBoard.getLastBuiltSettlementID());
-
         gameBoard.mergeSettlements();
-
-        Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(gameBoard.getLastBuiltSettlementID()), 4);
-
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getSettlementID(), gameBoard.getLastBuiltSettlementID());
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getSettlementID(), gameBoard.getLastBuiltSettlementID());
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlementID(), gameBoard.getLastBuiltSettlementID());
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlementID(), gameBoard.getLastBuiltSettlementID());
 
         //nuke
         Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.LAKE,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
