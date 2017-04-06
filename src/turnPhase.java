@@ -7,7 +7,8 @@ public enum turnPhase {
     TILE_PLACEMENT,
     FOUND_SETTLEMENT,
     EXPAND_SETTLEMENT,
-    PLACE_TOTORO;
+    PLACE_TOTORO,
+    PLACE_TIGER;
 
     public int getTurnPhase() {
         switch(turnPhase.valueOf(this.name())) {
@@ -17,6 +18,7 @@ public enum turnPhase {
             case BUILD:
             case EXPAND_SETTLEMENT:
             case PLACE_TOTORO:
+            case PLACE_TIGER:
                 return 1; // phase 2
             default:
                 throw new RuntimeException("Reached unknown turn phase");
