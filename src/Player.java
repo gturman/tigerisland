@@ -11,7 +11,6 @@ public class Player {
     private int settlementCount;
     private int tilesDrawn;
     private turnPhase playerTurnPhase;
-    private boolean[] ownedSettlementsList = new boolean[256]; // NEVER USE 0 FOR SETTLEMENT ID
 
     Player(){
         //todo: assign playerID or initialize as Player P1 and Player P2
@@ -109,22 +108,6 @@ public class Player {
 
     public void setVillagerCount(int villagerCount) {
         this.villagerCount = villagerCount;
-    }
-
-    public boolean[] getOwnedSettlementList() {
-        return this.ownedSettlementsList;
-    }
-
-    public void setOwnedSettlementsListIsOwned(int settlementID) {
-        this.ownedSettlementsList[settlementID] = true;
-    }
-
-    public void setOwnedSettlementsListIsNotOwned(int settlementID) {
-        this.ownedSettlementsList[settlementID] = false;
-    }
-
-    public boolean playerOwnsSettlementWithID(int settlementID) {
-        return this.ownedSettlementsList[settlementID];
     }
 
     public void setTotoroCount(int totoroCount) {

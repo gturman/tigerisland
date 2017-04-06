@@ -16,6 +16,8 @@ public class GameBoard {
     public int[][] gameBoardSettlementList = new int[256][4];
     public int[] usedSettlementIDs = new int[256]; // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
 
+    private boolean[][] playerOwnedSettlementsList = new boolean[256][2]; // NEVER USE 0 FOR SETTLEMENT ID
+
     public Vector<Pair> hexesBuiltOnThisTurn = new Vector();
     public Vector<Pair> hexesToResetTraversalValue = new Vector();
 
@@ -207,6 +209,7 @@ public class GameBoard {
         int oldSettlementID = gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlementID();
 
         int masterSettlementID = getNewestAssignableSettlementID();
+        setPlayerOwnedSettlementsListIsOwned(masterSettlementID, playerID); // add player ownership for new settlement
 
         gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setSettlementID(masterSettlementID);
         setGameBoardSettlementListPlayerID(masterSettlementID, playerID);
@@ -215,7 +218,7 @@ public class GameBoard {
             incrementGameBoardSettlementListSize(masterSettlementID);
 
             if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
-                deleteSettlementFromGame(oldSettlementID);
+                deleteSettlementFromGame(oldSettlementID, playerID);
             }
             else {
                 decrementGameBoardSettlementListSize(oldSettlementID);
@@ -226,11 +229,10 @@ public class GameBoard {
             incrementGameBoardSettlementListTotoroCount(masterSettlementID);
 
             if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
-                deleteSettlementFromGame(oldSettlementID);
+                deleteSettlementFromGame(oldSettlementID, playerID);
             }
             else {
                 decrementGameBoardSettlementListSize(oldSettlementID);
-                decrementGameBoardSettlementListTotoroCount(oldSettlementID);
             }
         }
         else if (gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTigerCount() == 1) {
@@ -238,7 +240,7 @@ public class GameBoard {
             incrementGameBoardSettlementListTigerCount(masterSettlementID);
 
             if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
-                deleteSettlementFromGame(oldSettlementID);
+                deleteSettlementFromGame(oldSettlementID, playerID);
             }
             else {
                 decrementGameBoardSettlementListSize(oldSettlementID);
@@ -299,7 +301,7 @@ public class GameBoard {
                         incrementGameBoardSettlementListSize(masterSettlementID);
 
                         if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
-                            deleteSettlementFromGame(oldSettlementID);
+                            deleteSettlementFromGame(oldSettlementID, playerID);
                         }
                         else {
                             decrementGameBoardSettlementListSize(oldSettlementID);
@@ -310,7 +312,7 @@ public class GameBoard {
                         incrementGameBoardSettlementListTotoroCount(masterSettlementID);
 
                         if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
-                            deleteSettlementFromGame(oldSettlementID);
+                            deleteSettlementFromGame(oldSettlementID, playerID);
                         }
                         else {
                             decrementGameBoardSettlementListSize(oldSettlementID);
@@ -322,7 +324,7 @@ public class GameBoard {
                         incrementGameBoardSettlementListTigerCount(masterSettlementID);
 
                         if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
-                            deleteSettlementFromGame(oldSettlementID);
+                            deleteSettlementFromGame(oldSettlementID, playerID);
                         }
                         else {
                             decrementGameBoardSettlementListSize(oldSettlementID);
@@ -1036,7 +1038,6 @@ public class GameBoard {
             gameBoardPositionArray[colPos][rowPos].setSettlementID(newSettlementID);
 
             assignPlayerNewSettlementInList(playerBuilding, newSettlementID, 1);
-
             addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos, rowPos);
 
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
@@ -1478,7 +1479,7 @@ public class GameBoard {
                                                                                                          // here, increment the necessary values for the master settlement and update the hex settlementID
                          if (getGameBoardSettlementListSettlementSize(gameBoardPositionArray[colPos][rowPos].getSettlementID()) == 1) { // if the settlement we are currently merging is of size 1,
                                                                                                                                         // delete that settlement from player list and game list
-                            deleteSettlementFromGame(gameBoardPositionArray[colPos][rowPos].getSettlementID()); // delete settlement
+                            deleteSettlementFromGame(gameBoardPositionArray[colPos][rowPos].getSettlementID(), playerID); // delete settlement from game
                          }
                          else { // else just decrement values in list of that settlement for size/totoro/tiger pen
                             if (gameBoardPositionArray[colPos][rowPos].getSettlerCount() != 0) {
@@ -1568,7 +1569,7 @@ public class GameBoard {
 
     void assignPlayerNewSettlementInList(Player owningPlayer, int settlementID, int settlementSize) {
         this.gameBoardSettlementList[settlementID][0] = owningPlayer.getPlayerID();
-        owningPlayer.setOwnedSettlementsListIsOwned(settlementID);
+        setPlayerOwnedSettlementsListIsOwned(settlementID, owningPlayer.getPlayerID());
         assignSizeToGameBoardSettlementList(settlementID, settlementSize);
     }
 
@@ -1628,12 +1629,13 @@ public class GameBoard {
         this.gameBoardSettlementList[settlementID][3] = tigerCount;
     }
 
-    void deleteSettlementFromGame(int settlementID) {
+    void deleteSettlementFromGame(int settlementID, int playerID) {
         this.gameBoardSettlementList[settlementID][0] = 0;
         this.gameBoardSettlementList[settlementID][1] = 0;
         this.gameBoardSettlementList[settlementID][2] = 0;
         this.gameBoardSettlementList[settlementID][3] = 0;
         usedSettlementIDs[settlementID] = 0;
+        setPlayerOwnedSettlementsListIsNotOwned(settlementID, playerID); // remove player ownership of settlement
     }
 
     void resetTraversalList() { // TODO: come up with non-naive solution to this problem
@@ -1651,5 +1653,17 @@ public class GameBoard {
             }
         }
         return true;
+    }
+
+    public void setPlayerOwnedSettlementsListIsOwned(int settlementID, int playerID) {
+        this.playerOwnedSettlementsList[settlementID][playerID-1] = true;
+    }
+
+    public void setPlayerOwnedSettlementsListIsNotOwned(int settlementID, int playerID) {
+        this.playerOwnedSettlementsList[settlementID][playerID-1] = false;
+    }
+
+    public boolean playerOwnsSettlementWithID(int settlementID, int playerID) {
+        return this.playerOwnedSettlementsList[settlementID][playerID-1];
     }
 }

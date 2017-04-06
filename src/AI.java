@@ -88,10 +88,10 @@ public class AI {
                         playerOne.decreaseTotoroCount();
                         playerOne.increaseScore(200);
 
-                        System.out.println(lastColBuilt+1 + " " + lastRowBuilt);
+                        //System.out.println(lastColBuilt+1 + " " + lastRowBuilt);
                         lastColBuilt += 2;
                         settlementsBuiltInARow = 0;
-                        System.out.println("yay we placed a totoro");
+                      //  System.out.println("yay we placed a totoro");
                     }
                     break;
                 }
@@ -104,7 +104,7 @@ public class AI {
                     gameBoard.buildSettlement(lastColBuilt+1, lastRowBuilt, playerOne);
                     lastColBuilt++;
                     settlementsBuiltInARow++;
-                    System.out.println("yay we placed in a line");
+                   // System.out.println("yay we placed in a line");
                     break;
                 }
             }catch (Exception e){
