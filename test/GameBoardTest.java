@@ -2220,4 +2220,35 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(8, 1), false);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(9, 1), false);
     }
+    
+    /*    @Test
+    public void testIfExpandWorksOffOfSettlementOfSizeGreaterThanOne() {
+        GameBoard gameboard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile tileOne = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.GRASSLANDS);
+        gameboard.setTileAtPosition(103, 103, tileOne);
+
+        Tile tileTwo = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        gameboard.setTileAtPosition(103, 101, tileTwo);
+
+        Tile tileThree = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.GRASSLANDS);
+        gameboard.setTileAtPosition(105, 102, tileThree);
+
+        gameboard.buildSettlement(103, 101, player);
+        gameboard.buildSettlement(104, 102, player);
+        gameboard.buildSettlement(104, 101, player);
+
+        gameboard.mergeSettlements();
+
+        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, player.getPlayerID()), true);
+
+        gameboard.expandSettlement(104, 101, terrainTypes.GRASSLANDS, player);
+
+        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, player.getPlayerID()), true);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(3), 7);
+    }*/
 }
