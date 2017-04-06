@@ -1641,4 +1641,15 @@ public class GameBoard {
             gameBoardPositionArray[pair.getColumnPosition()][pair.getRowPosition()].setIfAlreadyTraversed(false);
         }
     }
+
+    boolean areFiveTotorosInALine(int colPos, int rowPos,int playerID){
+        for(int i = 1; i<=5;i++){
+            if(gameBoardPositionArray[colPos-1][rowPos].getPlayerID()!=playerID){ //owned by player
+                if(gameBoardPositionArray[colPos-i][rowPos].getSettlerCount() < 1){ //has a settler
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
