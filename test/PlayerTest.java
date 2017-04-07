@@ -10,52 +10,52 @@ public class PlayerTest {
 
     @Test
     public void testPlayerCreation(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         Assert.assertTrue(P1 instanceof Player);
     }
 
     @Test
     public void testGetVillagerCount(){
-        Player P1 = new Player();
-        Assert.assertEquals(P1.getVillagerCount(),20);
+        Player P1 = new Player(1);
+        Assert.assertEquals(P1.getSettlerCount(),20);
     }
 
     @Test
     public void testGetTotoroCount(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         Assert.assertEquals(P1.getTotoroCount(),3);
     }
 
     @Test
     public void testSettlementCount(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         Assert.assertEquals(P1.getSettlementCount(),0);
     }
 
     @Test
     public void testInitialScore(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         Assert.assertEquals(P1.getScore(), 0 );
     }
 
     @Test
     public void testModifiedScore(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         P1.increaseScore(30);
         Assert.assertEquals(P1.getScore(),30);
     }
 
     @Test
     public void testModifiedMeepleCount(){
-        Player P1 = new Player();
-        Assert.assertEquals(P1.getVillagerCount(),20);
-        P1.setVillagerCount(15);
-        Assert.assertEquals(P1.getVillagerCount(),15);
+        Player P1 = new Player(1);
+        Assert.assertEquals(P1.getSettlerCount(),20);
+        P1.setSettlerCount(15);
+        Assert.assertEquals(P1.getSettlerCount(),15);
     }
 
     @Test
     public void testModifiedTotoroCount(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         Assert.assertEquals(P1.getTotoroCount(), 3);
         P1.decreaseTotoroCount();
         Assert.assertEquals(P1.getTotoroCount(),2);
@@ -63,7 +63,7 @@ public class PlayerTest {
 
     @Test
     public void testSetSettlementCount(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         P1.setSettlementCount(3);
         Assert.assertEquals(P1.getSettlementCount(),3);
     }
@@ -76,22 +76,14 @@ public class PlayerTest {
 
     @Test
     public void testSetPlayer1(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         P1.setPlayerID(1);
         Assert.assertEquals(P1.getPlayerID(),1);
     }
 
     @Test
-    public void testTileIncrease(){
-        Player P1 = new Player();
-        P1.increaseTileCount();
-        Assert.assertEquals(P1.getTileCount(),1);
-
-    }
-
-    @Test
     public void testGetTigerCount(){
-        Player P1 = new Player();
+        Player P1 = new Player(1);
         Assert.assertEquals(P1.getTigerCount(),2);
 
     }
@@ -106,7 +98,6 @@ public class PlayerTest {
 
         dc.decodeString("WAIT FOR THE TOURNAMENT TO BEGIN 19304");
         Assert.assertEquals(dc.pid, 19304);
-
     }
 
     @Test
@@ -120,7 +111,6 @@ public class PlayerTest {
 
         dc.decodeString("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 20145");
         Assert.assertEquals(dc.opponentPid,20145);
-
     }
 
     @Test
@@ -131,7 +121,6 @@ public class PlayerTest {
         dc.decodeString("BEGIN ROUND 10 OF 2147000");
         Assert.assertEquals(dc.rid,10);
         Assert.assertEquals(dc.rounds,2147000);
-
     }
 
     @Test
@@ -144,7 +133,6 @@ public class PlayerTest {
         Assert.assertEquals(dc.time,125);
         Assert.assertEquals(dc.moveNum,12);
         Assert.assertEquals(dc.tile, "12345");
-
     }
 
     @Test

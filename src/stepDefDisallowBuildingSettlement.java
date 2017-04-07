@@ -9,12 +9,12 @@ import cucumber.api.java.en.When;
 public class stepDefDisallowBuildingSettlement {
     @Given("^I am the player$")
     public void i_AmThePlayer() throws Throwable {
-       Player player = new Player();
+       Player player = new Player(1);
     }
 
     @And("^Im in the build phase of my turn$")
     public void imInTheBuildPhaseOfMyTurn() throws Throwable {
-        Player player = new Player();
+        Player player = new Player(1);
         GameBoard gameboard = new GameBoard();
 
         if(player.getTurnPhase() == turnPhase.BUILD)

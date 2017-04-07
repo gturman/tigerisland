@@ -1,4 +1,3 @@
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
@@ -29,10 +28,10 @@ public class stepDefInvalidTigerPlacement {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(2);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(2);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(1);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(1);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
     }
 
@@ -58,10 +57,10 @@ public class stepDefInvalidTigerPlacement {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
 
-        gameBoard.getGameBoardPositionArray()[104][102].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[104][102].setLevel(3);
         gameBoard.placeTigerPen(104, 102, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
     }
 
@@ -87,7 +86,7 @@ public class stepDefInvalidTigerPlacement {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(2);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(2);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
     }
 }

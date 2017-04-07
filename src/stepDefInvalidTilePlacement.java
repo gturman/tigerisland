@@ -11,12 +11,12 @@ public class stepDefInvalidTilePlacement {
 
     @Given("^I am a player about to do an invalid placement$")
     public void i_AmAPlayerAboutToDoAnInvalidPlacement() throws Throwable {
-        Player player = new Player();
+        Player player = new Player(1);
     }
 
     @And("^I am in the tile placement phase of my turn for an invalid placement$")
     public void iAmInTheTilePlacementPhaseOfMyTurnForAnInvalidPlacement() throws Throwable {
-        Player player = new Player();
+        Player player = new Player(1);
         GameBoard gameBoard = new GameBoard();
 
         if(player.getTurnPhase() == turnPhase.TILE_PLACEMENT)
@@ -46,7 +46,7 @@ public class stepDefInvalidTilePlacement {
     public void noEdgesOfMyTileTouchesAnotherHexesEdge() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -59,7 +59,7 @@ public class stepDefInvalidTilePlacement {
     public void iTryToPlaceATile() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -72,7 +72,7 @@ public class stepDefInvalidTilePlacement {
     public void myTileEntirelyOverlapsAnotherTileOneLevelBelowIt() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -89,7 +89,7 @@ public class stepDefInvalidTilePlacement {
     public void myTileOverlapsASizeOneSettlement() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -109,7 +109,7 @@ public class stepDefInvalidTilePlacement {
     public void oneOrMoreHexIsNotOfTheSameLevel() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -131,7 +131,7 @@ public class stepDefInvalidTilePlacement {
     public void atLeastOnceHexBelowMyTileHasATotoro() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -151,7 +151,7 @@ public class stepDefInvalidTilePlacement {
     public void atLeastOneHexBelowMyTileHasATigerPlayground() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -171,7 +171,7 @@ public class stepDefInvalidTilePlacement {
     public void myTileSVolcanoWasNotPlacedOverAVolcano() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -181,7 +181,7 @@ public class stepDefInvalidTilePlacement {
 
         Tile tileToNuke = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
         tileToNuke.flip();
-        tileToNuke.tileRotationClockwise(1);
+        tileToNuke.rotateTileClockwise(1);
 
         gameBoard.nukeTiles(102, 100, tileToNuke);
     }
@@ -190,7 +190,7 @@ public class stepDefInvalidTilePlacement {
     public void myTileIsPreventedFromBeingPlaced() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 

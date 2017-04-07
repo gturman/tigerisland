@@ -1,4 +1,3 @@
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -148,7 +147,7 @@ public class stepDefDisallowExpansion {
         GameBoard gameboard = new GameBoard();
         Player player = new Player(1);
 
-        player.setVillagerCount(1);
+        player.setSettlerCount(1);
 
         gameboard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -186,7 +185,7 @@ public class stepDefDisallowExpansion {
         GameBoard gameboard = new GameBoard();
         Player player = new Player(1);
 
-        player.setVillagerCount(1);
+        player.setSettlerCount(1);
 
         gameboard.placeFirstTileAndUpdateValidPlacementList();
 

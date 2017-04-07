@@ -29,9 +29,9 @@ public class stepDefAllowExpansion {
         GameBoard gameboard = new GameBoard();
         Player player = new Player(1);
 
-        player.setVillagerCount(20);
+        player.setSettlerCount(20);
 
-        int villagerCount = player.getVillagerCount();
+        int villagerCount = player.getSettlerCount();
     }
 
     @And("^I have chosen to expand$")

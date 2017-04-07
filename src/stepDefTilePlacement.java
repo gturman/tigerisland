@@ -11,13 +11,13 @@ public class stepDefTilePlacement {
 
     @Given("^I am a player$")
     public void iAmAPlayer() throws Throwable {
-        Player player = new Player();
+        Player player = new Player(1);
     }
 
 
     @And("^I am in the tile placement phase of my turn$")
     public void iAmInTheTilePlacementPhaseOfMyTurn() throws Throwable {
-        Player player = new Player();
+        Player player = new Player(1);
         GameBoard gameBoard = new GameBoard();
 
         if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
@@ -54,7 +54,7 @@ public class stepDefTilePlacement {
     public void myTileIsPlacedOnTheCenterOfTheBoard() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
     }
@@ -63,7 +63,7 @@ public class stepDefTilePlacement {
     public void oneOrMoreEdgeSOfMyTileTouchesOneOrMoreOfAnotherTileSEdgeS() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -76,7 +76,7 @@ public class stepDefTilePlacement {
     public void myTileSVolcanoIsAlignedWithTheBottomTileSVolcano() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -94,7 +94,7 @@ public class stepDefTilePlacement {
     public void myTileDoesNotCompletelyOverlapASingleTile() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -112,7 +112,7 @@ public class stepDefTilePlacement {
     public void myTileDoesNotCompletelyOverlapASettlementOrTotoroOrTiger() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -130,7 +130,7 @@ public class stepDefTilePlacement {
     public void allOfTheTilesIAmTryingToCoverAreOfTheSameLevel() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -148,7 +148,7 @@ public class stepDefTilePlacement {
     public void iPlaceTheTile() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -161,7 +161,7 @@ public class stepDefTilePlacement {
     public void iShouldSeeThatMyTileWasPlaced() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player();
+        Player player = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 

@@ -1,6 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.notification.RunListener;
 
 /**
  * Created by KJ on 3/13/2017.

@@ -8,11 +8,11 @@ public class Hex {
     private int parentTileID;
     private Pair hexCoordinate = new Pair(0, 0);
     private terrainTypes hexTerrainType;
+    private int playerID;
+    private int settlementID;
     private int settlerCount;
     private int totoroCount;
     private int tigerCount;
-    private int settlementID;
-    private int playerID;
     private boolean alreadyTraversed;
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {
@@ -36,24 +36,24 @@ public class Hex {
         return hexID;
     }
 
-    public void setHexLevel(int hexLevel){
+    public int getLevel() {
+        return this.hexLevel;
+    }
+
+    public void setLevel(int hexLevel){
         this.hexLevel = hexLevel;
     }
 
-    public Pair getHexCoordinate(){
+    public Pair getCoordinatePair(){
         return hexCoordinate;
+    }
+
+    public terrainTypes getTerrainType(){
+        return this.hexTerrainType;
     }
 
     public void setTerrainType(terrainTypes newTerrain){
         this.hexTerrainType = newTerrain;
-    }
-
-    public terrainTypes getHexTerrainType(){
-        return this.hexTerrainType;
-    }
-
-    public int getHexLevel() {
-        return this.hexLevel;
     }
 
     public int getParentTileID() {
@@ -64,20 +64,20 @@ public class Hex {
         return settlerCount;
     }
 
-    public int getTotoroCount() {
-        return totoroCount;
-    }
-
-    public int getTigerCount() {
-        return tigerCount;
-    }
-
     public void setSettlerCount(int settlerCount) {
         this.settlerCount = settlerCount;
     }
 
+    public int getTotoroCount() {
+        return totoroCount;
+    }
+
     public void setTotoroCount(int totoroCount) {
         this.totoroCount = totoroCount;
+    }
+
+    public int getTigerCount() {
+        return tigerCount;
     }
 
     public void setTigerCount(int tigerCount) {

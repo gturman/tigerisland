@@ -1,4 +1,3 @@
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,7 +35,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
 
         player.setTurnPhase(turnPhase.PLACE_TIGER);
     }
@@ -63,7 +62,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
     }
 
     @And("^the settlement does not already have a Tiger Playground$")
@@ -88,7 +87,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
     }
 
     @When("^I try to place my Tiger$")
@@ -113,7 +112,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
     }
 
@@ -139,7 +138,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
     }
 
@@ -165,7 +164,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
 
         int tigerCount = player.getTigerCount();
@@ -193,7 +192,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
 
         int playerScore = player.getScore();
@@ -221,7 +220,7 @@ public class stepDefAllowTigerPlayground {
         gameBoard.buildSettlement(102, 104, player);
         gameBoard.buildSettlement(102, 101, player);
 
-        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
         gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
 
         int settlementSize = gameBoard.getGameBoardSettlementListSettlementSize(gameBoard.getGameBoardPositionArray()[102][104].getSettlementID());
