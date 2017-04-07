@@ -542,10 +542,10 @@ public class GameBoardTest {
                 terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.ROCKY);
         seventhTile.flip();
 
+        gameBoard.nukeTiles(102, 101, seventhTile);
+
         Tile eighthTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO, terrainTypes.LAKE, terrainTypes.GRASSLANDS);
-
-        gameBoard.nukeTiles(102, 101, seventhTile);
         gameBoard.nukeTiles(101, 102, eighthTile);
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getLevel(), 2);
@@ -555,6 +555,21 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][102].getLevel(), 2);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[100][101].getLevel(), 2);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][101].getLevel(), 2);
+
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][102].getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][102].getParentTileID(), eighthTile.getTileID());
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][101].getParentTileID(), eighthTile.getTileID());
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][102].getParentTileID(), seventhTile.getTileID());
+
+        Tile ninthTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        ninthTile.flip();
+
+        Assert.assertEquals(gameBoard.nukeAtPositionIsValid(101, 101, ninthTile), true);
+
+        gameBoard.nukeTiles(101, 101, ninthTile);
+
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][101].getLevel(), 3);
     }
 
     @Test

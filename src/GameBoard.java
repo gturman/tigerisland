@@ -253,6 +253,10 @@ public class GameBoard {
             if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced))
                 increaseOddNotFlippedTileLevelAndUpdateGameBoardPositionArray(colPos, rowPos, tileToBePlaced);
             splitSettlements();
+
+            int hexAmount;
+            incrementGameBoardHexID(3);
+            incrementGameBoardTileID();
         }
     }
 
