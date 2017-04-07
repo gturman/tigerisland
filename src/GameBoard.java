@@ -1151,6 +1151,7 @@ public class GameBoard {
         if(checkIfValidTotoroPlacement(colPos, rowPos, settlementID, playerBuilding)) {
             incrementGameBoardSettlementListTotoroCount(settlementID);
             gameBoardPositionArray[colPos][rowPos].setTotoroCount(1);
+            gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
             playerBuilding.increaseScore(200);
             incrementGameBoardSettlementListSize(settlementID);
             playerBuilding.decreaseTotoroCount();
@@ -1235,64 +1236,114 @@ public class GameBoard {
 
     int findAdjacentSettlementWithoutTotoro(int rowPos, int colPos){
         if(checkIfEven(rowPos)){
-            int sID1 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos-1));
-            int sID2 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
-            int sID3 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
-            int sID4 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos));
-            int sID5 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos+1));
-            int sID6 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
-            if(gameBoardSettlementList[sID1][2]==0){return sID1;}
-            if(gameBoardSettlementList[sID2][2]==0){return sID2;}
-            if(gameBoardSettlementList[sID3][2]==0){return sID3;}
-            if(gameBoardSettlementList[sID4][2]==0){return sID4;}
-            if(gameBoardSettlementList[sID5][2]==0){return sID5;}
-            if(gameBoardSettlementList[sID6][2]==0){return sID6;}
-
+            int setID;
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos-1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos+1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
         }else{
-            int sID1 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
-            int sID2 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos-1));
-            int sID3 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
-            int sID4 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos));
-            int sID5 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
-            int sID6 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos+1));
-            if(gameBoardSettlementList[sID1][2]==0){return sID1;}
-            if(gameBoardSettlementList[sID2][2]==0){return sID2;}
-            if(gameBoardSettlementList[sID3][2]==0){return sID3;}
-            if(gameBoardSettlementList[sID4][2]==0){return sID4;}
-            if(gameBoardSettlementList[sID5][2]==0){return sID5;}
-            if(gameBoardSettlementList[sID6][2]==0){return sID6;}
+            int setID;
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos-1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos+1));
+                if(gameBoardSettlementList[setID][2]==0){return setID;}
+            }catch(Exception e){}
         }
         return -1;
     }
 
     int findAdjacentSettlementWithoutTiger(int rowPos, int colPos){
         if(checkIfEven(rowPos)){
-            int sID1 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos-1));
-            int sID2 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
-            int sID3 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
-            int sID4 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos));
-            int sID5 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos+1));
-            int sID6 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
-            if(gameBoardSettlementList[sID1][3]==0){return sID1;}
-            if(gameBoardSettlementList[sID2][3]==0){return sID2;}
-            if(gameBoardSettlementList[sID3][3]==0){return sID3;}
-            if(gameBoardSettlementList[sID4][3]==0){return sID4;}
-            if(gameBoardSettlementList[sID5][3]==0){return sID5;}
-            if(gameBoardSettlementList[sID6][3]==0){return sID6;}
-
+            int setID;
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos-1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos+1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
         }else{
-            int sID1 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
-            int sID2 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos-1));
-            int sID3 = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
-            int sID4 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos));
-            int sID5 = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
-            int sID6 = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos+1));
-            if(gameBoardSettlementList[sID1][3]==0){return sID1;}
-            if(gameBoardSettlementList[sID2][3]==0){return sID2;}
-            if(gameBoardSettlementList[sID3][3]==0){return sID3;}
-            if(gameBoardSettlementList[sID4][3]==0){return sID4;}
-            if(gameBoardSettlementList[sID5][3]==0){return sID5;}
-            if(gameBoardSettlementList[sID6][3]==0){return sID6;}
+            int setID;
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos-1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos-1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos, rowPos+1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
+            try{
+                setID = getGameBoardPositionSettlementID(new Pair(rowPos+1, rowPos+1));
+                if(gameBoardSettlementList[setID][3]==0){return setID;}
+            }catch(Exception e){}
         }
         return -1;
     }
@@ -1303,6 +1354,7 @@ public class GameBoard {
         if(checkIfValidTigerPlacement(colPos, rowPos, settlementID, playerBuilding)) {
             incrementGameBoardSettlementListTigerCount(settlementID);
             gameBoardPositionArray[colPos][rowPos].setTigerCount(1);
+            gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
             playerBuilding.increaseScore(75);
             incrementGameBoardSettlementListSize(settlementID);
             playerBuilding.decreaseTigerCount();
