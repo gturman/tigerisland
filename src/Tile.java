@@ -21,6 +21,10 @@ public class Tile {
 
     }
 
+    public int getTileID() {
+        return this.tileID;
+    }
+
     public void setTileID(int tileID) {
         this.tileID = tileID;
     }
