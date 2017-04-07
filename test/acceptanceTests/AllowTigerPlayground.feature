@@ -15,5 +15,5 @@ Feature: Allowing the building of a Tiger Playground
     When I try to place my Tiger
     Then I should see that my Tiger was placed
     And I should see my Tiger count decrease by 1
-    And I should see my point count increase by 75
+    And I should see my Tiger point count increase by 75
     And Increase settlement size by 1

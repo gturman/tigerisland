@@ -42,6 +42,20 @@ public class stepDefDisallowExpansion {
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
     }
 
+    @When("^I choose to expand$")
+    public void iChooseToExpand() throws Throwable{
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+    }
+
     @Given("^the hex I want to expand to is occupied$")
     public void theHexIWantToExpandToIsOccupied() throws Throwable {
         GameBoard gameboard = new GameBoard();

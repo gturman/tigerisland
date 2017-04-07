@@ -3,7 +3,7 @@ Feature: Allowing the building of an expansion
   Background:
     Given I am an player
     And I am in build phase of my turn
-    And I still have villagers
+    And I still have some villagers
     And I have chosen to expand
 
   Scenario: I choose a hex to expand to

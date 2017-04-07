@@ -171,8 +171,8 @@ public class stepDefAllowTigerPlayground {
         int tigerCount = player.getTigerCount();
     }
 
-    @And("^I should see my point count increase by (\\d+)$")
-    public void iShouldSeeMyPointCountIncreaseBy(int arg0) throws Throwable {
+    @And("^I should see my Tiger point count increase by (\\d+)$")
+    public void iShouldSeeMyTigerPointCountIncreaseBy(int arg0) throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
         Player player = new Player(1);

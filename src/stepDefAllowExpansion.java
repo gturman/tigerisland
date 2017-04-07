@@ -24,8 +24,8 @@ public class stepDefAllowExpansion {
         }
     }
 
-    @And("^I still have villagers$")
-    public void iStillHaveVillagers() throws Throwable {
+    @And("^I still have some villagers$")
+    public void iStillHaveSomeVillagers() throws Throwable {
         GameBoard gameboard = new GameBoard();
         Player player = new Player(1);
 

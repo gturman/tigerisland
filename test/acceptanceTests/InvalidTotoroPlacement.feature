@@ -22,7 +22,7 @@ Feature: Disallowing the building of a Totoro
     Then my Totoro is prevented from being placed
 
   Scenario: I choose a hex adjacent to a settlement of size 4 or less
-    Given I choose a hex adjacent to a settlement of size 4 orless
+    Given I choose a hex adjacent to a settlement of size 4 or less
     When I try to place my Totoro
     Then my Totoro is prevented from being placed
 
