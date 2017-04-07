@@ -30,8 +30,8 @@ public class AI {
     }
 
     void placeForOtherPlayer(Tile tile, int colPos, int rowPos){
-        if(gameBoard.gameBoardPositionArray[colPos][rowPos]!=null) {
-            if (gameBoard.gameBoardPositionArray[colPos][rowPos].getHexLevel() >= 1) {
+        if(gameBoard.getGameBoardPositionArray()[colPos][rowPos]!=null) {
+            if (gameBoard.getGameBoardPositionArray()[colPos][rowPos].getHexLevel() >= 1) {
                 gameBoard.nukeTiles(colPos, rowPos, tile);
             } else {
                 gameBoard.setTileAtPosition(colPos, rowPos, tile);
@@ -64,7 +64,7 @@ public class AI {
     String placeForOurPlayer(Tile tile){
         tile.flip();
         while(true) {//until we place a tile, in which case we will break to exit
-            if (gameBoard.checkIfTileCanBePlacedAtPosition(colPos, rowPos, tile)) {
+            if (!gameBoard.hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tile)) {
                 gameBoard.setTileAtPosition(colPos,rowPos,tile);
                 break;//we have placed tile
             }else{
@@ -83,8 +83,8 @@ public class AI {
                 if(settlementsBuiltInARow==5) {
                     if (gameBoard.areFiveTotorosInALine(lastColBuilt,lastRowBuilt,playerOne.getPlayerID()) && playerOne.getTotoroCount() >= 1) {
 
-                        gameBoard.gameBoardPositionArray[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
-                        gameBoard.gameBoardPositionArray[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
+                        gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
+                        gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
                         playerOne.decreaseTotoroCount();
                         playerOne.increaseScore(200);
 
