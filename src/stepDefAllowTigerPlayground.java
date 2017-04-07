@@ -171,6 +171,34 @@ public class stepDefAllowTigerPlayground {
         int tigerCount = player.getTigerCount();
     }
 
+    @And("^I should see my point count increase by (\\d+)$")
+    public void iShouldSeeMyPointCountIncreaseBy(int arg0) throws Throwable {
+        GameBoard gameBoard = new GameBoard();
+
+        Player player = new Player(1);
+
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameBoard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameBoard.setTileAtPosition(103, 103, secondTile);
+
+        gameBoard.buildSettlement(101, 103, player);
+        gameBoard.buildSettlement(102, 103, player);
+        gameBoard.buildSettlement(103, 102, player);
+        gameBoard.buildSettlement(103, 103, player);
+        gameBoard.buildSettlement(102, 104, player);
+        gameBoard.buildSettlement(102, 101, player);
+
+        gameBoard.getGameBoardPositionArray()[101][105].setHexLevel(3);
+        gameBoard.placeTigerPen(101, 105, gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), player);
+
+        int playerScore = player.getScore();
+    }
+
     @And("^Increase settlement size by (\\d+)$")
     public void increaseSettlementSizeBy(int arg0) throws Throwable {
         GameBoard gameBoard = new GameBoard();

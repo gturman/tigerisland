@@ -28,24 +28,6 @@ public class stepDefDisallowExpansion {
         player.setTurnPhase(turnPhase.BUILD);
     }
 
-    @When("^I choose to expand$")
-    public void iChooseToExpand() throws Throwable {
-        GameBoard gameboard = new GameBoard();
-        Player player = new Player(1);
-
-        player.setVillagerCount(1);
-
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
-
-        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
-        gameboard.setTileAtPosition(103, 103, placeTile);
-
-        gameboard.buildSettlement(102, 103, player);
-
-        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
-    }
-
     @And("^I have chosen expand$")
     public void iHaveChosenExpand() throws Throwable {
         GameBoard gameboard = new GameBoard();
@@ -147,24 +129,6 @@ public class stepDefDisallowExpansion {
         gameboard.expandSettlement(104, 102, terrainTypes.GRASSLANDS, player);
     }
 
-    @When("^I try to pick that hex to expand to$")
-    public void iTryToPickThatHexToExpandTo() throws Throwable {
-        GameBoard gameboard = new GameBoard();
-        Player player = new Player(1);
-
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
-
-        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
-                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
-        gameboard.setTileAtPosition(103, 103, placeTile);
-
-        gameboard.buildSettlement(102, 103, player);
-
-        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
-
-        gameboard.expandSettlement(104, 102, terrainTypes.GRASSLANDS, player);
-    }
-
     @Given("^the chosen expansion requires more villagers than I currently have$")
     public void theChosenExpansionRequiresMoreVillagersThanICurrentlyHave() throws Throwable {
         GameBoard gameboard = new GameBoard();
@@ -183,6 +147,24 @@ public class stepDefDisallowExpansion {
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
         gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
+    }
+
+    @When("^I try to pick that hex to expand to$")
+    public void iTryToPickThatHexToExpandTo() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        gameboard.buildSettlement(102, 103, player);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(104, 102, terrainTypes.GRASSLANDS, player);
     }
 
     @Then("^my expansion is prevented$")

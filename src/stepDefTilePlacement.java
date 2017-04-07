@@ -108,8 +108,8 @@ public class stepDefTilePlacement {
         gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 
-    @And("^my tile does not completely overlap a settlement or Totoro$")
-    public void myTileDoesNotCompletelyOverlapASettlementOrTotoro() throws Throwable {
+    @And("^my tile does not completely overlap a settlement or Totoro or Tiger$")
+    public void myTileDoesNotCompletelyOverlapASettlementOrTotoroOrTiger() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();

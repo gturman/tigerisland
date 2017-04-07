@@ -68,19 +68,6 @@ public class stepDefInvalidTilePlacement {
         gameBoard.setTileAtPosition(55, 32, tileToPlace);
     }
 
-    @Then("^my tile is prevented from being placed$")
-    public void myTileIsPreventedFromBeingPlaced() throws Throwable {
-        GameBoard gameBoard = new GameBoard();
-
-        Player player = new Player();
-
-        gameBoard.placeFirstTileAndUpdateValidPlacementList();
-
-        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
-
-        gameBoard.setTileAtPosition(55, 32, tileToPlace);
-    }
-
     @Given("^my tile entirely overlaps another tile one level below it$")
     public void myTileEntirelyOverlapsAnotherTileOneLevelBelowIt() throws Throwable {
         GameBoard gameBoard = new GameBoard();
@@ -160,8 +147,8 @@ public class stepDefInvalidTilePlacement {
         gameBoard.nukeTiles(102, 100, tileToNuke);
     }
 
-    @Given("^at least one hex below m tile has a Tiger Playground$")
-    public void atLeastOneHexBelowMTileHasATigerPlayground() throws Throwable {
+    @Given("^at least one hex below my tile has a Tiger Playground$")
+    public void atLeastOneHexBelowMyTileHasATigerPlayground() throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
         Player player = new Player();
@@ -197,5 +184,18 @@ public class stepDefInvalidTilePlacement {
         tileToNuke.tileRotationClockwise(1);
 
         gameBoard.nukeTiles(102, 100, tileToNuke);
+    }
+
+    @Then("^my tile is prevented from being placed$")
+    public void myTileIsPreventedFromBeingPlaced() throws Throwable {
+        GameBoard gameBoard = new GameBoard();
+
+        Player player = new Player();
+
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile tileToPlace = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+
+        gameBoard.setTileAtPosition(55, 32, tileToPlace);
     }
 }

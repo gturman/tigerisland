@@ -87,8 +87,8 @@ public class stepDefInvalidTotoroPlacement {
         gameBoard.placeTotoroSanctuary(102, 105, gameBoard.getGameBoardPositionArray()[102][101].getSettlementID(), player);
     }
 
-    @Given("^I choose a hex adjacent to a settlement of size (\\d+) orless$")
-    public void iChooseAHexAdjacentToASettlementOfSizeOrless(int arg0) throws Throwable {
+    @Given("^I choose a hex adjacent to a settlement of size (\\d+) or less$")
+    public void iChooseAHexAdjacentToASettlementOfSizeOrLess(int arg0) throws Throwable {
         GameBoard gameBoard = new GameBoard();
 
         Player player = new Player(1);

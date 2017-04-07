@@ -40,8 +40,8 @@ public class stepDefAllowBuildingSettlement {
         }
     }
 
-    @And("^I still have villager$")
-    public void iStillHaveVillagerS() throws Throwable {
+    @And("^I still have villagers$")
+    public void iStillHaveVillagers() throws Throwable {
         Player player = new Player(1);
         int villagerCount =  player.getVillagerCount();
     }

@@ -4,7 +4,7 @@ Background:
 Given I am player
 And I am in the build phase of my turn
 And I have chosen to settle
-And I still have villager
+And I still have villagers
 
 Scenario: I place a villager on a hex
 Given the hex is habitable
