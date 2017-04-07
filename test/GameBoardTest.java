@@ -931,7 +931,7 @@ public class GameBoardTest {
         gameBoard.setTileAtPosition(100,101,tileThree);
 
         gameBoard.buildSettlement(99,99,testPlayer);
-        int testInt = gameBoard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS);
+        int testInt = gameBoard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS, testPlayer);
 
         Assert.assertEquals(testInt,5);
     }
@@ -951,7 +951,7 @@ public class GameBoardTest {
 
         gameBoard.buildSettlement(99,98,testPlayer);
 
-        int testInt = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
+        int testInt = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS, testPlayer);
 
         Assert.assertEquals(testInt,5);
     }
@@ -974,7 +974,7 @@ public class GameBoardTest {
 
         gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,testPlayer);
 
-        Assert.assertEquals(testPlayer.getScore(),10); //1 for settlement founding, 9 for expansion (4*2 + 1)
+        Assert.assertEquals(testPlayer.getScore(),10); //1 for settlement founding + 9 for expansion (4*2 + 1)
         Assert.assertEquals(testPlayer.getVillagerCount(),14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(),2);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getPlayerID(),1);
@@ -2038,7 +2038,6 @@ public class GameBoardTest {
 
         Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.ROCKY, terrainTypes.LAKE, terrainTypes.ROCKY);
         thirdTile.flip();
-
         gameBoard.setTileAtPosition(104, 103, thirdTile);
 
         gameBoard.buildSettlement(101, 103, player);
@@ -2049,7 +2048,6 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getSettlementID(), 3);
 
         gameBoard.expandSettlement(101, 103, terrainTypes.GRASSLANDS, player);
-
         gameBoard.mergeSettlements();
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1); // EXPANSIONS OVERWRITE FROM HOME HEX, NOT LAST HEX PLACED
@@ -2220,7 +2218,7 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(8, 1), false);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(9, 1), false);
     }
- /*
+
     @Test
     public void testIfExpandWorksOffOfSettlementOfSizeGreaterThanOne() {
         GameBoard gameboard = new GameBoard();
@@ -2251,5 +2249,4 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, player.getPlayerID()), true);
         Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(3), 7);
     }
-    */
 }

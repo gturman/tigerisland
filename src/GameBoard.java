@@ -607,10 +607,9 @@ public class GameBoard {
         recursivelyAddAdjacentHexesToNewlySplitSettlement(currentCoordinates, playerID, masterSettlementID);
 
         splitSettlements();
-
     }
 
-    void resetTraversalList() { // TODO: come up with non-naive solution to this problem
+    void resetTraversalList() {
         for(Pair pair : hexesToResetTraversalValue){
             unmarkGameBoardPositionAsTraversed(pair.getRowPosition(), pair.getColumnPosition());
         }
@@ -1388,187 +1387,305 @@ public class GameBoard {
         this.gameBoardSettlementList[settlementID][3] += 1;
     }
 
-
-
     void expandSettlement(int colPos, int rowPos, terrainTypes expansionType, Player player) {
-        int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType);
+        int villagersNeededForExpansion = calculateVillagersForExpansion(colPos, rowPos, expansionType, player);
+        resetTraversalList();
 
-
-        if (villagersNeededForExpansion <= player.getVillagerCount()) {
-            int score = calculateScoreForExpansion(colPos, rowPos, expansionType);
-            expandSettlements(colPos, rowPos, expansionType, player, getGameBoardPositionSettlementID(colPos, rowPos));
+        if(villagersNeededForExpansion == 0) {
+            return;
+        }
+        else if(villagersNeededForExpansion <= player.getVillagerCount()) {
+            player.increaseScore(calculateScoreForExpansion(colPos, rowPos, expansionType, player));
             player.decreaseVillagerCount(villagersNeededForExpansion);
-            player.increaseScore(score);
+            resetTraversalList();
+
+            try {
+                if(!(isNotBuiltOn(colPos, rowPos))) { // is built on
+                    if(isMySettlement(colPos, rowPos, player)) { // owned by player
+                        int homeHexID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+
+                        hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
+
+                        if (checkIfEven(rowPos)) {
+                            expandSettlementDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos+1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos-1, rowPos+1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                        } else {
+                            expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos+1, rowPos-1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos+1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos+1, rowPos+1, expansionType, player, homeHexID);
+                        }
+                    }
+                }
+            }catch(Exception e){return;} // don't do anything for null hexes
         }
+        resetTraversalList();
     }
 
-    int calculateVillagersForExpansion(int colPos, int rowPos, terrainTypes expansionType) {
-        int returnValue;
+    void expandSettlementDriver(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexID) {
+        try{
+            if(gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false) { // not already traversed
+                if (isNotBuiltOn(colPos, rowPos) == false) { // if hex is built on
+                    if (isMySettlement(colPos, rowPos, player)) { // if settlement is mine
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                        hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn() == false) {//is part of a settlement
-            returnValue = recursiveExpansionCalculation(colPos, rowPos, expansionType);
-            resetHexPlayerIDs(colPos, rowPos);
-            return returnValue;
-        }
-        return -1;
-    }
+                        if (checkIfEven(rowPos)) {
+                            expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                        } else {
+                            expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        }
 
-    int recursiveExpansionCalculation(int colPos, int rowPos, terrainTypes expansionType) {
-        int returnVal = 0;
-        if (checkIfEven(rowPos)) {
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, -1);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, -1);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, 0);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, 0);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, +1);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, +1);
-        } else {
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, -1);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, -1);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, -1, 0);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, 0);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, 0, +1);
-            returnVal += recursiveExpansionHelper(colPos, rowPos, expansionType, +1, +1);
-        }
-        return returnVal;
-    }
+                        return;
+                    }
+                } else if (isNotBuiltOn(colPos, rowPos)) { // if hex is not built on and free for expansion
+                    if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == expansionType) { // is desired terrain type
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
 
-    int recursiveExpansionHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset) {
-        try {
-            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
-                if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
-                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(-1); //mark as seen, add level to return val
-                    return gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel() + recursiveExpansionCalculation(colPos + colOffset, rowPos + rowOffset, expansionType);
+                        Pair currentCoordinates = new Pair(colPos, rowPos);
+                        hexesToResetTraversalValue.add(currentCoordinates);
+                        hexesBuiltOnThisTurn.add(currentCoordinates);
+
+                        int hexLevel = gameBoardPositionArray[colPos][rowPos].getHexLevel();
+
+                        gameBoardPositionArray[colPos][rowPos].setSettlerCount(hexLevel); // set villagers on hex level
+                        gameBoardPositionArray[colPos][rowPos].setSettlementID(homeHexID); // set settlement ownership ID
+                        gameBoardPositionArray[colPos][rowPos].setPlayerID(player.getPlayerID()); // set player ownership
+
+                        incrementGameBoardSettlementListSize(homeHexID); // increase size of home settlement
+
+                        if (checkIfEven(rowPos)) {
+                            expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                        } else {
+                            expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        }
+                        return;
+                    }
                 }
             }
-        } catch (Exception e) {
-            return 0; //ignore null hexes
-        }
+        }catch(Exception e){return;} // return for null hexes
 
+        return; // return for any other case by default
+    }
+
+    int calculateVillagersForExpansion(int colPos, int rowPos, terrainTypes expansionType, Player player) {
+        try {
+            if(!(isNotBuiltOn(colPos, rowPos))) { // is built on
+                if(isMySettlement(colPos, rowPos, player)) { // owned by player
+                    int returnVal = 0;
+                    int homeHexID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+
+                    gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                    hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
+
+                    if (checkIfEven(rowPos)) {
+                        returnVal += calculateVillagersForExpansionDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos-1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos+1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos-1, rowPos+1, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                    } else {
+                        returnVal += calculateVillagersForExpansionDriver(colPos, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos+1, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos-1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos+1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                        returnVal += calculateVillagersForExpansionDriver(colPos+1, rowPos+1, expansionType, player, homeHexID);
+                    }
+
+                    return returnVal;
+                }
+            }
+        }catch(Exception e){return 0;} // don't do anything for null hexes
         return 0;
     }
 
-    void resetHexPlayerIDs(int colPos, int rowPos) {
-        if (checkIfEven(rowPos)) {
-            resetHexPlayerIDsHelper(colPos, rowPos, -1, -1);
-            resetHexPlayerIDsHelper(colPos, rowPos, 0, -1);
-            resetHexPlayerIDsHelper(colPos, rowPos, -1, 0);
-            resetHexPlayerIDsHelper(colPos, rowPos, +1, 0);
-            resetHexPlayerIDsHelper(colPos, rowPos, -1, +1);
-            resetHexPlayerIDsHelper(colPos, rowPos, 0, +1);
-        } else {
-            resetHexPlayerIDsHelper(colPos, rowPos, 0, -1);
-            resetHexPlayerIDsHelper(colPos, rowPos, +1, -1);
-            resetHexPlayerIDsHelper(colPos, rowPos, -1, 0);
-            resetHexPlayerIDsHelper(colPos, rowPos, +1, 0);
-            resetHexPlayerIDsHelper(colPos, rowPos, 0, +1);
-            resetHexPlayerIDsHelper(colPos, rowPos, +1, +1);
-        }
-    }
+    int calculateVillagersForExpansionDriver(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexID) {
+        try{
+            int returnVal = 0;
+            if(gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false) { // not already traversed
+                if (isNotBuiltOn(colPos, rowPos) == false) { // if hex is built on
+                    if (isMySettlement(colPos, rowPos, player)) { // if settlement is mine
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                        hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-    void resetHexPlayerIDsHelper(int colPos, int rowPos, int colOffset, int rowOffset) {
-        try {
-            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == -1) {//has been seen
-                gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(0); //marks as unseen
-                resetHexPlayerIDs(colPos + colOffset, rowPos + rowOffset);
-            }
-        } catch (Exception e) {
+                        if (checkIfEven(rowPos)) {
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                        } else {
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        }
 
-        }
-    }
+                        return returnVal;
+                    }
+                } else if (isNotBuiltOn(colPos, rowPos)) { // if hex is not built on and is free for expansion
+                    if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == expansionType) { // is desired terrain type
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                        hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-    void expandSettlements(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexSettlementID) {
-        if (checkIfEven(rowPos)) {
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, -1, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, -1, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, 0, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, 0, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, +1, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, +1, homeHexSettlementID);
-        } else {
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, -1, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, -1, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, -1, 0, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, 0, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, 0, +1, homeHexSettlementID);
-            expandSettlementsHelper(colPos, rowPos, expansionType, player, +1, +1, homeHexSettlementID);
-        }
+                        int hexLevel = gameBoardPositionArray[colPos][rowPos].getHexLevel();
+                        returnVal += hexLevel; // number of meeples needed to expand onto hex
 
-    }
+                        if (checkIfEven(rowPos)) {
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                        } else {
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        }
 
-    void expandSettlementsHelper(int colPos, int rowPos, terrainTypes expansionType, Player player, int colOffset, int rowOffset, int homeHexSettlementID) {
-        try {
-            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
-                if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
-                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(player.getPlayerID());
-                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setSettlerCount(gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel());
-                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setSettlementID(homeHexSettlementID);
-                    incrementGameBoardSettlementListSize(homeHexSettlementID);
-
-                    addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos + colOffset, rowPos + rowOffset);
-
-                    expandSettlements(colPos + colOffset, rowPos + rowOffset, expansionType, player, homeHexSettlementID);
+                        return returnVal;
+                    }
                 }
             }
-        } catch (Exception e) {
+        }catch(Exception e){return 0;} // return 0 for null hexes
 
-        }
+        return 0; // return 0 for any other case by default
+    }
+
+    int calculateScoreForExpansion(int colPos, int rowPos, terrainTypes expansionType, Player player) {
+        try {
+            if(!(isNotBuiltOn(colPos, rowPos))) { // is built on
+                if(isMySettlement(colPos, rowPos, player)) { // owned by player
+                    int returnVal = 0;
+                    int homeHexID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+
+                    gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                    hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
+
+                    if (checkIfEven(rowPos)) {
+                        returnVal += calculateScoreForExpansionDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos-1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos+1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos-1, rowPos+1, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                    } else {
+                        returnVal += calculateScoreForExpansionDriver(colPos, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos+1, rowPos-1, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos-1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos+1, rowPos, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                        returnVal += calculateScoreForExpansionDriver(colPos+1, rowPos+1, expansionType, player, homeHexID);
+                    }
+
+                    return returnVal;
+                }
+            }
+        }catch(Exception e){return 0;} // don't do anything for null hexes
+        return 0;
+    }
+
+    int calculateScoreForExpansionDriver(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexID) {
+        try{
+            int returnVal = 0;
+            if(gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false) { // not already traversed
+                if (isNotBuiltOn(colPos, rowPos) == false) { // if hex is built on
+                    if (isMySettlement(colPos, rowPos, player)) { // if settlement is mine
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                        hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
+
+                        if (checkIfEven(rowPos)) {
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                        } else {
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        }
+
+                        return returnVal;
+                    }
+                } else if (isNotBuiltOn(colPos, rowPos)) { // not built on
+                    if(gameBoardPositionArray[colPos][rowPos].getHexTerrainType() == expansionType) { // is desired terrain type
+                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
+                        hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
+
+                        int hexLevel = gameBoardPositionArray[colPos][rowPos].getHexLevel();
+
+                        returnVal += (hexLevel * hexLevel); // number of meeples needed to expand onto hex
+
+                        if (checkIfEven(rowPos)) {
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                        } else {
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        }
+
+                        return returnVal;
+                    }
+                }
+            }
+        }catch(Exception e){return 0;} // return 0 for null hexes
+
+        return 0; // return 0 for any other case by default
     }
 
     void incrementGameBoardSettlementListSize(int settlementID) {
         this.gameBoardSettlementList[settlementID][1] += 1;
     }
-
-    int calculateScoreForExpansion(int colPos, int rowPos, terrainTypes expansionType) {
-        int returnValue;
-
-        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn() == false) {//is part of a settlement
-            returnValue = expansionScore(colPos, rowPos, expansionType);
-            resetHexPlayerIDs(colPos, rowPos);
-            return returnValue;
-        }
-        return -1;
-    }
-
-    int expansionScore(int colPos, int rowPos, terrainTypes expansionType) {
-        int returnVal = 0;
-        if (checkIfEven(rowPos)) {
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, -1);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, -1);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, 0);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, 0);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, +1);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, +1);
-        } else {
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, -1);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, -1);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, -1, 0);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, 0);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, 0, +1);
-            returnVal += expansionScoreHelper(colPos, rowPos, expansionType, +1, +1);
-        }
-        return returnVal;
-    }
-
-    int expansionScoreHelper(int colPos, int rowPos, terrainTypes expansionType, int colOffset, int rowOffset) {
-        try {
-            if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexTerrainType() == expansionType) {//matches
-                if (gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getPlayerID() == 0) {//has not been seen
-                    gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].setPlayerID(-1); //mark as seen, add level to return val
-                    int returnValue = gameBoardPositionArray[colPos + colOffset][rowPos + rowOffset].getHexLevel();
-                    returnValue *= returnValue;
-                    returnValue += expansionScore(colPos + colOffset, rowPos + rowOffset, expansionType);
-                    return returnValue;
-                }
-            }
-        } catch (NullPointerException e) {
-            return 0; //ignore null hexes
-        }
-
-        return 0;
-    }
-
-
 
     boolean isMySettlement(int colPos, int rowPos, Player player){
         int settlementID = getGameBoardPositionSettlementID(colPos, rowPos);
