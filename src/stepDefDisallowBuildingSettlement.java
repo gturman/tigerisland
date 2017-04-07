@@ -7,110 +7,115 @@ import cucumber.api.java.en.When;
  * Created by Christine Chierico on 4/1/2017.
  */
 public class stepDefDisallowBuildingSettlement {
-
-    private Player playerOne = new Player(1);
-    private GameBoard gameBoard = new GameBoard();
-
-
-
     @Given("^I am the player$")
     public void i_AmThePlayer() throws Throwable {
-
-       Player player = new Player();
-
+       Player player = new Player(1);
     }
 
     @And("^Im in the build phase of my turn$")
     public void imInTheBuildPhaseOfMyTurn() throws Throwable {
+        Player player = new Player(1);
+        GameBoard gameboard = new GameBoard();
 
-        if(playerOne.getTurnPhase() == turnPhase.BUILD)
+        if(player.getTurnPhase() == turnPhase.BUILD)
         {
-            gameBoard.placeFirstTileAndUpdateValidPlacementList();
+            gameboard.placeFirstTileAndUpdateValidPlacementList();
         }
-
     }
 
     @And("^I chose to settle$")
     public void iChoseToSettle() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        if(playerOne.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                                  terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
         {
-            Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
-                    terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+            gameboard.buildSettlement(103, 103, player);
         }
-
     }
 
     @Given("^the hex is an uninhabitable terrain hex$")
     public void theHexIsAnUninhabitableTerrainHex() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
-                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
-        gameBoard.setTileAtPosition(101,101,placeTile);
-
-       boolean habitable = gameBoard.isHabitable(101,101);
-       //System.out.print("habitable: " + habitable + "\n");
-
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        {
+            gameboard.isValidSettlementLocation(103, 103);
+        }
     }
 
     @When("^I try to place my piece on a hex$")
     public void iTryToPlaceMyPieceOnAHex() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
-                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
-        gameBoard.setTileAtPosition(101,101,placeTile);
-
-        boolean valid = gameBoard.isValidSettlementLocation(101,101);
-
-        gameBoard.buildSettlement(101,101,playerOne);
-
-        int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
-
-        //System.out.print("valid hex: " + valid + "\n");
-       // System.out.print("settlement Count: " + settlerCount + "\n");
-
-    }
-
-    @Then("^my piece is prevented from being placed$")
-    public void myPieceIsPreventedFromBeingPlaced() throws Throwable {
-
-        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
-                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
-
-        gameBoard.setTileAtPosition(101,101,placeTile);
-
-        int settlerCount = gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount();
-        //System.out.print("settlement Count: " + settlerCount + "\n");
-
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        {
+            gameboard.buildSettlement(103, 103, player);
+        }
     }
 
     @Given("^the hex already has a piece on it$")
     public void theHexAlreadyHasAPieceOnIt() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        Hex testHex1 = new Hex(0,0,terrainTypes.LAKE);
-        boolean builtOn = testHex1.isNotBuiltOn();
-        //System.out.print("builtOn: " + builtOn + "\n");
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        {
+            gameboard.buildSettlement(103, 102, player);
+            gameboard.buildSettlement(103, 102, player);
+        }
     }
-
 
     @Given("^the hex level is greater than one$")
     public void theHexLevelIsGreaterThanOne() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
-                terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
-        gameBoard.setTileAtPosition(101,101,placeTile);
+        Tile placeTileTwo = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
 
-       boolean level = gameBoard.isOnLevelOne(101,101);
-      // System.out.print("builtOn: " + level + "\n");
+        gameboard.nukeTiles(102, 103, placeTileTwo);
 
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        {
+            gameboard.buildSettlement(103, 102, player);
+        }
     }
 
+    @Then("^my piece is prevented from being placed$")
+    public void myPieceIsPreventedFromBeingPlaced() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        if(player.getTurnPhase() == turnPhase.FOUND_SETTLEMENT)
+        {
+            gameboard.buildSettlement(103, 103, player);
+        }
+    }
 }
-
-
-

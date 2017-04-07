@@ -27,14 +27,14 @@ public class GameTest {
 
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[101][101].getSettlerCount(),1);
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[101][101].getPlayerID(),1);
-        Assert.assertEquals(game.playerOne.getVillagerCount(),19);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),19);
         Assert.assertEquals(game.playerOne.getScore(),1);
 
         //invalid build (volcano), should do nothing
         game.buildSettlement(102,100,game.playerTwo,game.gameBoard);
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[102][100].getSettlerCount(),0);
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[102][100].getPlayerID(),0);
-        Assert.assertEquals(game.playerTwo.getVillagerCount(),20);
+        Assert.assertEquals(game.playerTwo.getSettlerCount(),20);
         Assert.assertEquals(game.playerTwo.getScore(),0);
 
         //valid build, same as above
@@ -42,7 +42,7 @@ public class GameTest {
 
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[101][100].getSettlerCount(),1);
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[101][100].getPlayerID(),1);
-        Assert.assertEquals(game.playerOne.getVillagerCount(),18);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),18);
         Assert.assertEquals(game.playerOne.getScore(),2);
 
         //invalid build(already built on), do nothing
@@ -51,7 +51,7 @@ public class GameTest {
 
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[101][100].getSettlerCount(),1);
         Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[101][100].getPlayerID(),1);
-        Assert.assertEquals(game.playerOne.getVillagerCount(),18);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),18);
         Assert.assertEquals(game.playerOne.getScore(),2);
     }
 

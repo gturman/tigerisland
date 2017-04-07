@@ -19,7 +19,7 @@ Feature: Allowing player tile placement
   Scenario: I place a tile over other tiles
     Given my tile’s volcano is aligned with the bottom tile’s volcano
     And my tile does not completely overlap a single tile
-    And my tile does not completely overlap a settlement or Totoro
+    And my tile does not completely overlap a settlement or Totoro or Tiger
     And all of the tiles I am trying to cover are of the same level
     When I place the tile
     Then I should see that my tile was placed

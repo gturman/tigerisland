@@ -32,7 +32,7 @@ Feature: Disallowing player tile placement
     Then my tile is prevented from being placed
 
   Scenario: I try to place a tile over a Tiger Playground
-    Given at least one hex below m tile has a Tiger Playground
+    Given at least one hex below my tile has a Tiger Playground
     When I try to place a tile
     Then my tile is prevented from being placed
 

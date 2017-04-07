@@ -3,63 +3,72 @@
  */
 public class Player {
 
-    private int villagerCount;
+    private int playerID;
+    private int settlementCount;
+    private int settlerCount;
     private int totoroCount;
     private int tigerCount;
-    private int playerID;
     private int score;
-    private int settlementCount;
-    private int tilesDrawn;
     private turnPhase playerTurnPhase;
 
-    Player(){
-        //todo: assign playerID or initialize as Player P1 and Player P2
-        this.tigerCount = 2;
-        this.playerID = 0;
-        this.score = 0;
-        this.villagerCount = 20;
-        this.totoroCount = 3;
-        this.settlementCount = 0;
-        this.tilesDrawn = 0;
-        this.playerTurnPhase = turnPhase.TILE_PLACEMENT;
-    }
-
     Player(int playerID){
-        //todo: assign playerID or initialize as Player P1 and Player P2
         this.tigerCount = 2;
         this.playerID = playerID;
         this.score = 0;
-        this.villagerCount = 20;
+        this.settlerCount = 20;
         this.totoroCount = 3;
         this.settlementCount = 0;
-        this.tilesDrawn = 0;
         this.playerTurnPhase = turnPhase.TILE_PLACEMENT;
     }
 
-    public int getTigerCount(){return tigerCount;}
-
-    public int getVillagerCount(){
-        return villagerCount;
+    public int getPlayerID(){
+        return playerID;
     }
 
-    boolean haveVillagers(){
-        if(villagerCount !=0){
-            return true;
-        }
-        else
-            return false;
+    public void setPlayerID(int playerID){
+        this.playerID = playerID;
     }
 
-    public void decreaseVillagerCount(int modifier){
-        villagerCount -= modifier;
+    public turnPhase getTurnPhase() {
+        return playerTurnPhase;
+    }
+
+    public void setTurnPhase(turnPhase playerTurnPhase) {
+        this.playerTurnPhase = playerTurnPhase;
+    }
+
+    public int getSettlerCount(){
+        return settlerCount;
+    }
+
+    public void setSettlerCount(int settlerCount) {
+        this.settlerCount = settlerCount;
+    }
+
+    public void decreaseSettlerCount(int modifier){
+        settlerCount -= modifier;
     }
 
     public int getTotoroCount(){
         return totoroCount;
     }
 
+    public void setTotoroCount(int totoroCount) {
+        this.totoroCount = totoroCount;
+    }
+
     public void decreaseTotoroCount(){
         this.totoroCount--;
+    }
+
+    public int getTigerCount(){return tigerCount;}
+
+    public void setTigerCount(int tigerCount) {
+        this.tigerCount = tigerCount;
+    }
+
+    public void decreaseTigerCount() {
+        this.tigerCount -= 1;
     }
 
     public int getSettlementCount(){
@@ -79,47 +88,15 @@ public class Player {
     }
 
     public void increaseScore(int points){
-        this.score+=points;
+        this.score += points;
     }
 
-    public int getPlayerID(){
-        return playerID;
-    }
 
-    public void setPlayerID(int playerID){
-        this.playerID = playerID;
-    }
 
-    public void increaseTileCount(){
-        this.tilesDrawn+=1;
-    }
 
-    public int getTileCount() {
-        return tilesDrawn;
-    }
 
-    public turnPhase getTurnPhase() {
-        return playerTurnPhase;
-    }
 
-    public void setTurnPhase(turnPhase playerTurnPhase) {
-        this.playerTurnPhase = playerTurnPhase;
-    }
 
-    public void setVillagerCount(int villagerCount) {
-        this.villagerCount = villagerCount;
-    }
 
-    public void setTotoroCount(int totoroCount) {
-        this.totoroCount = totoroCount;
-    }
-
-    public void setTigerCount(int tigerCount) {
-        this.tigerCount = tigerCount;
-    }
-
-    public void decreaseTigerCount() {
-        this.tigerCount -= 1;
-    }
 }
 

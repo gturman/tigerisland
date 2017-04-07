@@ -8,169 +8,226 @@ import cucumber.api.java.en.When;
  */
 public class stepDefAllowExpansion {
 
-
-    private Player playerOne = new Player(1);
-    private GameBoard gameBoard = new GameBoard();
-
-    private Tile firstTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
-    private Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
-    private Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
-
     @Given("^I am an player$")
     public void i_AmAnPlayer() throws Throwable {
-
-        Player player = new Player();
-        int score = playerOne.getScore();
-
-        int settlementsInit = playerOne.getSettlementCount();
-        System.out.print("Initial settlement count: " + settlementsInit + "\n");
-
-        firstTile.flip();
-        gameBoard.setTileAtPosition(99,98,firstTile);
-
-        secondTile.flip();
-        gameBoard.setTileAtPosition(99,100,secondTile);
-        gameBoard.buildSettlement(99,98,playerOne);
-
-        int score1 = playerOne.getScore();
-
-        //System.out.print("Initial Score: " + score1 + "\n");
-
-        int settlements = playerOne.getSettlementCount();
-        System.out.print("settlement count: " + settlements + "\n");
+        Player player = new Player(1);
     }
-
 
     @And("^I am in build phase of my turn$")
     public void iAmInBuildPhaseOfMyTurn() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        if(playerOne.getTurnPhase() == turnPhase.BUILD)
+        if(player.getTurnPhase() == turnPhase.BUILD)
         {
-            gameBoard.placeFirstTileAndUpdateValidPlacementList();
+            gameboard.placeFirstTileAndUpdateValidPlacementList();
         }
-
     }
 
+    @And("^I still have some villagers$")
+    public void iStillHaveSomeVillagers() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-    @And("^I still have villagers$")
-    public void iStillHaveVillagers() throws Throwable {
+        player.setSettlerCount(20);
 
-        int villagerCount =  playerOne.getVillagerCount();
-        //System.out.print("vilalgerCount: " + villagerCount + "\n");
-
-
+        int villagerCount = player.getSettlerCount();
     }
 
     @And("^I have chosen to expand$")
     public void iHaveChosenToExpand() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        if(playerOne.getTurnPhase() == turnPhase.EXPAND_SETTLEMENT)
-        {
-            Tile placeTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(),
-                    terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
-        }
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
     }
 
     @Given("^the hex is a habitable terrain$")
     public void theHexIsAHabitableTerrain() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        boolean bool = gameBoard.isMySettlement(99,98,playerOne);
-        //System.out.print("isMySettlement: " + bool + "\n");
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
-        boolean bool2 = gameBoard.isMySettlement(99,100,playerOne);
-        //System.out.print("isMySettlement: " + bool2 + "\n");
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        gameboard.buildSettlement(102, 103, player);
 
-        gameBoard.isHabitable(99,98);
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^the hex is currently unoccupied$")
     public void theHexIsCurrentlyUnoccupied() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        Hex testHex1 = new Hex(0,0,terrainTypes.GRASSLANDS);
-        testHex1.isNotBuiltOn();
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
-        int settlerCount = gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount();
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        gameboard.buildSettlement(102, 103, player);
 
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @And("^the hex is adjacent to my settlement$")
     public void theHexIsAdjacentToMySettlement() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        GameBoard game = new GameBoard();
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        gameboard.buildSettlement(102, 103, player);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @And("^I have enough villagers to expand fully$")
     public void iHaveEnoughVillagersToExpandFully() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        gameBoard.buildSettlement(99,98,playerOne);
-        int villagersNeeded = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS);
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
-        //System.out.print("Villagers Needed to Expand: " + villagersNeeded + "\n");
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        gameboard.buildSettlement(102, 103, player);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @When("^I try to expand to a hex$")
     public void iTryToExpandToAHex() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        int one = gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount();
-        int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
-        int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
-        gameBoard.buildSettlement(99,98,playerOne);
-        gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
+        gameboard.buildSettlement(102, 103, player);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @Then("^I should see that each hex I can expand to has acquired the number of villagers equal to the hexes’ level$")
     public void iShouldSeeThatEachHexICanExpandToHasAcquiredTheNumberOfVillagersEqualToTheHexesLevel() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        int one = gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount();
-        int two = gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount();
-        int three = gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount();
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
-        //System.out.print("Villagers placed on hex1: " + one + "\n");
-        //System.out.print("Villagers placed on hex1: " + two + "\n");
-        //System.out.print("Villagers placed on hex1: " + three + "\n");
+        gameboard.buildSettlement(102, 103, player);
 
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @And("^for every empty hex adjacent to the settlement of the specified terrain, add as many villagers as the hex's level$")
     public void forEveryEmptyHexAdjacentToTheSettlementOfTheSpecifiedTerrainAddAsManyVillagersAsTheHexSLevel() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        gameboard.buildSettlement(102, 103, player);
 
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @And("^for each villager placed due to the expansion, I should see my villager count decrease by one$")
     public void forEachVillagerPlacedDueToTheExpansionIShouldSeeMyVillagerCountDecreaseByOne() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-        int villagerCount =  playerOne.getVillagerCount();
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
-        //System.out.print("villagerCount: " + villagerCount + "\n");
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        gameboard.buildSettlement(102, 103, player);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @And("^for each villagers placed due to the expansion, I should see my score increase by the total villagers occupying the hex multiplied by the hexes’ level$")
     public void forEachVillagersPlacedDueToTheExpansionIShouldSeeMyScoreIncreaseByTheTotalVillagersOccupyingTheHexMultipliedByTheHexesLevel() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-         int score = playerOne.getScore();
-        //System.out.print("score: " + score + "\n");
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
+
+        gameboard.buildSettlement(102, 103, player);
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
     }
 
     @And("^for each hex expanded to, increase the settlement size by one and merge those tiles into the original settlement expanded from$")
     public void forEachHexExpandedToIncreaseTheSettlementSizeByOneAndMergeThoseTilesIntoTheOriginalSettlementExpandedFrom() throws Throwable {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
 
-        int score = playerOne.getScore();
-        //System.out.print("score: " + score + "\n");
+        Tile placeTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, placeTile);
 
+        gameboard.buildSettlement(102, 103, player);
+        gameboard.buildSettlement(104, 100, player);
+        gameboard.mergeSettlements();
+
+        player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.mergeSettlements();
     }
 }

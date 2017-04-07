@@ -26,25 +26,25 @@ public class TileTest {
         Tile testTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(),
                                 hexTerrainA, hexTerrainB, hexTerrainC);
 
-        testTile.tileRotationClockwise(0);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.VOLCANO);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.JUNGLE);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.LAKE);
+        testTile.rotateTileClockwise(0);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.JUNGLE);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.LAKE);
 
-        testTile.tileRotationClockwise(1);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.LAKE);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.VOLCANO);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.JUNGLE);
+        testTile.rotateTileClockwise(1);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.LAKE);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.JUNGLE);
 
-        testTile.tileRotationClockwise(2);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.VOLCANO);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.JUNGLE);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.LAKE);
+        testTile.rotateTileClockwise(2);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.JUNGLE);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.LAKE);
 
-        testTile.tileRotationClockwise(5);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.JUNGLE);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.LAKE);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.VOLCANO);
+        testTile.rotateTileClockwise(5);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.JUNGLE);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.LAKE);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.VOLCANO);
 
     }
 
@@ -60,25 +60,25 @@ public class TileTest {
                 hexTerrainA, hexTerrainB, hexTerrainC);
         testTile.flip();
 
-        testTile.tileRotationClockwise(0);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.VOLCANO);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.LAKE);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.JUNGLE);
+        testTile.rotateTileClockwise(0);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.LAKE);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.JUNGLE);
 
-        testTile.tileRotationClockwise(1);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.LAKE);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.JUNGLE);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.VOLCANO);
+        testTile.rotateTileClockwise(1);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.LAKE);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.JUNGLE);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.VOLCANO);
 
-        testTile.tileRotationClockwise(2);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.VOLCANO);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.LAKE);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.JUNGLE);
+        testTile.rotateTileClockwise(2);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.LAKE);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.JUNGLE);
 
-        testTile.tileRotationClockwise(5);
-        Assert.assertEquals(testTile.getHexA().getHexTerrainType(), terrainTypes.JUNGLE);
-        Assert.assertEquals(testTile.getHexB().getHexTerrainType(), terrainTypes.VOLCANO);
-        Assert.assertEquals(testTile.getHexC().getHexTerrainType(), terrainTypes.LAKE);
+        testTile.rotateTileClockwise(5);
+        Assert.assertEquals(testTile.getHexA().getTerrainType(), terrainTypes.JUNGLE);
+        Assert.assertEquals(testTile.getHexB().getTerrainType(), terrainTypes.VOLCANO);
+        Assert.assertEquals(testTile.getHexC().getTerrainType(), terrainTypes.LAKE);
 
     }
 

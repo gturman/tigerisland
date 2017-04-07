@@ -30,8 +30,8 @@ public class AI {
     }
 
     void placeForOtherPlayer(Tile tile, int colPos, int rowPos){
-        if(gameBoard.gameBoardPositionArray[colPos][rowPos]!=null) {
-            if (gameBoard.gameBoardPositionArray[colPos][rowPos].getHexLevel() >= 1) {
+        if(gameBoard.getGameBoardPositionArray()[colPos][rowPos]!=null) {
+            if (gameBoard.getGameBoardPositionArray()[colPos][rowPos].getLevel() >= 1) {
                 gameBoard.nukeTiles(colPos, rowPos, tile);
             } else {
                 gameBoard.setTileAtPosition(colPos, rowPos, tile);
@@ -64,7 +64,7 @@ public class AI {
     String placeForOurPlayer(Tile tile){
         tile.flip();
         while(true) {//until we place a tile, in which case we will break to exit
-            if (gameBoard.checkIfTileCanBePlacedAtPosition(colPos, rowPos, tile)) {
+            if (!gameBoard.hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tile)) {
                 gameBoard.setTileAtPosition(colPos,rowPos,tile);
                 break;//we have placed tile
             }else{
@@ -83,8 +83,8 @@ public class AI {
                 if(settlementsBuiltInARow==5) {
                     if (gameBoard.areFiveTotorosInALine(lastColBuilt,lastRowBuilt,playerOne.getPlayerID()) && playerOne.getTotoroCount() >= 1) {
 
-                        gameBoard.gameBoardPositionArray[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
-                        gameBoard.gameBoardPositionArray[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
+                        gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
+                        gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
                         playerOne.decreaseTotoroCount();
                         playerOne.increaseScore(200);
 
@@ -100,7 +100,7 @@ public class AI {
             }
 
             try {
-                if (gameBoard.isValidSettlementLocation(lastColBuilt+1, lastRowBuilt) && playerOne.getVillagerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(lastColBuilt+1, lastRowBuilt) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(lastColBuilt+1, lastRowBuilt, playerOne);
                     lastColBuilt++;
                     settlementsBuiltInARow++;
@@ -117,26 +117,26 @@ public class AI {
 
             //Next spot we anticipated we could build on was not valid
             if(rowPos%2==0){
-                if (gameBoard.isValidSettlementLocation(colPos-1, rowPos+1) && playerOne.getVillagerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(colPos-1, rowPos+1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos-1,rowPos+1,playerOne);
                     lastColBuilt = colPos-1;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
-                if(gameBoard.isValidSettlementLocation(colPos,rowPos+1) && playerOne.getVillagerCount() >= 1) {
+                if(gameBoard.isValidSettlementLocation(colPos,rowPos+1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos, rowPos + 1, playerOne);
                     lastColBuilt = colPos;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
             }else {
-                if (gameBoard.isValidSettlementLocation(colPos, rowPos + 1) && playerOne.getVillagerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(colPos, rowPos + 1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos, rowPos + 1, playerOne);
                     lastColBuilt = colPos;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
-                if (gameBoard.isValidSettlementLocation(colPos+1, rowPos + 1) && playerOne.getVillagerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(colPos+1, rowPos + 1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos+1, rowPos + 1, playerOne);
                     lastColBuilt = colPos+1;
                     lastRowBuilt = rowPos+1;
