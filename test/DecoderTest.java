@@ -3,6 +3,7 @@ import org.junit.Test;
 
 /**
  * Created by James on 4/8/2017.
+ * and Brendan. I feel left out.
  */
 public class DecoderTest {
 
@@ -12,10 +13,53 @@ public class DecoderTest {
         Decoder dc = new Decoder();
 
         dc.decodeString("WAIT FOR THE TOURNAMENT TO BEGIN 1");
-        Assert.assertEquals(dc.getPlayerID1(), "1");
+        Assert.assertEquals("1",dc.getPlayerID1());
 
         dc.decodeString("WAIT FOR THE TOURNAMENT TO BEGIN 19304");
-        Assert.assertEquals(dc.getPlayerID1(), "19304");
+        Assert.assertEquals("19304",dc.getPlayerID1());
+    }
+
+    @Test
+    public void testBeginMessageFunctionality(){
+        Decoder dc = new Decoder();
+
+        dc.decodeString("BEGIN ROUND 21 OF 30");
+        Assert.assertEquals("21",dc.currentRoundID);
+    }
+
+    @Test
+    public void testEndMessageFunctionality(){
+        Decoder dc = new Decoder();
+
+        dc.decodeString("END ROUND 12 OF 24");
+        Assert.assertEquals(true, dc.endOfRoundFlag);
+
+        dc.decodeString("END ROUND 50 OF 50 WAIT FOR THE NEXT MATCH");
+        Assert.assertEquals(true,dc.endOfRoundFlag);
+        Assert.assertEquals(true,dc.waitingForNextMatchFlag);
+
+        dc.decodeString("END OF CHALLENGES");
+        Assert.assertEquals(true,dc.endOfChallenges);
+    }
+
+    @Test
+    public void testNewMessageFunctionality(){
+    Decoder dc = new Decoder();
+
+    dc.decodeString("NEW CHALLENGE Q12 YOU WILL PLAY 60 ROUND MATCHES");
+    Assert.assertEquals("Q12",dc.getChallengeID());
+    Assert.assertEquals(60,dc.numberOfRounds);
+
+    dc.decodeString("NEW ROUND BEGINNING NOW YOUR OPPONENT IS PLAYER Q90LKE2");
+    Assert.assertEquals("Q90LKE2",dc.getPlayerID2());
+    }
+
+    @Test
+    public void testMakeMessageFunctionality(){
+        Decoder dc = new Decoder();
+        dc.decodeString("MAKE YOUR MOVE IN GAME P WITHIN 45 SECONDS: MOVE 20 TILE ROCK+GRASS");
+        Assert.assertEquals("P", dc.gameID);
+
     }
 /*
     @Test

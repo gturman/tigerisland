@@ -11,7 +11,7 @@ public class Decoder {
     public String currentRoundID;
     public String gameID;
     String currentMovePlayerID;
-    public int timeToCompleteTurn;
+    public float timeToCompleteTurn;
     public int currentMoveNum;
 
     public String tileTerrainStringOfFormatAandB; //Not sure how tile is given to us yet
@@ -148,7 +148,7 @@ public class Decoder {
                 setGameID(currentWord);
             } else if(currentWord.equals("WITHIN")){
                 currentWord = sc.next();
-                timeToCompleteTurn = Integer.parseInt(currentWord);
+                timeToCompleteTurn = Float.parseFloat(currentWord);
             } else if(currentWord.equals("MOVE")){
                 currentWord = sc.next();
                 if(!currentWord.equals("IN")) {
