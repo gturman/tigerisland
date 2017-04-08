@@ -224,7 +224,6 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.getValidPlacementArray()[101][102], 1);
     }
 
-
     @Test
     public void checkingIfValidArrayInitializesToZero() {
         GameBoard gameBoard = new GameBoard();
@@ -447,7 +446,6 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(102, 101, tileThree), true);
     }
-
 
     @Test
     public void testIfNukeOverwritesHexValues() {
@@ -938,7 +936,7 @@ public class GameBoardTest {
     @Test
     public void testCalculateVillagersNeededForExpansionOnLevelOne(){
         GameBoard gameBoard = new GameBoard();
-        Player testPlayer = new Player(2);
+        Player playerOne = new Player(2);
         Tile tileOne = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.LAKE,terrainTypes.GRASSLANDS);
         Tile tileTwo = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),
@@ -951,8 +949,8 @@ public class GameBoardTest {
         gameBoard.setTileAtPosition(101,101,tileTwo);
         gameBoard.setTileAtPosition(100,101,tileThree);
 
-        gameBoard.buildSettlement(99,99,testPlayer);
-        int testInt = gameBoard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS, testPlayer);
+        gameBoard.buildSettlement(99,99,playerOne);
+        int testInt = gameBoard.calculateVillagersForExpansion(99,99,terrainTypes.GRASSLANDS, playerOne);
 
         Assert.assertEquals(testInt,5);
     }
@@ -960,7 +958,7 @@ public class GameBoardTest {
     @Test
     public void testCalculateVillagersNeededForExpansionOnMultipleLevels(){
         GameBoard gameBoard = new GameBoard();
-        Player testPlayer = new Player(2);
+        Player playerOne = new Player(2);
         Tile firstTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
         firstTile.flip();
         gameBoard.setTileAtPosition(99,98,firstTile);
@@ -970,9 +968,9 @@ public class GameBoardTest {
         Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
         gameBoard.nukeTiles(99,100,thirdTile);
 
-        gameBoard.buildSettlement(99,98,testPlayer);
+        gameBoard.buildSettlement(99,98,playerOne);
 
-        int testInt = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS, testPlayer);
+        int testInt = gameBoard.calculateVillagersForExpansion(99,98,terrainTypes.GRASSLANDS, playerOne);
 
         Assert.assertEquals(testInt,5);
     }
@@ -981,7 +979,7 @@ public class GameBoardTest {
     public void testExpansionFromExistingSettlement(){
 
         GameBoard gameBoard = new GameBoard();
-        Player testPlayer = new Player(1);
+        Player playerOne = new Player(1);
         Tile firstTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
         firstTile.flip();
         gameBoard.setTileAtPosition(99,98,firstTile);
@@ -991,18 +989,53 @@ public class GameBoardTest {
         Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
         gameBoard.nukeTiles(99,100,thirdTile);
 
-        gameBoard.buildSettlement(99,98,testPlayer);
+        gameBoard.buildSettlement(99,98,playerOne);
 
-        gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,testPlayer);
+        gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
 
-        Assert.assertEquals(testPlayer.getScore(),10); //1 for settlement founding + 9 for expansion (4*2 + 1)
-        Assert.assertEquals(testPlayer.getSettlerCount(),14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
+        Assert.assertEquals(playerOne.getScore(),10); //1 for settlement founding + 9 for expansion (4*2 + 1)
+        Assert.assertEquals(playerOne.getSettlerCount(),14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(),2);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getPlayerID(),1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(),2);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(),1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount(),1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(),1);
+    }
+
+    @Test
+    public void testExpansionNotFromExistingSettlement(){
+
+        GameBoard gameBoard = new GameBoard();
+        Player playerOne = new Player(1);
+
+        Tile firstTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
+        firstTile.flip();
+        gameBoard.setTileAtPosition(99,98,firstTile);
+        Tile secondTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        secondTile.flip();
+        gameBoard.setTileAtPosition(99,100,secondTile);
+        Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+        gameBoard.nukeTiles(99,100,thirdTile);
+
+        gameBoard.buildSettlement(99,98,playerOne);
+
+        gameBoard.expandSettlement(99,100,terrainTypes.GRASSLANDS,playerOne);
+
+        Assert.assertEquals(playerOne.getScore(),1); //1 for settlement founding + 9 for expansion (4*2 + 1)
+        Assert.assertEquals(playerOne.getSettlerCount(),19);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
+
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getPlayerID(),1);
+
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(),0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getPlayerID(),0);
+
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(),0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(),0);
+
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount(),0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(),0);
     }
 
     @Test
@@ -1052,7 +1085,7 @@ public class GameBoardTest {
     @Test
     public void testIfExpandUpdatesdGameBoardSettlementDataListsSize() {
         GameBoard gameBoard = new GameBoard();
-        Player testPlayer = new Player(1);
+        Player playerOne = new Player(1);
 
         Tile firstTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
         firstTile.flip();
@@ -1063,9 +1096,9 @@ public class GameBoardTest {
         Tile thirdTile = new Tile(gameBoard.getGameBoardTileID(),gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
         gameBoard.nukeTiles(99,100,thirdTile);
 
-        gameBoard.buildSettlement(99,98,testPlayer);
+        gameBoard.buildSettlement(99,98,playerOne);
 
-        gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,testPlayer);
+        gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(1), 4);
 
@@ -1102,7 +1135,7 @@ public class GameBoardTest {
     @Test
     public void testIfNukeUpdatesGameBoardSettlementDataList() {
         GameBoard gameBoard = new GameBoard();
-        Player testPlayer = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1170,7 +1203,7 @@ public class GameBoardTest {
     public void testIfTotoroPlacementIsPreventedForLessThanSize5SettlementAndOnVolcano() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1199,17 +1232,17 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 4);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 101, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 104, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 103, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 102, 1, player), false); // volcano
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 104, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 103, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 102, 1, playerOne), false); // volcano
 
-        gameBoard.placeTotoroSanctuary(101, 101, 1, player);
-        gameBoard.placeTotoroSanctuary(102, 104, 1, player);
-        gameBoard.placeTotoroSanctuary(102, 101, 1, player);
-        gameBoard.placeTotoroSanctuary(102, 103, 1, player);
-        gameBoard.placeTotoroSanctuary(102, 102, 1, player);
+        gameBoard.placeTotoroSanctuary(101, 101, 1, playerOne);
+        gameBoard.placeTotoroSanctuary(102, 104, 1, playerOne);
+        gameBoard.placeTotoroSanctuary(102, 101, 1, playerOne);
+        gameBoard.placeTotoroSanctuary(102, 103, 1, playerOne);
+        gameBoard.placeTotoroSanctuary(102, 102, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListTotoroCount(1), 0);
     }
@@ -1218,7 +1251,7 @@ public class GameBoardTest {
     public void testIfTotoroPlacementIsPreventedForSettlementWithTotoroAlreadyInIt() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1251,12 +1284,12 @@ public class GameBoardTest {
 
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, player), true);
-        gameBoard.placeTotoroSanctuary(102, 101, 1, player);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), true);
+        gameBoard.placeTotoroSanctuary(102, 101, 1, playerOne);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), false);
 
-        gameBoard.placeTotoroSanctuary(101, 105, 1, player);
+        gameBoard.placeTotoroSanctuary(101, 105, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getTotoroCount(), 1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTotoroCount(), 0);
@@ -1266,7 +1299,7 @@ public class GameBoardTest {
     public void testIfTotoroCanNotBePlacedOverOccupiedPiece() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1302,20 +1335,20 @@ public class GameBoardTest {
 
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
 
         gameBoard.getGameBoardPositionArray()[102][101].setTotoroCount(1);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
 
         gameBoard.getGameBoardPositionArray()[102][101].setTigerCount(1);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
     }
 
     @Test
     public void testIfTotoroCanNotBePlacedFarAwayFromSettlement() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1348,14 +1381,14 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), false);
     }
 
     @Test
     public void testIfTotoroPlacementDeniedIfNoTotorosLeft() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1390,16 +1423,16 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        player.setTotoroCount(0);
+        playerOne.setTotoroCount(0);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), false);
     }
 
     @Test
     public void testIfTotoroPlacementIsAllowed() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1434,14 +1467,14 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, player), true);
+        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), true);
     }
 
     @Test
     public void testIfTotoroPlacementUpdatesHex() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1476,16 +1509,16 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        gameBoard.placeTotoroSanctuary(101, 105, 1, player);
+        gameBoard.placeTotoroSanctuary(101, 105, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTotoroCount(), 1);
     }
 
-        @Test
+    @Test
     public void testIfTotoroPlacementUpdatesPlayerScoreAndRemovesPieceFromInventory() {
             GameBoard gameBoard = new GameBoard();
 
-            Player player = new Player(1);
+            Player playerOne = new Player(1);
 
             gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1520,20 +1553,20 @@ public class GameBoardTest {
             gameBoard.setGameBoardSettlementListPlayerID(1, 1);
             gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-            Assert.assertEquals(player.getScore(), 0);
-            Assert.assertEquals(player.getTotoroCount(), 3);
+            Assert.assertEquals(playerOne.getScore(), 0);
+            Assert.assertEquals(playerOne.getTotoroCount(), 3);
 
-            gameBoard.placeTotoroSanctuary(101, 105, 1, player);
+            gameBoard.placeTotoroSanctuary(101, 105, 1, playerOne);
 
-            Assert.assertEquals(player.getScore(), 200);
-            Assert.assertEquals(player.getTotoroCount(), 2);
+            Assert.assertEquals(playerOne.getScore(), 200);
+            Assert.assertEquals(playerOne.getTotoroCount(), 2);
     }
 
     @Test
     public void testIfTotoroPlacementUpdatesGameBoardSettlementListSizeAndTotoroCount() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1568,7 +1601,7 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        gameBoard.placeTotoroSanctuary(101, 105, 1, player);
+        gameBoard.placeTotoroSanctuary(101, 105, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListTotoroCount(1), 1);
         Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(1), 7);
@@ -1578,7 +1611,7 @@ public class GameBoardTest {
     public void testIfTigerPlacementIsPreventedForLessThanLevel3HexAndVolcano() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1607,15 +1640,15 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 4);
 
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 101, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 103, 1, player), false);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 102, 1, player), false); // volcano
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 103, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 102, 1, playerOne), false); // volcano
 
-        gameBoard.placeTigerPen(101, 101, 1, player);
-        gameBoard.placeTigerPen(102, 101, 1, player);
-        gameBoard.placeTigerPen(102, 103, 1, player);
-        gameBoard.placeTigerPen(102, 102, 1, player);
+        gameBoard.placeTigerPen(101, 101, 1, playerOne);
+        gameBoard.placeTigerPen(102, 101, 1, playerOne);
+        gameBoard.placeTigerPen(102, 103, 1, playerOne);
+        gameBoard.placeTigerPen(102, 102, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListTigerCount(1), 0);
     }
@@ -1624,7 +1657,7 @@ public class GameBoardTest {
     public void testIfTigerPlacementIsPreventedForSettlementWithTigerAlreadyInIt() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1658,12 +1691,12 @@ public class GameBoardTest {
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
 
         gameBoard.getGameBoardPositionArray()[102][101].setLevel(3);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, player), true);
-        gameBoard.placeTigerPen(102, 101, 1, player);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, playerOne), true);
+        gameBoard.placeTigerPen(102, 101, 1, playerOne);
 
         gameBoard.getGameBoardPositionArray()[102][101].setLevel(2);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, player), false);
-        gameBoard.placeTigerPen(101, 105, 1, player);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, playerOne), false);
+        gameBoard.placeTigerPen(101, 105, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getTigerCount(), 1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTigerCount(), 0);
@@ -1673,7 +1706,7 @@ public class GameBoardTest {
     public void testIfTigerCanNotBePlacedOverOccupiedPiece() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1709,20 +1742,20 @@ public class GameBoardTest {
 
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, playerOne), false);
 
         gameBoard.getGameBoardPositionArray()[102][101].setTigerCount(1);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, playerOne), false);
 
         gameBoard.getGameBoardPositionArray()[102][101].setTigerCount(1);
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(102, 101, 1, playerOne), false);
     }
 
     @Test
     public void testIfTigerCanNotBePlacedFarAwayFromSettlement() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1755,14 +1788,14 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
 
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, playerOne), false);
     }
 
     @Test
     public void testIfTigerPlacementIsNotAllowedIfPlayerDoesNotHaveEnoughPieces() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1798,9 +1831,9 @@ public class GameBoardTest {
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
         gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
 
-        player.setTigerCount(0);
+        playerOne.setTigerCount(0);
 
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, player), false);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, playerOne), false);
 
     }
 
@@ -1808,7 +1841,7 @@ public class GameBoardTest {
     public void testIfTigerPlacementIsAllowed() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1844,18 +1877,18 @@ public class GameBoardTest {
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
         gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
 
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, player), true);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 1, playerOne), true);
 
         gameBoard.getGameBoardPositionArray()[101][101].setLevel(50);
 
-        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 101, 1, player), true);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 101, 1, playerOne), true);
     }
 
     @Test
     public void testIfTigerPlacementUpdatesHex() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1891,16 +1924,16 @@ public class GameBoardTest {
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
         gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
-        gameBoard.placeTigerPen(101, 105, 1, player);
+        gameBoard.placeTigerPen(101, 105, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTigerCount(), 1);
     }
 
-        @Test
+    @Test
     public void testIfTigerPlacementUpdatesPlayerScoreAndInventory() {
             GameBoard gameBoard = new GameBoard();
 
-            Player player = new Player(1);
+            Player playerOne = new Player(1);
 
             gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1935,21 +1968,21 @@ public class GameBoardTest {
             gameBoard.setGameBoardSettlementListPlayerID(1, 1);
             gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-            Assert.assertEquals(player.getScore(), 0);
-            Assert.assertEquals(player.getTigerCount(), 2);
+            Assert.assertEquals(playerOne.getScore(), 0);
+            Assert.assertEquals(playerOne.getTigerCount(), 2);
 
             gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
-            gameBoard.placeTigerPen(101, 105, 1, player);
+            gameBoard.placeTigerPen(101, 105, 1, playerOne);
 
-            Assert.assertEquals(player.getTigerCount(), 1);
-            Assert.assertEquals(player.getScore(), 75);
+            Assert.assertEquals(playerOne.getTigerCount(), 1);
+            Assert.assertEquals(playerOne.getScore(), 75);
     }
 
     @Test
     public void testIfTigerPlacementUpdatesGameBoardSettlementListSizeAndTigerCount() {
         GameBoard gameBoard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -1984,10 +2017,10 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        Assert.assertEquals(player.getScore(), 0);
+        Assert.assertEquals(playerOne.getScore(), 0);
 
         gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
-        gameBoard.placeTigerPen(101, 105, 1, player);
+        gameBoard.placeTigerPen(101, 105, 1, playerOne);
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListTigerCount(1), 1);
         Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(1), 7);
@@ -1995,7 +2028,7 @@ public class GameBoardTest {
 
     @Test
     public void testIfMergeOccursAfterBuilds() {
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         GameBoard gameBoard = new GameBoard();
 
@@ -2012,17 +2045,17 @@ public class GameBoardTest {
         thirdTile.flip();
         gameBoard.setTileAtPosition(104, 103, thirdTile);
 
-        gameBoard.buildSettlement(101, 103, player);
+        gameBoard.buildSettlement(101, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
-        gameBoard.buildSettlement(102, 103, player);
+        gameBoard.buildSettlement(102, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getSettlementID(), 2);
-        gameBoard.buildSettlement(102, 104, player);
+        gameBoard.buildSettlement(102, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), 3);
-        gameBoard.buildSettlement(101, 101, player);
+        gameBoard.buildSettlement(101, 101, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][101].getSettlementID(), 4);
-        gameBoard.buildSettlement(102, 101, player);
+        gameBoard.buildSettlement(102, 101, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getSettlementID(), 5);
-        gameBoard.buildSettlement(104, 104, player);
+        gameBoard.buildSettlement(104, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getSettlementID(), 6);
         gameBoard.mergeSettlements();
 
@@ -2044,7 +2077,7 @@ public class GameBoardTest {
 
     @Test
     public void testIfMergeOccursAfterExpansions() {
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         GameBoard gameBoard = new GameBoard();
 
@@ -2061,14 +2094,14 @@ public class GameBoardTest {
         thirdTile.flip();
         gameBoard.setTileAtPosition(104, 103, thirdTile);
 
-        gameBoard.buildSettlement(101, 103, player);
+        gameBoard.buildSettlement(101, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
-        gameBoard.buildSettlement(102, 101, player);
+        gameBoard.buildSettlement(102, 101, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getSettlementID(), 2);
-        gameBoard.buildSettlement(104, 104, player);
+        gameBoard.buildSettlement(104, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getSettlementID(), 3);
 
-        gameBoard.expandSettlement(101, 103, terrainTypes.GRASSLANDS, player);
+        gameBoard.expandSettlement(101, 103, terrainTypes.GRASSLANDS, playerOne);
         gameBoard.mergeSettlements();
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1); // EXPANSIONS OVERWRITE FROM HOME HEX, NOT LAST HEX PLACED
@@ -2082,14 +2115,14 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(1), 6);
 
-        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(1, player.getPlayerID()), true);
-        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(2, player.getPlayerID()), false);
-        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(3, player.getPlayerID()), true);
+        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(1, playerOne.getPlayerID()), true);
+        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(2, playerOne.getPlayerID()), false);
+        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(3, playerOne.getPlayerID()), true);
     }
 
     @Test
     public void testIfMergeDoesNotMergeOtherPlayerStructures() {
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
         Player playerTwo = new Player(2);
 
         GameBoard gameBoard = new GameBoard();
@@ -2107,7 +2140,7 @@ public class GameBoardTest {
         thirdTile.flip();
         gameBoard.setTileAtPosition(104, 103, thirdTile);
 
-        gameBoard.buildSettlement(101, 103, player);
+        gameBoard.buildSettlement(101, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getPlayerID(), 1);
 
@@ -2119,11 +2152,11 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), 3);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getPlayerID(), 2);
 
-        gameBoard.buildSettlement(104, 104, player);
+        gameBoard.buildSettlement(104, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getSettlementID(), 4);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getPlayerID(), 1);
 
-        gameBoard.expandSettlement(101, 103, terrainTypes.GRASSLANDS, player);
+        gameBoard.expandSettlement(101, 103, terrainTypes.GRASSLANDS, playerOne);
 
         gameBoard.mergeSettlements();
 
@@ -2152,7 +2185,7 @@ public class GameBoardTest {
 
     @Test
     public void testAbilityToSplitSettlementsAfterNuke() {
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         GameBoard gameBoard = new GameBoard();
 
@@ -2169,31 +2202,31 @@ public class GameBoardTest {
         thirdTile.flip();
         gameBoard.setTileAtPosition(104, 103, thirdTile);
 
-        gameBoard.buildSettlement(101, 103, player);
+        gameBoard.buildSettlement(101, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(1, 1), true);
-        gameBoard.buildSettlement(102, 103, player);
+        gameBoard.buildSettlement(102, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getSettlementID(), 2);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(2, 1), true);
-        gameBoard.buildSettlement(102, 104, player);
+        gameBoard.buildSettlement(102, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), 3);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(3, 1), true);
-        gameBoard.buildSettlement(101, 105, player);
+        gameBoard.buildSettlement(101, 105, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getSettlementID(), 4);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(4, 1), true);
-        gameBoard.buildSettlement(103, 103, player);
+        gameBoard.buildSettlement(103, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getSettlementID(), 5);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(5, 1), true);
-        gameBoard.buildSettlement(104, 104, player);
+        gameBoard.buildSettlement(104, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getSettlementID(), 6);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(6, 1), true);
-        gameBoard.buildSettlement(103, 102, player);
+        gameBoard.buildSettlement(103, 102, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getSettlementID(), 7);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(7, 1), true);
-        gameBoard.buildSettlement(102, 101, player);
+        gameBoard.buildSettlement(102, 101, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getSettlementID(), 8);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(8, 1), true);
-        gameBoard.buildSettlement(101, 101, player);
+        gameBoard.buildSettlement(101, 101, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][101].getSettlementID(), 9);
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(9, 1), true);
 
@@ -2243,7 +2276,7 @@ public class GameBoardTest {
     public void testIfExpandWorksOffOfSettlementOfSizeGreaterThanOne() {
         GameBoard gameboard = new GameBoard();
 
-        Player player = new Player(1);
+        Player playerOne = new Player(1);
 
         gameboard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -2256,17 +2289,17 @@ public class GameBoardTest {
         Tile tileThree = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.GRASSLANDS);
         gameboard.setTileAtPosition(105, 102, tileThree);
 
-        gameboard.buildSettlement(103, 101, player);
-        gameboard.buildSettlement(104, 102, player);
-        gameboard.buildSettlement(104, 101, player);
+        gameboard.buildSettlement(103, 101, playerOne);
+        gameboard.buildSettlement(104, 102, playerOne);
+        gameboard.buildSettlement(104, 101, playerOne);
 
         gameboard.mergeSettlements();
 
-        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, player.getPlayerID()), true);
+        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, playerOne.getPlayerID()), true);
 
-        gameboard.expandSettlement(104, 101, terrainTypes.GRASSLANDS, player);
+        gameboard.expandSettlement(104, 101, terrainTypes.GRASSLANDS, playerOne);
 
-        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, player.getPlayerID()), true);
+        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(3, playerOne.getPlayerID()), true);
         Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(3), 7);
     }
 }
