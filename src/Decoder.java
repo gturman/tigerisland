@@ -5,55 +5,62 @@ import java.util.Scanner;
  */
 public class Decoder {
 
-    public int pid; //Player ID
-    public int pid2;
-    public int cid; //Challenge ID
-    public int rid; //Round ID
-    public int gid; //Game ID
-    public int time; //How much time to complete turn
-    public int moveNum; //the move number
+    public String playerID1;
+    public String playerID2;
+    String challengeID;
+    public String currentRoundID;
+    public String gameID;
+    String currentMovePlayerID;
+    public int timeToCompleteTurn;
+    public int currentMoveNum;
 
-    public String tile; //Not sure how tile is given to us yet
+    public String tileTerrainStringOfFormatAandB; //Not sure how tile is given to us yet
     public String tileTerrain1;
     public String tileTerrain2;
 
-    public String terrainA = "";
-    public String terrainB = "";
-    public String terrainC = "";
+    public String terrainHexAFromMessage = "";
+    public String terrainHexBFromMessage = "";
+    public String terrainHexCFromMessage = "";
 
-    public terrainTypes terrainHexA;
-    public terrainTypes terrainHexB;
-    public terrainTypes terrainHexC;
-    public int theirColumnPosition = 0;
-    public int theirRowPosition = 0;
-    public boolean flipped = false;
+    public terrainTypes theirTerrainTypeAtHexA;
+    public terrainTypes theirTerrainTypeAtHexB;
+    public terrainTypes theirTerrainTypeAtHexC;
+    public int theirTileColumnPosition = 0;
+    public int theirTileRowPosition = 0;
+    public boolean theirTileIsFlipped = false;
 
-    public int x; //x-coordinate of tile
-    public int y; //y-coordinate of tile
-    public int z; //z-coordinate of tile
-    public int sx; //x-coordinate of settlement
-    public int sy; //y-coordinate of settlement
-    public int sz; //z-coordinate of settlement
+    public terrainTypes ourTerrainTypeAtHexA;
+    public terrainTypes ourTerrainTypeAtHexB;
+    public terrainTypes ourTerrainTypeAtHexC;
 
-    public String terrain;
+    public int xCubicTileCoordinate;
+    public int yCubicTileCoordinate;
+    public int zCubicTileCoordinate;
+    public int xCubicBuildCoordinate;
+    public int yCubicBuildCoordinate;
+    public int zCubicBuildCoordinate;
 
-    public int score;
-    public int score2;
-    public int rounds;
+    public String theirExpandedTerrainTypeFromMessage;  // expanded terrain type
+    terrainTypes theirExpandTerrainTypeIfExpansion;
+
+    public int scoreOfPlayer1;
+    public int scoreOfPlayer2;
+    public int numberOfRounds;
     public int orientation;
-    public int xCoordinate;
-    public int yCoordinate;
+    public int xOddRTileCoordinate;
+    public int yOddRTileCoordinate;
+    int theirXOddRBuildCoordinate;
+    int theirYOddRBuildCoordinate;
 
-    boolean builtSettlement = false;
-    boolean builtTotoro = false;
-    boolean builtTiger = false;
-    boolean expandedSettlement = false;
-    boolean forfeited = false;
-    boolean lost = false;
+    boolean theyForfeitedFlag = false;
+    boolean theyLostFlag = false;
+    boolean endOfRoundFlag = false;
+    boolean endOfChallenges = false;
+    boolean waitingForNextMatchFlag = false;
 
+    BuildType theirMoveType;
 
-    public String terrains = "";
-    public String placement = "";
+    public String terrainOrderingOfTheirTile = "";
 
     Decoder() {
 
@@ -61,198 +68,59 @@ public class Decoder {
 
     void decodeString(String messageFromServer){
 
-        isImportantLineToRead(messageFromServer);
+        messageTypeDecode(messageFromServer);
 
     }
 
-    void isImportantLineToRead(String messageFromServer){
+    void messageTypeDecode(String messageFromServer){
 
         if(messageFromServer.substring(0,4).equals("WAIT")){
             messageStartsWithWait(messageFromServer);
-        }
-        else if (messageFromServer.substring(0,3).equals("NEW")){
+        } else if (messageFromServer.substring(0,3).equals("NEW")){
             messageStartsWithNew(messageFromServer);
-        }
-        else if(messageFromServer.substring(0,5).equals("BEGIN")){
+        } else if(messageFromServer.substring(0,5).equals("BEGIN")){
             messageStartsWithBegin(messageFromServer);
-        }
-        else if(messageFromServer.substring(0,4).equals("MAKE")){
+        } else if(messageFromServer.substring(0,4).equals("MAKE")){
             messageStartsWithMake(messageFromServer);
-        }
-        else if(messageFromServer.substring(0,4).equals("GAME")){
+        } else if(messageFromServer.substring(0,4).equals("GAME")){
             messageStartsWithGame(messageFromServer);
-        }
-        else if(messageFromServer.substring(0,3).equals("END")){
+        } else if(messageFromServer.substring(0,3).equals("END")){
             messageStartsWithEnd(messageFromServer);
         }
-
-
     }
 
-    void messageStartsWithGame(String messageFromServer){
+    void messageStartsWithWait(String messageFromServer){
         String currentWord;
-        String previousWord;
-
         Scanner sc = new Scanner(messageFromServer);
 
-        while(sc.hasNext()){
+        while(sc.hasNext()) {
             currentWord = sc.next();
-
-            if(currentWord.equals("GAME")){
-                gid = Integer.parseInt(sc.next());
-            }
-            else if(currentWord.equals("OVER")){
-                sc.next();
+            if(currentWord.equals("BEGIN") && sc.hasNext()){
                 currentWord = sc.next();
-                pid = Integer.parseInt(currentWord);
-                currentWord = sc.next();
-                score = Integer.parseInt(currentWord);
-                sc.next();
-                currentWord = sc.next();
-                pid2 = Integer.parseInt(currentWord);
-                currentWord = sc.next();
-                score2 = Integer.parseInt(currentWord);
-
+                setPlayerID1(currentWord);
             }
-            else if (currentWord.equals("MOVE")) {
-                currentWord = sc.next();
-                moveNum = Integer.parseInt(currentWord);
-            }
-            else if (currentWord.equals("PLAYER")){
-                currentWord = sc.next();
-                pid = Integer.parseInt(currentWord);
-            }
-            else if(currentWord.equals("PLACED")){
-                builtSettlement = false;
-                builtTiger = false;
-                builtTotoro = false;
-                expandedSettlement = false;
-                tile = sc.next();
-
-                currentWord = sc.next();
-                if(currentWord.equals("AT")){
-                    x = Integer.parseInt(sc.next());
-                    y = Integer.parseInt(sc.next());
-                    z = Integer.parseInt(sc.next());
-                    orientation = Integer.parseInt(sc.next());
-
-                    theirColumnPosition = convertCoordinatesBasedOnOrientation(convertCoordinatesFromCubicToROffset(x,y,z).getColumnPosition(),convertCoordinatesFromCubicToROffset(x,y,z).getRowPosition(),orientation).getColumnPosition();
-                    theirRowPosition = convertCoordinatesBasedOnOrientation(convertCoordinatesFromCubicToROffset(x,y,z).getColumnPosition(),convertCoordinatesFromCubicToROffset(x,y,z).getRowPosition(),orientation).getRowPosition();
-                    terrains =  convertTileStringToTileObject(tile, orientation);
-
-                    if(orientation%2 == 0){
-                        flipped = true;
-                    }
-
-
-                    placement = gid + " " + theirColumnPosition + " " + theirRowPosition + " " + terrainHexA + " " + terrainHexB + " " + terrainHexC + " " + flipped;
-                    System.out.println(placement);
-                    //col, row, terrain A, terrain B, terrain C
-
-                    currentWord = sc.next();
-                    if(currentWord.equals("FOUNDED")){
-                        sc.next();
-                        sc.next();
-                        sx = Integer.parseInt(sc.next());
-                        sy = Integer.parseInt(sc.next());
-                        sz = Integer.parseInt(sc.next());
-                        builtSettlement = true;
-                    }
-                    else if(currentWord.equals("EXPANDED")){
-                        sc.next();
-                        sc.next();
-                        sx = Integer.parseInt(sc.next());
-                        sy = Integer.parseInt(sc.next());
-                        sz = Integer.parseInt(sc.next());
-                        terrain = sc.next();
-                        expandedSettlement = true;
-                    }
-                    else if(currentWord.equals("BUILT")){
-                        currentWord = sc.next();
-                        if(currentWord.equals("TOTORO")){
-                            sc.next();
-                            sc.next();
-                            sx = Integer.parseInt(sc.next());
-                            sy = Integer.parseInt(sc.next());
-                            sz = Integer.parseInt(sc.next());
-                            builtTotoro = true;
-                        }
-                        else if(currentWord.equals("TIGER")){
-                            sc.next();
-                            sc.next();
-                            sx = Integer.parseInt(sc.next());
-                            sy = Integer.parseInt(sc.next());
-                            sz = Integer.parseInt(sc.next());
-                            builtTiger = true;
-                        }
-
-                    }
-                }
-                //at xyz
-                //forfeited:
-                //lost:
-            }
-            else if(currentWord.equals("FORFEITED:")){
-                forfeited = true;
-            }
-            else if(currentWord.equals("LOST:")){
-                lost = true;
-            }
-
-            previousWord = currentWord;
         }
-
-
-
+        //Set to our Player ID
     }
 
-    void messageStartsWithEnd(String messageFromServer){
-        String currentWord;
-        String previousWord = "";
-        Scanner sc = new Scanner(messageFromServer);
-
-        while(sc.hasNext()){
-            currentWord = sc.next();
-
-            if(currentWord.equals("ROUND")){
-                rid = Integer.parseInt(sc.next());
-            }
-            else if(currentWord.equals("OF") && !previousWord.equals("END")){
-                rounds = Integer.parseInt(sc.next());
-            }
-            previousWord = currentWord;
-        }
-        //Signifies end of round or end of match depending...
-
-    }
-
-    void messageStartsWithMake(String messageFromServer){
+    void messageStartsWithNew(String messageFromServer){
         String currentWord;
         Scanner sc = new Scanner(messageFromServer);
 
         while(sc.hasNext()){
             currentWord = sc.next();
-            if(currentWord.equals("GAME")){
-                currentWord=sc.next();
-                gid = Integer.parseInt(currentWord);
-            }
-            else if(currentWord.equals("WITHIN")){
+            if(currentWord.equals("CHALLENGE")){
                 currentWord = sc.next();
-                time = Integer.parseInt(currentWord);
+                setChallengeID(currentWord);
             }
-            else if(currentWord.equals("MOVE")){
+            else if(currentWord.equals("PLAY")){
                 currentWord = sc.next();
-                if(!currentWord.equals("IN")) {
-                    moveNum = Integer.parseInt(currentWord);
-                }
+                numberOfRounds = Integer.parseInt(currentWord);
             }
-            else if(currentWord.equals("PLACE")){
+            else if(currentWord.equals("PLAYER")){
                 currentWord = sc.next();
-                tile = currentWord;
-                //convertTileStringToTileObject(tile,orientation);
+                setPlayerID2(currentWord);
             }
-
-
         }
     }
 
@@ -264,74 +132,206 @@ public class Decoder {
             currentWord = sc.next();
             if(currentWord.equals("ROUND")){
                 currentWord = sc.next();
-                rid = Integer.parseInt(currentWord);
+                setCurrentRoundID(currentWord);
             }
-            else if(currentWord.equals("OF")){
-                currentWord = sc.next();
-                rounds = Integer.parseInt(currentWord);
-            }
-
         }
-        //This will signify beginning of a round!
-        //Need to tell AI it is time to do its' moves
-        //if round is odd or even, might be able to tell without talking...
-
     }
 
-    void messageStartsWithNew(String messageFromServer){
+    void messageStartsWithMake(String messageFromServer){
         String currentWord;
         Scanner sc = new Scanner(messageFromServer);
 
         while(sc.hasNext()){
             currentWord = sc.next();
-            if(currentWord.equals("CHALLENGE")){
+            if(currentWord.equals("GAME")){
+                currentWord=sc.next();
+                setGameID(currentWord);
+            } else if(currentWord.equals("WITHIN")){
                 currentWord = sc.next();
-                cid = Integer.parseInt(currentWord);
-            }
-            else if(currentWord.equals("PLAY")){
+                timeToCompleteTurn = Integer.parseInt(currentWord);
+            } else if(currentWord.equals("MOVE")){
                 currentWord = sc.next();
-                rounds = Integer.parseInt(currentWord);
-            }
-            else if(currentWord.equals("PLAYER")){
+                if(!currentWord.equals("IN")) {
+                    currentMoveNum = Integer.parseInt(currentWord);
+                }
+            } else if(currentWord.equals("PLACE")){
                 currentWord = sc.next();
-                pid2 = Integer.parseInt(currentWord);
+                tileTerrainStringOfFormatAandB = currentWord;
+                orientation = 1;
+                convertTileStringToTileObject(tileTerrainStringOfFormatAandB, orientation, true);
+
+
             }
-            //sets challenge id, how many rounds
-            //sets opponent player ID
+
+
         }
+    }
+
+    void messageStartsWithGame(String messageFromServer){
+        String currentWord;
+
+        Scanner sc = new Scanner(messageFromServer);
+
+        while(sc.hasNext()){
+            currentWord = sc.next();
+
+            if(currentWord.equals("GAME")) {
+
+                setGameID(sc.next());
+
+            }else if(currentWord.equals("OVER")){
+                sc.next();
+                currentWord = sc.next();
+
+                if(currentWord.equals(getPlayerID1())){
+                    scoreOfPlayer1 = Integer.parseInt(sc.next());
+                }else{
+                    scoreOfPlayer2 = Integer.parseInt(sc.next());
+                }
+
+                sc.next();
+                currentWord = sc.next();
+
+                if(currentWord.equals(getPlayerID1())){
+                    scoreOfPlayer1 = Integer.parseInt(sc.next());
+                }else{
+                    scoreOfPlayer2 = Integer.parseInt(sc.next());
+                }
+            } else if (currentWord.equals("MOVE")) {
+                currentWord = sc.next();
+                currentMoveNum = Integer.parseInt(currentWord);
+            } else if (currentWord.equals("PLAYER")){
+                currentWord = sc.next();
+                setCurrentMovePlayerID(currentWord);
+            } else if(currentWord.equals("PLACED")){
+
+                tileTerrainStringOfFormatAandB = sc.next();
+
+                sc.next();
+
+                xCubicTileCoordinate = Integer.parseInt(sc.next());
+                yCubicTileCoordinate = Integer.parseInt(sc.next());
+                zCubicTileCoordinate = Integer.parseInt(sc.next());
+                orientation = Integer.parseInt(sc.next());
+
+
+
+                theirTileColumnPosition = convertCoordinatesBasedOnOrientation(convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getColumnPosition(), convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getRowPosition(),orientation).getColumnPosition();
+                theirTileRowPosition = convertCoordinatesBasedOnOrientation(convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getColumnPosition(), convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getRowPosition(),orientation).getRowPosition();
+                terrainOrderingOfTheirTile =  convertTileStringToTileObject(tileTerrainStringOfFormatAandB, orientation, false);
+
+                if(orientation%2 == 0){
+                    theirTileIsFlipped = true;
+                }else{
+                    theirTileIsFlipped = false;
+                }
+
+                 //DEBUGGING PURPOSES
+                 //  theirPlacementOfTile = gameID + " " + theirTileColumnPosition + " " + theirTileRowPosition + " " + theirTerrainTypeAtHexA + " " + theirTerrainTypeAtHexB + " " + theirTerrainTypeAtHexC + " " + theirTileIsFlipped;
+                 // System.out.println(theirPlacementOfTile);
+                 //col, row, terrain A, terrain B, terrain C
+
+                currentWord = sc.next();
+                if(currentWord.equals("FOUNDED")){
+                    sc.next();
+                    sc.next();
+                    xCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    yCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    setTheirMoveType(BuildType.FOUND_SETTLEMENT);
+                }
+                else if(currentWord.equals("EXPANDED")){
+                    sc.next();
+                    sc.next();
+                    xCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    yCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    theirExpandedTerrainTypeFromMessage = sc.next();
+                    setTheirExpansionTerrainType(theirExpandedTerrainTypeFromMessage);
+                    setTheirMoveType(BuildType.EXPAND_SETTLMENT);
+                }
+                else if(currentWord.equals("BUILT")){
+                    currentWord = sc.next();
+                    if(currentWord.equals("TOTORO")){
+                        sc.next();
+                        sc.next();
+                        xCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        yCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        setTheirMoveType(BuildType.PLACE_TOTORO);
+                    }
+                    else if(currentWord.equals("TIGER")){
+                        sc.next();
+                        sc.next();
+                        xCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        yCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        setTheirMoveType(BuildType.PLACE_TIGER);
+                    }
+
+                }
+
+                convertBuildCoordinatesFromCubicToOddROffset(xCubicBuildCoordinate, yCubicBuildCoordinate, zCubicBuildCoordinate);
+            } else if(currentWord.equals("FORFEITED:")){
+                theyForfeitedFlag = true;
+            }
+            else if(currentWord.equals("LOST:")){
+                theyLostFlag = true;
+            }
+
+
+        }
+
+
 
     }
 
-    void messageStartsWithWait(String messageFromServer){
+    void setTheirExpansionTerrainType(String theirExpandedTerrainTypeFromMessage){
+        if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'V'){
+            theirExpandTerrainTypeIfExpansion = terrainTypes.VOLCANO;
+        } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'J'){
+            theirExpandTerrainTypeIfExpansion = terrainTypes.JUNGLE;
+        } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'R'){
+            theirExpandTerrainTypeIfExpansion = terrainTypes.ROCKY;
+        } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'L'){
+            theirExpandTerrainTypeIfExpansion = terrainTypes.LAKE;
+        } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'G') {
+            theirExpandTerrainTypeIfExpansion = terrainTypes.GRASSLANDS;
+        }
+    }
+
+    void messageStartsWithEnd(String messageFromServer){
         String currentWord;
         Scanner sc = new Scanner(messageFromServer);
 
-        while(sc.hasNext()) {
+        while(sc.hasNext()){
             currentWord = sc.next();
-            if(currentWord.equals("BEGIN") && sc.hasNext()){
-                currentWord = sc.next();
-                pid = Integer.parseInt(currentWord);
+            if(currentWord.equals("ROUND")){
+                endOfRoundFlag = true;
+            } else if(currentWord.equals("CHALLENGES")){
+               endOfChallenges = true;
+            } else if(currentWord.equals("WAIT")){
+                waitingForNextMatchFlag = true;
             }
         }
-        //Set to our Player ID
     }
 
-    String convertTileStringToTileObject(String tile, int orientation){
-        String terrain1 ="";
-        String terrain2 ="";
-        String terrainList = "";
+    String convertTileStringToTileObject(String tile, int orientation, boolean ourTileFlag){
+        String terrain1 = "";
+        String terrain2 = "";
+        String terrainListOrder = "";
         int iterator = 0;
 
-        boolean plusSign = false;
+        boolean isPlusSign = false;
 
         while(iterator < tile.length()){
 
             if(tile.charAt(iterator) == '+'){
-                plusSign = true;
+                isPlusSign = true;
                 iterator++;
             }
 
-            if(!plusSign){
+            if(!isPlusSign){
                 terrain1 += tile.charAt(iterator);
             }
             else{
@@ -341,37 +341,39 @@ public class Decoder {
             iterator++;
         }
 
-        //terrain type A will always be a volcano
         tileTerrain1 = terrain1;
         tileTerrain2 = terrain2;
 
         if(orientation == 1 || orientation == 4){
-            terrainA = "VOLCANO";
-            terrainB = tileTerrain1;
-            terrainC = tileTerrain2;
-            terrainList = "VOLCANO" + " " + tileTerrain1 + " " + tileTerrain2;
+            terrainHexAFromMessage = "VOLCANO";
+            terrainHexBFromMessage = tileTerrain1;
+            terrainHexCFromMessage = tileTerrain2;
+            terrainListOrder = "VOLCANO" + " " + tileTerrain1 + " " + tileTerrain2;
         }
         else if(orientation == 2 || orientation == 5){
-            terrainA = tileTerrain1;
-            terrainB = tileTerrain2;
-            terrainC = "VOLCANO";
-            terrainList = tileTerrain1 + " " + tileTerrain2 + " " + "VOLCANO";
+            terrainHexAFromMessage = tileTerrain1;
+            terrainHexBFromMessage = tileTerrain2;
+            terrainHexCFromMessage = "VOLCANO";
+            terrainListOrder = tileTerrain1 + " " + tileTerrain2 + " " + "VOLCANO";
         }
         else if(orientation == 3 || orientation == 6){
-            terrainA = tileTerrain2;
-            terrainB = "VOLCANO";
-            terrainC = tileTerrain1;
-            terrainList = tileTerrain2 + " " + "VOLCANO" + " " + tileTerrain1;
+            terrainHexAFromMessage = tileTerrain2;
+            terrainHexBFromMessage = "VOLCANO";
+            terrainHexCFromMessage = tileTerrain1;
+            terrainListOrder = tileTerrain2 + " " + "VOLCANO" + " " + tileTerrain1;
         }
 
-        setTerrainTypes(terrainList);
+        if(ourTileFlag == false) {
+            setTheirTileTerrainTypes(terrainListOrder);
+        } else{
+            setOurTileTerrainTypes(terrainListOrder);
+        }
 
-
-        return terrainList;
+        return terrainListOrder;
 
     }
 
-    void setTerrainTypes(String terrainList){
+    void setTheirTileTerrainTypes(String terrainList){
 
         Scanner sc = new Scanner(terrainList);
         String currentTerrain;
@@ -379,139 +381,167 @@ public class Decoder {
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            terrainHexA = terrainTypes.VOLCANO;
-        }
-        else if(currentTerrain.charAt(0) == 'J'){
-            terrainHexA = terrainTypes.JUNGLE;
-        }
-        else if(currentTerrain.charAt(0) == 'R'){
-            terrainHexA = terrainTypes.ROCKY;
-        }
-        else if(currentTerrain.charAt(0) == 'L'){
-            terrainHexA = terrainTypes.LAKE;
-        }
-        else if(currentTerrain.charAt(0) == 'G') {
-            terrainHexA = terrainTypes.GRASSLANDS;
+            theirTerrainTypeAtHexA = terrainTypes.VOLCANO;
+        } else if(currentTerrain.charAt(0) == 'J'){
+            theirTerrainTypeAtHexA = terrainTypes.JUNGLE;
+        } else if(currentTerrain.charAt(0) == 'R'){
+            theirTerrainTypeAtHexA = terrainTypes.ROCKY;
+        } else if(currentTerrain.charAt(0) == 'L'){
+            theirTerrainTypeAtHexA = terrainTypes.LAKE;
+        } else if(currentTerrain.charAt(0) == 'G') {
+            theirTerrainTypeAtHexA = terrainTypes.GRASSLANDS;
         }
 
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            terrainHexB = terrainTypes.VOLCANO;
-        }
-        else if(currentTerrain.charAt(0) == 'J'){
-            terrainHexB = terrainTypes.JUNGLE;
-        }
-        else if(currentTerrain.charAt(0) == 'R'){
-            terrainHexB = terrainTypes.ROCKY;
-        }
-        else if(currentTerrain.charAt(0) == 'L'){
-            terrainHexB = terrainTypes.LAKE;
-        }
-        else if(currentTerrain.charAt(0) == 'G') {
-            terrainHexB = terrainTypes.GRASSLANDS;
+            theirTerrainTypeAtHexB = terrainTypes.VOLCANO;
+        } else if(currentTerrain.charAt(0) == 'J'){
+            theirTerrainTypeAtHexB = terrainTypes.JUNGLE;
+        } else if(currentTerrain.charAt(0) == 'R'){
+            theirTerrainTypeAtHexB = terrainTypes.ROCKY;
+        } else if(currentTerrain.charAt(0) == 'L'){
+            theirTerrainTypeAtHexB = terrainTypes.LAKE;
+        } else if(currentTerrain.charAt(0) == 'G') {
+            theirTerrainTypeAtHexB = terrainTypes.GRASSLANDS;
         }
 
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            terrainHexC = terrainTypes.VOLCANO;
+            theirTerrainTypeAtHexC = terrainTypes.VOLCANO;
         }
         else if(currentTerrain.charAt(0) == 'J'){
-            terrainHexC = terrainTypes.JUNGLE;
+            theirTerrainTypeAtHexC = terrainTypes.JUNGLE;
         }
         else if(currentTerrain.charAt(0) == 'R'){
-            terrainHexC = terrainTypes.ROCKY;
+            theirTerrainTypeAtHexC = terrainTypes.ROCKY;
         }
         else if(currentTerrain.charAt(0) == 'L'){
-            terrainHexC = terrainTypes.LAKE;
+            theirTerrainTypeAtHexC = terrainTypes.LAKE;
         }
         else if(currentTerrain.charAt(0) == 'G') {
-            terrainHexC = terrainTypes.GRASSLANDS;
+            theirTerrainTypeAtHexC = terrainTypes.GRASSLANDS;
         }
 
     }
 
-    Pair convertCoordinatesFromCubicToROffset(int x, int y, int z){
+    void setOurTileTerrainTypes(String terrainList){
 
+        Scanner sc = new Scanner(terrainList);
+        String currentTerrain;
 
-        //col = x + (z - (z&1)) / 2
-        //row = z
+        currentTerrain = sc.next();
 
-        xCoordinate = x + (z-(z&1))/2 + 102;
-        yCoordinate = z + 102;
+        if(currentTerrain.charAt(0) == 'V'){
+            ourTerrainTypeAtHexA = terrainTypes.VOLCANO;
+        } else if(currentTerrain.charAt(0) == 'J'){
+            ourTerrainTypeAtHexA = terrainTypes.JUNGLE;
+        } else if(currentTerrain.charAt(0) == 'R'){
+            ourTerrainTypeAtHexA = terrainTypes.ROCKY;
+        } else if(currentTerrain.charAt(0) == 'L'){
+            ourTerrainTypeAtHexA = terrainTypes.LAKE;
+        } else if(currentTerrain.charAt(0) == 'G') {
+            ourTerrainTypeAtHexA = terrainTypes.GRASSLANDS;
+        }
 
-        Pair pair = new Pair(xCoordinate, yCoordinate);
+        currentTerrain = sc.next();
+
+        if(currentTerrain.charAt(0) == 'V'){
+            ourTerrainTypeAtHexB = terrainTypes.VOLCANO;
+        } else if(currentTerrain.charAt(0) == 'J'){
+            ourTerrainTypeAtHexB = terrainTypes.JUNGLE;
+        } else if(currentTerrain.charAt(0) == 'R'){
+            ourTerrainTypeAtHexB = terrainTypes.ROCKY;
+        } else if(currentTerrain.charAt(0) == 'L'){
+            ourTerrainTypeAtHexB = terrainTypes.LAKE;
+        } else if(currentTerrain.charAt(0) == 'G') {
+            ourTerrainTypeAtHexB = terrainTypes.GRASSLANDS;
+        }
+
+        currentTerrain = sc.next();
+
+        if(currentTerrain.charAt(0) == 'V'){
+            ourTerrainTypeAtHexC = terrainTypes.VOLCANO;
+        } else if(currentTerrain.charAt(0) == 'J'){
+            ourTerrainTypeAtHexC = terrainTypes.JUNGLE;
+        } else if(currentTerrain.charAt(0) == 'R'){
+            ourTerrainTypeAtHexC = terrainTypes.ROCKY;
+        } else if(currentTerrain.charAt(0) == 'L'){
+            ourTerrainTypeAtHexC = terrainTypes.LAKE;
+        } else if(currentTerrain.charAt(0) == 'G') {
+            ourTerrainTypeAtHexC = terrainTypes.GRASSLANDS;
+        }
+
+    }
+
+    Pair convertTileCoordinatesFromCubicToOddROffset(int x, int y, int z){
+        xOddRTileCoordinate = x + (z-(z&1))/2 + 102;
+        yOddRTileCoordinate = z + 102;
+        Pair pair = new Pair(xOddRTileCoordinate, yOddRTileCoordinate);
         return pair;
-
     }
 
-    void convertOddROffsetToCubic(int col, int row){
-
-
-
-        x = col - (row - (row&1)) / 2;
-        z = row;
-        y = -x-z;
-
-        //Are our columns columns or rows...?
-
+    Pair convertBuildCoordinatesFromCubicToOddROffset(int x, int y, int z){
+        theirXOddRBuildCoordinate = x + (z-(z&1))/2 + 102;
+        theirYOddRBuildCoordinate = z + 102;
+        Pair pair = new Pair(theirXOddRBuildCoordinate, theirYOddRBuildCoordinate);
+        return pair;
     }
 
-    Pair convertCoordinatesBasedOnOrientation(int row, int col, int orientation){
+    Pair convertCoordinatesBasedOnOrientation(int col, int row, int orientation){
         int newRowPos = 0;
         int newColPos = 0;
 
-        if(col%2 == 0){
+        if(row%2 == 0){
             if(orientation==1){
-                newRowPos = row + 0;
-                newColPos = col + 0;
+                newRowPos = col;
+                newColPos = row;
             }
             else if(orientation==2){
-                newRowPos = row + 0;
-                newColPos = col - 1;
+                newRowPos = col;
+                newColPos = row - 1;
             }
             else if(orientation == 3){
-                newRowPos = row + 0;
-                newColPos = col + 1;
+                newRowPos = col;
+                newColPos = row + 1;
             }
             else if(orientation == 4){
-                newRowPos = row + 0;
-                newColPos = col + 0;
+                newRowPos = col;
+                newColPos = row;
             }
             else if(orientation == 5){
-                newRowPos = row - 1;
-                newColPos = col + 1;
+                newRowPos = col - 1;
+                newColPos = row + 1;
             }
             else if(orientation == 6){
-                newRowPos = row - 1;
-                newColPos = col - 1;
+                newRowPos = col - 1;
+                newColPos = row - 1;
             }
-        }
-        else{
+        } else{
             if(orientation==1){
-                newRowPos = row + 0;
-                newColPos = col + 0;
+                newRowPos = col;
+                newColPos = row;
             }
             else if(orientation==2){
-                newRowPos = row + 1;
-                newColPos = col - 1;
+                newRowPos = col + 1;
+                newColPos = row - 1;
             }
             else if(orientation == 3){
-                newRowPos = row + 1;
-                newColPos = col + 1;
+                newRowPos = col + 1;
+                newColPos = row + 1;
             }
             else if(orientation == 4){
-                newRowPos = row + 0;
-                newColPos = col + 0;
+                newRowPos = col;
+                newColPos = row;
             }
             else if(orientation == 5){
-                newRowPos = row + 0;
-                newColPos = col + 1;
+                newRowPos = col;
+                newColPos = row + 1;
             }
             else if(orientation == 6){
-                newRowPos = row + 0;
-                newColPos = col - 1;
+                newRowPos = col;
+                newColPos = row - 1;
             }
         }
 
@@ -519,45 +549,44 @@ public class Decoder {
         return coordinates;
     }
 
-    void makeNewTileFromGameMessages(int row, int col, int orientation, String terrainA, String terrainB){
+    String getPlayerID1(){
+        return this.playerID1;
+    }
 
-        Pair coordinates = convertCoordinatesBasedOnOrientation(row,col,orientation);
+    String getPlayerID2(){
+        return this.playerID2;
+    }
 
-        if(orientation == 1){
-            //Volcano Hex A
-            //terrain A = B
-            //terrain B = C
-        }
-        else if(orientation == 2){
-            //flipped
-            //Volcano Hex C
-            //terrain A = A
-            //terrain B = B
-        }
-        else if(orientation == 3){
-            //Volcano Hex B
-            //terrain A = C
-            //terrain B = A
-        }
-        else if(orientation == 4){
-            //flipped
-            //Volcano Hex A
-            //terrain A = B
-            //terrain B = C
-        }
-        else if(orientation == 5){
-            //Volcano Hex C
-            //terrain A = A
-            //terrain B = B
-        }
-        else if(orientation == 6) {
-            //flipped
-            //Volcano Hex B
-            //terrain A = C
-            //terrain B = A
-        }
+    String getChallengeID() {
+        return challengeID;
+    }
 
+    void setPlayerID1(String playerID1){
+        this.playerID1 = playerID1;
+    }
 
+    void setPlayerID2(String playerID2){
+        this.playerID2 = playerID2;
+    }
+
+    void setChallengeID(String challengeID){
+        this.challengeID = challengeID;
+    }
+
+    void setCurrentRoundID(String currentRoundID){
+        this.currentRoundID = currentRoundID;
+    }
+
+    void setGameID(String gameID){
+        this.gameID = gameID;
+    }
+
+    void setCurrentMovePlayerID(String currentMovePlayerID) {
+        this.currentMovePlayerID = currentMovePlayerID;
+    }
+
+    void setTheirMoveType(BuildType theirMoveType){
+        this.theirMoveType = theirMoveType;
     }
 
 }
