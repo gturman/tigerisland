@@ -71,22 +71,24 @@ public class GameBoard {
 
 
     void setTileAtPosition(int colPos, int rowPos, Tile tileToBePlaced) {
-        if (hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tileToBePlaced))
-            return;
+        try {
+            if (hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tileToBePlaced))
+                return;
 
-        if (tileIsEvenAndFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderEvenAndFlippedTile(colPos, rowPos))
-            setEvenFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        if (tileIsOddAndFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderOddAndFlippedTile(colPos, rowPos))
-            setOddFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        if (tileIsEvenAndNotFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderEvenAndNotFlippedTile(colPos, rowPos))
-            setEvenNotFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
-        if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderOddAndNotFlippedTile(colPos, rowPos))
-            setOddNotFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            if (tileIsEvenAndFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderEvenAndFlippedTile(colPos, rowPos))
+                setEvenFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            if (tileIsOddAndFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderOddAndFlippedTile(colPos, rowPos))
+                setOddFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            if (tileIsEvenAndNotFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderEvenAndNotFlippedTile(colPos, rowPos))
+                setEvenNotFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
+            if (tileIsOddAndNotFlipped(rowPos, tileToBePlaced) && thereAreNoHexesUnderOddAndNotFlippedTile(colPos, rowPos))
+                setOddNotFlippedCoordinatesAndUpdateGameBoard(colPos, rowPos, tileToBePlaced);
 
-        updateValidTilePlacementList(tileToBePlaced);
-        incrementGameBoardTileID();
-        int hexAmount = 3;
-        incrementGameBoardHexID(hexAmount);
+            updateValidTilePlacementList(tileToBePlaced);
+            incrementGameBoardTileID();
+            int hexAmount = 3;
+            incrementGameBoardHexID(hexAmount);
+        } catch(Exception e){};
     }
 
     boolean hexesToPlaceTileOnAreAlreadyOccupied(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -628,7 +630,7 @@ public class GameBoard {
     private boolean noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtB(int colPos, int rowPos) {
         if ((getGameBoardPositionSettlementID(new Pair(colPos, rowPos))
                 == getGameBoardPositionSettlementID(new Pair(colPos + 1, rowPos - 1))) &&
-                (getGameBoardSettlementListSettlementSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos + 1))) == 2)) {
+                (getGameBoardSettlementListSettlementSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos))) == 2)) {
             return false;
         } else if (getGameBoardSettlementListSettlementSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos))) == 1) {
             return false;
@@ -743,7 +745,7 @@ public class GameBoard {
 
     private void markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke(int colPos, int rowPos) {
         if(gameBoardPositionNotEmpty(colPos, rowPos) && hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])){
-            addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos , rowPos);
+            addHexToHexesBuiltOnList(colPos , rowPos);
         }
     }
 
@@ -765,13 +767,15 @@ public class GameBoard {
             setGameBoardPositionSettlementID(new Pair(colPos, rowPos) ,newSettlementID);
 
             assignPlayerNewSettlement(playerBuilding, newSettlementID, 1);
-            addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(colPos, rowPos);
+            addHexToHexesBuiltOnList(colPos, rowPos);
 
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
 
             playerBuilding.increaseSettlementCount();
             playerBuilding.decreaseSettlerCount(1);
             playerBuilding.increaseScore(1);
+
+            mergeSettlements();
         }
     }
 
@@ -808,12 +812,16 @@ public class GameBoard {
 
     void placeTotoroSanctuary(int colPos, int rowPos, int settlementID, Player playerBuilding) {
         if(isValidTotoroPlacement(colPos, rowPos, settlementID, playerBuilding)) {
-            incrementGameBoardSettlementListTotoroCount(settlementID);
             gameBoardPositionArray[colPos][rowPos].setTotoroCount(1);
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+            gameBoardPositionArray[colPos][rowPos].setSettlementID(settlementID);
             playerBuilding.increaseScore(200);
-            incrementGameBoardSettlementListSize(settlementID);
             playerBuilding.decreaseTotoroCount();
+            incrementGameBoardSettlementListSize(settlementID);
+            incrementGameBoardSettlementListTotoroCount(settlementID);
+
+            addHexToHexesBuiltOnList(colPos, rowPos);
+            mergeSettlements();
         }
     }
 
@@ -858,12 +866,16 @@ public class GameBoard {
 
     void placeTigerPen(int colPos, int rowPos, int settlementID, Player playerBuilding) {
         if(checkIfValidTigerPlacement(colPos, rowPos, settlementID, playerBuilding)) {
-            incrementGameBoardSettlementListTigerCount(settlementID);
             gameBoardPositionArray[colPos][rowPos].setTigerCount(1);
             gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+            gameBoardPositionArray[colPos][rowPos].setSettlementID(settlementID);
             playerBuilding.increaseScore(75);
-            incrementGameBoardSettlementListSize(settlementID);
             playerBuilding.decreaseTigerCount();
+            incrementGameBoardSettlementListSize(settlementID);
+            incrementGameBoardSettlementListTigerCount(settlementID);
+
+            addHexToHexesBuiltOnList(colPos, rowPos);
+            mergeSettlements();
         }
     }
 
@@ -978,6 +990,7 @@ public class GameBoard {
             }catch(Exception e){return;} // don't do anything for null hexes
         }
         resetTraversalList();
+        mergeSettlements();
     }
 
     private void expandSettlementDriver(int colPos, int rowPos, terrainTypes expansionType, Player player, int homeHexID) {
@@ -1627,7 +1640,7 @@ public class GameBoard {
         this.gameBoardSettlementList[settlementID][1] = settlementSize;
     }
 
-    private void addHexWithSettlementAdjacentToNukeToHexesBuiltOnList(int colPos, int rowPos) {
+    private void addHexToHexesBuiltOnList(int colPos, int rowPos) {
         Pair lastHexSettledOn = new Pair(colPos, rowPos);
         hexesBuiltOnThisTurn.addElement(lastHexSettledOn);
     }
