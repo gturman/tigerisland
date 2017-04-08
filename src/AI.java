@@ -51,7 +51,6 @@ public class AI {
         }
         if(buildType == BuildType.PLACE_TOTORO){
             int settlementID = gameBoard.findAdjacentSettlementWithoutTotoro(colPos,rowPos);
-            System.out.println(settlementID);
             if(settlementID != -1) {
                 gameBoard.placeTotoroSanctuary(colPos, rowPos, settlementID, playerTwo);
             }
@@ -68,35 +67,41 @@ public class AI {
 
     String placeForOurPlayer(Tile tile){
         tile.flip();
+        String returnString = "PLACED " + tileToString(tile) + " AT";
         while(true) {//until we place a tile, in which case we will break to exit
             if (!gameBoard.hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tile)) {
                 gameBoard.setTileAtPosition(colPos,rowPos,tile);
+                returnString += oddRToCubicString(colPos,rowPos);
                 break;//we have placed tile
             }else{
                 colPos++;//we move over one, until we find a space we can place
                 //System.out.println(rowPos);
             }
         }
-        return "";
+        System.out.println(returnString);
+        return returnString;
     }
 
     String buildForOurPlayer(){
-        while(true) {
-            //we anticipate this spot to be available
+        String returnString = "";
 
+        while(true) {
+
+            //Totoro
             try{
                 if(settlementsBuiltInARow==5) {
-                    if (gameBoard.areFiveSettlersInALine(lastColBuilt,lastRowBuilt,playerOne.getPlayerID()) && playerOne.getTotoroCount() >= 1) {
+                    int setID = gameBoard.getGameBoardPositionArray()[lastColBuilt][lastRowBuilt].getSettlementID();
+                    if(gameBoard.getGameBoardSettlementListSettlementSize(setID)>=5 && gameBoard.getGameBoardSettlementListTotoroCount(setID)==0){
+
+                        returnString += "BUILD TOTORO SANCTUARY AT " + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
 
                         gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
                         gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
                         playerOne.decreaseTotoroCount();
                         playerOne.increaseScore(200);
 
-                        //System.out.println(lastColBuilt+1 + " " + lastRowBuilt);
                         lastColBuilt += 2;
                         settlementsBuiltInARow = 0;
-                        //  System.out.println("yay we placed a totoro");
                     }
                     break;
                 }
@@ -104,9 +109,13 @@ public class AI {
                 //happens on first placement
             }
 
+
+
+            //build on adjacent tile
             try {
                 if (gameBoard.isValidSettlementLocation(lastColBuilt+1, lastRowBuilt) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(lastColBuilt+1, lastRowBuilt, playerOne);
+                    returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
                     lastColBuilt++;
                     settlementsBuiltInARow++;
                     // System.out.println("yay we placed in a line");
@@ -120,16 +129,18 @@ public class AI {
 
 
 
-            //Next spot we anticipated we could build on was not valid
+            //build on new tile (conflict)
             if(rowPos%2==0){
                 if (gameBoard.isValidSettlementLocation(colPos-1, rowPos+1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos-1,rowPos+1,playerOne);
+                    returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos-1,rowPos+1);
                     lastColBuilt = colPos-1;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
                 if(gameBoard.isValidSettlementLocation(colPos,rowPos+1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos, rowPos + 1, playerOne);
+                    returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos,rowPos+1);
                     lastColBuilt = colPos;
                     lastRowBuilt = rowPos+1;
                     break;
@@ -137,19 +148,98 @@ public class AI {
             }else {
                 if (gameBoard.isValidSettlementLocation(colPos, rowPos + 1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos, rowPos + 1, playerOne);
+                    returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos,rowPos+1);
                     lastColBuilt = colPos;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
                 if (gameBoard.isValidSettlementLocation(colPos+1, rowPos + 1) && playerOne.getSettlerCount() >= 1) {
                     gameBoard.buildSettlement(colPos+1, rowPos + 1, playerOne);
+                    returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos+1,rowPos+1);
                     lastColBuilt = colPos+1;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
             }
         }
-        return "";
+        System.out.println(returnString);
+        return returnString;
     }
 
+    String tileToString(Tile tile){
+        String returnString = "";
+
+        if(tile.isFlipped()){
+            if (tile.getHexC().getTerrainType() == terrainTypes.LAKE) {
+                returnString += "LAKE";
+            }
+            if (tile.getHexC().getTerrainType() == terrainTypes.ROCKY) {
+                returnString += "ROCK";
+            }
+            if (tile.getHexC().getTerrainType() == terrainTypes.GRASSLANDS) {
+                returnString += "GRASS";
+            }
+            if (tile.getHexC().getTerrainType() == terrainTypes.JUNGLE) {
+                returnString += "JUNGLE";
+            }
+
+            returnString += "+";
+
+            if (tile.getHexB().getTerrainType() == terrainTypes.LAKE) {
+                returnString += "LAKE";
+            }
+            if (tile.getHexB().getTerrainType() == terrainTypes.ROCKY) {
+                returnString += "ROCK";
+            }
+            if (tile.getHexB().getTerrainType() == terrainTypes.GRASSLANDS) {
+                returnString += "GRASS";
+            }
+            if (tile.getHexB().getTerrainType() == terrainTypes.JUNGLE) {
+                returnString += "JUNGLE";
+            }
+
+        }else {
+            if (tile.getHexB().getTerrainType() == terrainTypes.LAKE) {
+                returnString += "LAKE";
+            }
+            if (tile.getHexB().getTerrainType() == terrainTypes.ROCKY) {
+                returnString += "ROCK";
+            }
+            if (tile.getHexB().getTerrainType() == terrainTypes.GRASSLANDS) {
+                returnString += "GRASS";
+            }
+            if (tile.getHexB().getTerrainType() == terrainTypes.JUNGLE) {
+                returnString += "JUNGLE";
+            }
+
+            returnString += "+";
+
+            if (tile.getHexC().getTerrainType() == terrainTypes.LAKE) {
+                returnString += "LAKE";
+            }
+            if (tile.getHexC().getTerrainType() == terrainTypes.ROCKY) {
+                returnString += "ROCK";
+            }
+            if (tile.getHexC().getTerrainType() == terrainTypes.GRASSLANDS) {
+                returnString += "GRASS";
+            }
+            if (tile.getHexC().getTerrainType() == terrainTypes.JUNGLE) {
+                returnString += "JUNGLE";
+            }
+        }
+        return returnString;
+    }
+
+    String oddRToCubicString(int col, int row){
+        String returnString = "";
+        col -= 102;
+        row -= 102;
+
+        int x = col - (row - (row&1)) / 2;
+        int z = row;
+        int y = -x-z;
+
+        returnString += " " + x + " " + y + " " + z;
+        return returnString;
+    }
 }

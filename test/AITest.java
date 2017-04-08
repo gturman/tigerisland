@@ -205,18 +205,6 @@ public class AITest {
         Tile tile3 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
         game1.placeForOtherPlayer(tile3,106,103);
-        for(int i = 100; i < 105; i++){
-            for(int j = 100; j < 110; j++){
-                try{
-                    if(game1.gameBoard.getGameBoardPositionArray()[j][i]!=null){
-                        System.out.print(game1.gameBoard.getGameBoardPositionArray()[j][i].getTerrainType() + "&" +game1.gameBoard.getGameBoardPositionArray()[j][i].getLevel());
-                    }else{
-                        System.out.print("---------");
-                    }
-                }catch (Exception e){}
-            }
-            System.out.println();
-        }
 
         Tile tile4 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
@@ -231,36 +219,11 @@ public class AITest {
                 terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
         tile6.flip();
         game1.placeForOtherPlayer(tile6,106,102);
-        for(int i = 100; i < 105; i++){
-            for(int j = 100; j < 110; j++){
-                try{
-                    if(game1.gameBoard.getGameBoardPositionArray()[j][i]!=null){
-                        System.out.print(game1.gameBoard.getGameBoardPositionArray()[j][i].getTerrainType() + "&" +game1.gameBoard.getGameBoardPositionArray()[j][i].getLevel());
-                    }else{
-                        System.out.print("---------");
-                    }
-                }catch (Exception e){}
-            }
-            System.out.println();
-        }
 
         Tile tile7 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.ROCKY,terrainTypes.ROCKY);
         tile7.flip();
         game1.placeForOtherPlayer(tile7,105,102);
-
-        for(int i = 100; i < 105; i++){
-            for(int j = 100; j < 110; j++){
-                try{
-                    if(game1.gameBoard.getGameBoardPositionArray()[j][i]!=null){
-                        System.out.print(game1.gameBoard.getGameBoardPositionArray()[j][i].getTerrainType() + "&" +game1.gameBoard.getGameBoardPositionArray()[j][i].getLevel());
-                    }else{
-                        System.out.print("---------");
-                    }
-                }catch (Exception e){}
-            }
-            System.out.println();
-        }
 
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[105][102].getLevel(),3);
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[105][103].getLevel(),3);
@@ -284,7 +247,6 @@ public class AITest {
         Assert.assertEquals(game1.playerTwo.getSettlerCount(),17);
 
     }
-
 
     @Test
     public void testAbilityForUsToPlaceFirstTileWithNoObstructions(){
