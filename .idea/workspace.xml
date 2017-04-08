@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5cba8da-a8a5-4dab-a23a-d76e472c60c4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/GameBoard.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AI.java" afterPath="$PROJECT_DIR$/src/AI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameBoard.java" afterPath="$PROJECT_DIR$/src/GameBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/GameBoardTest.java" afterPath="$PROJECT_DIR$/test/GameBoardTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/src/com/" />
     <ignored path="C:/test/tigerisland/" />
@@ -28,8 +25,8 @@
       <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="963" column="0" lean-forward="true" selection-start-line="963" selection-start-column="0" selection-end-line="963" selection-end-column="0" />
+            <state relative-caret-position="196">
+              <caret line="1384" column="6" lean-forward="true" selection-start-line="1384" selection-start-column="6" selection-end-line="1384" selection-end-column="6" />
               <folding>
                 <element signature="method#GameBoard#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#placeFirstTileAndUpdateValidPlacementList#0;class#GameBoard#0" expanded="false" />
@@ -106,16 +103,8 @@
                 <element signature="method#markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#buildSettlement#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#isValidSettlementLocation#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#isNotBuiltOn#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#isHabitable#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#splitSettlements#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#splitSettlementsDriver#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyAddAdjacentHexesToNewlySplitSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateGameBoardSettlementListValuesWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#placeTotoroSanctuary#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#isValidTotoroPlacement#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#placeTigerPen#0;class#GameBoard#0" expanded="false" />
@@ -129,14 +118,21 @@
                 <element signature="method#calculateVillagersForExpansionDriver#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#calculateScoreForExpansion#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#calculateScoreForExpansionDriver#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#splitSettlements#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#splitSettlementsDriver#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#recursivelyAddAdjacentHexesToNewlySplitSettlement#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#updateGameBoardSettlementListValuesWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#mergeSettlements#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#mergeSettlementsDriver#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlement#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#addHexToNewlyMergedSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="e#86283#86395#0" expanded="false" />
-                <element signature="e#86631#86690#0" expanded="false" />
+                <element signature="e#85145#85257#0" expanded="false" />
+                <element signature="e#85493#85552#0" expanded="false" />
                 <element signature="method#areFiveSettlersInALine#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
@@ -173,6 +169,7 @@
                 <element signature="method#hexHasTotoroOnIt#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#hexHasTigerOnIt#0;class#GameBoard#0" expanded="false" />
                 <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
+                <element signature="method#isNotBuiltOn#0;class#GameBoard#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -202,6 +199,10 @@
       <find>tigercount</find>
       <find>getgameboardsettlementlisttiger</find>
       <find>[settlementID][1]</find>
+      <find>isbuilton</find>
+      <find>isnotbuilton</find>
+      <find>== false</find>
+      <find>setifalreadytraversed</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -662,34 +663,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="allTests - 2017.04.08 at 08h 34m 48s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 36m 17s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 37m 28s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 38m 42s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 40m 05s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 41m 02s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 45m 00s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 47m 11s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.08 at 08h 47m 51s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="allTests - 2017.04.08 at 08h 47m 57s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 08h 51m 24s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 08h 52m 28s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 08h 53m 50s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 08h 57m 17s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 08h 58m 18s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 08h 59m 21s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 09h 00m 07s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 09h 01m 07s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 09h 01m 28s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -706,13 +707,14 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2781065" sideWeight="0.5021834" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18921776" sideWeight="0.4978166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18921776" sideWeight="0.4978166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15572916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -725,7 +727,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1130,8 +1131,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="963" column="0" lean-forward="true" selection-start-line="963" selection-start-column="0" selection-end-line="963" selection-end-column="0" />
+        <state relative-caret-position="196">
+          <caret line="1384" column="6" lean-forward="true" selection-start-line="1384" selection-start-column="6" selection-end-line="1384" selection-end-column="6" />
           <folding>
             <element signature="method#GameBoard#0;class#GameBoard#0" expanded="false" />
             <element signature="method#placeFirstTileAndUpdateValidPlacementList#0;class#GameBoard#0" expanded="false" />
@@ -1208,16 +1209,8 @@
             <element signature="method#markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke#0;class#GameBoard#0" expanded="false" />
             <element signature="method#buildSettlement#0;class#GameBoard#0" expanded="false" />
             <element signature="method#isValidSettlementLocation#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#isNotBuiltOn#0;class#GameBoard#0" expanded="false" />
             <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
             <element signature="method#isHabitable#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#splitSettlements#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#splitSettlementsDriver#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#recursivelyAddAdjacentHexesToNewlySplitSettlement#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#updateGameBoardSettlementListValuesWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
-            <element signature="method#updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
             <element signature="method#placeTotoroSanctuary#0;class#GameBoard#0" expanded="false" />
             <element signature="method#isValidTotoroPlacement#0;class#GameBoard#0" expanded="false" />
             <element signature="method#placeTigerPen#0;class#GameBoard#0" expanded="false" />
@@ -1231,14 +1224,21 @@
             <element signature="method#calculateVillagersForExpansionDriver#0;class#GameBoard#0" expanded="false" />
             <element signature="method#calculateScoreForExpansion#0;class#GameBoard#0" expanded="false" />
             <element signature="method#calculateScoreForExpansionDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#splitSettlements#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#splitSettlementsDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyAddAdjacentHexesToNewlySplitSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateGameBoardSettlementListValuesWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
             <element signature="method#mergeSettlements#0;class#GameBoard#0" expanded="false" />
             <element signature="method#mergeSettlementsDriver#0;class#GameBoard#0" expanded="false" />
             <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlement#0;class#GameBoard#0" expanded="false" />
             <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
             <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
             <element signature="method#addHexToNewlyMergedSettlement#0;class#GameBoard#0" expanded="false" />
-            <element signature="e#86283#86395#0" expanded="false" />
-            <element signature="e#86631#86690#0" expanded="false" />
+            <element signature="e#85145#85257#0" expanded="false" />
+            <element signature="e#85493#85552#0" expanded="false" />
             <element signature="method#areFiveSettlersInALine#0;class#GameBoard#0" expanded="false" />
             <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
             <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
@@ -1275,6 +1275,7 @@
             <element signature="method#hexHasTotoroOnIt#0;class#GameBoard#0" expanded="false" />
             <element signature="method#hexHasTigerOnIt#0;class#GameBoard#0" expanded="false" />
             <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isNotBuiltOn#0;class#GameBoard#0" expanded="false" />
           </folding>
         </state>
       </provider>
