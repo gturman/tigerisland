@@ -6,27 +6,39 @@ import java.util.Scanner;
 public class Decoder {
 
     public int pid; //Player ID
-    public int opponentPid;
+    public int pid2;
     public int cid; //Challenge ID
     public int rid; //Round ID
     public int gid; //Game ID
     public int time; //How much time to complete turn
     public int moveNum; //the move number
+
     public String tile; //Not sure how tile is given to us yet
+    public String tileTerrain1;
+    public String tileTerrain2;
+
     public int x; //x-coordinate of tile
     public int y; //y-coordinate of tile
     public int z; //z-coordinate of tile
     public int sx; //x-coordinate of settlement
     public int sy; //y-coordinate of settlement
     public int sz; //z-coordinate of settlement
+
     public String terrain;
+
     public int score;
+    public int score2;
     public int rounds;
     public int orientation;
+    public int xCoordinate;
+    public int yCoordinate;
+
     boolean builtSettlement = false;
     boolean builtTotoro = false;
     boolean builtTiger = false;
     boolean expandedSettlement = false;
+    boolean forfeited = false;
+    boolean lost = false;
 
     Decoder() {
 
@@ -74,6 +86,19 @@ public class Decoder {
             if(currentWord.equals("GAME")){
                 gid = Integer.parseInt(sc.next());
             }
+            else if(currentWord.equals("OVER")){
+                sc.next();
+                currentWord = sc.next();
+                pid = Integer.parseInt(currentWord);
+                currentWord = sc.next();
+                score = Integer.parseInt(currentWord);
+                sc.next();
+                currentWord = sc.next();
+                pid2 = Integer.parseInt(currentWord);
+                currentWord = sc.next();
+                score2 = Integer.parseInt(currentWord);
+
+            }
             else if (currentWord.equals("MOVE")) {
                 currentWord = sc.next();
                 moveNum = Integer.parseInt(currentWord);
@@ -88,6 +113,7 @@ public class Decoder {
                 builtTotoro = false;
                 expandedSettlement = false;
                 tile = sc.next();
+                convertTileStringToTileObject(tile);
                 currentWord = sc.next();
                 if(currentWord.equals("AT")){
                     x = Integer.parseInt(sc.next());
@@ -137,7 +163,12 @@ public class Decoder {
                 //forfeited:
                 //lost:
             }
-
+            else if(currentWord.equals("FORFEITED:")){
+                forfeited = true;
+            }
+            else if(currentWord.equals("LOST:")){
+                lost = true;
+            }
 
             previousWord = currentWord;
         }
@@ -189,6 +220,7 @@ public class Decoder {
             else if(currentWord.equals("PLACE")){
                 currentWord = sc.next();
                 tile = currentWord;
+                convertTileStringToTileObject(tile);
             }
 
 
@@ -233,7 +265,7 @@ public class Decoder {
             }
             else if(currentWord.equals("PLAYER")){
                 currentWord = sc.next();
-                opponentPid = Integer.parseInt(currentWord);
+                pid2 = Integer.parseInt(currentWord);
             }
             //sets challenge id, how many rounds
             //sets opponent player ID
@@ -247,7 +279,7 @@ public class Decoder {
 
         while(sc.hasNext()) {
             currentWord = sc.next();
-            if(currentWord.equals("BEGIN")){
+            if(currentWord.equals("BEGIN") && sc.hasNext()){
                 currentWord = sc.next();
                 pid = Integer.parseInt(currentWord);
             }
@@ -255,8 +287,162 @@ public class Decoder {
         //Set to our Player ID
     }
 
+    void convertTileStringToTileObject(String tile){
+        String terrain1 ="";
+        String terrain2 ="";
+
+        int iterator = 0;
+
+        boolean plusSign = false;
+
+        while(iterator < tile.length()){
+
+            if(tile.charAt(iterator) == '+'){
+                plusSign = true;
+                iterator++;
+            }
+
+            if(!plusSign){
+                terrain1 += tile.charAt(iterator);
+            }
+            else{
+                terrain2 += tile.charAt(iterator);
+            }
+
+            iterator++;
+        }
+
+        //terrain type A will always be a volcano
+        tileTerrain1 = terrain1;
+        tileTerrain2 = terrain2;
+
+    }
+
+    void convertCoordinatesFromCubicToROffset(int x, int y, int z){
 
 
+        //col = x + (z - (z&1)) / 2
+        //row = z
+
+        xCoordinate = x + (z-(z&1))/2 + 102;
+        yCoordinate = z + 102;
+
+
+
+    }
+
+    void convertOddROffsetToCubic(int col, int row){
+
+
+
+        x = col - (row - (row&1)) / 2;
+        z = row;
+        y = -x-z;
+
+        //Are our columns columns or rows...?
+
+    }
+
+    Pair convertCoordinatesBasedOnOrientation(int row, int col, int orientation){
+        int newRowPos = 0;
+        int newColPos = 0;
+
+        if(row%2 == 0){
+            if(orientation==1){
+                newRowPos = row + 0;
+                newColPos = col + 0;
+            }
+            else if(orientation==2){
+                newRowPos = row + 0;
+                newColPos = col - 1;
+            }
+            else if(orientation == 3){
+                newRowPos = row + 0;
+                newColPos = col + 1;
+            }
+            else if(orientation == 4){
+                newRowPos = row + 0;
+                newColPos = col + 0;
+            }
+            else if(orientation == 5){
+                newRowPos = row - 1;
+                newColPos = col + 1;
+            }
+            else if(orientation == 6){
+                newRowPos = row - 1;
+                newColPos = col - 1;
+            }
+        }
+        else{
+            if(orientation==1){
+                newRowPos = row + 0;
+                newColPos = col + 0;
+            }
+            else if(orientation==2){
+                newRowPos = row + 1;
+                newColPos = col - 1;
+            }
+            else if(orientation == 3){
+                newRowPos = row + 1;
+                newColPos = col + 1;
+            }
+            else if(orientation == 4){
+                newRowPos = row + 0;
+                newColPos = col + 0;
+            }
+            else if(orientation == 5){
+                newRowPos = row + 0;
+                newColPos = col + 1;
+            }
+            else if(orientation == 6){
+                newRowPos = row + 0;
+                newColPos = col - 1;
+            }
+        }
+
+        Pair coordinates = new Pair(newRowPos,newColPos);
+        return coordinates;
+    }
+
+    void makeNewTileFromGameMessages(int row, int col, int orientation, String terrainA, String terrainB){
+
+        Pair coordinates = convertCoordinatesBasedOnOrientation(row,col,orientation);
+
+        if(orientation == 1){
+            //Volcano Hex A
+            //terrain A = B
+            //terrain B = C
+        }
+        else if(orientation == 2){
+            //flipped
+            //Volcano Hex C
+            //terrain A = A
+            //terrain B = B
+        }
+        else if(orientation == 3){
+            //Volcano Hex B
+            //terrain A = C
+            //terrain B = A
+        }
+        else if(orientation == 4){
+            //flipped
+            //Volcano Hex A
+            //terrain A = B
+            //terrain B = C
+        }
+        else if(orientation == 5){
+            //Volcano Hex C
+            //terrain A = A
+            //terrain B = B
+        }
+        else if(orientation == 6) {
+            //flipped
+            //Volcano Hex B
+            //terrain A = C
+            //terrain B = A
+        }
+
+
+    }
 
 }
-
