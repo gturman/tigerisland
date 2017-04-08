@@ -62,6 +62,15 @@ public class PlayerTest {
     }
 
     @Test
+    public void testSetTotoroCount(){
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getTotoroCount(), 3);
+
+        playerOne.setTotoroCount(1);
+        Assert.assertEquals(playerOne.getTotoroCount(),1);
+    }
+
+    @Test
     public void testSetSettlementCount(){
         Player playerOne = new Player(1);
         playerOne.setSettlementCount(3);
@@ -85,6 +94,33 @@ public class PlayerTest {
     public void testGetTigerCount(){
         Player playerOne = new Player(1);
         Assert.assertEquals(playerOne.getTigerCount(),2);
+
+    }
+
+    @Test
+    public void testGetTurnPhase(){
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.TILE_PLACEMENT);
+
+    }
+
+    @Test
+    public void testSetTurnPhase(){
+        Player playerOne = new Player(1);
+        playerOne.setTurnPhase(turnPhase.FOUND_SETTLEMENT);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.FOUND_SETTLEMENT);
+
+        playerOne.setTurnPhase(turnPhase.BUILD);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.BUILD);
+
+        playerOne.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.EXPAND_SETTLEMENT);
+
+        playerOne.setTurnPhase(turnPhase.PLACE_TOTORO);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.PLACE_TOTORO);
+
+        playerOne.setTurnPhase(turnPhase.PLACE_TIGER);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.PLACE_TIGER);
 
     }
 
