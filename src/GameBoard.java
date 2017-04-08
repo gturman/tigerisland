@@ -22,10 +22,12 @@ public class GameBoard {
     private Vector<Pair> hexesToResetTraversalValue = new Vector();
 
     GameBoard() {
-        this.gameBoardTileID = 1;
-        this.gameBoardHexID = 1;
+        gameBoardTileID = 1;
+        gameBoardHexID = 1;
         usedSettlementIDs[0] = 1; // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
     }
+
+
 
     void placeFirstTileAndUpdateValidPlacementList() {
         updateGameBoardPositionArrayWithFirstTileHexes();
@@ -1866,11 +1868,7 @@ public class GameBoard {
     }
 
     private boolean isNotBuiltOn(int colPos, int rowPos) {
-        if (gameBoardPositionArray[colPos][rowPos].isNotBuiltOn()) {
-            return true;
-        } else {
-            return false;
-        }
+        return gameBoardPositionArray[colPos][rowPos].isNotBuiltOn();
     }
 
     private boolean isBuiltOn(int colPos, int rowPos) {
