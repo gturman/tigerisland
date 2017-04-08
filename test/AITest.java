@@ -35,8 +35,8 @@ public class AITest {
         game1.placeForOtherPlayer(tile2,102,100);
 
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][100].getTerrainType(),terrainTypes.VOLCANO);
-        Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][101].getTerrainType(),terrainTypes.LAKE);
-        Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[101][101].getTerrainType(),terrainTypes.ROCKY);
+        Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][101].getTerrainType(),terrainTypes.ROCKY);
+        Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[101][101].getTerrainType(),terrainTypes.LAKE);
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][100].getLevel(),2);
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][101].getLevel(),2);
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[101][101].getLevel(),2);

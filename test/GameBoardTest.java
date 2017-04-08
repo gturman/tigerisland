@@ -491,9 +491,9 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101], seventhTile.getHexA());
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getParentTileID(), seventhTile.getHexA().getParentTileID());
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102], seventhTile.getHexB());
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102], seventhTile.getHexC());
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getParentTileID(), seventhTile.getHexB().getParentTileID());
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][102], seventhTile.getHexC());
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][102], seventhTile.getHexB());
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][102].getParentTileID(), seventhTile.getHexC().getParentTileID());
 
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][102], eigthTile.getHexA());
