@@ -51,11 +51,16 @@ public class AI {
         }
         if(buildType == BuildType.PLACE_TOTORO){
             int settlementID = gameBoard.findAdjacentSettlementWithoutTotoro(colPos,rowPos);
-            gameBoard.placeTotoroSanctuary(colPos,rowPos,settlementID,playerTwo);
+            System.out.println(settlementID);
+            if(settlementID != -1) {
+                gameBoard.placeTotoroSanctuary(colPos, rowPos, settlementID, playerTwo);
+            }
         }
         if(buildType == BuildType.PLACE_TIGER){
             int settlementID = gameBoard.findAdjacentSettlementWithoutTiger(colPos,rowPos);
-            gameBoard.placeTigerPen(colPos,rowPos,settlementID,playerTwo);
+            if(settlementID != -1) {
+                gameBoard.placeTigerPen(colPos, rowPos, settlementID, playerTwo);
+            }
         }
     }
 
@@ -91,7 +96,7 @@ public class AI {
                         //System.out.println(lastColBuilt+1 + " " + lastRowBuilt);
                         lastColBuilt += 2;
                         settlementsBuiltInARow = 0;
-                      //  System.out.println("yay we placed a totoro");
+                        //  System.out.println("yay we placed a totoro");
                     }
                     break;
                 }
@@ -104,7 +109,7 @@ public class AI {
                     gameBoard.buildSettlement(lastColBuilt+1, lastRowBuilt, playerOne);
                     lastColBuilt++;
                     settlementsBuiltInARow++;
-                   // System.out.println("yay we placed in a line");
+                    // System.out.println("yay we placed in a line");
                     break;
                 }
             }catch (Exception e){
