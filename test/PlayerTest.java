@@ -10,84 +10,110 @@ public class PlayerTest {
 
     @Test
     public void testPlayerCreation(){
-        Player P1 = new Player(1);
-        Assert.assertTrue(P1 instanceof Player);
+        Player playerOne = new Player(1);
+        Assert.assertTrue(playerOne instanceof Player);
     }
 
     @Test
     public void testGetVillagerCount(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getSettlerCount(),20);
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getSettlerCount(),20);
     }
 
     @Test
     public void testGetTotoroCount(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getTotoroCount(),3);
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getTotoroCount(),3);
     }
 
     @Test
     public void testSettlementCount(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getSettlementCount(),0);
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getSettlementCount(),0);
     }
 
     @Test
     public void testInitialScore(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getScore(), 0 );
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getScore(), 0 );
     }
 
     @Test
     public void testModifiedScore(){
-        Player P1 = new Player(1);
-        P1.increaseScore(30);
-        Assert.assertEquals(P1.getScore(),30);
+        Player playerOne = new Player(1);
+        playerOne.increaseScore(30);
+        Assert.assertEquals(playerOne.getScore(),30);
     }
 
     @Test
     public void testModifiedMeepleCount(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getSettlerCount(),20);
-        P1.setSettlerCount(15);
-        Assert.assertEquals(P1.getSettlerCount(),15);
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getSettlerCount(),20);
+        playerOne.setSettlerCount(15);
+        Assert.assertEquals(playerOne.getSettlerCount(),15);
     }
 
     @Test
     public void testModifiedTotoroCount(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getTotoroCount(), 3);
-        P1.decreaseTotoroCount();
-        Assert.assertEquals(P1.getTotoroCount(),2);
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getTotoroCount(), 3);
+        playerOne.decreaseTotoroCount();
+        Assert.assertEquals(playerOne.getTotoroCount(),2);
     }
 
     @Test
     public void testSetSettlementCount(){
-        Player P1 = new Player(1);
-        P1.setSettlementCount(3);
-        Assert.assertEquals(P1.getSettlementCount(),3);
+        Player playerOne = new Player(1);
+        playerOne.setSettlementCount(3);
+        Assert.assertEquals(playerOne.getSettlementCount(),3);
     }
 
     @Test
     public void testSetPlayerOver2(){
-        Player P1 = new Player(2);
-        Assert.assertEquals(P1.getPlayerID(),2);
+        Player playerOne = new Player(2);
+        Assert.assertEquals(playerOne.getPlayerID(),2);
     }
 
     @Test
     public void testSetPlayer1(){
-        Player P1 = new Player(1);
-        P1.setPlayerID(1);
-        Assert.assertEquals(P1.getPlayerID(),1);
+        Player playerOne = new Player(1);
+        playerOne.setPlayerID(1);
+        Assert.assertEquals(playerOne.getPlayerID(),1);
     }
 
     @Test
     public void testGetTigerCount(){
-        Player P1 = new Player(1);
-        Assert.assertEquals(P1.getTigerCount(),2);
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getTigerCount(),2);
 
     }
 
+
+    @Test
+    public void testGetTurnPhase(){
+        Player playerOne = new Player(1);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.TILE_PLACEMENT);
+    }
+
+    @Test
+   public void testSetTurnPhase(){
+        Player playerOne = new Player(1);
+        playerOne.setTurnPhase(turnPhase.FOUND_SETTLEMENT);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.FOUND_SETTLEMENT);
+
+         playerOne.setTurnPhase(turnPhase.BUILD);
+         Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.BUILD);
+
+        playerOne.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.EXPAND_SETTLEMENT);
+
+        playerOne.setTurnPhase(turnPhase.PLACE_TOTORO);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.PLACE_TOTORO);
+
+        playerOne.setTurnPhase(turnPhase.PLACE_TIGER);
+        Assert.assertEquals(playerOne.getTurnPhase(),turnPhase.PLACE_TIGER);
+
+   }
 
     @Test
     public void testWaitMessageForPlayerID(){
