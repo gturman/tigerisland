@@ -254,8 +254,8 @@ public class GameBoard {
                 increaseOddNotFlippedTileLevelAndUpdateGameBoardPositionArray(colPos, rowPos, tileToBePlaced);
             splitSettlements();
 
-            int hexAmount;
-            incrementGameBoardHexID(3);
+            int hexAmount = 3;
+            incrementGameBoardHexID(hexAmount);
             incrementGameBoardTileID();
         }
     }
@@ -745,7 +745,7 @@ public class GameBoard {
         return hex.getSettlementID() != 0;
     }
 
-    // TODO: Kevin stopped refactoring here
+
 
     void splitSettlements() {
         if(hexesBuiltOnThisTurn.isEmpty()) {
@@ -755,7 +755,7 @@ public class GameBoard {
 
         Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
-        markGameBoardPositionAsTraversed(currentCoordinates);
+        markGameBoardHexAsTraversed(currentCoordinates);
         hexesToResetTraversalValue.add(currentCoordinates);
 
         int playerID = getGameBoardPositionPlayerID(currentCoordinates);
@@ -775,14 +775,12 @@ public class GameBoard {
         splitSettlements();
     }
 
-    //TODO: James will refactor on Thursday
     void splitSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
-        try { // is not null
-            if(gameBoardPositionHasNotBeenCheckedYet(colPos, rowPos)) {
-                if (gameBoardPositionOwnedByPlayer(playerID, colPos, rowPos)) {
-                    markGameBoardPositionAsTraversed(colPos, rowPos); // mark as traversed
-
+        try {
+            if(gameBoardHexHasNotBeenTraversedYet(colPos, rowPos)) {
+                if (gameBoardHexIsOwnedByPlayer(playerID, colPos, rowPos)) {
                     Pair currentCoordinates = new Pair(colPos, rowPos);
+                    markGameBoardHexAsTraversed(currentCoordinates);
                     hexesToResetTraversalValue.add(currentCoordinates);
 
                     try {
@@ -792,49 +790,29 @@ public class GameBoard {
                     catch (NullPointerException e) {}
 
                     int oldSettlementID = getGameBoardPositionSettlementID(currentCoordinates);
+                    setGameBoardPositionSettlementID(currentCoordinates, masterSettlementID);
 
-                    gameBoardPositionArray[colPos][rowPos].setSettlementID(masterSettlementID); // set hex settlement ID to new ID
-
-                    updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAt(colPos, rowPos, masterSettlementID, playerID, oldSettlementID);
-
+                    updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAt(currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition(), masterSettlementID, playerID, oldSettlementID);
                     recursivelyAddAdjacentHexesToNewlySplitSettlement(currentCoordinates, playerID, masterSettlementID);
 
-                    unmarkGameBoardPositionAsTraversed(colPos, rowPos);
+                    unmarkGameBoardPositionAsTraversed(currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition());
                 }
             }
         }
-        catch(NullPointerException e) {return;} // end search if we reach null hex
+        catch(NullPointerException e) {return;} // end search at null hex
 
         return;
     }
 
-    void markGameBoardPositionAsTraversed(Pair currentCoordinates) {
-        markGameBoardPositionAsTraversed(currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition());
-    }
-
-    boolean markGameBoardPositionAsTraversed(int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true);
-    }
-
-    int getNewestAssignableSettlementID() {
-        for (int i = 1; i < 256; i++) { // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
-            if (usedSettlementIDs[i] == 0) {
-                usedSettlementIDs[i] = 1;
-                return i;
-            }
-        }
-        throw new RuntimeException("error: no available settlements found");
-    }
-
     void recursivelyAddAdjacentHexesToNewlySplitSettlement(Pair currentCoordinates, int playerID, int masterSettlementID) {
-        if(checkIfEven(currentCoordinates.getRowPosition())) {
-            recursivelyAddAdjacentHexesToNewlySplitSettlementForEvenCoordinates(currentCoordinates, playerID, masterSettlementID);
+        if(isEven(currentCoordinates.getRowPosition())) {
+            recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates(currentCoordinates, playerID, masterSettlementID);
         } else {
-            recursivelyAddAdjacentHexesToNewlySplitSettlementForOddCoordinates(masterSettlementID, playerID, currentCoordinates);
+            recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates(masterSettlementID, playerID, currentCoordinates);
         }
     }
 
-    void recursivelyAddAdjacentHexesToNewlySplitSettlementForEvenCoordinates(Pair currentCoordinates, int playerID, int masterSettlementID) {
+    void recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates(Pair currentCoordinates, int playerID, int masterSettlementID) {
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition()-1);
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
@@ -843,7 +821,7 @@ public class GameBoard {
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
     }
 
-    void recursivelyAddAdjacentHexesToNewlySplitSettlementForOddCoordinates(int masterSettlementID, int playerID, Pair currentCoordinates) {
+    void recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates(int masterSettlementID, int playerID, Pair currentCoordinates) {
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition()-1);
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition()-1);
         splitSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()+1, currentCoordinates.getRowPosition());
@@ -853,27 +831,6 @@ public class GameBoard {
     }
 
 
-
-
-
-
-    boolean unmarkGameBoardPositionAsTraversed(int colPos, int rowPos) {
-        return gameBoardPositionArray[rowPos][colPos].setIfAlreadyTraversed(false);
-    }
-
-    void markCurrentHexForRemovalFromBuiltOnThisTurnList(Pair currentCoordinates) {
-        int i = 0;
-        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn to not waste time re-splitting/merging already split/merged settlements
-            if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
-                hexesBuiltOnThisTurn.elementAt(i).setCoordinates(-1, -1); // mark pair for deletion
-            }
-            i++;
-        }
-    }
-
-    boolean gameBoardPositionHasNotBeenCheckedYet(int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false;
-    }
 
     void updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAt(int colPos, int rowPos, int masterSettlementID, int playerID, int oldSettlementID) {
         if (thereIsASettlerAt(colPos, rowPos)) {
@@ -994,13 +951,6 @@ public class GameBoard {
 
 
 
-    boolean checkIfEven(int rowPos) {
-        if (rowPos % 2 == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 
 
@@ -1182,7 +1132,7 @@ public class GameBoard {
             return false;
         }
 
-        if(checkIfEven(rowPos)) {
+        if(isEven(rowPos)) {
             if(hexToPlaceSpecialPieceOnEvenRowIsNotAdjacentToSpecifiedSettlement(colPos, rowPos, settlementID)) {
                 return false;
             }
@@ -1235,7 +1185,7 @@ public class GameBoard {
 
 
     int findAdjacentSettlementWithoutTotoro(int rowPos, int colPos){
-        if(checkIfEven(rowPos)){
+        if(isEven(rowPos)){
             int setID;
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos-1));
@@ -1292,7 +1242,7 @@ public class GameBoard {
     }
 
     int findAdjacentSettlementWithoutTiger(int rowPos, int colPos){
-        if(checkIfEven(rowPos)){
+        if(isEven(rowPos)){
             int setID;
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(rowPos-1, rowPos-1));
@@ -1385,7 +1335,7 @@ public class GameBoard {
             return false;
         }
 
-        if(checkIfEven(rowPos)) {
+        if(isEven(rowPos)) {
             if(hexToPlaceSpecialPieceOnEvenRowIsNotAdjacentToSpecifiedSettlement(colPos, rowPos, settlementID)) {
                 return false;
             }
@@ -1431,7 +1381,7 @@ public class GameBoard {
 
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             expandSettlementDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
                             expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeHexID);
                             expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeHexID);
@@ -1461,7 +1411,7 @@ public class GameBoard {
                         gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
                             expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
                             expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
@@ -1497,7 +1447,7 @@ public class GameBoard {
 
                         incrementGameBoardSettlementListSize(homeHexID); // increase size of home settlement
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
                             expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
                             expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
@@ -1531,7 +1481,7 @@ public class GameBoard {
                     gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
                     hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                    if (checkIfEven(rowPos)) {
+                    if (isEven(rowPos)) {
                         returnVal += calculateVillagersForExpansionDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
                         returnVal += calculateVillagersForExpansionDriver(colPos, rowPos-1, expansionType, player, homeHexID);
                         returnVal += calculateVillagersForExpansionDriver(colPos-1, rowPos, expansionType, player, homeHexID);
@@ -1563,7 +1513,7 @@ public class GameBoard {
                         gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
@@ -1589,7 +1539,7 @@ public class GameBoard {
                         int hexLevel = gameBoardPositionArray[colPos][rowPos].getLevel();
                         returnVal += hexLevel; // number of meeples needed to expand onto hex
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
@@ -1624,7 +1574,7 @@ public class GameBoard {
                     gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
                     hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                    if (checkIfEven(rowPos)) {
+                    if (isEven(rowPos)) {
                         returnVal += calculateScoreForExpansionDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
                         returnVal += calculateScoreForExpansionDriver(colPos, rowPos-1, expansionType, player, homeHexID);
                         returnVal += calculateScoreForExpansionDriver(colPos-1, rowPos, expansionType, player, homeHexID);
@@ -1656,7 +1606,7 @@ public class GameBoard {
                         gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true); // mark hex as traversed
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
@@ -1683,7 +1633,7 @@ public class GameBoard {
 
                         returnVal += (hexLevel * hexLevel); // number of meeples needed to expand onto hex
 
-                        if (checkIfEven(rowPos)) {
+                        if (isEven(rowPos)) {
                             returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
                             returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
@@ -1709,6 +1659,8 @@ public class GameBoard {
     }
 
 
+
+
     boolean isMySettlement(int colPos, int rowPos, Player player){
         int settlementID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos));
 
@@ -1728,7 +1680,7 @@ public class GameBoard {
 
         Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
-        markGameBoardPositionAsTraversed(currentCoordinates);
+        markGameBoardHexAsTraversed(currentCoordinates);
         int playerID = getGameBoardPositionPlayerID(currentCoordinates);
 
         hexesToResetTraversalValue.add(currentCoordinates);
@@ -1740,8 +1692,33 @@ public class GameBoard {
         mergeSettlements();
     }
 
+    void mergeSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
+        try { // is not null
+            if(gameBoardHexHasNotBeenTraversedYet(colPos, rowPos)) {
+                if (gameBoardHexIsOwnedByPlayer(playerID, colPos, rowPos)) {
+                    markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
+
+                    Pair currentCoordinates = new Pair(colPos, rowPos);
+                    hexesToResetTraversalValue.add(currentCoordinates);
+
+                    try {
+                        markCurrentHexForRemovalFromBuiltOnThisTurnList(currentCoordinates);
+                        deleteFromHexesBuiltOnThisTurn();
+                    }
+                    catch (NullPointerException e) {}
+
+                    addHexToNewlyMergedSettlement(masterSettlementID, playerID, colPos, rowPos);
+                    recursivelyAddAdjacentHexesToNewlyMergeSettlement(currentCoordinates, playerID, masterSettlementID);
+                }
+            }
+        }
+        catch(NullPointerException e) {return;} // end search if we reach null hex
+
+        return;
+    }
+
     void recursivelyAddAdjacentHexesToNewlyMergeSettlement(Pair currentCoordinates, int playerID, int masterSettlementID) {
-        if(checkIfEven(currentCoordinates.getRowPosition())) {
+        if(isEven(currentCoordinates.getRowPosition())) {
             recursivelyAddAdjacentHexesToNewlyMergeSettlementForEvenCoordinates(currentCoordinates, playerID, masterSettlementID);
         }
         else {
@@ -1767,31 +1744,7 @@ public class GameBoard {
         mergeSettlementsDriver(masterSettlementID, playerID, currentCoordinates.getColumnPosition()-1, currentCoordinates.getRowPosition());
     }
 
-    //TODO: James will refactor on Thursday
-    void mergeSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
-        try { // is not null
-            if(gameBoardPositionHasNotBeenCheckedYet(colPos, rowPos)) {
-                if (gameBoardPositionOwnedByPlayer(playerID, colPos, rowPos)) {
-                    markGameBoardPositionAsTraversed(colPos, rowPos);
 
-                    Pair currentCoordinates = new Pair(colPos, rowPos);
-                    hexesToResetTraversalValue.add(currentCoordinates);
-
-                    try {
-                        markCurrentHexForRemovalFromBuiltOnThisTurnList(currentCoordinates);
-                        deleteFromHexesBuiltOnThisTurn();
-                    }
-                    catch (NullPointerException e) {}
-
-                    addHexToNewlyMergedSettlement(masterSettlementID, playerID, colPos, rowPos);
-                    recursivelyAddAdjacentHexesToNewlyMergeSettlement(currentCoordinates, playerID, masterSettlementID);
-                }
-            }
-        }
-        catch(NullPointerException e) {return;} // end search if we reach null hex
-
-        return;
-    }
 
     void addHexToNewlyMergedSettlement(int masterSettlementID, int playerID, int colPos, int rowPos) {
         if(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)) != masterSettlementID) { // if we are not at a part of the master settlement, we need to decrement the values of the settlement currently
@@ -1843,19 +1796,19 @@ public class GameBoard {
     // TODO: GENERAL PURPOSE FUNCTIONS GO HERE (SMALLER FUNCTIONS USED ACROSS MULTIPLE LARGER FUNCIONS)
 
     boolean tileIsEvenAndFlipped(int rowPos, Tile tileToBePlaced) {
-        return (tileToBePlaced.isFlipped() && checkIfEven(rowPos));
+        return (tileToBePlaced.isFlipped() && isEven(rowPos));
     }
 
     boolean tileIsOddAndFlipped(int rowPos, Tile tileToBePlaced) {
-        return (tileToBePlaced.isFlipped() && !checkIfEven(rowPos));
+        return (tileToBePlaced.isFlipped() && !isEven(rowPos));
     }
 
     boolean tileIsEvenAndNotFlipped(int rowPos, Tile tileToBePlaced) {
-        return (!tileToBePlaced.isFlipped() && checkIfEven(rowPos));
+        return (!tileToBePlaced.isFlipped() && isEven(rowPos));
     }
 
     boolean tileIsOddAndNotFlipped(int rowPos, Tile tileToBePlaced) {
-        return (!tileToBePlaced.isFlipped() && !checkIfEven(rowPos));
+        return (!tileToBePlaced.isFlipped() && !isEven(rowPos));
     }
 
     void incrementGameBoardSettlementListSize(int settlementID) {
@@ -1906,16 +1859,53 @@ public class GameBoard {
         return hexesBuiltOnThisTurn;
     }
 
-    void deleteFromHexesBuiltOnThisTurn() {
-        Predicate<Pair> pairPredicate = pair -> pair.getColumnPosition() == -1 && pair.getRowPosition() == -1; // if pair was marked for deletion, delete it
-        hexesBuiltOnThisTurn.removeIf(pairPredicate);
-    }
 
-    boolean gameBoardPositionOwnedByPlayer(int playerID, int colPos, int rowPos) {
+    boolean gameBoardHexIsOwnedByPlayer(int playerID, int colPos, int rowPos) {
         return gameBoardPositionArray[colPos][rowPos].getPlayerID() == playerID;
     }
 
     int getGameBoardSettlementListSettlementSize(int settlementID) {
         return this.gameBoardSettlementList[settlementID][1];
+    }
+
+    boolean isEven(int rowPos) {
+        return rowPos % 2 == 0;
+    }
+
+    int getNewestAssignableSettlementID() {
+        for (int i = 1; i < 256; i++) { // Note: Settlement ID of 0 denotes a hex with no settlement on it - never use this ID
+            if (usedSettlementIDs[i] == 0) {
+                usedSettlementIDs[i] = 1;
+                return i;
+            }
+        }
+        throw new RuntimeException("error: no available settlements found");
+    }
+
+    void markGameBoardHexAsTraversed(Pair currentCoordinates) {
+        gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].setIfAlreadyTraversed(true);
+    }
+
+    boolean unmarkGameBoardPositionAsTraversed(int colPos, int rowPos) {
+        return gameBoardPositionArray[rowPos][colPos].setIfAlreadyTraversed(false);
+    }
+
+    boolean gameBoardHexHasNotBeenTraversedYet(int colPos, int rowPos) {
+        return gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false;
+    }
+
+    void markCurrentHexForRemovalFromBuiltOnThisTurnList(Pair currentCoordinates) {
+        int i = 0;
+        for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn to not waste time re-splitting/merging already split/merged settlements
+            if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
+                hexesBuiltOnThisTurn.elementAt(i).setCoordinates(-1, -1); // mark pair for deletion
+            }
+            i++;
+        }
+    }
+
+    void deleteFromHexesBuiltOnThisTurn() {
+        Predicate<Pair> pairPredicate = pair -> pair.getColumnPosition() == -1 && pair.getRowPosition() == -1; // if pair was marked for deletion, delete it
+        hexesBuiltOnThisTurn.removeIf(pairPredicate);
     }
 }
