@@ -17,6 +17,17 @@ public class Decoder {
     public String tileTerrain1;
     public String tileTerrain2;
 
+    public String terrainA = "";
+    public String terrainB = "";
+    public String terrainC = "";
+
+    public terrainTypes terrainHexA;
+    public terrainTypes terrainHexB;
+    public terrainTypes terrainHexC;
+    public int theirColumnPosition = 0;
+    public int theirRowPosition = 0;
+    public boolean flipped = false;
+
     public int x; //x-coordinate of tile
     public int y; //y-coordinate of tile
     public int z; //z-coordinate of tile
@@ -39,6 +50,10 @@ public class Decoder {
     boolean expandedSettlement = false;
     boolean forfeited = false;
     boolean lost = false;
+
+
+    public String terrains = "";
+    public String placement = "";
 
     Decoder() {
 
@@ -113,13 +128,27 @@ public class Decoder {
                 builtTotoro = false;
                 expandedSettlement = false;
                 tile = sc.next();
-                convertTileStringToTileObject(tile);
+
                 currentWord = sc.next();
                 if(currentWord.equals("AT")){
                     x = Integer.parseInt(sc.next());
                     y = Integer.parseInt(sc.next());
                     z = Integer.parseInt(sc.next());
                     orientation = Integer.parseInt(sc.next());
+
+                    theirColumnPosition = convertCoordinatesBasedOnOrientation(convertCoordinatesFromCubicToROffset(x,y,z).getColumnPosition(),convertCoordinatesFromCubicToROffset(x,y,z).getRowPosition(),orientation).getColumnPosition();
+                    theirRowPosition = convertCoordinatesBasedOnOrientation(convertCoordinatesFromCubicToROffset(x,y,z).getColumnPosition(),convertCoordinatesFromCubicToROffset(x,y,z).getRowPosition(),orientation).getRowPosition();
+                    terrains =  convertTileStringToTileObject(tile, orientation);
+
+                    if(orientation%2 == 0){
+                        flipped = true;
+                    }
+
+
+                    placement = gid + " " + theirColumnPosition + " " + theirRowPosition + " " + terrainHexA + " " + terrainHexB + " " + terrainHexC + " " + flipped;
+                    System.out.println(placement);
+                    //col, row, terrain A, terrain B, terrain C
+
                     currentWord = sc.next();
                     if(currentWord.equals("FOUNDED")){
                         sc.next();
@@ -220,7 +249,7 @@ public class Decoder {
             else if(currentWord.equals("PLACE")){
                 currentWord = sc.next();
                 tile = currentWord;
-                convertTileStringToTileObject(tile);
+                //convertTileStringToTileObject(tile,orientation);
             }
 
 
@@ -287,10 +316,10 @@ public class Decoder {
         //Set to our Player ID
     }
 
-    void convertTileStringToTileObject(String tile){
+    String convertTileStringToTileObject(String tile, int orientation){
         String terrain1 ="";
         String terrain2 ="";
-
+        String terrainList = "";
         int iterator = 0;
 
         boolean plusSign = false;
@@ -316,9 +345,94 @@ public class Decoder {
         tileTerrain1 = terrain1;
         tileTerrain2 = terrain2;
 
+        if(orientation == 1 || orientation == 4){
+            terrainA = "VOLCANO";
+            terrainB = tileTerrain1;
+            terrainC = tileTerrain2;
+            terrainList = "VOLCANO" + " " + tileTerrain1 + " " + tileTerrain2;
+        }
+        else if(orientation == 2 || orientation == 5){
+            terrainA = tileTerrain1;
+            terrainB = tileTerrain2;
+            terrainC = "VOLCANO";
+            terrainList = tileTerrain1 + " " + tileTerrain2 + " " + "VOLCANO";
+        }
+        else if(orientation == 3 || orientation == 6){
+            terrainA = tileTerrain2;
+            terrainB = "VOLCANO";
+            terrainC = tileTerrain1;
+            terrainList = tileTerrain2 + " " + "VOLCANO" + " " + tileTerrain1;
+        }
+
+        setTerrainTypes(terrainList);
+
+
+        return terrainList;
+
     }
 
-    void convertCoordinatesFromCubicToROffset(int x, int y, int z){
+    void setTerrainTypes(String terrainList){
+
+        Scanner sc = new Scanner(terrainList);
+        String currentTerrain;
+
+        currentTerrain = sc.next();
+
+        if(currentTerrain.charAt(0) == 'V'){
+            terrainHexA = terrainTypes.VOLCANO;
+        }
+        else if(currentTerrain.charAt(0) == 'J'){
+            terrainHexA = terrainTypes.JUNGLE;
+        }
+        else if(currentTerrain.charAt(0) == 'R'){
+            terrainHexA = terrainTypes.ROCKY;
+        }
+        else if(currentTerrain.charAt(0) == 'L'){
+            terrainHexA = terrainTypes.LAKE;
+        }
+        else if(currentTerrain.charAt(0) == 'G') {
+            terrainHexA = terrainTypes.GRASSLANDS;
+        }
+
+        currentTerrain = sc.next();
+
+        if(currentTerrain.charAt(0) == 'V'){
+            terrainHexB = terrainTypes.VOLCANO;
+        }
+        else if(currentTerrain.charAt(0) == 'J'){
+            terrainHexB = terrainTypes.JUNGLE;
+        }
+        else if(currentTerrain.charAt(0) == 'R'){
+            terrainHexB = terrainTypes.ROCKY;
+        }
+        else if(currentTerrain.charAt(0) == 'L'){
+            terrainHexB = terrainTypes.LAKE;
+        }
+        else if(currentTerrain.charAt(0) == 'G') {
+            terrainHexB = terrainTypes.GRASSLANDS;
+        }
+
+        currentTerrain = sc.next();
+
+        if(currentTerrain.charAt(0) == 'V'){
+            terrainHexC = terrainTypes.VOLCANO;
+        }
+        else if(currentTerrain.charAt(0) == 'J'){
+            terrainHexC = terrainTypes.JUNGLE;
+        }
+        else if(currentTerrain.charAt(0) == 'R'){
+            terrainHexC = terrainTypes.ROCKY;
+        }
+        else if(currentTerrain.charAt(0) == 'L'){
+            terrainHexC = terrainTypes.LAKE;
+        }
+        else if(currentTerrain.charAt(0) == 'G') {
+            terrainHexC = terrainTypes.GRASSLANDS;
+        }
+
+    }
+
+    Pair convertCoordinatesFromCubicToROffset(int x, int y, int z){
 
 
         //col = x + (z - (z&1)) / 2
@@ -327,7 +441,8 @@ public class Decoder {
         xCoordinate = x + (z-(z&1))/2 + 102;
         yCoordinate = z + 102;
 
-
+        Pair pair = new Pair(xCoordinate, yCoordinate);
+        return pair;
 
     }
 
@@ -347,7 +462,7 @@ public class Decoder {
         int newRowPos = 0;
         int newColPos = 0;
 
-        if(row%2 == 0){
+        if(col%2 == 0){
             if(orientation==1){
                 newRowPos = row + 0;
                 newColPos = col + 0;

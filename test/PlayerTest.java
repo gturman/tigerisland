@@ -149,12 +149,12 @@ public class PlayerTest {
 
         Decoder dc = new Decoder();
 
-        dc.decodeString("GAME 10 MOVE 3 PLAYER 1 PLACED 1 AT 10 11 12 5 FOUNDED SETTLEMENT AT 100 101 102");
+        dc.decodeString("GAME 10 MOVE 3 PLAYER 1 PLACED JUNGLE+ROCK AT 10 11 12 5 FOUNDED SETTLEMENT AT 100 101 102");
 
         Assert.assertEquals(dc.gid, 10);
         Assert.assertEquals(dc.moveNum, 3);
         Assert.assertEquals(dc.pid, 1);
-        Assert.assertEquals(dc.tile, "1");
+        Assert.assertEquals(dc.tile, "JUNGLE+ROCK");
         Assert.assertEquals(dc.x, 10);
         Assert.assertEquals(dc.y, 11);
         Assert.assertEquals(dc.z, 12);
@@ -204,17 +204,17 @@ public class PlayerTest {
         Assert.assertEquals(dc.time, 30);
         Assert.assertEquals(dc.moveNum, 10);
         Assert.assertEquals(dc.tile,"JUNGLE+LAKE");
-        Assert.assertEquals(dc.tileTerrain1,"JUNGLE");
-        Assert.assertEquals(dc.tileTerrain2,"LAKE");
+        //Assert.assertEquals(dc.tileTerrain1,"JUNGLE");
+        //Assert.assertEquals(dc.tileTerrain2,"LAKE");
 
-        dc.decodeString("GAME 10 MOVE 3 PLAYER 1 PLACED ROCK+GRASSLANDS AT 10 11 12 5 FOUNDED SETTLEMENT AT 100 101 102");
+        dc.decodeString("GAME 10 MOVE 3 PLAYER 1 PLACED ROCK+GRASS AT 10 11 12 5 FOUNDED SETTLEMENT AT 100 101 102");
 
         Assert.assertEquals(dc.gid, 10);
         Assert.assertEquals(dc.moveNum, 3);
         Assert.assertEquals(dc.pid, 1);
-        Assert.assertEquals(dc.tile, "ROCK+GRASSLANDS");
+        Assert.assertEquals(dc.tile, "ROCK+GRASS");
         Assert.assertEquals(dc.tileTerrain1,"ROCK");
-        Assert.assertEquals(dc.tileTerrain2,"GRASSLANDS");
+        Assert.assertEquals(dc.tileTerrain2,"GRASS");
         Assert.assertEquals(dc.x, 10);
         Assert.assertEquals(dc.y, 11);
         Assert.assertEquals(dc.z, 12);
@@ -243,8 +243,8 @@ public class PlayerTest {
     @Test
     public void testTileStringToObjectConversion(){
         Decoder dc = new Decoder();
-        dc.convertTileStringToTileObject("ROCKY+GRASSLANDS");
-        dc.convertTileStringToTileObject("LAKE+JUNGLE");
+        // dc.convertTileStringToTileObject("ROCKY+GRASSLANDS");
+        // dc.convertTileStringToTileObject("LAKE+JUNGLE");
     }
 
     @Test
@@ -292,15 +292,41 @@ public class PlayerTest {
 
     }
 
-    void testCoordinateConversionBasedOnOrientation(){
+    @Test
+    public void testCoordinateConversionBasedOnOrientationEven(){
 
         Decoder dc = new Decoder();
-
-
-
+        Pair pair = new Pair(101,103);
+        Assert.assertEquals(pair.getColumnPosition(), dc.convertCoordinatesBasedOnOrientation(102,102,5).getColumnPosition());
+        Assert.assertEquals(pair.getRowPosition(), dc.convertCoordinatesBasedOnOrientation(102,102,5).getRowPosition());
 
     }
 
+    @Test
+    public void testCoordinateConversionBasedOnOrientationOdd(){
 
+        Decoder dc = new Decoder();
+        Pair pair = new Pair(103,102);
+        Assert.assertEquals(pair.getColumnPosition(),dc.convertCoordinatesBasedOnOrientation(102,101,3).getColumnPosition());
+        Assert.assertEquals(pair.getRowPosition(),dc.convertCoordinatesBasedOnOrientation(102,101,3).getRowPosition());
+
+    }
+
+    @Test
+    public void testCoordinateConversionFromGameMessage(){
+        Decoder dc = new Decoder();
+        dc.decodeString("GAME 10 MOVE 3 PLAYER 1 PLACED ROCK+GRASS AT 0 0 0 3 FOUNDED SETTLEMENT AT 100 101 102");
+        //102,103
+        Assert.assertEquals(102,dc.theirColumnPosition);
+        Assert.assertEquals(103,dc.theirRowPosition);
+
+    }
+
+    @Test
+    public void testCoordinateConversionFromGameMessage2(){
+        Decoder dc = new Decoder();
+        dc.decodeString("GAME 10 MOVE 3 PLAYER 1 PLACED ROCK+GRASS AT 0 0 0 3 FOUNDED SETTLEMENT AT 100 101 102");
+
+    }
 
 }
