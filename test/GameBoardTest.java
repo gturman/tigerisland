@@ -647,7 +647,7 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(102, 101, fourthTile), false);
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(103, 102, fifthTile), false);
     }
-
+/*
     @Test
     public void testPreventingNukeIfTigerPenIsOnAHex() {
         GameBoard gameBoard = new GameBoard();
@@ -674,7 +674,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(102, 101, fourthTile), false);
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(103, 102, fifthTile), false);
-    }
+    }*/
 
     @Test
     public void testPreventingNukeIfNukeCoversSize1Settlement() {
