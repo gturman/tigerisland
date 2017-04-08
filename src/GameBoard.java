@@ -88,7 +88,7 @@ public class GameBoard {
             incrementGameBoardTileID();
             int hexAmount = 3;
             incrementGameBoardHexID(hexAmount);
-        } catch(Exception e){};
+        } catch(Exception e){}
     }
 
     boolean hexesToPlaceTileOnAreAlreadyOccupied(int colPos, int rowPos, Tile tileToBePlaced) {
@@ -964,26 +964,25 @@ public class GameBoard {
             try {
                 if(isBuiltOn(colPos, rowPos)) {
                     if(gameBoardHexIsOwnedByPlayer(player.getPlayerID(), colPos, rowPos)) {
-                        int homeHexID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos));
+                        int homeSettlementID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos));
 
                         markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
-
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
                         if (isEven(rowPos)) {
-                            expandSettlementDriver(colPos-1, rowPos-1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos+1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos-1, rowPos+1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos, rowPos+1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos-1, rowPos-1, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos+1, rowPos, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos-1, rowPos+1, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos, rowPos+1, expansionType, player, homeSettlementID);
                         } else {
-                            expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos+1, rowPos-1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos+1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos, rowPos+1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos+1, rowPos+1, expansionType, player, homeHexID);
+                            expandSettlementDriver(colPos, rowPos-1, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos+1, rowPos-1, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos-1, rowPos, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos+1, rowPos, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos, rowPos+1, expansionType, player, homeSettlementID);
+                            expandSettlementDriver(colPos+1, rowPos+1, expansionType, player, homeSettlementID);
                         }
                     }
                 }
@@ -999,7 +998,6 @@ public class GameBoard {
                 if (isBuiltOn(colPos, rowPos)) {
                     if (gameBoardHexIsOwnedByPlayer(player.getPlayerID(), colPos, rowPos)) {
                         markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
-
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
                         if (getGameBoardPositionSettlementID(new Pair(colPos, rowPos)) == homeHexID) {
@@ -1024,17 +1022,17 @@ public class GameBoard {
                 } else if (isNotBuiltOn(colPos, rowPos)) {
                     if(gameBoardPositionArray[colPos][rowPos].getTerrainType() == expansionType) {
                         Pair currentCoordinates = new Pair(colPos, rowPos);
-                        markGameBoardHexAsTraversed(currentCoordinates);
 
+                        markGameBoardHexAsTraversed(currentCoordinates);
                         hexesToResetTraversalValue.add(currentCoordinates);
-                        hexesBuiltOnThisTurn.add(currentCoordinates);
 
                         int hexLevel = gameBoardPositionArray[colPos][rowPos].getLevel();
-
                         gameBoardPositionArray[colPos][rowPos].setSettlerCount(hexLevel);
+                        hexesBuiltOnThisTurn.add(currentCoordinates);
+                        incrementGameBoardSettlementListSize(homeHexID);
+
                         setGameBoardPositionSettlementID(currentCoordinates, homeHexID);
                         gameBoardPositionArray[colPos][rowPos].setPlayerID(player.getPlayerID());
-                        incrementGameBoardSettlementListSize(homeHexID);
 
                         if (isEven(rowPos)) {
                             expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
@@ -1065,7 +1063,7 @@ public class GameBoard {
             if(isBuiltOn(colPos, rowPos)) {
                 if(gameBoardHexIsOwnedByPlayer(player.getPlayerID(), colPos, rowPos)) {
                     int returnVal = 0;
-                    int homeHexID = gameBoardPositionArray[colPos][rowPos].getSettlementID();
+                    int homeHexID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos));
 
                     markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
                     hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
@@ -1085,7 +1083,6 @@ public class GameBoard {
                         returnVal += calculateVillagersForExpansionDriver(colPos, rowPos+1, expansionType, player, homeHexID);
                         returnVal += calculateVillagersForExpansionDriver(colPos+1, rowPos+1, expansionType, player, homeHexID);
                     }
-
                     return returnVal;
                 }
             }
@@ -1097,7 +1094,7 @@ public class GameBoard {
         try{
             int returnVal = 0;
             if(hexHasNotBeenTraversedYet(colPos, rowPos)) {
-                if (isBuiltOn(colPos, rowPos)) { // if hex is built on
+                if (isBuiltOn(colPos, rowPos)) {
                     if (gameBoardHexIsOwnedByPlayer(player.getPlayerID(), colPos, rowPos)) {
                         markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
@@ -1127,7 +1124,7 @@ public class GameBoard {
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
                         int hexLevel = gameBoardPositionArray[colPos][rowPos].getLevel();
-                        returnVal += hexLevel; // number of meeples needed to expand onto hex
+                        returnVal += hexLevel;
 
                         if (isEven(rowPos)) {
                             returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
@@ -1217,12 +1214,11 @@ public class GameBoard {
                     }
                 } else if (isNotBuiltOn(colPos, rowPos)) {
                     if(gameBoardPositionArray[colPos][rowPos].getTerrainType() == expansionType) {
-                        gameBoardPositionArray[colPos][rowPos].setIfAlreadyTraversed(true);
                         markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
                         int hexLevel = gameBoardPositionArray[colPos][rowPos].getLevel();
-                        returnVal += (hexLevel * hexLevel); // number of meeples needed to expand onto hex
+                        returnVal += (hexLevel * hexLevel);
 
                         if (isEven(rowPos)) {
                             returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
@@ -1259,6 +1255,7 @@ public class GameBoard {
 
         Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
+
         markGameBoardHexAsTraversed(currentCoordinates);
         hexesToResetTraversalValue.add(currentCoordinates);
 
@@ -1266,7 +1263,7 @@ public class GameBoard {
         int oldSettlementID = getGameBoardPositionSettlementID(currentCoordinates);
         int masterSettlementID = getNewestAssignableSettlementID();
 
-        setPlayerOwnedSettlementsListIsOwned(masterSettlementID, playerID); // add player ownership for new settlement
+        setPlayerOwnedSettlementsListIsOwned(masterSettlementID, playerID);
         setGameBoardPositionSettlementID(currentCoordinates, masterSettlementID);
         setGameBoardSettlementListPlayerID(masterSettlementID, playerID);
 
@@ -1282,12 +1279,13 @@ public class GameBoard {
             if(hexHasNotBeenTraversedYet(colPos, rowPos)) {
                 if (gameBoardHexIsOwnedByPlayer(playerID, colPos, rowPos)) {
                     Pair currentCoordinates = new Pair(colPos, rowPos);
+
                     markGameBoardHexAsTraversed(currentCoordinates);
                     hexesToResetTraversalValue.add(currentCoordinates);
 
                     try {
-                        markCurrentHexForRemovalFromBuiltOnThisTurnList(currentCoordinates);
-                        deleteFromHexesBuiltOnThisTurn();
+                        markCurrentCoordinateForRemovalFromBuiltOnThisTurnList(currentCoordinates);
+                        deleteCurrentCoordinateFromHexesBuiltOnThisTurnList();
                     }
                     catch (NullPointerException e) {}
 
@@ -1296,8 +1294,6 @@ public class GameBoard {
 
                     updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition(currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition(), masterSettlementID, playerID, oldSettlementID);
                     recursivelyAddAdjacentHexesToNewlySplitSettlement(currentCoordinates, playerID, masterSettlementID);
-
-                    unmarkGameBoardPositionAsTraversed(currentCoordinates.getColumnPosition(), currentCoordinates.getRowPosition());
                 }
             }
         }
@@ -1431,8 +1427,8 @@ public class GameBoard {
                         hexesToResetTraversalValue.add(currentCoordinates);
 
                         try {
-                            markCurrentHexForRemovalFromBuiltOnThisTurnList(currentCoordinates);
-                            deleteFromHexesBuiltOnThisTurn();
+                            markCurrentCoordinateForRemovalFromBuiltOnThisTurnList(currentCoordinates);
+                            deleteCurrentCoordinateFromHexesBuiltOnThisTurnList();
                         } catch (NullPointerException e) {}
 
                         addHexToNewlyMergedSettlement(masterSettlementID, playerID, colPos, rowPos);
@@ -1635,7 +1631,7 @@ public class GameBoard {
         return gameBoardPositionArray[colPos][rowPos].getIfAlreadyTraversed() == false;
     }
 
-    private void markCurrentHexForRemovalFromBuiltOnThisTurnList(Pair currentCoordinates) {
+    private void markCurrentCoordinateForRemovalFromBuiltOnThisTurnList(Pair currentCoordinates) {
         int i = 0;
         for(Pair pair : hexesBuiltOnThisTurn) { // try to remove any occurrences of currently seen item in hexesBuiltOnThisTurn to not waste time re-splitting/merging already split/merged settlements
             if(currentCoordinates.getRowPosition() == pair.getRowPosition() && currentCoordinates.getColumnPosition() == pair.getColumnPosition()) {
@@ -1645,11 +1641,10 @@ public class GameBoard {
         }
     }
 
-    private void deleteFromHexesBuiltOnThisTurn() {
+    private void deleteCurrentCoordinateFromHexesBuiltOnThisTurnList() {
         Predicate<Pair> pairPredicate = pair -> pair.getColumnPosition() == -1 && pair.getRowPosition() == -1; // if pair was marked for deletion, delete it
         hexesBuiltOnThisTurn.removeIf(pairPredicate);
     }
-
     private void resetTraversalList() {
         for(Pair pair : hexesToResetTraversalValue){
             unmarkGameBoardPositionAsTraversed(pair.getRowPosition(), pair.getColumnPosition());
@@ -1823,7 +1818,6 @@ public class GameBoard {
         }
         return -1;
     }
-
 
     private boolean hexHasSettlersOnIt(Pair currentCoordinates) {
         return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0;

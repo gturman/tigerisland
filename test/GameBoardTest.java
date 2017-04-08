@@ -2385,17 +2385,148 @@ public class GameBoardTest {
 
     @Test
     public void testIfMergeWorksAfterTotoroIsBuilt() {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(105, 104, secondTile);
+
+        gameboard.buildSettlement(101, 103, player);
+        gameboard.buildSettlement(102, 103, player);
+        gameboard.buildSettlement(102, 101, player);
+        gameboard.buildSettlement(103, 102, player);
+        gameboard.buildSettlement(101, 101, player);
+        gameboard.buildSettlement(104, 103, player);
+        gameboard.buildSettlement(105, 103, player);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[105][103].getSettlementID(), 3);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(1), 5);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(3), 2);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(1), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(3), 0);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(1), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(3), 0);
+
+        gameboard.placeTotoroSanctuary(104, 102, 1, player);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(1), 8);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(1), 1);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(1), 0);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][102].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[105][103].getSettlementID(), 1);
     }
-/*
+
     @Test
     public void testIfMergeWorksForSettlementWithTigerPenInIt() {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(105, 104, secondTile);
+
+        gameboard.buildSettlement(101, 103, player);
+        gameboard.buildSettlement(102, 103, player);
+        gameboard.buildSettlement(104, 102, player);
+        gameboard.buildSettlement(102, 101, player);
+        gameboard.buildSettlement(103, 102, player);
+
+        gameboard.getGameBoardPositionArray()[101][101].setLevel(3);
+
+        gameboard.placeTigerPen(101, 101, gameboard.getGameBoardPositionArray()[102][103].getSettlementID(), player);
+
+        gameboard.buildSettlement(105, 103, player);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[105][103].getSettlementID()), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[105][103].getSettlementID()), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[105][103].getSettlementID()), 1);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 6);
+
+        gameboard.expandSettlement(105, 103, terrainTypes.JUNGLE, player);
+
+        int mergedSettlementID = gameboard.getGameBoardPositionArray()[101][103].getSettlementID();
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[104][103].getSettlementID()), 1);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][101].getSettlementID()), 1);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[101][101].getSettlementID()), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(mergedSettlementID), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 8);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][101].getSettlementID()), 8);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(mergedSettlementID), 8);
     }
 
     @Test
     public void testIfMergeWorksAfterTigerPenIsBuilt() {
+        GameBoard gameboard = new GameBoard();
+        Player player = new Player(1);
 
-    }*/
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
+        gameboard.setTileAtPosition(105, 104, secondTile);
+
+        gameboard.buildSettlement(101, 103, player);
+        gameboard.buildSettlement(102, 103, player);
+        gameboard.buildSettlement(102, 101, player);
+        gameboard.buildSettlement(103, 102, player);
+        gameboard.buildSettlement(101, 101, player);
+        gameboard.buildSettlement(104, 103, player);
+        gameboard.buildSettlement(105, 103, player);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[105][103].getSettlementID(), 3);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(1), 5);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(3), 2);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(1), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(3), 0);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(1), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(3), 0);
+
+        gameboard.getGameBoardPositionArray()[104][102].setLevel(3);
+        gameboard.placeTigerPen(104, 102, 1, player);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(1), 8);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(1), 0);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(1), 1);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][102].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][103].getSettlementID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[105][103].getSettlementID(), 1);
+    }
 }
 
