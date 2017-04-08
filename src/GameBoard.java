@@ -252,7 +252,7 @@ public class GameBoard {
         return hex.getCoordinatePair().getRowPosition();
     }
 
-
+// todo: can nuke tigers
 
     void nukeTiles(int colPos, int rowPos, Tile tileToBePlaced) {
         if (nukeAtPositionIsValid(colPos, rowPos, tileToBePlaced)) {
@@ -1002,22 +1002,23 @@ public class GameBoard {
 
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (isEven(rowPos)) {
-                            expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
-                        } else {
-                            expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
-                            expandSettlementDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        if (getGameBoardPositionSettlementID(new Pair(colPos, rowPos)) == homeHexID) {
+                            if (isEven(rowPos)) {
+                                expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            } else {
+                                expandSettlementDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                                expandSettlementDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                            }
                         }
-
                         return;
                     }
                 } else if (isNotBuiltOn(colPos, rowPos)) {
@@ -1033,7 +1034,6 @@ public class GameBoard {
                         gameBoardPositionArray[colPos][rowPos].setSettlerCount(hexLevel);
                         setGameBoardPositionSettlementID(currentCoordinates, homeHexID);
                         gameBoardPositionArray[colPos][rowPos].setPlayerID(player.getPlayerID());
-
                         incrementGameBoardSettlementListSize(homeHexID);
 
                         if (isEven(rowPos)) {
@@ -1102,22 +1102,23 @@ public class GameBoard {
                         markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (isEven(rowPos)) {
-                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
-                        } else {
-                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
-                            returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        if(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)) == homeHexID) {
+                            if (isEven(rowPos)) {
+                                returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            } else {
+                                returnVal += calculateVillagersForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                                returnVal += calculateVillagersForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                            }
                         }
-
                         return returnVal;
                     }
                 } else if (isNotBuiltOn(colPos, rowPos)) {
@@ -1195,22 +1196,23 @@ public class GameBoard {
                         markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
                         hexesToResetTraversalValue.add(new Pair(colPos, rowPos));
 
-                        if (isEven(rowPos)) {
-                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
-                        } else {
-                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
-                            returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                        if(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)) == homeHexID) {
+                            if (isEven(rowPos)) {
+                                returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos + 1, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                            } else {
+                                returnVal += calculateScoreForExpansionDriver(colPos, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos - 1, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos - 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos, rowPos + 1, expansionType, player, homeHexID);
+                                returnVal += calculateScoreForExpansionDriver(colPos + 1, rowPos + 1, expansionType, player, homeHexID);
+                            }
                         }
-
                         return returnVal;
                     }
                 } else if (isNotBuiltOn(colPos, rowPos)) {
@@ -1261,12 +1263,10 @@ public class GameBoard {
         hexesToResetTraversalValue.add(currentCoordinates);
 
         int playerID = getGameBoardPositionPlayerID(currentCoordinates);
-
         int oldSettlementID = getGameBoardPositionSettlementID(currentCoordinates);
-
         int masterSettlementID = getNewestAssignableSettlementID();
-        setPlayerOwnedSettlementsListIsOwned(masterSettlementID, playerID); // add player ownership for new settlement
 
+        setPlayerOwnedSettlementsListIsOwned(masterSettlementID, playerID); // add player ownership for new settlement
         setGameBoardPositionSettlementID(currentCoordinates, masterSettlementID);
         setGameBoardSettlementListPlayerID(masterSettlementID, playerID);
 
@@ -1347,6 +1347,7 @@ public class GameBoard {
                 deleteSettlementFromGame(oldSettlementID, playerID);
             } else {
                 decrementGameBoardSettlementListSize(oldSettlementID);
+                decrementGameBoardSettlementListTotoroCount(oldSettlementID);
             }
         } else if (hexHasTigerOnIt(currentCoordinates)) {
             incrementGameBoardSettlementListSize(masterSettlementID);
@@ -1422,20 +1423,21 @@ public class GameBoard {
     private void mergeSettlementsDriver(int masterSettlementID, int playerID, int colPos, int rowPos) {
         try { // is not null
             if(hexHasNotBeenTraversedYet(colPos, rowPos)) {
-                if (gameBoardHexIsOwnedByPlayer(playerID, colPos, rowPos)) {
-                    markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
+                if (isBuiltOn(colPos, rowPos)) {
+                    if (gameBoardHexIsOwnedByPlayer(playerID, colPos, rowPos)) {
+                        markGameBoardHexAsTraversed(new Pair(colPos, rowPos));
 
-                    Pair currentCoordinates = new Pair(colPos, rowPos);
-                    hexesToResetTraversalValue.add(currentCoordinates);
+                        Pair currentCoordinates = new Pair(colPos, rowPos);
+                        hexesToResetTraversalValue.add(currentCoordinates);
 
-                    try {
-                        markCurrentHexForRemovalFromBuiltOnThisTurnList(currentCoordinates);
-                        deleteFromHexesBuiltOnThisTurn();
+                        try {
+                            markCurrentHexForRemovalFromBuiltOnThisTurnList(currentCoordinates);
+                            deleteFromHexesBuiltOnThisTurn();
+                        } catch (NullPointerException e) {}
+
+                        addHexToNewlyMergedSettlement(masterSettlementID, playerID, colPos, rowPos);
+                        recursivelyAddAdjacentHexesToNewlyMergeSettlement(currentCoordinates, playerID, masterSettlementID);
                     }
-                    catch (NullPointerException e) {}
-
-                    addHexToNewlyMergedSettlement(masterSettlementID, playerID, colPos, rowPos);
-                    recursivelyAddAdjacentHexesToNewlyMergeSettlement(currentCoordinates, playerID, masterSettlementID);
                 }
             }
         }
@@ -1481,11 +1483,11 @@ public class GameBoard {
                 if (hexHasSettlersOnIt(new Pair(colPos, rowPos))) {
                     decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
                 } else if (hexHasTotoroOnIt(new Pair(colPos, rowPos))) {
-                    decrementGameBoardSettlementListSize(masterSettlementID);
-                    decrementGameBoardSettlementListSize(masterSettlementID);
+                    decrementGameBoardSettlementListTotoroCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+                    decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
                 } else if (hexHasTigerOnIt(new Pair(colPos, rowPos))) {
-                    decrementGameBoardSettlementListSize(masterSettlementID);
-                    decrementGameBoardSettlementListSize(masterSettlementID);
+                    decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+                    decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
                 }
             }
 
@@ -1494,11 +1496,11 @@ public class GameBoard {
             if (hexHasSettlersOnIt(new Pair(colPos, rowPos))) { // update newly acquired hex with master settlement values and vice versa
                 incrementGameBoardSettlementListSize(masterSettlementID);
             } else if (hexHasTotoroOnIt(new Pair(colPos, rowPos))) {
-                incrementGameBoardSettlementListSize(masterSettlementID);
                 incrementGameBoardSettlementListTotoroCount(masterSettlementID);
-            } else if (hexHasTigerOnIt(new Pair(colPos, rowPos))) {
                 incrementGameBoardSettlementListSize(masterSettlementID);
+            } else if (hexHasTigerOnIt(new Pair(colPos, rowPos))) {
                 incrementGameBoardSettlementListTigerCount(masterSettlementID);
+                incrementGameBoardSettlementListSize(masterSettlementID);
             }
         }
     }
@@ -1544,14 +1546,6 @@ public class GameBoard {
         return (!tileToBePlaced.isFlipped() && !isEven(rowPos));
     }
 
-    private void incrementGameBoardSettlementListSize(int settlementID) {
-        this.gameBoardSettlementList[settlementID][1] += 1;
-    }
-
-    private void decrementGameBoardSettlementListSize(int settlementID) {
-        gameBoardSettlementList[settlementID][1] -= 1;
-    }
-
     Hex[][] getGameBoardPositionArray() {
         return gameBoardPositionArray;
     }
@@ -1594,22 +1588,6 @@ public class GameBoard {
 
     private boolean gameBoardHexIsOwnedByPlayer(int playerID, int colPos, int rowPos) {
         return gameBoardPositionArray[colPos][rowPos].getPlayerID() == playerID;
-    }
-
-    int getGameBoardSettlementListOwner(int settlementID) {
-        return this.gameBoardSettlementList[settlementID][0];
-    }
-
-    int getGameBoardSettlementListSettlementSize(int settlementID) {
-        return this.gameBoardSettlementList[settlementID][1];
-    }
-
-    int getGameBoardSettlementListTotoroCount(int settlementID) {
-        return this.gameBoardSettlementList[settlementID][2];
-    }
-
-    int getGameBoardSettlementListTigerCount(int settlementID) {
-        return this.gameBoardSettlementList[settlementID][3];
     }
 
     private boolean isEven(int rowPos) {
@@ -1690,6 +1668,30 @@ public class GameBoard {
 
     private void setPlayerOwnedSettlementsListIsNotOwned(int settlementID, int playerID) {
         this.playerOwnedSettlementsList[settlementID][playerID-1] = false;
+    }
+
+    int getGameBoardSettlementListOwner(int settlementID) {
+        return this.gameBoardSettlementList[settlementID][0];
+    }
+
+    int getGameBoardSettlementListSettlementSize(int settlementID) {
+        return this.gameBoardSettlementList[settlementID][1];
+    }
+
+    int getGameBoardSettlementListTotoroCount(int settlementID) {
+        return this.gameBoardSettlementList[settlementID][2];
+    }
+
+    int getGameBoardSettlementListTigerCount(int settlementID) {
+        return this.gameBoardSettlementList[settlementID][3];
+    }
+
+    private void incrementGameBoardSettlementListSize(int settlementID) {
+        this.gameBoardSettlementList[settlementID][1] += 1;
+    }
+
+    private void decrementGameBoardSettlementListSize(int settlementID) {
+        gameBoardSettlementList[settlementID][1] -= 1;
     }
 
     private void incrementGameBoardSettlementListTotoroCount(int settlementID) {
