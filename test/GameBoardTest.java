@@ -1232,11 +1232,11 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 4);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 101, 1, playerOne), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 104, 1, playerOne), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 103, 1, playerOne), false);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 102, 1, playerOne), false); // volcano
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(101, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 104, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 103, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 102, 1, playerOne), false); // volcano
 
         gameBoard.placeTotoroSanctuary(101, 101, 1, playerOne);
         gameBoard.placeTotoroSanctuary(102, 104, 1, playerOne);
@@ -1284,10 +1284,10 @@ public class GameBoardTest {
 
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), true);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 101, 1, playerOne), true);
         gameBoard.placeTotoroSanctuary(102, 101, 1, playerOne);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(101, 105, 1, playerOne), false);
 
         gameBoard.placeTotoroSanctuary(101, 105, 1, playerOne);
 
@@ -1335,13 +1335,13 @@ public class GameBoardTest {
 
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 101, 1, playerOne), false);
 
         gameBoard.getGameBoardPositionArray()[102][101].setTotoroCount(1);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 101, 1, playerOne), false);
 
         gameBoard.getGameBoardPositionArray()[102][101].setTigerCount(1);
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(102, 101, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(102, 101, 1, playerOne), false);
     }
 
     @Test
@@ -1381,7 +1381,7 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(101, 105, 1, playerOne), false);
     }
 
     @Test
@@ -1425,7 +1425,7 @@ public class GameBoardTest {
 
         playerOne.setTotoroCount(0);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), false);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(101, 105, 1, playerOne), false);
     }
 
     @Test
@@ -1467,7 +1467,7 @@ public class GameBoardTest {
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
 
-        Assert.assertEquals(gameBoard.checkIfValidTotoroPlacement(101, 105, 1, playerOne), true);
+        Assert.assertEquals(gameBoard.isValidTotoroPlacement(101, 105, 1, playerOne), true);
     }
 
     @Test

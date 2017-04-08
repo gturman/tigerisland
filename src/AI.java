@@ -81,7 +81,7 @@ public class AI {
 
             try{
                 if(settlementsBuiltInARow==5) {
-                    if (gameBoard.areFiveTotorosInALine(lastColBuilt,lastRowBuilt,playerOne.getPlayerID()) && playerOne.getTotoroCount() >= 1) {
+                    if (gameBoard.areFiveSettlersInALine(lastColBuilt,lastRowBuilt,playerOne.getPlayerID()) && playerOne.getTotoroCount() >= 1) {
 
                         gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
                         gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
