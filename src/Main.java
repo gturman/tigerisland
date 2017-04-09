@@ -26,6 +26,8 @@ public class Main {
 
         if (ThunderDome.authentication() == "OK"){
 
+            System.out.println("Made it past authentication...");
+
             boolean challengeDone = false;
             while (!challengeDone){
 

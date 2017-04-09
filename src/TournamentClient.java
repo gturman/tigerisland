@@ -32,6 +32,8 @@ public class TournamentClient {
         String messageFromServer;
         String messageFromClient;
 
+
+        System.out.println("Waiting for first tournament message...");
         messageFromServer = client.waitAndReceive();
         if (messageFromServer.equals("WELCOME TO ANOTHER EDITION OF THUNDERDOME!")){
             messageFromClient = "ENTER THUNDERDOME " + tournamentPassword;
@@ -60,6 +62,9 @@ public class TournamentClient {
                      String username, String password) throws IOException {
 
         client = new Client(hostname, port);
+
+        System.out.println("Connected...");
+
         this.tournamentPassword = tournamentPassword;
         this.username = username;
         this.password = password;
