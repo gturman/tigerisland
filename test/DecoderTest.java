@@ -225,6 +225,60 @@ public class DecoderTest {
         dc.decodeString("TWO SHALL ENTER, ONE SHALL LEAVE");
         dc.decodeString("THANK YOU FOR PLAYING! GOODBYE");
     }
+    
+     @Test
+    public void testGameForfeitMessages(){
+        Decoder dc = new Decoder();
+        dc.decodeString("GAME BOB MOVE 1 PLAYER JAMES FORFEITED: ILLEGAL TILE PLACEMENT");
+        Assert.assertEquals(dc.getTheyForfeitedFlag(), true);
+        dc.decodeString("END OF ROUND 2 OF 24");
+        Assert.assertEquals(dc.getTheyForfeitedFlag(), false);
+        dc.decodeString("GAME BOB MOVE 2 PLAYER JAMES FORFEITED: ILLEGAL BUILD");
+        Assert.assertEquals(dc.getTheyForfeitedFlag(), true);
+        dc.decodeString("END OF ROUND 3 OF 24");
+        Assert.assertEquals(dc.getTheyForfeitedFlag(), false);
+        dc.decodeString("GAME BOB MOVE 3 PLAYER JAMES FORFEITED: TIMEOUT");
+        Assert.assertEquals(dc.getTheyForfeitedFlag(), true);
+        dc.decodeString("END OF ROUND 14 OF 24");
+        Assert.assertEquals(dc.getTheyForfeitedFlag(), false);
+    }
+
+    @Test
+    public void testGameLostMessage(){
+        Decoder dc = new Decoder();
+        dc.decodeString("GAME BOB MOVE 1 PLAYER JAMES LOST: UNABLE TO BUILD");
+        Assert.assertEquals(dc.getTheyLostFlag(), true);
+        dc.decodeString("END OF ROUND 14 OF 24");
+        Assert.assertEquals(dc.getTheyLostFlag(), false);
+    }
+
+    @Test
+    public void testGameOverMessage(){
+
+        Decoder dc = new Decoder();
+        dc.decodeString("WAIT FOR THE TOURNAMENT TO BEGIN SPONGEBOB2");
+        dc.decodeString("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER SQUIDWARD2");
+
+        dc.decodeString("GAME KEVIN OVER PLAYER SPONGEBOB2 269 PLAYER SQUIDWARD2 2");
+
+        Assert.assertEquals(dc.getGameID(), "KEVIN");
+        Assert.assertEquals(dc.getPlayerID1(), "SPONGEBOB2");
+        Assert.assertEquals(dc.getScoreOfPlayer1(), 269);
+        Assert.assertEquals(dc.getPlayerID2(), "SQUIDWARD2");
+        Assert.assertEquals(dc.getScoreOfPlayer2(), 2);
+        
+        dc.decodeString("WAIT FOR THE TOURNAMENT TO BEGIN SQUIDWARD2");
+        dc.decodeString("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER SPONGEBOB2");
+
+        dc.decodeString("GAME KEVIN OVER PLAYER SPONGEBOB2 29 PLAYER SQUIDWARD2 25");
+
+        Assert.assertEquals(dc.getGameID(), "KEVIN");
+        Assert.assertEquals(dc.getPlayerID2(), "SPONGEBOB2");
+        Assert.assertEquals(dc.getScoreOfPlayer2(), 29);
+        Assert.assertEquals(dc.getPlayerID1(), "SQUIDWARD2");
+        Assert.assertEquals(dc.getScoreOfPlayer1(), 25);
+    }
+
 
 
 }
