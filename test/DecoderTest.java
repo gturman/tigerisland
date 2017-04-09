@@ -337,4 +337,33 @@ public class DecoderTest {
         Assert.assertEquals(terrainTypes.VOLCANO,dc.getTheirTerrainTypeAtHexC());
 
     }
+    
+    @Test
+    public void testForEvenConvertCoordinatesBasedOnOrientation(){
+        Decoder dc = new Decoder();
+        Pair p1 = dc.convertCoordinatesBasedOnOrientation(102,102,1);
+        Assert.assertEquals(p1.getColumnPosition(),102);
+        Assert.assertEquals(p1.getRowPosition(),102);
+
+        p1 = dc.convertCoordinatesBasedOnOrientation(102,102,2);
+        Assert.assertEquals(p1.getColumnPosition(),102);
+        Assert.assertEquals(p1.getRowPosition(),101);
+
+        p1 = dc.convertCoordinatesBasedOnOrientation(102,102,3);
+        Assert.assertEquals(p1.getColumnPosition(),102);
+        Assert.assertEquals(p1.getRowPosition(),103);
+
+        p1 = dc.convertCoordinatesBasedOnOrientation(102,102,4);
+        Assert.assertEquals(p1.getColumnPosition(),102);
+        Assert.assertEquals(p1.getRowPosition(),102);
+
+        p1 = dc.convertCoordinatesBasedOnOrientation(102,102,5);
+        Assert.assertEquals(p1.getColumnPosition(),101);
+        Assert.assertEquals(p1.getRowPosition(),103);
+
+        p1 =  dc.convertCoordinatesBasedOnOrientation(102,102,6);
+        Assert.assertEquals(p1.getColumnPosition(),101);
+        Assert.assertEquals(p1.getRowPosition(),101);
+
+    }
 }
