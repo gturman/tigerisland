@@ -279,6 +279,62 @@ public class DecoderTest {
         Assert.assertEquals(dc.getScoreOfPlayer1(), 25);
     }
 
+    @Test
+    public void testSetTheirExpansionTerrainType(){
 
+        Decoder dc = new Decoder();
 
+        dc.setTheirExpansionTerrainType("VOLCANO");
+        Assert.assertEquals(terrainTypes.VOLCANO,dc.getTheirExpandTerrainTypeIfExpansion());
+
+        dc.setTheirExpansionTerrainType("GRASS");
+        Assert.assertEquals(terrainTypes.GRASSLANDS,dc.getTheirExpandTerrainTypeIfExpansion());
+
+        dc.setTheirExpansionTerrainType("LAKE");
+        Assert.assertEquals(terrainTypes.LAKE,dc.getTheirExpandTerrainTypeIfExpansion());
+
+        dc.setTheirExpansionTerrainType("JUNGLE");
+        Assert.assertEquals(terrainTypes.JUNGLE,dc.getTheirExpandTerrainTypeIfExpansion());
+
+        dc.setTheirExpansionTerrainType("ROCK");
+        Assert.assertEquals(terrainTypes.ROCKY,dc.getTheirExpandTerrainTypeIfExpansion());
+
+    }
+
+    @Test
+    public void testConvertTileStringToTileObjectOrientationThree(){
+        Decoder dc = new Decoder();
+
+        String temp = dc.convertTileStringToTileObject("ROCK+LAKE",6,true);
+
+        Assert.assertEquals("LAKE VOLCANO ROCK",temp);
+    }
+
+    @Test
+    public void testThreeHexStrings(){
+
+        Decoder dc = new Decoder();
+
+        String one = "JUNGLE VOLCANO ROCK";
+        dc.setTheirTileTerrainTypes(one);
+
+        Assert.assertEquals(terrainTypes.JUNGLE,dc.getTheirTerrainTypeAtHexA());
+        Assert.assertEquals(terrainTypes.VOLCANO,dc.getTheirTerrainTypeAtHexB());
+        Assert.assertEquals(terrainTypes.ROCKY,dc.getTheirTerrainTypeAtHexC());
+
+        String two = "ROCK LAKE JUNGLE";
+        dc.setTheirTileTerrainTypes(two);
+
+        Assert.assertEquals(terrainTypes.ROCKY,dc.getTheirTerrainTypeAtHexA());
+        Assert.assertEquals(terrainTypes.LAKE,dc.getTheirTerrainTypeAtHexB());
+        Assert.assertEquals(terrainTypes.JUNGLE,dc.getTheirTerrainTypeAtHexC());
+
+        String three = "LAKE GRASS VOLCANO";
+        dc.setTheirTileTerrainTypes(three);
+
+        Assert.assertEquals(terrainTypes.LAKE,dc.getTheirTerrainTypeAtHexA());
+        Assert.assertEquals(terrainTypes.GRASSLANDS,dc.getTheirTerrainTypeAtHexB());
+        Assert.assertEquals(terrainTypes.VOLCANO,dc.getTheirTerrainTypeAtHexC());
+
+    }
 }
