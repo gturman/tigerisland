@@ -1,66 +1,61 @@
 import java.util.Scanner;
 
-/**
- * Created by Brendan on 4/4/2017.
- */
 public class Decoder {
 
-    public String playerID1;
-    public String playerID2;
-    String challengeID;
-    public String currentRoundID;
-    public String gameID;
-    String currentMovePlayerID;
-    public float timeToCompleteTurn;
-    public int currentMoveNum;
+    private String playerID1;
+    private String playerID2;
+    private String challengeID;
+    private String currentRoundID;
+    private String gameID;
+    private String currentMovePlayerID;
+    private double timeToCompleteTurn;
+    private int currentMoveNum;
 
-    public String tileTerrainStringOfFormatAandB; //Not sure how tile is given to us yet
-    public String tileTerrain1;
-    public String tileTerrain2;
+    private String tileTerrainStringOfFormatAandB; //Not sure how tile is given to us yet
 
-    public String terrainHexAFromMessage = "";
-    public String terrainHexBFromMessage = "";
-    public String terrainHexCFromMessage = "";
+    private String terrainHexAFromMessage = "";
+    private String terrainHexBFromMessage = "";
+    private String terrainHexCFromMessage = "";
 
-    public terrainTypes theirTerrainTypeAtHexA;
-    public terrainTypes theirTerrainTypeAtHexB;
-    public terrainTypes theirTerrainTypeAtHexC;
-    public int theirTileColumnPosition = 0;
-    public int theirTileRowPosition = 0;
-    public boolean theirTileIsFlipped = false;
+    private terrainTypes theirTerrainTypeAtHexA;
+    private terrainTypes theirTerrainTypeAtHexB;
+    private terrainTypes theirTerrainTypeAtHexC;
+    private int theirTileColumnPosition = 0;
+    private int theirTileRowPosition = 0;
+    private boolean theirTileIsFlipped = false;
 
-    public terrainTypes ourTerrainTypeAtHexA;
-    public terrainTypes ourTerrainTypeAtHexB;
-    public terrainTypes ourTerrainTypeAtHexC;
+    private terrainTypes ourTerrainTypeAtHexA;
+    private terrainTypes ourTerrainTypeAtHexB;
+    private terrainTypes ourTerrainTypeAtHexC;
 
-    public int xCubicTileCoordinate;
-    public int yCubicTileCoordinate;
-    public int zCubicTileCoordinate;
-    public int xCubicBuildCoordinate;
-    public int yCubicBuildCoordinate;
-    public int zCubicBuildCoordinate;
+    private int xCubicTileCoordinate;
+    private int yCubicTileCoordinate;
+    private int zCubicTileCoordinate;
+    private int xCubicBuildCoordinate;
+    private int yCubicBuildCoordinate;
+    private int zCubicBuildCoordinate;
 
-    public String theirExpandedTerrainTypeFromMessage;  // expanded terrain type
-    terrainTypes theirExpandTerrainTypeIfExpansion;
+    private String theirExpandedTerrainTypeFromMessage;  // expanded terrain type
+    private terrainTypes theirExpandTerrainTypeIfExpansion;
 
-    public int scoreOfPlayer1;
-    public int scoreOfPlayer2;
-    public int numberOfRounds;
-    public int orientation;
-    public int xOddRTileCoordinate;
-    public int yOddRTileCoordinate;
-    int theirXOddRBuildCoordinate;
-    int theirYOddRBuildCoordinate;
+    private int scoreOfPlayer1;
+    private int scoreOfPlayer2;
+    private int numberOfRounds;
+    private int orientation;
+    private int colOddRTileCoordinate;
+    private int rowOddRTileCoordinate;
+    private int theirColOddRBuildCoordinate;
+    private int theirRowOddRBuildCoordinate;
 
-    boolean theyForfeitedFlag = false;
-    boolean theyLostFlag = false;
-    boolean endOfRoundFlag = false;
-    boolean endOfChallenges = false;
-    boolean waitingForNextMatchFlag = false;
+    private boolean theyForfeitedFlag = false;
+    private boolean theyLostFlag = false;
+    private boolean endOfRoundFlag = false;
+    private boolean endOfChallenges = false;
+    private boolean waitingForNextMatchFlag = false;
 
-    BuildType theirMoveType;
+    private BuildType theirMoveType;
 
-    public String terrainOrderingOfTheirTile = "";
+    private String terrainOrderingOfTheirTile = "";
 
     Decoder() {
 
@@ -100,7 +95,6 @@ public class Decoder {
                 setPlayerID1(currentWord);
             }
         }
-        //Set to our Player ID
     }
 
     void messageStartsWithNew(String messageFromServer){
@@ -115,7 +109,7 @@ public class Decoder {
             }
             else if(currentWord.equals("PLAY")){
                 currentWord = sc.next();
-                numberOfRounds = Integer.parseInt(currentWord);
+                setNumberOfRounds(Integer.parseInt(currentWord));
             }
             else if(currentWord.equals("PLAYER")){
                 currentWord = sc.next();
@@ -148,17 +142,17 @@ public class Decoder {
                 setGameID(currentWord);
             } else if(currentWord.equals("WITHIN")){
                 currentWord = sc.next();
-                timeToCompleteTurn = Float.parseFloat(currentWord);
+                setTimeToCompleteTurn(Double.parseDouble(currentWord));
             } else if(currentWord.equals("MOVE")){
                 currentWord = sc.next();
                 if(!currentWord.equals("IN")) {
-                    currentMoveNum = Integer.parseInt(currentWord);
+                    setCurrentMoveNum(Integer.parseInt(currentWord));
                 }
             } else if(currentWord.equals("PLACE")){
                 currentWord = sc.next();
-                tileTerrainStringOfFormatAandB = currentWord;
-                orientation = 1;
-                convertTileStringToTileObject(tileTerrainStringOfFormatAandB, orientation, true);
+                setTileTerrainStringOfFormatAandB(currentWord);
+                setOrientation(1);
+                convertTileStringToTileObject(getTileTerrainStringOfFormatAandB(), getOrientation(), true);
 
 
             }
@@ -184,46 +178,46 @@ public class Decoder {
                 currentWord = sc.next();
 
                 if(currentWord.equals(getPlayerID1())){
-                    scoreOfPlayer1 = Integer.parseInt(sc.next());
+                    setScoreOfPlayer1(Integer.parseInt(sc.next()));
                 }else{
-                    scoreOfPlayer2 = Integer.parseInt(sc.next());
+                    setScoreOfPlayer2(Integer.parseInt(sc.next()));
                 }
 
                 sc.next();
                 currentWord = sc.next();
 
                 if(currentWord.equals(getPlayerID1())){
-                    scoreOfPlayer1 = Integer.parseInt(sc.next());
+                    setScoreOfPlayer1(Integer.parseInt(sc.next()));
                 }else{
-                    scoreOfPlayer2 = Integer.parseInt(sc.next());
+                    setScoreOfPlayer2(Integer.parseInt(sc.next()));
                 }
             } else if (currentWord.equals("MOVE")) {
                 currentWord = sc.next();
-                currentMoveNum = Integer.parseInt(currentWord);
+                setCurrentMoveNum(Integer.parseInt(currentWord));
             } else if (currentWord.equals("PLAYER")){
                 currentWord = sc.next();
                 setCurrentMovePlayerID(currentWord);
             } else if(currentWord.equals("PLACED")){
 
-                tileTerrainStringOfFormatAandB = sc.next();
+                setTileTerrainStringOfFormatAandB(sc.next());
 
                 sc.next();
 
-                xCubicTileCoordinate = Integer.parseInt(sc.next());
-                yCubicTileCoordinate = Integer.parseInt(sc.next());
-                zCubicTileCoordinate = Integer.parseInt(sc.next());
-                orientation = Integer.parseInt(sc.next());
+                setxCubicTileCoordinate(Integer.parseInt(sc.next()));
+                setyCubicTileCoordinate(Integer.parseInt(sc.next()));
+                setzCubicTileCoordinate(Integer.parseInt(sc.next()));
+                setOrientation(Integer.parseInt(sc.next()));
 
 
+                setTheirTileColumnPosition(convertCoordinatesBasedOnOrientation(convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getColumnPosition(), convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getRowPosition(),orientation).getColumnPosition());
+                setTheirTileRowPosition(convertCoordinatesBasedOnOrientation(convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getColumnPosition(), convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getRowPosition(),orientation).getRowPosition());
+                setTerrainOrderingOfTheirTile(convertTileStringToTileObject(tileTerrainStringOfFormatAandB, orientation, false));
 
-                theirTileColumnPosition = convertCoordinatesBasedOnOrientation(convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getColumnPosition(), convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getRowPosition(),orientation).getColumnPosition();
-                theirTileRowPosition = convertCoordinatesBasedOnOrientation(convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getColumnPosition(), convertTileCoordinatesFromCubicToOddROffset(xCubicTileCoordinate, yCubicTileCoordinate, zCubicTileCoordinate).getRowPosition(),orientation).getRowPosition();
-                terrainOrderingOfTheirTile =  convertTileStringToTileObject(tileTerrainStringOfFormatAandB, orientation, false);
 
-                if(orientation%2 == 0){
-                    theirTileIsFlipped = true;
+                if(getOrientation()%2 == 0){
+                    setTheirTileIsFlipped(true);
                 }else{
-                    theirTileIsFlipped = false;
+                    setTheirTileIsFlipped(false);
                 }
 
                  //DEBUGGING PURPOSES
@@ -235,19 +229,19 @@ public class Decoder {
                 if(currentWord.equals("FOUNDED")){
                     sc.next();
                     sc.next();
-                    xCubicBuildCoordinate = Integer.parseInt(sc.next());
-                    yCubicBuildCoordinate = Integer.parseInt(sc.next());
-                    zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                    setxCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                    setyCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                    setzCubicBuildCoordinate(Integer.parseInt(sc.next()));
                     setTheirMoveType(BuildType.FOUND_SETTLEMENT);
                 }
                 else if(currentWord.equals("EXPANDED")){
                     sc.next();
                     sc.next();
-                    xCubicBuildCoordinate = Integer.parseInt(sc.next());
-                    yCubicBuildCoordinate = Integer.parseInt(sc.next());
-                    zCubicBuildCoordinate = Integer.parseInt(sc.next());
-                    theirExpandedTerrainTypeFromMessage = sc.next();
-                    setTheirExpansionTerrainType(theirExpandedTerrainTypeFromMessage);
+                    setxCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                    setyCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                    setzCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                    setTheirExpandedTerrainTypeFromMessage(sc.next());
+                    setTheirExpansionTerrainType(getTheirExpandedTerrainTypeFromMessage());
                     setTheirMoveType(BuildType.EXPAND_SETTLMENT);
                 }
                 else if(currentWord.equals("BUILT")){
@@ -255,17 +249,17 @@ public class Decoder {
                     if(currentWord.equals("TOTORO")){
                         sc.next();
                         sc.next();
-                        xCubicBuildCoordinate = Integer.parseInt(sc.next());
-                        yCubicBuildCoordinate = Integer.parseInt(sc.next());
-                        zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        setxCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                        setyCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                        setzCubicBuildCoordinate(Integer.parseInt(sc.next()));
                         setTheirMoveType(BuildType.PLACE_TOTORO);
                     }
                     else if(currentWord.equals("TIGER")){
                         sc.next();
                         sc.next();
-                        xCubicBuildCoordinate = Integer.parseInt(sc.next());
-                        yCubicBuildCoordinate = Integer.parseInt(sc.next());
-                        zCubicBuildCoordinate = Integer.parseInt(sc.next());
+                        setxCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                        setyCubicBuildCoordinate(Integer.parseInt(sc.next()));
+                        setzCubicBuildCoordinate(Integer.parseInt(sc.next()));
                         setTheirMoveType(BuildType.PLACE_TIGER);
                     }
 
@@ -273,10 +267,10 @@ public class Decoder {
 
                 convertBuildCoordinatesFromCubicToOddROffset(xCubicBuildCoordinate, yCubicBuildCoordinate, zCubicBuildCoordinate);
             } else if(currentWord.equals("FORFEITED:")){
-                theyForfeitedFlag = true;
+                setTheyForfeitedFlag(true);
             }
             else if(currentWord.equals("LOST:")){
-                theyLostFlag = true;
+                setTheyLostFlag(true);
             }
 
 
@@ -288,15 +282,15 @@ public class Decoder {
 
     void setTheirExpansionTerrainType(String theirExpandedTerrainTypeFromMessage){
         if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'V'){
-            theirExpandTerrainTypeIfExpansion = terrainTypes.VOLCANO;
+            setTheirExpandTerrainTypeIfExpansion(terrainTypes.VOLCANO);
         } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'J'){
-            theirExpandTerrainTypeIfExpansion = terrainTypes.JUNGLE;
+            setTheirExpandTerrainTypeIfExpansion(terrainTypes.JUNGLE);
         } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'R'){
-            theirExpandTerrainTypeIfExpansion = terrainTypes.ROCKY;
+            setTheirExpandTerrainTypeIfExpansion(terrainTypes.ROCKY);
         } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'L'){
-            theirExpandTerrainTypeIfExpansion = terrainTypes.LAKE;
+            setTheirExpandTerrainTypeIfExpansion(terrainTypes.LAKE);
         } else if(theirExpandedTerrainTypeFromMessage.charAt(0) == 'G') {
-            theirExpandTerrainTypeIfExpansion = terrainTypes.GRASSLANDS;
+            setTheirExpandTerrainTypeIfExpansion(terrainTypes.GRASSLANDS);
         }
     }
 
@@ -307,11 +301,13 @@ public class Decoder {
         while(sc.hasNext()){
             currentWord = sc.next();
             if(currentWord.equals("ROUND")){
-                endOfRoundFlag = true;
+                setEndOfRoundFlag(true);
+                setTheyForfeitedFlag(false);
+                setTheyLostFlag(false);
             } else if(currentWord.equals("CHALLENGES")){
-               endOfChallenges = true;
+               setEndOfChallenges(true);
             } else if(currentWord.equals("WAIT")){
-                waitingForNextMatchFlag = true;
+                setWaitingForNextMatchFlag(true);
             }
         }
     }
@@ -341,26 +337,23 @@ public class Decoder {
             iterator++;
         }
 
-        tileTerrain1 = terrain1;
-        tileTerrain2 = terrain2;
-
         if(orientation == 1 || orientation == 4){
-            terrainHexAFromMessage = "VOLCANO";
-            terrainHexBFromMessage = tileTerrain1;
-            terrainHexCFromMessage = tileTerrain2;
-            terrainListOrder = "VOLCANO" + " " + tileTerrain1 + " " + tileTerrain2;
+            setTerrainHexAFromMessage("VOLCANO");
+            setTerrainHexBFromMessage(terrain1);
+            setTerrainHexCFromMessage(terrain2);
+            terrainListOrder = "VOLCANO" + " " + terrain1 + " " + terrain2;
         }
         else if(orientation == 2 || orientation == 5){
-            terrainHexAFromMessage = tileTerrain1;
-            terrainHexBFromMessage = tileTerrain2;
-            terrainHexCFromMessage = "VOLCANO";
-            terrainListOrder = tileTerrain1 + " " + tileTerrain2 + " " + "VOLCANO";
+            setTerrainHexAFromMessage(terrain1);
+            setTerrainHexBFromMessage(terrain2);
+            setTerrainHexCFromMessage("VOLCANO");
+            terrainListOrder = terrain1 + " " + terrain2 + " " + "VOLCANO";
         }
         else if(orientation == 3 || orientation == 6){
-            terrainHexAFromMessage = tileTerrain2;
-            terrainHexBFromMessage = "VOLCANO";
-            terrainHexCFromMessage = tileTerrain1;
-            terrainListOrder = tileTerrain2 + " " + "VOLCANO" + " " + tileTerrain1;
+            setTerrainHexAFromMessage(terrain2);
+            setTerrainHexBFromMessage("VOLCANO");
+            setTerrainHexCFromMessage(terrain1);
+            terrainListOrder = terrain2 + " " + "VOLCANO" + " " + terrain1;
         }
 
         if(ourTileFlag == false) {
@@ -381,47 +374,47 @@ public class Decoder {
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            theirTerrainTypeAtHexA = terrainTypes.VOLCANO;
+            setTheirTerrainTypeAtHexA(terrainTypes.VOLCANO);
         } else if(currentTerrain.charAt(0) == 'J'){
-            theirTerrainTypeAtHexA = terrainTypes.JUNGLE;
+            setTheirTerrainTypeAtHexA(terrainTypes.JUNGLE);
         } else if(currentTerrain.charAt(0) == 'R'){
-            theirTerrainTypeAtHexA = terrainTypes.ROCKY;
+            setTheirTerrainTypeAtHexA(terrainTypes.ROCKY);
         } else if(currentTerrain.charAt(0) == 'L'){
-            theirTerrainTypeAtHexA = terrainTypes.LAKE;
+            setTheirTerrainTypeAtHexA(terrainTypes.LAKE);
         } else if(currentTerrain.charAt(0) == 'G') {
-            theirTerrainTypeAtHexA = terrainTypes.GRASSLANDS;
+            setTheirTerrainTypeAtHexA(terrainTypes.GRASSLANDS);
         }
 
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            theirTerrainTypeAtHexB = terrainTypes.VOLCANO;
+            setTheirTerrainTypeAtHexB(terrainTypes.VOLCANO);
         } else if(currentTerrain.charAt(0) == 'J'){
-            theirTerrainTypeAtHexB = terrainTypes.JUNGLE;
+            setTheirTerrainTypeAtHexB(terrainTypes.JUNGLE);
         } else if(currentTerrain.charAt(0) == 'R'){
-            theirTerrainTypeAtHexB = terrainTypes.ROCKY;
+            setTheirTerrainTypeAtHexB(terrainTypes.ROCKY);
         } else if(currentTerrain.charAt(0) == 'L'){
-            theirTerrainTypeAtHexB = terrainTypes.LAKE;
+            setTheirTerrainTypeAtHexB(terrainTypes.LAKE);
         } else if(currentTerrain.charAt(0) == 'G') {
-            theirTerrainTypeAtHexB = terrainTypes.GRASSLANDS;
+            setTheirTerrainTypeAtHexB(terrainTypes.GRASSLANDS);
         }
 
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            theirTerrainTypeAtHexC = terrainTypes.VOLCANO;
+            setTheirTerrainTypeAtHexC(terrainTypes.VOLCANO);
         }
         else if(currentTerrain.charAt(0) == 'J'){
-            theirTerrainTypeAtHexC = terrainTypes.JUNGLE;
+            setTheirTerrainTypeAtHexC(terrainTypes.JUNGLE);
         }
         else if(currentTerrain.charAt(0) == 'R'){
-            theirTerrainTypeAtHexC = terrainTypes.ROCKY;
+            setTheirTerrainTypeAtHexC(terrainTypes.ROCKY);
         }
         else if(currentTerrain.charAt(0) == 'L'){
-            theirTerrainTypeAtHexC = terrainTypes.LAKE;
+            setTheirTerrainTypeAtHexC(terrainTypes.LAKE);
         }
         else if(currentTerrain.charAt(0) == 'G') {
-            theirTerrainTypeAtHexC = terrainTypes.GRASSLANDS;
+            setTheirTerrainTypeAtHexC(terrainTypes.GRASSLANDS);
         }
 
     }
@@ -434,58 +427,58 @@ public class Decoder {
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            ourTerrainTypeAtHexA = terrainTypes.VOLCANO;
+            setOurTerrainTypeAtHexA(terrainTypes.VOLCANO);
         } else if(currentTerrain.charAt(0) == 'J'){
-            ourTerrainTypeAtHexA = terrainTypes.JUNGLE;
+            setOurTerrainTypeAtHexA(terrainTypes.JUNGLE);
         } else if(currentTerrain.charAt(0) == 'R'){
-            ourTerrainTypeAtHexA = terrainTypes.ROCKY;
+            setOurTerrainTypeAtHexA(terrainTypes.ROCKY);
         } else if(currentTerrain.charAt(0) == 'L'){
-            ourTerrainTypeAtHexA = terrainTypes.LAKE;
+            setOurTerrainTypeAtHexA(terrainTypes.LAKE);
         } else if(currentTerrain.charAt(0) == 'G') {
-            ourTerrainTypeAtHexA = terrainTypes.GRASSLANDS;
+            setOurTerrainTypeAtHexA(terrainTypes.GRASSLANDS);
         }
 
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            ourTerrainTypeAtHexB = terrainTypes.VOLCANO;
+            setOurTerrainTypeAtHexB(terrainTypes.VOLCANO);
         } else if(currentTerrain.charAt(0) == 'J'){
-            ourTerrainTypeAtHexB = terrainTypes.JUNGLE;
+            setOurTerrainTypeAtHexB(terrainTypes.JUNGLE);
         } else if(currentTerrain.charAt(0) == 'R'){
-            ourTerrainTypeAtHexB = terrainTypes.ROCKY;
+            setOurTerrainTypeAtHexB(terrainTypes.ROCKY);
         } else if(currentTerrain.charAt(0) == 'L'){
-            ourTerrainTypeAtHexB = terrainTypes.LAKE;
+            setOurTerrainTypeAtHexB(terrainTypes.LAKE);
         } else if(currentTerrain.charAt(0) == 'G') {
-            ourTerrainTypeAtHexB = terrainTypes.GRASSLANDS;
+            setOurTerrainTypeAtHexB(terrainTypes.GRASSLANDS);
         }
 
         currentTerrain = sc.next();
 
         if(currentTerrain.charAt(0) == 'V'){
-            ourTerrainTypeAtHexC = terrainTypes.VOLCANO;
+            setOurTerrainTypeAtHexC(terrainTypes.VOLCANO);
         } else if(currentTerrain.charAt(0) == 'J'){
-            ourTerrainTypeAtHexC = terrainTypes.JUNGLE;
+            setOurTerrainTypeAtHexC(terrainTypes.JUNGLE);
         } else if(currentTerrain.charAt(0) == 'R'){
-            ourTerrainTypeAtHexC = terrainTypes.ROCKY;
+            setOurTerrainTypeAtHexC(terrainTypes.ROCKY);
         } else if(currentTerrain.charAt(0) == 'L'){
-            ourTerrainTypeAtHexC = terrainTypes.LAKE;
+            setOurTerrainTypeAtHexC(terrainTypes.LAKE);
         } else if(currentTerrain.charAt(0) == 'G') {
-            ourTerrainTypeAtHexC = terrainTypes.GRASSLANDS;
+            setOurTerrainTypeAtHexC(terrainTypes.GRASSLANDS);
         }
 
     }
 
     Pair convertTileCoordinatesFromCubicToOddROffset(int x, int y, int z){
-        xOddRTileCoordinate = x + (z-(z&1))/2 + 102;
-        yOddRTileCoordinate = z + 102;
-        Pair pair = new Pair(xOddRTileCoordinate, yOddRTileCoordinate);
+        setColOddRTileCoordinate(x + (z-(z&1))/2 + 102);
+        setRowOddRTileCoordinate(z + 102);
+        Pair pair = new Pair(getColOddRTileCoordinate(), getRowOddRTileCoordinate());
         return pair;
     }
 
     Pair convertBuildCoordinatesFromCubicToOddROffset(int x, int y, int z){
-        theirXOddRBuildCoordinate = x + (z-(z&1))/2 + 102;
-        theirYOddRBuildCoordinate = z + 102;
-        Pair pair = new Pair(theirXOddRBuildCoordinate, theirYOddRBuildCoordinate);
+        setTheirColOddRBuildCoordinate(x + (z-(z&1))/2 + 102);
+        setTheirRowOddRBuildCoordinate(z + 102);
+        Pair pair = new Pair(getTheirColOddRBuildCoordinate(), getTheirRowOddRBuildCoordinate());
         return pair;
     }
 
@@ -549,44 +542,364 @@ public class Decoder {
         return coordinates;
     }
 
+
+
+
+
+
+
+
+
     String getPlayerID1(){
         return this.playerID1;
-    }
-
-    String getPlayerID2(){
-        return this.playerID2;
-    }
-
-    String getChallengeID() {
-        return challengeID;
     }
 
     void setPlayerID1(String playerID1){
         this.playerID1 = playerID1;
     }
 
+    String getPlayerID2(){
+        return this.playerID2;
+    }
+
     void setPlayerID2(String playerID2){
         this.playerID2 = playerID2;
+    }
+
+    String getChallengeID() {
+        return challengeID;
     }
 
     void setChallengeID(String challengeID){
         this.challengeID = challengeID;
     }
 
+    String getCurrentRoundID() {
+        return this.currentRoundID;
+    }
+
     void setCurrentRoundID(String currentRoundID){
         this.currentRoundID = currentRoundID;
+    }
+
+    String getGameID() {
+        return gameID;
     }
 
     void setGameID(String gameID){
         this.gameID = gameID;
     }
 
+    String getCurrentMovePlayerID() {
+        return currentMovePlayerID;
+    }
+
     void setCurrentMovePlayerID(String currentMovePlayerID) {
         this.currentMovePlayerID = currentMovePlayerID;
     }
 
+    BuildType getTheirMoveType() {
+        return theirMoveType;
+    }
+
     void setTheirMoveType(BuildType theirMoveType){
         this.theirMoveType = theirMoveType;
+    }
+
+    double getTimeToCompleteTurn() {
+        return this.timeToCompleteTurn;
+    }
+
+    void setTimeToCompleteTurn(double timeToCompleteTurn) {
+        this.timeToCompleteTurn = timeToCompleteTurn;
+    }
+
+    int getCurrentMoveNum() {
+        return this.currentMoveNum;
+    }
+
+    void setCurrentMoveNum(int currentMoveNum) {
+        this.currentMoveNum = currentMoveNum;
+    }
+
+    String getTileTerrainStringOfFormatAandB() {
+        return this.tileTerrainStringOfFormatAandB;
+    }
+
+    void setTileTerrainStringOfFormatAandB(String tileTerrainStringOfFormatAandB) {
+        this.tileTerrainStringOfFormatAandB = tileTerrainStringOfFormatAandB;
+    }
+
+    String getTerrainHexAFromMessage() {
+        return this.terrainHexAFromMessage;
+    }
+
+    void setTerrainHexAFromMessage(String terrainHexAFromMessage) {
+        this.terrainHexAFromMessage = terrainHexAFromMessage;
+    }
+
+    String getTerrainHexBFromMessage() {
+        return this.terrainHexBFromMessage;
+    }
+
+    void setTerrainHexBFromMessage(String terrainHexBFromMessage) {
+        this.terrainHexBFromMessage = terrainHexBFromMessage;
+    }
+
+    String getTerrainHexCFromMessage() {
+        return this.terrainHexCFromMessage;
+    }
+
+    void setTerrainHexCFromMessage(String terrainHexCFromMessage) {
+        this.terrainHexCFromMessage = terrainHexCFromMessage;
+    }
+
+    terrainTypes getTheirTerrainTypeAtHexA() {
+        return this.theirTerrainTypeAtHexA;
+    }
+
+    void setTheirTerrainTypeAtHexA(terrainTypes theirTerrainTypeAtHexA) {
+        this.theirTerrainTypeAtHexA = theirTerrainTypeAtHexA;
+    }
+
+    terrainTypes getTheirTerrainTypeAtHexB() {
+        return this.theirTerrainTypeAtHexB;
+    }
+
+    void setTheirTerrainTypeAtHexB(terrainTypes theirTerrainTypeAtHexB) {
+        this.theirTerrainTypeAtHexB = theirTerrainTypeAtHexB;
+    }
+
+    terrainTypes getTheirTerrainTypeAtHexC() {
+        return this.theirTerrainTypeAtHexC;
+    }
+
+    void setTheirTerrainTypeAtHexC(terrainTypes theirTerrainTypeAtHexC) {
+        this.theirTerrainTypeAtHexC = theirTerrainTypeAtHexC;
+    }
+
+    int getTheirTileColumnPosition() {
+        return this.theirTileColumnPosition;
+    }
+
+    void setTheirTileColumnPosition(int theirTileColumnPosition) {
+        this.theirTileColumnPosition = theirTileColumnPosition;
+    }
+
+    int getTheirTileRowPosition() {
+        return this.theirTileRowPosition;
+    }
+
+    void setTheirTileRowPosition(int theirTileRowPosition) {
+        this.theirTileRowPosition = theirTileRowPosition;
+    }
+
+    boolean getTheirTileIsFlipped() {
+        return this.theirTileIsFlipped;
+    }
+
+    void setTheirTileIsFlipped(boolean theirTileIsFlipped) {
+        this.theirTileIsFlipped = theirTileIsFlipped;
+    }
+
+    terrainTypes getOurTerrainTypeAtHexA() {
+        return this.ourTerrainTypeAtHexA;
+    }
+
+    void setOurTerrainTypeAtHexA(terrainTypes ourTerrainTypeAtHexA) {
+        this.ourTerrainTypeAtHexA = ourTerrainTypeAtHexA;
+    }
+
+    terrainTypes getOurTerrainTypeAtHexB() {
+        return this.ourTerrainTypeAtHexB;
+    }
+
+    void setOurTerrainTypeAtHexB(terrainTypes ourTerrainTypeAtHexB) {
+        this.ourTerrainTypeAtHexB = ourTerrainTypeAtHexB;
+    }
+
+    terrainTypes getOurTerrainTypeAtHexC() {
+        return this.ourTerrainTypeAtHexC;
+    }
+
+    void setOurTerrainTypeAtHexC(terrainTypes ourTerrainTypeAtHexC) {
+        this.ourTerrainTypeAtHexC = ourTerrainTypeAtHexC;
+    }
+
+    int getxCubicTileCoordinate() {
+        return this.xCubicTileCoordinate;
+    }
+
+    void setxCubicTileCoordinate(int xCubicTileCoordinate) {
+        this.xCubicTileCoordinate = xCubicTileCoordinate;
+    }
+
+    int getyCubicTileCoordinate() {
+        return this.yCubicTileCoordinate;
+    }
+
+    void setyCubicTileCoordinate(int yCubicTileCoordinate) {
+        this.yCubicTileCoordinate = yCubicTileCoordinate;
+    }
+
+    int getzCubicTileCoordinate() {
+        return this.zCubicTileCoordinate;
+    }
+
+    void setzCubicTileCoordinate(int zCubicTileCoordinate) {
+        this.zCubicTileCoordinate = zCubicTileCoordinate;
+    }
+
+    int getxCubicBuildCoordinate() {
+        return this.xCubicBuildCoordinate;
+    }
+
+    void setxCubicBuildCoordinate(int xCubicBuildCoordinate) {
+        this.xCubicBuildCoordinate = xCubicBuildCoordinate;
+    }
+
+    int getyCubicBuildCoordinate() {
+        return this.yCubicBuildCoordinate;
+    }
+
+    void setyCubicBuildCoordinate(int yCubicBuildCoordinate) {
+        this.yCubicBuildCoordinate = yCubicBuildCoordinate;
+    }
+
+    int getzCubicBuildCoordinate() {
+        return this.zCubicBuildCoordinate;
+    }
+
+    void setzCubicBuildCoordinate(int zCubicBuildCoordinate) {
+        this.zCubicBuildCoordinate = zCubicBuildCoordinate;
+    }
+
+    String getTheirExpandedTerrainTypeFromMessage() {
+        return this.theirExpandedTerrainTypeFromMessage;
+    }
+
+    void setTheirExpandedTerrainTypeFromMessage(String theirExpandedTerrainTypeFromMessage) {
+        this.theirExpandedTerrainTypeFromMessage = theirExpandedTerrainTypeFromMessage;
+    }
+
+    terrainTypes getTheirExpandTerrainTypeIfExpansion() {
+        return this.theirExpandTerrainTypeIfExpansion;
+    }
+
+    void setTheirExpandTerrainTypeIfExpansion(terrainTypes theirExpandTerrainTypeIfExpansion) {
+        this.theirExpandTerrainTypeIfExpansion = theirExpandTerrainTypeIfExpansion;
+    }
+
+    int getScoreOfPlayer1() {
+        return this.scoreOfPlayer1;
+    }
+
+    void setScoreOfPlayer1(int scoreOfPlayer1) {
+        this.scoreOfPlayer1 = scoreOfPlayer1;
+    }
+
+    int getScoreOfPlayer2() {
+        return this.scoreOfPlayer2;
+    }
+
+    void setScoreOfPlayer2(int scoreOfPlayer2) {
+        this.scoreOfPlayer2 = scoreOfPlayer2;
+    }
+
+    int getNumberOfRounds() {
+        return this.numberOfRounds;
+    }
+
+    void setNumberOfRounds(int numberOfRounds) {
+        this.numberOfRounds = numberOfRounds;
+    }
+
+    int getOrientation() {
+        return this.orientation;
+    }
+
+    void setOrientation(int orientation) {
+        this.orientation = orientation;
+    }
+
+    int getColOddRTileCoordinate() {
+        return this.colOddRTileCoordinate;
+    }
+
+    void setColOddRTileCoordinate(int colOddRTileCoordinate) {
+        this.colOddRTileCoordinate = colOddRTileCoordinate;
+    }
+
+    int getRowOddRTileCoordinate() {
+        return this.rowOddRTileCoordinate;
+    }
+
+    void setRowOddRTileCoordinate(int rowOddRTileCoordinate) {
+        this.rowOddRTileCoordinate = rowOddRTileCoordinate;
+    }
+
+    int getTheirColOddRBuildCoordinate() {
+        return this.theirColOddRBuildCoordinate;
+    }
+
+    void setTheirColOddRBuildCoordinate(int theirColOddRBuildCoordinate) {
+        this.theirColOddRBuildCoordinate = theirColOddRBuildCoordinate;
+    }
+
+    int getTheirRowOddRBuildCoordinate() {
+        return this.theirRowOddRBuildCoordinate;
+    }
+
+    void setTheirRowOddRBuildCoordinate(int theirRowOddRBuildCoordinate) {
+        this.theirRowOddRBuildCoordinate = theirRowOddRBuildCoordinate;
+    }
+
+    boolean getTheyForfeitedFlag() {
+        return this.theyForfeitedFlag;
+    }
+
+    void setTheyForfeitedFlag(boolean theyForfeitedFlag) {
+        this.theyForfeitedFlag = theyForfeitedFlag;
+    }
+
+    boolean getTheyLostFlag() {
+        return this.theyLostFlag;
+    }
+
+    void setTheyLostFlag(boolean theyLostFlag) {
+        this.theyLostFlag = theyLostFlag;
+    }
+
+    boolean getEndOfRoundFlag() {
+        return this.endOfRoundFlag;
+    }
+
+    void setEndOfRoundFlag(boolean endOfRoundFlag) {
+        this.endOfRoundFlag = endOfRoundFlag;
+    }
+
+    boolean getEndOfChallenges() {
+        return this.endOfChallenges;
+    }
+
+    void setEndOfChallenges(boolean endOfChallenges) {
+        this.endOfChallenges = endOfChallenges;
+    }
+
+    boolean getWaitingForNextMatchFlag() {
+        return this.waitingForNextMatchFlag;
+    }
+
+    void setWaitingForNextMatchFlag(boolean waitingForNextMatchFlag) {
+        this.waitingForNextMatchFlag = waitingForNextMatchFlag;
+    }
+
+    String getTerrainOrderingOfTheirTile() {
+        return this.terrainOrderingOfTheirTile;
+    }
+
+    void setTerrainOrderingOfTheirTile(String terrainOrderingOfTheirTile) {
+        this.terrainOrderingOfTheirTile = terrainOrderingOfTheirTile;
     }
 
 }
