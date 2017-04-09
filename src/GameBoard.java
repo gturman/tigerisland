@@ -313,7 +313,7 @@ public class GameBoard {
         return noEmptySpacesBelowEvenFlippedTile(colPos, rowPos) &&
                 allHexesBelowEvenFlippedTileAreAtSameLevel(colPos, rowPos) &&
                 notCoveringEntireEvenFlippedTile(colPos, rowPos) &&
-                /*noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&*/
+                noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&
                 noTotoroBelowEvenFlippedTile(colPos, rowPos);
     }
 
@@ -321,7 +321,7 @@ public class GameBoard {
         return noEmptySpacesBelowOddFlippedTile(colPos, rowPos) &&
                 allHexesBelowOddFlippedTileAreAtSameLevel(colPos, rowPos) &&
                 notCoveringEntireOddFlippedTile(colPos, rowPos) &&
-                /*noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&*/
+                noTigerPenBelowOddFlippedTile(colPos, rowPos) &&
                 noTotoroBelowOddFlippedTile(colPos, rowPos);
     }
 
@@ -329,7 +329,7 @@ public class GameBoard {
         return noEmptySpacesBelowEvenNotFlippedTile(colPos, rowPos) &&
                 allHexesBelowEvenNotFlippedTileAreAtSameLevel(colPos, rowPos) &&
                 notCoveringEntireEvenNotFlippedTile(colPos, rowPos) &&
-                /*noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&*/
+                noTigerPenBelowEvenNotFlippedTile(colPos, rowPos) &&
                 noTotoroBelowEvenNotFlippedTile(colPos, rowPos);
     }
 
@@ -337,7 +337,7 @@ public class GameBoard {
         return noEmptySpacesBelowOddNotFlippedTile(colPos, rowPos) &&
                 allHexesBelowOddNotFlippedTileAreAtSameLevel(colPos, rowPos) &&
                 notCoveringEntireOddNotFlippedTile(colPos, rowPos) &&
-                /*noTigerPenBelowEvenFlippedTile(colPos, rowPos) &&*/
+                noTigerPenBelowOddNotFlippedTile(colPos, rowPos) &&
                 noTotoroBelowOddNotFlippedTile(colPos, rowPos);
     }
 
@@ -412,7 +412,7 @@ public class GameBoard {
                 && gameBoardPositionArray[colPos][rowPos].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID()
                 && gameBoardPositionArray[colPos][rowPos - 1].getParentTileID() == gameBoardPositionArray[colPos + 1][rowPos - 1].getParentTileID());
     }
-/*
+
     private boolean noTigerPenBelowEvenFlippedTile(int colPos, int rowPos) {
         return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
                 && gameBoardPositionArray[colPos][rowPos + 1].getTigerCount() == 0
@@ -435,7 +435,7 @@ public class GameBoard {
         return gameBoardPositionArray[colPos][rowPos].getTigerCount() == 0
                 && gameBoardPositionArray[colPos][rowPos - 1].getTigerCount() == 0
                 && gameBoardPositionArray[colPos + 1][rowPos - 1].getTigerCount() == 0;
-    }*/
+    }
 
     private boolean noTotoroBelowEvenFlippedTile(int colPos, int rowPos) {
         return gameBoardPositionArray[colPos][rowPos].getTotoroCount() == 0 // not nuking over a totoro
@@ -721,10 +721,10 @@ public class GameBoard {
         if(hexHasSettlersOnIt(new Pair(colPos,rowPos))) {
             decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
         }
-        else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
-            decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-            decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-        }
+  //      else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
+   //         decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+    //        decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+     //   }
         tileToBePlaced.getHexA().setLevel(gameBoardPositionArray[colPos][rowPos].getLevel() + 1);
         gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexA();
     }
@@ -733,10 +733,10 @@ public class GameBoard {
         if(hexHasSettlersOnIt(new Pair(colPos,rowPos))) {
             decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
         }
-        else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
-            decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-            decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-        }
+   //     else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
+    //        decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+     //       decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+      //  }
         tileToBePlaced.getHexB().setLevel(gameBoardPositionArray[colPos][rowPos].getLevel() + 1);
         gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexB();
     }
@@ -745,10 +745,10 @@ public class GameBoard {
         if(hexHasSettlersOnIt(new Pair(colPos,rowPos))) {
             decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
         }
-        else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
-            decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-            decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-        }
+    //    else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
+     //       decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+      //      decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+      //  }
         tileToBePlaced.getHexC().setLevel(gameBoardPositionArray[colPos][rowPos].getLevel() + 1);
         gameBoardPositionArray[colPos][rowPos] = tileToBePlaced.getHexC();
     }

@@ -647,7 +647,7 @@ public class GameBoardTest {
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(102, 101, fourthTile), false);
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(103, 102, fifthTile), false);
     }
-/*
+
     @Test
     public void testPreventingNukeIfTigerPenIsOnAHex() {
         GameBoard gameBoard = new GameBoard();
@@ -674,7 +674,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(102, 101, fourthTile), false);
         Assert.assertEquals(gameBoard.nukeAtPositionIsValid(103, 102, fifthTile), false);
-    }*/
+    }
 
     @Test
     public void testPreventingNukeIfNukeCoversSize1Settlement() {
@@ -2554,7 +2554,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
     }
-
+/*
     @Test
     public void testIfNukeDecrementsTigerPenCountForHexC() {
         GameBoard gameboard = new GameBoard();
@@ -2624,7 +2624,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getTigerCount(), 0);
     }
-
+*/
     @Test
     public void testIfSplitSettlementsUpdatesSettlementListValuesForTotoroNextToNukedHexes() {
         GameBoard gameboard = new GameBoard();
