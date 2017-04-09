@@ -19,6 +19,7 @@ public class TournamentClient {
 
     public void waitReceiveAndDecode() throws IOException {
 
+        this.mainDecoder = new Decoder();
         String fromServer;
         currentMessage = client.waitAndReceive();
         mainDecoder.decodeString(currentMessage);
@@ -27,6 +28,7 @@ public class TournamentClient {
 
     public String authentication() throws IOException {
 
+        this.mainDecoder = new Decoder();
         String messageFromServer;
         String messageFromClient;
 
@@ -41,9 +43,9 @@ public class TournamentClient {
                 client.send(messageFromClient);
 
                 messageFromServer = client.waitAndReceive();
-                //TODO: need to fix mainDecoder method
-                //int pid = mainDecoder.messageStartsWithWait(messageFromServer);
-                String pid = "pid";
+                mainDecoder.messageStartsWithWait(messageFromServer);
+                String pid = mainDecoder.getPlayerID1();
+                //String pid = "pid";
                 if (messageFromServer.equals("WAIT FOR THE TOURNAMENT TO BEGIN " + pid)) {
                     return "OK";
                 }
@@ -59,9 +61,8 @@ public class TournamentClient {
 
         client = new Client(hostname, port);
         this.tournamentPassword = tournamentPassword;
-        this.username = "username";
-        this.password = "password";
-        this.mainDecoder = new Decoder();
+        this.username = username;
+        this.password = password;
 
     }
 }
