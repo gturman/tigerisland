@@ -1,56 +1,67 @@
-/**
- * Created by geoff on 4/4/17.
- */
+import java.io.IOException;
 
-import java.io.*;
-import java.net.*;
+/**
+ * Created by geoff on 4/6/17.
+ */
 
 public class TournamentClient {
 
-    public Socket Socket;
-    public PrintWriter out;
-    public BufferedReader in;
-
-    TournamentClient(String hostname, String port){
-
-        int portNumber = Integer.parseInt(port);
-
-        try{
-            Socket = new Socket(hostname, portNumber);
-            out = new PrintWriter(Socket.getOutputStream(),
-                    true);
-            in = new BufferedReader(new InputStreamReader(
-                    Socket.getInputStream()));
-        } catch (UnknownHostException e) {
-            System.out.println("Server ERROR: Don't know about host " + hostname);
-            System.exit(1);
-        } catch  (IOException e) {
-            System.out.println("Server ERROR: Unable to connect to " + hostname);
-            System.out.println("If you're just running tests, make sure to run" +
-                            " \"java TournamentMockServer\". If we're trying to" +
-                            " connect to Dave's server, there's something wrong!");
-            System.exit(1);
-        }
-
-    }
-
-    public String waitAndReceive() throws IOException {
-
-        String fromServer;
-
-        fromServer = in.readLine();
-        if (fromServer != null) {
-            System.out.println(fromServer);
-            return fromServer;
-        }
-        else {
-            return null;
-        }
-    }
+    public Client client;
+    public String tournamentPassword;
+    public String username;
+    public String password;
+    public Decoder decode;
+    public String currentMessage;
 
     public void send(String message) {
-        System.out.println(message);
-        out.println(message);
+        client.send(message);
     }
 
+    public void waitReceiveAndDecode() throws IOException {
+
+        String fromServer;
+        currentMessage = client.waitAndReceive();
+        decode.decodeString(currentMessage);
+
+    }
+
+    public String authentication() throws IOException {
+
+        String messageFromServer;
+        String messageFromClient;
+
+        messageFromServer = client.waitAndReceive();
+        if (messageFromServer.equals("WELCOME TO ANOTHER EDITION OF THUNDERDOME!")){
+            messageFromClient = "ENTER THUNDERDOME " + tournamentPassword;
+            client.send(messageFromClient);
+
+            messageFromServer = client.waitAndReceive();
+            if (messageFromServer.equals("TWO SHALL ENTER, ONE SHALL LEAVE")) {
+                messageFromClient = "I AM " + username + " " + password;
+                client.send(messageFromClient);
+
+                messageFromServer = client.waitAndReceive();
+                //TODO: need to fix decode method
+                //int pid = decode.messageStartsWithWait(messageFromServer);
+                String pid = "pid";
+                if (messageFromServer.equals("WAIT FOR THE TOURNAMENT TO BEGIN " + pid)) {
+                    return "OK";
+                }
+            }
+        }
+
+        // if we don't get the messages correctly, in order
+        return null;
+    }
+
+    TournamentClient(String hostname, String port, String tournamentPassword,
+                     String username, String password) throws IOException {
+
+        client = new Client(hostname, port);
+        this.tournamentPassword = tournamentPassword;
+        this.username = "username";
+        this.password = "password";
+        this.decode = new Decoder();
+
+    }
 }

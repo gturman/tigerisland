@@ -51,14 +51,14 @@ public class TournamentMockServer {
             while ((inputLine = in.readLine()) != null) {
 
                 outputLine = processInput(inputLine);
-		if (outputLine == null) {
-			System.out.println("Had trouble processing input,"+
-					" was null, exiting...");
-			break;
-		}
-                if (outputLine.equals("THANK YOU FOR PLAYING! GOODBYE"))
+                if (outputLine == null) {
+                    System.out.println("Had trouble processing input,"+
+                            " was null, exiting...");
                     break;
-		out.println(outputLine);
+                }
+                if (outputLine.equals("THANK YOU FOR PLAYING! GOODBYE"))
+                            break;
+                out.println(outputLine);
 
             }
 
