@@ -412,4 +412,17 @@ public class DecoderTest {
         Assert.assertEquals(terrainTypes.VOLCANO,dc.getOurTerrainTypeAtHexB());
         Assert.assertEquals(terrainTypes.ROCKY,dc.getOurTerrainTypeAtHexC());
     }
+
+    @Test
+
+    public void testGameTileFlipping(){
+        Decoder dc = new Decoder();
+        dc.decodeString("GAME POL23 MOVE 12 PLAYER AB PLACED ROCK+GRASS AT 0 0 0 4 FOUNDED SETTLEMENT AT 0 0 0");
+        Assert.assertEquals(dc.getTheirTileIsFlipped(), true);
+
+        dc.decodeString("GAME POL23 MOVE 12 PLAYER AB PLACED ROCK+GRASS AT 0 0 0 5 FOUNDED SETTLEMENT AT 0 0 0");
+        Assert.assertEquals(dc.getTheirTileIsFlipped(), false);
+    }
+
+
 }
