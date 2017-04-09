@@ -252,8 +252,6 @@ public class GameBoard {
         return hex.getCoordinatePair().getRowPosition();
     }
 
-// todo: can nuke tigers
-
     void nukeTiles(int colPos, int rowPos, Tile tileToBePlaced) {
         if (nukeAtPositionIsValid(colPos, rowPos, tileToBePlaced)) {
             if (tileIsEvenAndFlipped(rowPos, tileToBePlaced))
@@ -720,7 +718,11 @@ public class GameBoard {
     }
 
     private void setHexALevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
+        if(hexHasSettlersOnIt(new Pair(colPos,rowPos))) {
+            decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+        }
+        else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
+            decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
             decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
         }
         tileToBePlaced.getHexA().setLevel(gameBoardPositionArray[colPos][rowPos].getLevel() + 1);
@@ -728,7 +730,11 @@ public class GameBoard {
     }
 
     private void setHexBLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
+        if(hexHasSettlersOnIt(new Pair(colPos,rowPos))) {
+            decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+        }
+        else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
+            decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
             decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
         }
         tileToBePlaced.getHexB().setLevel(gameBoardPositionArray[colPos][rowPos].getLevel() + 1);
@@ -736,7 +742,11 @@ public class GameBoard {
     }
 
     private void setHexCLevelAndUpdateGameBoard(int colPos, int rowPos, Tile tileToBePlaced) {
-        if(hexToBeNukedHasSettlement(gameBoardPositionArray[colPos][rowPos])) {
+        if(hexHasSettlersOnIt(new Pair(colPos,rowPos))) {
+            decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
+        }
+        else if(hexHasTigersOnIt(new Pair(colPos,rowPos))){
+            decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
             decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
         }
         tileToBePlaced.getHexC().setLevel(gameBoardPositionArray[colPos][rowPos].getLevel() + 1);
@@ -1253,8 +1263,11 @@ public class GameBoard {
             return;
         }
 
+
         Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
+
+        System.out.println("start at " + currentCoordinates.getColumnPosition() + " " + currentCoordinates.getRowPosition());
 
         markGameBoardHexAsTraversed(currentCoordinates);
         hexesToResetTraversalValue.add(currentCoordinates);
@@ -1336,7 +1349,7 @@ public class GameBoard {
             } else {
                 decrementGameBoardSettlementListSize(oldSettlementID);
             }
-        } else if (hexHasTotoroOnIt(currentCoordinates)) {
+        } else if (hexHasTotorosOnIt(currentCoordinates)) {
             incrementGameBoardSettlementListSize(masterSettlementID);
             incrementGameBoardSettlementListTotoroCount(masterSettlementID);
             if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
@@ -1345,7 +1358,7 @@ public class GameBoard {
                 decrementGameBoardSettlementListSize(oldSettlementID);
                 decrementGameBoardSettlementListTotoroCount(oldSettlementID);
             }
-        } else if (hexHasTigerOnIt(currentCoordinates)) {
+        } else if (hexHasTigersOnIt(currentCoordinates)) {
             incrementGameBoardSettlementListSize(masterSettlementID);
             incrementGameBoardSettlementListTigerCount(masterSettlementID);
             if(getGameBoardSettlementListSettlementSize(oldSettlementID) == 1){
@@ -1368,7 +1381,7 @@ public class GameBoard {
                 decrementGameBoardSettlementListSize(oldSettlementID);
             }
         }
-        else if (hexHasTotoroOnIt(new Pair(colPos, rowPos))) {
+        else if (hexHasTotorosOnIt(new Pair(colPos, rowPos))) {
             incrementGameBoardSettlementListSize(masterSettlementID);
             incrementGameBoardSettlementListTotoroCount(masterSettlementID);
 
@@ -1380,7 +1393,7 @@ public class GameBoard {
                 decrementGameBoardSettlementListTotoroCount(oldSettlementID);
             }
         }
-        else if (hexHasTigerOnIt(new Pair(colPos, rowPos))) {
+        else if (hexHasTigersOnIt(new Pair(colPos, rowPos))) {
             incrementGameBoardSettlementListSize(masterSettlementID);
             incrementGameBoardSettlementListTigerCount(masterSettlementID);
 
@@ -1478,10 +1491,10 @@ public class GameBoard {
             } else { // else just decrement values in list of that settlement for size/totoro/tiger pen
                 if (hexHasSettlersOnIt(new Pair(colPos, rowPos))) {
                     decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-                } else if (hexHasTotoroOnIt(new Pair(colPos, rowPos))) {
+                } else if (hexHasTotorosOnIt(new Pair(colPos, rowPos))) {
                     decrementGameBoardSettlementListTotoroCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
                     decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
-                } else if (hexHasTigerOnIt(new Pair(colPos, rowPos))) {
+                } else if (hexHasTigersOnIt(new Pair(colPos, rowPos))) {
                     decrementGameBoardSettlementListTigerCount(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
                     decrementGameBoardSettlementListSize(getGameBoardPositionSettlementID(new Pair(colPos, rowPos)));
                 }
@@ -1491,28 +1504,15 @@ public class GameBoard {
 
             if (hexHasSettlersOnIt(new Pair(colPos, rowPos))) { // update newly acquired hex with master settlement values and vice versa
                 incrementGameBoardSettlementListSize(masterSettlementID);
-            } else if (hexHasTotoroOnIt(new Pair(colPos, rowPos))) {
+            } else if (hexHasTotorosOnIt(new Pair(colPos, rowPos))) {
                 incrementGameBoardSettlementListTotoroCount(masterSettlementID);
                 incrementGameBoardSettlementListSize(masterSettlementID);
-            } else if (hexHasTigerOnIt(new Pair(colPos, rowPos))) {
+            } else if (hexHasTigersOnIt(new Pair(colPos, rowPos))) {
                 incrementGameBoardSettlementListTigerCount(masterSettlementID);
                 incrementGameBoardSettlementListSize(masterSettlementID);
             }
         }
     }
-
-
-
-    boolean areFiveSettlersInALine(int colPos, int rowPos, int playerID){
-        for(int i = 1; i<=5;i++){
-            if(gameBoardPositionArray[colPos-1][rowPos].getPlayerID()!=playerID){ //owned by player
-                if(gameBoardPositionArray[colPos-i][rowPos].getSettlerCount() < 1){ //has a settler
-                    return false;
-                }
-            }
-        }
-        return true;
-    } // when would 5 totoros be in a line?
 
 
 
@@ -1819,18 +1819,6 @@ public class GameBoard {
         return -1;
     }
 
-    private boolean hexHasSettlersOnIt(Pair currentCoordinates) {
-        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0;
-    }
-
-    private boolean hexHasTotoroOnIt(Pair currentCoordinates) {
-        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTotoroCount() == 1;
-    }
-
-    private boolean hexHasTigerOnIt(Pair currentCoordinates) {
-        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTigerCount() == 1;
-    }
-
     boolean checkIfTileBeingPlacedWillBeAdjacent(int colPos, int rowPos, Tile tileBeingPlaced) {
         if (tileBeingPlaced.isFlipped()) {
             if (validPlacementArray[colPos + 1][rowPos + 2] == 1) {
@@ -1874,6 +1862,18 @@ public class GameBoard {
             }
         }
         return false;
+    }
+
+    private boolean hexHasSettlersOnIt(Pair currentCoordinates) {
+        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0;
+    }
+
+    private boolean hexHasTotorosOnIt(Pair currentCoordinates) {
+        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTotoroCount() != 0;
+    }
+
+    private boolean hexHasTigersOnIt(Pair currentCoordinates) {
+        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getTigerCount() != 0;
     }
 
     private boolean isNotBuiltOn(int colPos, int rowPos) {
