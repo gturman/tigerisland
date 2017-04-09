@@ -23,25 +23,10 @@
       <file leaf-file-name="Decoder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Decoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+            <state relative-caret-position="198">
+              <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
               <folding>
-                <element signature="method#Decoder#0;class#Decoder#0" expanded="false" />
-                <element signature="method#decodeString#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageTypeDecode#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageStartsWithWait#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageStartsWithNew#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageStartsWithBegin#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageStartsWithMake#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageStartsWithGame#0;class#Decoder#0" expanded="false" />
-                <element signature="method#setTheirExpansionTerrainType#0;class#Decoder#0" expanded="false" />
-                <element signature="method#messageStartsWithEnd#0;class#Decoder#0" expanded="false" />
-                <element signature="method#convertTileStringToTileObject#0;class#Decoder#0" expanded="false" />
-                <element signature="method#setTheirTileTerrainTypes#0;class#Decoder#0" expanded="false" />
-                <element signature="method#setOurTileTerrainTypes#0;class#Decoder#0" expanded="false" />
-                <element signature="method#convertTileCoordinatesFromCubicToOddROffset#0;class#Decoder#0" expanded="false" />
-                <element signature="method#convertBuildCoordinatesFromCubicToOddROffset#0;class#Decoder#0" expanded="false" />
-                <element signature="method#convertCoordinatesBasedOnOrientation#0;class#Decoder#0" expanded="false" />
+                <element signature="e#29654#29655#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -50,8 +35,8 @@
       <file leaf-file-name="DecoderTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/DecoderTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-132">
-              <caret line="33" column="46" lean-forward="true" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+            <state relative-caret-position="1650">
+              <caret line="141" column="67" lean-forward="false" selection-start-line="141" selection-start-column="67" selection-end-line="141" selection-end-column="67" />
               <folding>
                 <element signature="docComment;class#DecoderTest#0" expanded="false" />
               </folding>
@@ -141,6 +126,8 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -207,8 +194,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="RunDashboard">
@@ -564,9 +549,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="allTests - 2017.04.08 at 19h 05m 22s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="allTests - 2017.04.08 at 19h 05m 52s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
@@ -594,6 +576,9 @@
     <history-entry file="allTests - 2017.04.08 at 19h 23m 27s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="allTests - 2017.04.08 at 20h 50m 27s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
@@ -608,13 +593,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2781065" sideWeight="0.5021834" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3726415" sideWeight="0.4978166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3726415" sideWeight="0.4978166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.295625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.170625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -971,18 +956,6 @@
           <caret line="439" column="5" lean-forward="false" selection-start-line="439" selection-start-column="5" selection-end-line="439" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="false" />
-            <marker date="1491692415047" expanded="true" signature="96714:96721" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="96802:96869" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="96950:97017" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="97097:97164" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="97244:97311" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="97380:100189" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="100257:103066" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="103133:103279" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="103343:103488" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="103551:103695" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="103792:105745" ph="{...}" />
-            <marker date="1491692415047" expanded="true" signature="105804:105881" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -997,33 +970,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Decoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        <state relative-caret-position="198">
+          <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
           <folding>
-            <element signature="method#Decoder#0;class#Decoder#0" expanded="false" />
-            <element signature="method#decodeString#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageTypeDecode#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageStartsWithWait#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageStartsWithNew#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageStartsWithBegin#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageStartsWithMake#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageStartsWithGame#0;class#Decoder#0" expanded="false" />
-            <element signature="method#setTheirExpansionTerrainType#0;class#Decoder#0" expanded="false" />
-            <element signature="method#messageStartsWithEnd#0;class#Decoder#0" expanded="false" />
-            <element signature="method#convertTileStringToTileObject#0;class#Decoder#0" expanded="false" />
-            <element signature="method#setTheirTileTerrainTypes#0;class#Decoder#0" expanded="false" />
-            <element signature="method#setOurTileTerrainTypes#0;class#Decoder#0" expanded="false" />
-            <element signature="method#convertTileCoordinatesFromCubicToOddROffset#0;class#Decoder#0" expanded="false" />
-            <element signature="method#convertBuildCoordinatesFromCubicToOddROffset#0;class#Decoder#0" expanded="false" />
-            <element signature="method#convertCoordinatesBasedOnOrientation#0;class#Decoder#0" expanded="false" />
+            <element signature="e#29654#29655#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/DecoderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-132">
-          <caret line="33" column="46" lean-forward="true" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+        <state relative-caret-position="1650">
+          <caret line="141" column="67" lean-forward="false" selection-start-line="141" selection-start-column="67" selection-end-line="141" selection-end-column="67" />
           <folding>
             <element signature="docComment;class#DecoderTest#0" expanded="false" />
           </folding>
