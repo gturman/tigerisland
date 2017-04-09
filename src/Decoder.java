@@ -38,8 +38,8 @@ public class Decoder {
     private String theirExpandedTerrainTypeFromMessage;  // expanded terrain type
     private terrainTypes theirExpandTerrainTypeIfExpansion;
 
-    private int scoreOfPlayer1;
-    private int scoreOfPlayer2;
+    private String scoreOfPlayer1;
+    private String scoreOfPlayer2;
     private int numberOfRounds;
     private int orientation;
     private int colOddRTileCoordinate;
@@ -178,18 +178,18 @@ public class Decoder {
                 currentWord = sc.next();
 
                 if(currentWord.equals(getPlayerID1())){
-                    setScoreOfPlayer1(Integer.parseInt(sc.next()));
+                    setScoreOfPlayer1(sc.next());
                 }else{
-                    setScoreOfPlayer2(Integer.parseInt(sc.next()));
+                    setScoreOfPlayer2(sc.next());
                 }
 
                 sc.next();
                 currentWord = sc.next();
 
                 if(currentWord.equals(getPlayerID1())){
-                    setScoreOfPlayer1(Integer.parseInt(sc.next()));
+                    setScoreOfPlayer1(sc.next());
                 }else{
-                    setScoreOfPlayer2(Integer.parseInt(sc.next()));
+                    setScoreOfPlayer2(sc.next());
                 }
             } else if (currentWord.equals("MOVE")) {
                 currentWord = sc.next();
@@ -790,19 +790,19 @@ public class Decoder {
         this.theirExpandTerrainTypeIfExpansion = theirExpandTerrainTypeIfExpansion;
     }
 
-    int getScoreOfPlayer1() {
+    String getScoreOfPlayer1() {
         return this.scoreOfPlayer1;
     }
 
-    void setScoreOfPlayer1(int scoreOfPlayer1) {
+    void setScoreOfPlayer1(String scoreOfPlayer1) {
         this.scoreOfPlayer1 = scoreOfPlayer1;
     }
 
-    int getScoreOfPlayer2() {
+    String getScoreOfPlayer2() {
         return this.scoreOfPlayer2;
     }
 
-    void setScoreOfPlayer2(int scoreOfPlayer2) {
+    void setScoreOfPlayer2(String scoreOfPlayer2) {
         this.scoreOfPlayer2 = scoreOfPlayer2;
     }
 
