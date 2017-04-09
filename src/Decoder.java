@@ -52,6 +52,9 @@ public class Decoder {
     private boolean endOfRoundFlag = false;
     private boolean endOfChallenges = false;
     private boolean waitingForNextMatchFlag = false;
+    private boolean waitingForNextChallengeFlag = false;
+
+    private boolean gameOverFlag = false;
 
     private BuildType theirMoveType;
 
@@ -93,6 +96,9 @@ public class Decoder {
             if(currentWord.equals("BEGIN") && sc.hasNext()){
                 currentWord = sc.next();
                 setPlayerID1(currentWord);
+            }
+            else if (currentWord.equals("BEGIN") && !sc.hasNext()){
+                setWaitingForNextChallengeFlag(true);
             }
         }
     }
@@ -176,6 +182,8 @@ public class Decoder {
             }else if(currentWord.equals("OVER")){
                 sc.next();
                 currentWord = sc.next();
+
+                setGameOverFlag(true);
 
                 if(currentWord.equals(getPlayerID1())){
                     setScoreOfPlayer1(Integer.parseInt(sc.next()));
@@ -900,6 +908,22 @@ public class Decoder {
 
     void setTerrainOrderingOfTheirTile(String terrainOrderingOfTheirTile) {
         this.terrainOrderingOfTheirTile = terrainOrderingOfTheirTile;
+    }
+
+    public boolean getGameOverFlag() {
+        return this.gameOverFlag;
+    }
+
+    public void setGameOverFlag(boolean gameOverFlag) {
+        this.gameOverFlag = gameOverFlag;
+    }
+
+    public boolean getWaitingForNextChallengeFlag() {
+        return this.waitingForNextChallengeFlag;
+    }
+
+    public void setWaitingForNextChallengeFlag(boolean waitingForNextChallengeFlag) {
+        this.waitingForNextChallengeFlag = waitingForNextChallengeFlag;
     }
 
 }

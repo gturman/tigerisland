@@ -10,7 +10,7 @@ public class TournamentClient {
     public String tournamentPassword;
     public String username;
     public String password;
-    public Decoder decode;
+    public Decoder mainDecoder;
     public String currentMessage;
 
     public void send(String message) {
@@ -21,7 +21,7 @@ public class TournamentClient {
 
         String fromServer;
         currentMessage = client.waitAndReceive();
-        decode.decodeString(currentMessage);
+        mainDecoder.decodeString(currentMessage);
 
     }
 
@@ -41,8 +41,8 @@ public class TournamentClient {
                 client.send(messageFromClient);
 
                 messageFromServer = client.waitAndReceive();
-                //TODO: need to fix decode method
-                //int pid = decode.messageStartsWithWait(messageFromServer);
+                //TODO: need to fix mainDecoder method
+                //int pid = mainDecoder.messageStartsWithWait(messageFromServer);
                 String pid = "pid";
                 if (messageFromServer.equals("WAIT FOR THE TOURNAMENT TO BEGIN " + pid)) {
                     return "OK";
@@ -61,7 +61,7 @@ public class TournamentClient {
         this.tournamentPassword = tournamentPassword;
         this.username = "username";
         this.password = "password";
-        this.decode = new Decoder();
+        this.mainDecoder = new Decoder();
 
     }
 }
