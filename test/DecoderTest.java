@@ -1,10 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by James on 4/8/2017.
- * and Brendan. I feel left out.
- */
+
 public class DecoderTest {
 
 
@@ -263,9 +260,9 @@ public class DecoderTest {
 
         Assert.assertEquals(dc.getGameID(), "KEVIN");
         Assert.assertEquals(dc.getPlayerID1(), "SPONGEBOB2");
-        Assert.assertEquals(dc.getScoreOfPlayer1(), 269);
+        Assert.assertEquals(dc.getScoreOfPlayer1(), "269");
         Assert.assertEquals(dc.getPlayerID2(), "SQUIDWARD2");
-        Assert.assertEquals(dc.getScoreOfPlayer2(), 2);
+        Assert.assertEquals(dc.getScoreOfPlayer2(), "2");
         
         dc.decodeString("WAIT FOR THE TOURNAMENT TO BEGIN SQUIDWARD2");
         dc.decodeString("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER SPONGEBOB2");
@@ -274,9 +271,9 @@ public class DecoderTest {
 
         Assert.assertEquals(dc.getGameID(), "KEVIN");
         Assert.assertEquals(dc.getPlayerID2(), "SPONGEBOB2");
-        Assert.assertEquals(dc.getScoreOfPlayer2(), 29);
+        Assert.assertEquals(dc.getScoreOfPlayer2(), "29");
         Assert.assertEquals(dc.getPlayerID1(), "SQUIDWARD2");
-        Assert.assertEquals(dc.getScoreOfPlayer1(), 25);
+        Assert.assertEquals(dc.getScoreOfPlayer1(), "25");
     }
 
     @Test
