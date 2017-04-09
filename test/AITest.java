@@ -1,7 +1,7 @@
 import org.junit.*;
 /**
  * Created by William on 4/4/2017.
- */
+ *//*
 public class AITest {
 
     @Test
@@ -11,7 +11,7 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.ROCKY,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,103,100);
+        game1.placeForOtherPlayer(tile1,103,100, false);
 
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[103][100].getTerrainType(),terrainTypes.VOLCANO);
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][99].getTerrainType(),terrainTypes.ROCKY);
@@ -28,12 +28,12 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.ROCKY,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,102,100);
+        game1.placeForOtherPlayer(tile1,102,100,false);
 
         Tile tile2 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.ROCKY,terrainTypes.LAKE);
         tile2.flip();
-        game1.placeForOtherPlayer(tile2,102,100);
+        game1.placeForOtherPlayer(tile2,102,100,false);
 
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][100].getTerrainType(),terrainTypes.VOLCANO);
         Assert.assertEquals(game1.gameBoard.getGameBoardPositionArray()[102][101].getTerrainType(),terrainTypes.ROCKY);
@@ -51,7 +51,7 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.ROCKY,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,103,100);
+        game1.placeForOtherPlayer(tile1,103,100, false);
 
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT,102,99,null);
 
@@ -68,12 +68,12 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,103,103);
+        game1.placeForOtherPlayer(tile1,103,103, false);
 
         Tile tile2 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
         tile2.flip();
-        game1.placeForOtherPlayer(tile2,104,100);
+        game1.placeForOtherPlayer(tile2,104,100, false);
 
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT,103,102,null);
 
@@ -97,12 +97,12 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,103,103);
+        game1.placeForOtherPlayer(tile1,103,103, false);
 
         Tile tile2 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
         tile2.flip();
-        game1.placeForOtherPlayer(tile2,104,100);
+        game1.placeForOtherPlayer(tile2,104,100, false);
 
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT,103,102,null);
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT,103,101,null);
@@ -124,12 +124,12 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,103,103);
+        game1.placeForOtherPlayer(tile1,103,103, false);
 
         Tile tile2 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
         tile2.flip();
-        game1.placeForOtherPlayer(tile2,104,100);
+        game1.placeForOtherPlayer(tile2,104,100, false);
 
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT,103,102,null);
 
@@ -159,12 +159,12 @@ public class AITest {
 
         Tile tile1 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.LAKE);
-        game1.placeForOtherPlayer(tile1,103,103);
+        game1.placeForOtherPlayer(tile1,103,103, false);
 
         Tile tile2 = new Tile(game1.gameBoard.getGameBoardTileID(),game1.gameBoard.getGameBoardHexID(),
                 terrainTypes.VOLCANO,terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS);
         tile2.flip();
-        game1.placeForOtherPlayer(tile2,104,100);
+        game1.placeForOtherPlayer(tile2,104,100, false);
 
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT,103,102,null);
 
@@ -439,4 +439,4 @@ public class AITest {
         Assert.assertEquals(game1.playerOne.getTotoroCount(),1);
 
     }
-}
+}*/

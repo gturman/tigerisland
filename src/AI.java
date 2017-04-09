@@ -29,7 +29,12 @@ public class AI {
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
     }
 
-    void placeForOtherPlayer(Tile tile, int colPos, int rowPos){
+    void placeForOtherPlayer(Tile tile, int colPos, int rowPos, boolean isFlipped){
+        if(isFlipped){
+            tile.flip();
+
+        }
+
         if(gameBoard.getGameBoardPositionArray()[colPos][rowPos]!=null) {
             if (gameBoard.getGameBoardPositionArray()[colPos][rowPos].getLevel() >= 1) {
                 gameBoard.nukeTiles(colPos, rowPos, tile);

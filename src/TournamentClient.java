@@ -19,7 +19,10 @@ public class TournamentClient {
 
     public void waitReceiveAndDecode() throws IOException {
 
+        String playerID = mainDecoder.getPlayerID1();
         this.mainDecoder = new Decoder();
+        mainDecoder.setPlayerID1(playerID);
+
         String fromServer;
         currentMessage = client.waitAndReceive();
         mainDecoder.decodeString(currentMessage);
@@ -55,6 +58,7 @@ public class TournamentClient {
         }
 
         // if we don't get the messages correctly, in order
+        System.out.println("Unable to authenticate...");
         return null;
     }
 

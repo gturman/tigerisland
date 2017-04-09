@@ -26,7 +26,7 @@ public class Main {
 
         if (ThunderDome.authentication() == "OK"){
 
-            System.out.println("Made it past authentication...");
+         //   System.out.println("Made it past authentication...");
 
             boolean challengeDone = false;
             while (!challengeDone){
@@ -55,25 +55,22 @@ public class Main {
 
                     //for constructing a tile for AI to use
                     int tileID, hexID;
-                    terrainTypes hexA, hexB, hexC;
-                    Tile givenTile;
-
                     //for constructing a string to send back to server via client
                     String AiPlaceTile, AiBuild;
 
                     ////////////////////////////////////////////////////////////////////////////////////
                     //wait for "MAKE YOUR MOVE IN GAME <gid=GameA> WITHIN 1.5 SECONDS: MOVE 1 PLACE <tile>"
                     //ThunderDome.waitReceiveAndDecode();
-                    ThunderDome.client.waitAndReceive();
-                    decoderGameA.decodeString(ThunderDome.currentMessage);
-
+                    //ThunderDome.client.waitAndReceive();
+                    String message = ThunderDome.client.waitAndReceive();
+                    decoderGameA.decodeString(message);
                     //construct the tile
                     tileID = AiGameA.gameBoard.getGameBoardTileID();
                     hexID = AiGameA.gameBoard.getGameBoardHexID();
-                    hexA = decoderGameA.getOurTerrainTypeAtHexA();
-                    hexB = decoderGameA.getOurTerrainTypeAtHexB();
-                    hexC = decoderGameA.getOurTerrainTypeAtHexC();
-                    givenTile = new Tile(tileID,hexID,hexA,hexB,hexC);
+                    terrainTypes hexA = decoderGameA.getOurTerrainTypeAtHexA();
+                    terrainTypes hexB = decoderGameA.getOurTerrainTypeAtHexB();
+                    terrainTypes hexC = decoderGameA.getOurTerrainTypeAtHexC();
+                    Tile givenTile = new Tile(tileID,hexID,hexA,hexB,hexC);
 
                     //AI makes its placement move with the tile
                     AiPlaceTile = AiGameA.placeForOurPlayer(givenTile);
@@ -86,7 +83,7 @@ public class Main {
                     moveNumber = decoderGameA.getCurrentMoveNum();
 
                     // send  GAME gameA MOVE 1 ((PLACE ROCK+JUNGLE AT 0 0 0 1)) ((FOUND SETTLEMENT AT 0 0 0))
-                    ThunderDome.send("GAME " + gameA + " MOVE " + moveNumber + AiPlaceTile + " " + AiBuild);
+                    ThunderDome.send("GAME " + gameA + " MOVE " + moveNumber + " " + AiPlaceTile + " " + AiBuild);
 
                     //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
                     ThunderDome.waitReceiveAndDecode();
@@ -105,12 +102,14 @@ public class Main {
                                 hexB = decoderGameB.getTheirTerrainTypeAtHexB();
                                 hexC = decoderGameB.getTheirTerrainTypeAtHexC();
                                 givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
+                            //    System.out.println("decoder B terrain B "+givenTile.getHexB().getTerrainType());
+                             //   System.out.println("decoder B terrain C "+givenTile.getHexC().getTerrainType());
                                 //build message components
                                 int colPos = decoderGameB.getTheirTileColumnPosition();
                                 int rowPos = decoderGameB.getTheirTileRowPosition();
 
                                 //AI makes its placement move with the tile
-                                AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos);
+                                AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos, decoderGameB.getTheirTileIsFlipped());
 
                                 //build message components
                                 BuildType moveType = decoderGameB.getTheirMoveType();
@@ -147,12 +146,14 @@ public class Main {
                                 hexB = decoderGameB.getTheirTerrainTypeAtHexB();
                                 hexC = decoderGameB.getTheirTerrainTypeAtHexC();
                                 givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
+                       //         System.out.println("decoder B terrain B "+givenTile.getHexB().getTerrainType());
+                        //        System.out.println("decoder B terrain C "+givenTile.getHexC().getTerrainType());
                                 //build message components
                                 int colPos = decoderGameB.getTheirTileColumnPosition();
                                 int rowPos = decoderGameB.getTheirTileRowPosition();
 
                                 //AI makes its placement move with the tile
-                                AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos);
+                                AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos, decoderGameB.getTheirTileIsFlipped());
 
                                 //build message components
                                 BuildType moveType = decoderGameB.getTheirMoveType();
@@ -202,7 +203,7 @@ public class Main {
                             gameA = ThunderDome.mainDecoder.getGameID();
 
                             // send  GAME gameA MOVE 1 ((PLACE ROCK+JUNGLE AT 0 0 0 1)) ((FOUND SETTLEMENT AT 0 0 0))
-                            ThunderDome.send("GAME " + gameA + " MOVE " + moveNumber + AiPlaceTile + " " + AiBuild);
+                            ThunderDome.send("GAME " + gameA + " MOVE " + moveNumber + " " + AiPlaceTile + " " + AiBuild);
 
                             //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
                             ThunderDome.waitReceiveAndDecode();
@@ -226,7 +227,7 @@ public class Main {
                                         int rowPos = decoderGameB.getTheirTileRowPosition();
 
                                         //AI makes its placement move with the tile
-                                        AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos);
+                                        AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos, decoderGameB.getTheirTileIsFlipped());
 
                                         //build message components
                                         BuildType moveType = decoderGameB.getTheirMoveType();
@@ -266,7 +267,7 @@ public class Main {
                                         int rowPos = decoderGameB.getTheirTileRowPosition();
 
                                         //AI makes its placement move with the tile
-                                        AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos);
+                                        AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos,decoderGameB.getTheirTileIsFlipped());
 
                                         //build message components
                                         BuildType moveType = decoderGameB.getTheirMoveType();
@@ -310,7 +311,7 @@ public class Main {
                             gameB = ThunderDome.mainDecoder.getGameID();
 
                             // send  GAME gameA MOVE 1 ((PLACE ROCK+JUNGLE AT 0 0 0 1)) ((FOUND SETTLEMENT AT 0 0 0))
-                            ThunderDome.send("GAME " + gameB + " MOVE " + moveNumber + AiPlaceTile + " " + AiBuild);
+                            ThunderDome.send("GAME " + gameB + " MOVE " + moveNumber + " " + AiPlaceTile + " " + AiBuild);
 
                             //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
                             ThunderDome.waitReceiveAndDecode();
@@ -334,7 +335,7 @@ public class Main {
                                         int rowPos = decoderGameA.getTheirTileRowPosition();
 
                                         //AI makes its placement move with the tile
-                                        AiGameA.placeForOtherPlayer(givenTile, colPos, rowPos);
+                                        AiGameA.placeForOtherPlayer(givenTile, colPos, rowPos,decoderGameB.getTheirTileIsFlipped());
 
                                         //build message components
                                         BuildType moveType = decoderGameA.getTheirMoveType();
@@ -374,7 +375,7 @@ public class Main {
                                         int rowPos = decoderGameA.getTheirTileRowPosition();
 
                                         //AI makes its placement move with the tile
-                                        AiGameA.placeForOtherPlayer(givenTile, colPos, rowPos);
+                                        AiGameA.placeForOtherPlayer(givenTile, colPos, rowPos,decoderGameB.getTheirTileIsFlipped());
 
                                         //build message components
                                         BuildType moveType = decoderGameA.getTheirMoveType();

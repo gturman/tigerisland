@@ -38,8 +38,10 @@ public class Client {
 
         String fromServer;
 
+        System.out.println("Waiting on server...");
         fromServer = in.readLine();
         if (fromServer != null) {
+            System.out.print("Got: ");
             System.out.println(fromServer);
             return fromServer;
         }
@@ -49,7 +51,7 @@ public class Client {
     }
 
     public void send(String message) {
-        System.out.println(message);
+        System.out.println("Sent: "+message);
         out.println(message);
     }
 
