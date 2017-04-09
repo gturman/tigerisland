@@ -366,4 +366,50 @@ public class DecoderTest {
         Assert.assertEquals(p1.getRowPosition(),101);
 
     }
+    
+     @Test
+    public void testOddTileOrientation(){
+
+        Decoder dc = new Decoder();
+
+        Pair tester = dc.convertCoordinatesBasedOnOrientation(102,101,1);
+        Assert.assertEquals(102,tester.getColumnPosition());
+        Assert.assertEquals(101,tester.getRowPosition());
+
+        tester = dc.convertCoordinatesBasedOnOrientation(102,101,2);
+        Assert.assertEquals(103,tester.getColumnPosition());
+        Assert.assertEquals(100,tester.getRowPosition());
+
+        tester = dc.convertCoordinatesBasedOnOrientation(102,101,3);
+        Assert.assertEquals(103,tester.getColumnPosition());
+        Assert.assertEquals(102,tester.getRowPosition());
+
+        tester = dc.convertCoordinatesBasedOnOrientation(102,101,6);
+        Assert.assertEquals(102,tester.getColumnPosition());
+        Assert.assertEquals(100,tester.getRowPosition());
+
+    }
+
+    @Test
+    public void testUsSettingOurTerrainTypes(){
+        Decoder dc = new Decoder();
+
+        String one = "JUNGLE GRASS VOLCANO";
+        dc.setOurTileTerrainTypes(one);
+        Assert.assertEquals(terrainTypes.JUNGLE,dc.getOurTerrainTypeAtHexA());
+        Assert.assertEquals(terrainTypes.GRASSLANDS,dc.getOurTerrainTypeAtHexB());
+        Assert.assertEquals(terrainTypes.VOLCANO,dc.getOurTerrainTypeAtHexC());
+
+        one = "ROCK JUNGLE LAKE";
+        dc.setOurTileTerrainTypes(one);
+        Assert.assertEquals(terrainTypes.ROCKY,dc.getOurTerrainTypeAtHexA());
+        Assert.assertEquals(terrainTypes.JUNGLE,dc.getOurTerrainTypeAtHexB());
+        Assert.assertEquals(terrainTypes.LAKE,dc.getOurTerrainTypeAtHexC());
+
+        one = "GRASS VOLCANO ROCK";
+        dc.setOurTileTerrainTypes(one);
+        Assert.assertEquals(terrainTypes.GRASSLANDS,dc.getOurTerrainTypeAtHexA());
+        Assert.assertEquals(terrainTypes.VOLCANO,dc.getOurTerrainTypeAtHexB());
+        Assert.assertEquals(terrainTypes.ROCKY,dc.getOurTerrainTypeAtHexC());
+    }
 }
