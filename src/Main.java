@@ -1,14 +1,44 @@
 import java.io.*;
 
-/**
- * Created by geoff on 4/6/17.
- */
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
 
         String hostName, portNumber, tournamentPassword, username, password;
+        boolean challengeIsDone = false;
+        String overallRoundID;
+        String currentRoundID = "";
+        String playerID1;
+        String playerID2;
+        AI aiForGame1;
+        AI aiForGame2;
+        String gameID1;
+        String gameID2;
+        Decoder decoderForGame1;
+        Decoder decoderForGame2;
+        boolean game1IsOver = false;
+        boolean game2IsOver = false;
+        terrainTypes tempTerrainTypeHexA;
+        terrainTypes tempTerrainTypeHexB;
+        terrainTypes tempTerrainTypeHexC;
+        int tempTileID;
+        int tempHexID;
+        Tile tempTileToPlace;
+        String ourPlacementMessage;
+        String ourBuildMessage;
+        int currentMoveNumberForGame1;
+        int currentMoveNumberForGame2;
+        int theirTileColPos;
+        int theirTileRowPos;
+        BuildType theirBuildType;
+        terrainTypes theirTerrainType;
+        boolean isTheirTileFlipped;
+        int theirBuildColPos;
+        int theirBuildRowPos;
+        String lastGameWePlayedOn;
+
+
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Preparing to enter Thunder Dome...");
         System.out.print("Enter IP: ");
@@ -22,415 +52,262 @@ public class Main {
         System.out.print("Password: ");
         password = stdIn.readLine();
 
-        TournamentClient ThunderDome = new TournamentClient(hostName, portNumber, tournamentPassword, username, password);
+        TournamentClient clientForTournament = new TournamentClient(hostName, portNumber, tournamentPassword, username, password);
 
-        if (ThunderDome.authentication() == "OK"){
+        //Creates main decoder and runs through first three messages
+        if (clientForTournament.isAuthenticated()){
+            playerID1 = clientForTournament.mainDecoder.getPlayerID1();
 
-         //   System.out.println("Made it past authentication...");
+            //while we still have challenges to play
+            while(!challengeIsDone){
+                //"NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCHES" is message 4
+                clientForTournament.waitReceiveAndDecode();
 
-            boolean challengeDone = false;
-            while (!challengeDone){
+                overallRoundID = clientForTournament.mainDecoder.getOverallRoundID();
 
-                //wait for "NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCHES"
-                ThunderDome.waitReceiveAndDecode();
+                //while we still have rounds to play
+                while(!currentRoundID.equals(overallRoundID)){
+                    //create new AI each round for each game
+                    aiForGame1 = new AI();
+                    aiForGame2 = new AI();
 
-                int moveNumber;
-                int roundsLeft = ThunderDome.mainDecoder.getNumberOfRounds();
-                while (roundsLeft != 0){
+                    //"BEGIN ROUND <rid> OF <rounds>" is message 5
+                    clientForTournament.waitReceiveAndDecode();
+                    currentRoundID = clientForTournament.mainDecoder.getCurrentRoundID();
 
-                    //wait for "BEGIN ROUND <rid> OF <rounds> "
-                    ThunderDome.waitReceiveAndDecode();
-                    //wait for "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid>"
-                    ThunderDome.waitReceiveAndDecode();
+                    //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid>" is message 6
+                    clientForTournament.waitReceiveAndDecode();
+                    playerID2 = clientForTournament.mainDecoder.getPlayerID2();
 
-                    //gameA associated with AiGameA, and so on
-                    boolean gameAon = false;
-                    boolean gameBon = false;
-                    String gameA = " ";
-                    String gameB = " ";
-                    AI AiGameA = new AI();
-                    AI AiGameB = new AI();
-                    Decoder decoderGameA = new Decoder();
-                    Decoder decoderGameB = new Decoder();
+                    //create new decoder each round for each game
+                    decoderForGame1 = new Decoder();
+                    decoderForGame2 = new Decoder();
 
-                    //for constructing a tile for AI to use
-                    int tileID, hexID;
-                    //for constructing a string to send back to server via client
-                    String AiPlaceTile, AiBuild;
+                    //"MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>" is message 7
+                    //Here we do our first move of every round for 1 singular game
+                    clientForTournament.waitReceiveAndDecode();
 
-                    ////////////////////////////////////////////////////////////////////////////////////
-                    //wait for "MAKE YOUR MOVE IN GAME <gid=GameA> WITHIN 1.5 SECONDS: MOVE 1 PLACE <tile>"
-                    //ThunderDome.waitReceiveAndDecode();
-                    //ThunderDome.client.waitAndReceive();
-                    String message = ThunderDome.client.waitAndReceive();
-                    decoderGameA.decodeString(message);
-                    //construct the tile
-                    tileID = AiGameA.gameBoard.getGameBoardTileID();
-                    hexID = AiGameA.gameBoard.getGameBoardHexID();
-                    terrainTypes hexA = decoderGameA.getOurTerrainTypeAtHexA();
-                    terrainTypes hexB = decoderGameA.getOurTerrainTypeAtHexB();
-                    terrainTypes hexC = decoderGameA.getOurTerrainTypeAtHexC();
-                    Tile givenTile = new Tile(tileID,hexID,hexA,hexB,hexC);
+                    gameID1 = clientForTournament.mainDecoder.getGameID();
+                    lastGameWePlayedOn = gameID1;
+                    currentMoveNumberForGame1 = clientForTournament.mainDecoder.getCurrentMoveNum();
 
-                    //AI makes its placement move with the tile
-                    AiPlaceTile = AiGameA.placeForOurPlayer(givenTile);
-                    //AI decides what to do for its build move
-                    AiBuild = AiGameA.buildForOurPlayer();
+                    tempTileID = aiForGame1.gameBoard.getGameBoardTileID();
+                    tempHexID = aiForGame1.gameBoard.getGameBoardHexID();
+                    tempTerrainTypeHexA = clientForTournament.mainDecoder.getOurTerrainTypeAtHexA();
+                    tempTerrainTypeHexB = clientForTournament.mainDecoder.getOurTerrainTypeAtHexB();
+                    tempTerrainTypeHexC = clientForTournament.mainDecoder.getOurTerrainTypeAtHexC();
 
-                    //construct response message
-                    gameAon = true;
-                    gameA = decoderGameA.getGameID();
-                    moveNumber = decoderGameA.getCurrentMoveNum();
+                    tempTileToPlace = new Tile(tempTileID,tempHexID,tempTerrainTypeHexA,tempTerrainTypeHexB,tempTerrainTypeHexC);
 
-                    // send  GAME gameA MOVE 1 ((PLACE ROCK+JUNGLE AT 0 0 0 1)) ((FOUND SETTLEMENT AT 0 0 0))
-                    ThunderDome.send("GAME " + gameA + " MOVE " + moveNumber + " " + AiPlaceTile + " " + AiBuild);
+                    ourPlacementMessage = aiForGame1.placeForOurPlayer(tempTileToPlace);
+                    ourBuildMessage = aiForGame1.buildForOurPlayer();
 
-                    //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
-                    ThunderDome.waitReceiveAndDecode();
-                    if (!ThunderDome.mainDecoder.getGameID().equals(gameA)){
-                        decoderGameB.decodeString(ThunderDome.currentMessage);
+                    clientForTournament.send("GAME " + gameID1 + " MOVE " + currentMoveNumberForGame1 + " " + ourPlacementMessage + " " + ourBuildMessage);
 
-                        //if not forfit or lost message, PLACED ROCK+JUNGLE AT 0 0 0 1 FOUNDED SETTLEMENT AT 0 0 0
-                        if (!decoderGameB.getTheyForfeitedFlag()) {
-                            if (!decoderGameB.getTheyLostFlag()) {
+                    //"GAME <gid> MOVE <#> PLACE <tile> AT <x> <y> <z> <orientation> <build>  is message 8
+                    //OR
+                    //GAME FORFEITED OR LOST OR OVER
+                    //[Get two back to back, one for each game]
 
-                                gameBon = true;
-                                gameB = decoderGameB.getGameID();
+                    decoderForGame1.decodeString(clientForTournament.client.waitAndReceive());
+                    decoderForGame2.decodeString(clientForTournament.client.waitAndReceive());
 
-                                //build tile
-                                hexA = decoderGameB.getTheirTerrainTypeAtHexA();
-                                hexB = decoderGameB.getTheirTerrainTypeAtHexB();
-                                hexC = decoderGameB.getTheirTerrainTypeAtHexC();
-                                givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
-                            //    System.out.println("decoder B terrain B "+givenTile.getHexB().getTerrainType());
-                             //   System.out.println("decoder B terrain C "+givenTile.getHexC().getTerrainType());
-                                //build message components
-                                int colPos = decoderGameB.getTheirTileColumnPosition();
-                                int rowPos = decoderGameB.getTheirTileRowPosition();
+                    gameID2=decoderForGame2.getGameID();
 
-                                //AI makes its placement move with the tile
-                                AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos, decoderGameB.getTheirTileIsFlipped());
-
-                                //build message components
-                                BuildType moveType = decoderGameB.getTheirMoveType();
-                                int xCoor = decoderGameB.getTheirColOddRBuildCoordinate();
-                                int yCoor = decoderGameB.getTheirRowOddRBuildCoordinate();
-                                terrainTypes expandType = decoderGameB.getTheirExpandTerrainTypeIfExpansion();
-
-                                //AI decides what to do for its build move
-                                AiGameB.buildForOtherPlayer(moveType, xCoor, yCoor, expandType);
-                            }
+                    //If the game we JUST played above has ended, set to end. We do not need to do anything otherwise.
+                    //This huge If statement correctly determines the order the server sends the messages based upon gameID
+                    //and assigns the other players move to the correct AI.
+                    if(gameID1.equals(decoderForGame1.getGameID())){
+                        if(decoderForGame1.getGameOverFlag() || decoderForGame1.getTheyForfeitedFlag() || decoderForGame1.getTheyLostFlag()){
+                            game1IsOver = true;
                         }
 
-                        ThunderDome.waitReceiveAndDecode();
-                        if (ThunderDome.mainDecoder.getGameOverFlag()){
-                            gameBon = false;
+                        if(decoderForGame2.getGameOverFlag() || decoderForGame2.getTheyForfeitedFlag() || decoderForGame2.getTheyLostFlag()){
+                            game2IsOver = true;
+                        }else{
+                            //make their move;
+                            
+                            currentMoveNumberForGame2 = decoderForGame2.getCurrentMoveNum();
+
+                            tempTileID = aiForGame2.gameBoard.getGameBoardTileID();
+                            tempHexID = aiForGame2.gameBoard.getGameBoardHexID();
+                            tempTerrainTypeHexA = decoderForGame2.getTheirTerrainTypeAtHexA();
+                            tempTerrainTypeHexB = decoderForGame2.getTheirTerrainTypeAtHexB();
+                            tempTerrainTypeHexC = decoderForGame2.getTheirTerrainTypeAtHexC();
+
+                            tempTileToPlace = new Tile(tempTileID,tempHexID,tempTerrainTypeHexA,tempTerrainTypeHexB,tempTerrainTypeHexC);
+
+                            theirTileColPos = decoderForGame2.getTheirTileColumnPosition();
+                            theirTileRowPos = decoderForGame2.getTheirTileRowPosition();
+                            theirBuildType = decoderForGame2.getTheirMoveType();
+                            theirBuildColPos = decoderForGame2.getTheirColOddRBuildCoordinate();
+                            theirBuildRowPos = decoderForGame2.getTheirRowOddRBuildCoordinate();
+                            theirTerrainType = decoderForGame2.getTheirExpandTerrainTypeIfExpansion();
+                            isTheirTileFlipped = decoderForGame2.getTheirTileIsFlipped();
+
+                            aiForGame2.placeForOtherPlayer(tempTileToPlace,theirTileColPos,theirTileRowPos,isTheirTileFlipped);
+                            aiForGame2.buildForOtherPlayer(theirBuildType,theirBuildColPos, theirBuildRowPos, theirTerrainType);
+                        }
+                    }else{
+                        if(decoderForGame2.getGameOverFlag() || decoderForGame2.getTheyForfeitedFlag() || decoderForGame2.getTheyLostFlag()){
+                            game2IsOver = true;
                         }
 
-                    } //else we ignore it
+                        if(decoderForGame1.getGameOverFlag() || decoderForGame1.getTheyForfeitedFlag() || decoderForGame1.getTheyLostFlag()){
+                            game1IsOver = true;
+                        }else{
+                            //make their move;
+                            
+                            currentMoveNumberForGame1 = decoderForGame1.getCurrentMoveNum();
 
-                    //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
-                    ThunderDome.waitReceiveAndDecode();
-                    if (!ThunderDome.mainDecoder.getGameID().equals(gameA)){
-                        decoderGameB.decodeString(ThunderDome.currentMessage);
+                            tempTileID = aiForGame1.gameBoard.getGameBoardTileID();
+                            tempHexID = aiForGame1.gameBoard.getGameBoardHexID();
+                            tempTerrainTypeHexA = decoderForGame1.getTheirTerrainTypeAtHexA();
+                            tempTerrainTypeHexB = decoderForGame1.getTheirTerrainTypeAtHexB();
+                            tempTerrainTypeHexC = decoderForGame1.getTheirTerrainTypeAtHexC();
 
-                        //if not forfit or lost message, PLACED ROCK+JUNGLE AT 0 0 0 1 FOUNDED SETTLEMENT AT 0 0 0
-                        if (!decoderGameB.getTheyForfeitedFlag()) {
-                            if (!decoderGameB.getTheyLostFlag()) {
+                            tempTileToPlace = new Tile(tempTileID,tempHexID,tempTerrainTypeHexA,tempTerrainTypeHexB,tempTerrainTypeHexC);
 
-                                gameBon = true;
-                                gameB = decoderGameB.getGameID();
+                            theirTileColPos = decoderForGame1.getTheirTileColumnPosition();
+                            theirTileRowPos = decoderForGame1.getTheirTileRowPosition();
+                            theirBuildType = decoderForGame1.getTheirMoveType();
+                            theirBuildColPos = decoderForGame1.getTheirColOddRBuildCoordinate();
+                            theirBuildRowPos = decoderForGame1.getTheirRowOddRBuildCoordinate();
+                            theirTerrainType = decoderForGame1.getTheirExpandTerrainTypeIfExpansion();
+                            isTheirTileFlipped = decoderForGame1.getTheirTileIsFlipped();
 
-                                //build tile
-                                hexA = decoderGameB.getTheirTerrainTypeAtHexA();
-                                hexB = decoderGameB.getTheirTerrainTypeAtHexB();
-                                hexC = decoderGameB.getTheirTerrainTypeAtHexC();
-                                givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
-                       //         System.out.println("decoder B terrain B "+givenTile.getHexB().getTerrainType());
-                        //        System.out.println("decoder B terrain C "+givenTile.getHexC().getTerrainType());
-                                //build message components
-                                int colPos = decoderGameB.getTheirTileColumnPosition();
-                                int rowPos = decoderGameB.getTheirTileRowPosition();
-
-                                //AI makes its placement move with the tile
-                                AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos, decoderGameB.getTheirTileIsFlipped());
-
-                                //build message components
-                                BuildType moveType = decoderGameB.getTheirMoveType();
-                                int xCoor = decoderGameB.getTheirColOddRBuildCoordinate();
-                                int yCoor = decoderGameB.getTheirRowOddRBuildCoordinate();
-                                terrainTypes expandType = decoderGameB.getTheirExpandTerrainTypeIfExpansion();
-
-                                //AI decides what to do for its build move
-                                AiGameB.buildForOtherPlayer(moveType, xCoor, yCoor, expandType);
-                            }
+                            aiForGame2.placeForOtherPlayer(tempTileToPlace,theirTileColPos,theirTileRowPos,isTheirTileFlipped);
+                            aiForGame2.buildForOtherPlayer(theirBuildType,theirBuildColPos, theirBuildRowPos, theirTerrainType);
                         }
-
-                        ThunderDome.waitReceiveAndDecode();
-                        if (ThunderDome.mainDecoder.getGameOverFlag()){
-                            gameBon = false;
-                        }
-
-                    } //else we ignore it
-
-
-                    boolean matchDone = false;
-                    while (!matchDone){
-
-                        //wait for "MAKE YOUR MOVE IN GAME <gid=GameA> WITHIN 1.5 SECONDS: MOVE 1 PLACE <tile>"
-                        ThunderDome.waitReceiveAndDecode();
-
-                        //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                        if (gameAon && ThunderDome.mainDecoder.getGameID().equals(gameA)){
-
-                            decoderGameA.decodeString(ThunderDome.currentMessage);
-
-                            //construct the tile
-                            tileID = AiGameA.gameBoard.getGameBoardTileID();
-                            hexID = AiGameA.gameBoard.getGameBoardHexID();
-                            hexA = decoderGameA.getOurTerrainTypeAtHexA();
-                            hexB = decoderGameA.getOurTerrainTypeAtHexB();
-                            hexC = decoderGameA.getOurTerrainTypeAtHexC();
-                            givenTile = new Tile(tileID,hexID,hexA,hexB,hexC);
-
-                            //AI makes its placement move with the tile
-                            AiPlaceTile = AiGameA.placeForOurPlayer(givenTile);
-                            //AI decides what to do for its build move
-                            AiBuild = AiGameA.buildForOurPlayer();
-
-                            //construct response message
-                            moveNumber = decoderGameA.getCurrentMoveNum();
-                            gameA = ThunderDome.mainDecoder.getGameID();
-
-                            // send  GAME gameA MOVE 1 ((PLACE ROCK+JUNGLE AT 0 0 0 1)) ((FOUND SETTLEMENT AT 0 0 0))
-                            ThunderDome.send("GAME " + gameA + " MOVE " + moveNumber + " " + AiPlaceTile + " " + AiBuild);
-
-                            //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
-                            ThunderDome.waitReceiveAndDecode();
-                            if (!ThunderDome.mainDecoder.getGameID().equals(gameA)) {
-                                decoderGameB.decodeString(ThunderDome.currentMessage);
-
-                                //if not forfit or lost message, PLACED ROCK+JUNGLE AT 0 0 0 1 FOUNDED SETTLEMENT AT 0 0 0
-                                if (!decoderGameB.getTheyForfeitedFlag()) {
-                                    if (!decoderGameB.getTheyLostFlag()) {
-
-                                        gameBon = true;
-                                        gameB = decoderGameB.getGameID();
-
-                                        //build tile
-                                        hexA = decoderGameB.getTheirTerrainTypeAtHexA();
-                                        hexB = decoderGameB.getTheirTerrainTypeAtHexB();
-                                        hexC = decoderGameB.getTheirTerrainTypeAtHexC();
-                                        givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
-                                        //build message components
-                                        int colPos = decoderGameB.getTheirTileColumnPosition();
-                                        int rowPos = decoderGameB.getTheirTileRowPosition();
-
-                                        //AI makes its placement move with the tile
-                                        AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos, decoderGameB.getTheirTileIsFlipped());
-
-                                        //build message components
-                                        BuildType moveType = decoderGameB.getTheirMoveType();
-                                        int xCoor = decoderGameB.getTheirColOddRBuildCoordinate();
-                                        int yCoor = decoderGameB.getTheirRowOddRBuildCoordinate();
-                                        terrainTypes expandType = decoderGameB.getTheirExpandTerrainTypeIfExpansion();
-
-                                        //AI decides what to do for its build move
-                                        AiGameB.buildForOtherPlayer(moveType, xCoor, yCoor, expandType);
-                                    }
-                                }
-
-                                ThunderDome.waitReceiveAndDecode();
-                                if (ThunderDome.mainDecoder.getGameOverFlag()) {
-                                    gameBon = false;
-                                }
-                            }
-
-                            ThunderDome.waitReceiveAndDecode();
-                            if (!ThunderDome.mainDecoder.getGameID().equals(gameA)) {
-                                decoderGameB.decodeString(ThunderDome.currentMessage);
-
-                                //if not forfit or lost message, PLACED ROCK+JUNGLE AT 0 0 0 1 FOUNDED SETTLEMENT AT 0 0 0
-                                if (!decoderGameB.getTheyForfeitedFlag()) {
-                                    if (!decoderGameB.getTheyLostFlag()) {
-
-                                        gameBon = true;
-                                        gameB = decoderGameB.getGameID();
-
-                                        //build tile
-                                        hexA = decoderGameB.getTheirTerrainTypeAtHexA();
-                                        hexB = decoderGameB.getTheirTerrainTypeAtHexB();
-                                        hexC = decoderGameB.getTheirTerrainTypeAtHexC();
-                                        givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
-                                        //build message components
-                                        int colPos = decoderGameB.getTheirTileColumnPosition();
-                                        int rowPos = decoderGameB.getTheirTileRowPosition();
-
-                                        //AI makes its placement move with the tile
-                                        AiGameB.placeForOtherPlayer(givenTile, colPos, rowPos,decoderGameB.getTheirTileIsFlipped());
-
-                                        //build message components
-                                        BuildType moveType = decoderGameB.getTheirMoveType();
-                                        int xCoor = decoderGameB.getTheirColOddRBuildCoordinate();
-                                        int yCoor = decoderGameB.getTheirRowOddRBuildCoordinate();
-                                        terrainTypes expandType = decoderGameB.getTheirExpandTerrainTypeIfExpansion();
-
-                                        //AI decides what to do for its build move
-                                        AiGameB.buildForOtherPlayer(moveType, xCoor, yCoor, expandType);
-                                    }
-                                }
-
-                                ThunderDome.waitReceiveAndDecode();
-                                if (ThunderDome.mainDecoder.getGameOverFlag()) {
-                                    gameBon = false;
-                                }
-                            }
-
-                        }//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-                        //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-                        if (gameBon && ThunderDome.mainDecoder.getGameID().equals(gameB)){
-
-                            decoderGameB.decodeString(ThunderDome.currentMessage);
-
-                            //construct the tile
-                            tileID = AiGameB.gameBoard.getGameBoardTileID();
-                            hexID = AiGameB.gameBoard.getGameBoardHexID();
-                            hexA = decoderGameB.getOurTerrainTypeAtHexA();
-                            hexB = decoderGameB.getOurTerrainTypeAtHexB();
-                            hexC = decoderGameB.getOurTerrainTypeAtHexC();
-                            givenTile = new Tile(tileID,hexID,hexA,hexB,hexC);
-
-                            //AI makes its placement move with the tile
-                            AiPlaceTile = AiGameB.placeForOurPlayer(givenTile);
-                            //AI decides what to do for its build move
-                            AiBuild = AiGameB.buildForOurPlayer();
-
-                            //construct response message
-                            moveNumber = decoderGameB.getCurrentMoveNum();
-                            gameB = ThunderDome.mainDecoder.getGameID();
-
-                            // send  GAME gameA MOVE 1 ((PLACE ROCK+JUNGLE AT 0 0 0 1)) ((FOUND SETTLEMENT AT 0 0 0))
-                            ThunderDome.send("GAME " + gameB + " MOVE " + moveNumber + " " + AiPlaceTile + " " + AiBuild);
-
-                            //wait for first GAME <gameid> MOVE 1 PLAYER <pid> ...
-                            ThunderDome.waitReceiveAndDecode();
-                            if (!ThunderDome.mainDecoder.getGameID().equals(gameB)) {
-                                decoderGameA.decodeString(ThunderDome.currentMessage);
-
-                                //if not forfit or lost message, PLACED ROCK+JUNGLE AT 0 0 0 1 FOUNDED SETTLEMENT AT 0 0 0
-                                if (!decoderGameA.getTheyForfeitedFlag()) {
-                                    if (!decoderGameA.getTheyLostFlag()) {
-
-                                        gameAon = true;
-                                        gameA = decoderGameA.getGameID();
-
-                                        //build tile
-                                        hexA = decoderGameA.getTheirTerrainTypeAtHexA();
-                                        hexB = decoderGameA.getTheirTerrainTypeAtHexB();
-                                        hexC = decoderGameA.getTheirTerrainTypeAtHexC();
-                                        givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
-                                        //build message components
-                                        int colPos = decoderGameA.getTheirTileColumnPosition();
-                                        int rowPos = decoderGameA.getTheirTileRowPosition();
-
-                                        //AI makes its placement move with the tile
-                                        AiGameA.placeForOtherPlayer(givenTile, colPos, rowPos,decoderGameB.getTheirTileIsFlipped());
-
-                                        //build message components
-                                        BuildType moveType = decoderGameA.getTheirMoveType();
-                                        int xCoor = decoderGameA.getTheirColOddRBuildCoordinate();
-                                        int yCoor = decoderGameA.getTheirRowOddRBuildCoordinate();
-                                        terrainTypes expandType = decoderGameA.getTheirExpandTerrainTypeIfExpansion();
-
-                                        //AI decides what to do for its build move
-                                        AiGameA.buildForOtherPlayer(moveType, xCoor, yCoor, expandType);
-                                    }
-                                }
-
-                                ThunderDome.waitReceiveAndDecode();
-                                if (ThunderDome.mainDecoder.getGameOverFlag()) {
-                                    gameAon = false;
-                                }
-                            }
-
-                            ThunderDome.waitReceiveAndDecode();
-                            if (!ThunderDome.mainDecoder.getGameID().equals(gameB)) {
-                                decoderGameA.decodeString(ThunderDome.currentMessage);
-
-                                //if not forfit or lost message, PLACED ROCK+JUNGLE AT 0 0 0 1 FOUNDED SETTLEMENT AT 0 0 0
-                                if (!decoderGameA.getTheyForfeitedFlag()) {
-                                    if (!decoderGameA.getTheyLostFlag()) {
-
-                                        gameAon = true;
-                                        gameA = decoderGameA.getGameID();
-
-                                        //build tile
-                                        hexA = decoderGameA.getTheirTerrainTypeAtHexA();
-                                        hexB = decoderGameA.getTheirTerrainTypeAtHexB();
-                                        hexC = decoderGameA.getTheirTerrainTypeAtHexC();
-                                        givenTile = new Tile(tileID, hexID, hexA, hexB, hexC);
-                                        //build message components
-                                        int colPos = decoderGameA.getTheirTileColumnPosition();
-                                        int rowPos = decoderGameA.getTheirTileRowPosition();
-
-                                        //AI makes its placement move with the tile
-                                        AiGameA.placeForOtherPlayer(givenTile, colPos, rowPos,decoderGameB.getTheirTileIsFlipped());
-
-                                        //build message components
-                                        BuildType moveType = decoderGameA.getTheirMoveType();
-                                        int xCoor = decoderGameA.getTheirColOddRBuildCoordinate();
-                                        int yCoor = decoderGameA.getTheirRowOddRBuildCoordinate();
-                                        terrainTypes expandType = decoderGameA.getTheirExpandTerrainTypeIfExpansion();
-
-                                        //AI decides what to do for its build move
-                                        AiGameA.buildForOtherPlayer(moveType, xCoor, yCoor, expandType);
-                                    }
-                                }
-
-                                ThunderDome.waitReceiveAndDecode();
-                                if (ThunderDome.mainDecoder.getGameOverFlag()) {
-                                    gameAon = false;
-                                }
-                            }
-
-                        }//BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-
-                        if (gameAon == false && gameBon == false){
-                            break;
-                        }
-
                     }
+                    //After placing first move and their first move, if both games haven't ended due to a
+                    //forfeit, lost, or game over message, enter while loop to process proceeding moves
+                    while(!(game1IsOver && game2IsOver)) {
 
-                    //if wait for next match
-                    //dont break
-                    //if end of matchs, end of round,
-                    //break
-                    ThunderDome.waitReceiveAndDecode();
-                    if(!ThunderDome.mainDecoder.getWaitingForNextMatchFlag()){
-                        break;
+                        //"MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>"
+                        //Take in server command prompting us to build on a game and build in the appropriate AI
+                        if(lastGameWePlayedOn.equals(gameID1)){
+                            //play for game 2
+                            decoderForGame2.decodeString(clientForTournament.client.waitAndReceive());
+
+                            if(decoderForGame2.getGameOverFlag() || decoderForGame2.getTheyForfeitedFlag() || decoderForGame2.getTheyLostFlag()){
+                                game2IsOver = true;
+                            }else {
+                                currentMoveNumberForGame2 = decoderForGame2.getCurrentMoveNum();
+
+                                tempTileID = aiForGame2.gameBoard.getGameBoardTileID();
+                                tempHexID = aiForGame2.gameBoard.getGameBoardHexID();
+                                tempTerrainTypeHexA = decoderForGame2.getOurTerrainTypeAtHexA();
+                                tempTerrainTypeHexB = decoderForGame2.getOurTerrainTypeAtHexB();
+                                tempTerrainTypeHexC = decoderForGame2.getOurTerrainTypeAtHexC();
+
+                                tempTileToPlace = new Tile(tempTileID, tempHexID, tempTerrainTypeHexA, tempTerrainTypeHexB, tempTerrainTypeHexC);
+
+                                ourPlacementMessage = aiForGame2.placeForOurPlayer(tempTileToPlace);
+                                ourBuildMessage = aiForGame2.buildForOurPlayer();
+
+                                clientForTournament.send("GAME " + gameID2 + " MOVE " + currentMoveNumberForGame2 + " " + ourPlacementMessage + " " + ourBuildMessage);
+
+                                lastGameWePlayedOn = gameID2;
+                            }
+                        }else{
+                            //play for game 1
+                            decoderForGame1.decodeString(clientForTournament.client.waitAndReceive());
+
+                            if(decoderForGame1.getGameOverFlag() || decoderForGame1.getTheyForfeitedFlag() || decoderForGame1.getTheyLostFlag()){
+                                game1IsOver = true;
+                            }else {
+                                currentMoveNumberForGame1 = decoderForGame1.getCurrentMoveNum();
+
+                                tempTileID = aiForGame1.gameBoard.getGameBoardTileID();
+                                tempHexID = aiForGame1.gameBoard.getGameBoardHexID();
+                                tempTerrainTypeHexA = decoderForGame1.getOurTerrainTypeAtHexA();
+                                tempTerrainTypeHexB = decoderForGame1.getOurTerrainTypeAtHexB();
+                                tempTerrainTypeHexC = decoderForGame1.getOurTerrainTypeAtHexC();
+
+                                tempTileToPlace = new Tile(tempTileID, tempHexID, tempTerrainTypeHexA, tempTerrainTypeHexB, tempTerrainTypeHexC);
+
+                                ourPlacementMessage = aiForGame1.placeForOurPlayer(tempTileToPlace);
+                                ourBuildMessage = aiForGame1.buildForOurPlayer();
+
+                                clientForTournament.send("GAME " + gameID1 + " MOVE " + currentMoveNumberForGame1 + " " + ourPlacementMessage + " " + ourBuildMessage);
+
+                                lastGameWePlayedOn = gameID1;
+                            }
+                        }
+                        //"GAME <gid> MOVE <#> PLACE <tile> AT <x> <y> <z> <orientation> <build>
+                        //OR
+                        //GAME FORFEITED OR LOST OR OVER
+                        //[Get two back to back, one for each game]
+                        if(!game1IsOver) //make sure we don't run this if this game ended
+                            decoderForGame1.decodeString(clientForTournament.client.waitAndReceive());
+
+                        if(!game2IsOver) //make sure we don't run this if this game ended
+                            decoderForGame2.decodeString(clientForTournament.client.waitAndReceive());
+
+                        //If we last played on game1, the other player built on game 2
+                        //and if game2 is not over, we want to do their move on game 2
+                        if(lastGameWePlayedOn.equals(gameID1) && !game2IsOver){
+                            //update game 2
+                            currentMoveNumberForGame2 = decoderForGame2.getCurrentMoveNum();
+
+                            tempTileID = aiForGame2.gameBoard.getGameBoardTileID();
+                            tempHexID = aiForGame2.gameBoard.getGameBoardHexID();
+                            tempTerrainTypeHexA = decoderForGame2.getTheirTerrainTypeAtHexA();
+                            tempTerrainTypeHexB = decoderForGame2.getTheirTerrainTypeAtHexB();
+                            tempTerrainTypeHexC = decoderForGame2.getTheirTerrainTypeAtHexC();
+
+                            tempTileToPlace = new Tile(tempTileID,tempHexID,tempTerrainTypeHexA,tempTerrainTypeHexB,tempTerrainTypeHexC);
+
+                            theirTileColPos = decoderForGame2.getTheirTileColumnPosition();
+                            theirTileRowPos = decoderForGame2.getTheirTileRowPosition();
+                            theirBuildType = decoderForGame2.getTheirMoveType();
+                            theirBuildColPos = decoderForGame2.getTheirColOddRBuildCoordinate();
+                            theirBuildRowPos = decoderForGame2.getTheirRowOddRBuildCoordinate();
+                            theirTerrainType = decoderForGame2.getTheirExpandTerrainTypeIfExpansion();
+                            isTheirTileFlipped = decoderForGame2.getTheirTileIsFlipped();
+
+                            aiForGame2.placeForOtherPlayer(tempTileToPlace,theirTileColPos,theirTileRowPos,isTheirTileFlipped);
+                            aiForGame2.buildForOtherPlayer(theirBuildType,theirBuildColPos, theirBuildRowPos, theirTerrainType);
+
+                            //If we last played on game2, the other player built on game 1
+                            //and if game1 is not over, we want to do their move on game 1
+                        }else if(lastGameWePlayedOn.equals(gameID2) && !game1IsOver){
+                            //update game 1
+                            currentMoveNumberForGame1 = decoderForGame1.getCurrentMoveNum();
+
+                            tempTileID = aiForGame1.gameBoard.getGameBoardTileID();
+                            tempHexID = aiForGame1.gameBoard.getGameBoardHexID();
+                            tempTerrainTypeHexA = decoderForGame1.getTheirTerrainTypeAtHexA();
+                            tempTerrainTypeHexB = decoderForGame1.getTheirTerrainTypeAtHexB();
+                            tempTerrainTypeHexC = decoderForGame1.getTheirTerrainTypeAtHexC();
+
+                            tempTileToPlace = new Tile(tempTileID,tempHexID,tempTerrainTypeHexA,tempTerrainTypeHexB,tempTerrainTypeHexC);
+
+                            theirTileColPos = decoderForGame1.getTheirTileColumnPosition();
+                            theirTileRowPos = decoderForGame1.getTheirTileRowPosition();
+                            theirBuildType = decoderForGame1.getTheirMoveType();
+                            theirBuildColPos = decoderForGame1.getTheirColOddRBuildCoordinate();
+                            theirBuildRowPos = decoderForGame1.getTheirRowOddRBuildCoordinate();
+                            theirTerrainType = decoderForGame1.getTheirExpandTerrainTypeIfExpansion();
+                            isTheirTileFlipped = decoderForGame1.getTheirTileIsFlipped();
+
+                            aiForGame1.placeForOtherPlayer(tempTileToPlace,theirTileColPos,theirTileRowPos,isTheirTileFlipped);
+                            aiForGame1.buildForOtherPlayer(theirBuildType,theirBuildColPos, theirBuildRowPos, theirTerrainType);
+                        }
                     }
-
+                    //"END OF ROUND <rid> OF <rounds>" or  "END OF ROUND <rid> OF <rounds> WAIT FOR THE NEXT MATCH"
+                    clientForTournament.waitReceiveAndDecode();
+                    currentRoundID = clientForTournament.mainDecoder.getCurrentRoundID(); //incrementing round
+                    game1IsOver = false; //reseting
+                    game2IsOver = false; //reseting
                 }
-
-                //wait for a message from the server
-                ThunderDome.waitReceiveAndDecode();
-                //if the message is END OF CHALLENGES
-                if (ThunderDome.mainDecoder.getEndOfChallenges()) {
-                    challengeDone = true;
-                    //break;
-                }
-                //if the message is WAIT FOR THE NEXT CHALLENGE TO BEGIN
-                if (ThunderDome.mainDecoder.getWaitingForNextChallengeFlag()) {
-                    challengeDone = false;
-                }
+                //"END OF CHALLENGES" or "WAIT FOR THE NEXT CHALLENGE TO BEGIN"
+                clientForTournament.waitReceiveAndDecode();
+                if(clientForTournament.mainDecoder.getEndOfChallenges())
+                    challengeIsDone = true;
             }
-            // wait for THANK YOU FOR PLAYING! GOODBYE
-
         }
-
-
         System.exit(0);
     }
-
 }

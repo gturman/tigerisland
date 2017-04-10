@@ -40,7 +40,7 @@ public class Decoder {
 
     private String scoreOfPlayer1;
     private String scoreOfPlayer2;
-    private int numberOfRounds;
+    private String overallRoundID;
     private int orientation;
     private int colOddRTileCoordinate;
     private int rowOddRTileCoordinate;
@@ -115,7 +115,7 @@ public class Decoder {
             }
             else if(currentWord.equals("PLAY")){
                 currentWord = sc.next();
-                setNumberOfRounds(Integer.parseInt(currentWord));
+                setOverallRoundID(currentWord);
             }
             else if(currentWord.equals("PLAYER")){
                 currentWord = sc.next();
@@ -814,12 +814,12 @@ public class Decoder {
         this.scoreOfPlayer2 = scoreOfPlayer2;
     }
 
-    int getNumberOfRounds() {
-        return this.numberOfRounds;
+    String getOverallRoundID() {
+        return this.overallRoundID;
     }
 
-    void setNumberOfRounds(int numberOfRounds) {
-        this.numberOfRounds = numberOfRounds;
+    void setOverallRoundID(String overallRoundID) {
+        this.overallRoundID = overallRoundID;
     }
 
     int getOrientation() {

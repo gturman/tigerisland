@@ -29,7 +29,7 @@ public class TournamentClient {
 
     }
 
-    public String authentication() throws IOException {
+    public boolean isAuthenticated() throws IOException {
 
         this.mainDecoder = new Decoder();
         String messageFromServer;
@@ -50,16 +50,15 @@ public class TournamentClient {
                 messageFromServer = client.waitAndReceive();
                 mainDecoder.messageStartsWithWait(messageFromServer);
                 String pid = mainDecoder.getPlayerID1();
-                //String pid = "pid";
                 if (messageFromServer.equals("WAIT FOR THE TOURNAMENT TO BEGIN " + pid)) {
-                    return "OK";
+                    return true;
                 }
             }
         }
 
         // if we don't get the messages correctly, in order
         System.out.println("Unable to authenticate...");
-        return null;
+        return false;
     }
 
     TournamentClient(String hostname, String port, String tournamentPassword,

@@ -45,7 +45,7 @@ public class DecoderTest {
 
         dc.decodeString("NEW CHALLENGE Q12 YOU WILL PLAY 60 ROUND MATCHES");
         Assert.assertEquals("Q12",dc.getChallengeID());
-        Assert.assertEquals(60,dc.getNumberOfRounds());
+        Assert.assertEquals("60", dc.getOverallRoundID());
 
         dc.decodeString("NEW ROUND BEGINNING NOW YOUR OPPONENT IS PLAYER Q90LKE2");
         Assert.assertEquals("Q90LKE2",dc.getPlayerID2());

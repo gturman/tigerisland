@@ -21,6 +21,7 @@ public class AI {
         playerOne = new Player(1);
         playerTwo = new Player(2);
         gameBoard = new GameBoard();
+        placeFirstTile();
     }
 
     //input from server is parsed, and the appropriate methods called with the given input
@@ -72,11 +73,12 @@ public class AI {
 
     String placeForOurPlayer(Tile tile){
         tile.flip();
-        String returnString = "PLACED " + tileToString(tile) + " AT";
+        String returnString = "PLACE " + tileToString(tile) + " AT";
         while(true) {//until we place a tile, in which case we will break to exit
             if (!gameBoard.hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tile)) {
                 gameBoard.setTileAtPosition(colPos,rowPos,tile);
                 returnString += oddRToCubicString(colPos,rowPos);
+                returnString += " 4";
                 break;//we have placed tile
             }else{
                 colPos++;//we move over one, until we find a space we can place
