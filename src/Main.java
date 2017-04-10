@@ -406,6 +406,10 @@ public class Main {
                     //dont break
                     //if end of matchs, end of round,
                     //break
+                    ThunderDome.waitReceiveAndDecode();
+                    if(!ThunderDome.mainDecoder.getWaitingForNextMatchFlag()){
+                        break;
+                    }
 
                 }
 
