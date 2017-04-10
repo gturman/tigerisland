@@ -6,68 +6,49 @@ import java.net.*;
  */
 public class TournamentMockServer {
 
-    public static String processInput(String input) throws InterruptedException{
-        String output;
+    public static PrintWriter out;
 
-	System.out.println("sanity, processing input...");
-
-	System.out.println("does (" + input + ") equal (ENTER THUNDERDOME password123)");
-	if (input.equals("ENTER THUNDERDOME password123")) {
-
-	    Thread.sleep(1000);
-
-	    output = "TWO SHALL ENTER, ONE SHALL LEAVE";
-	    return output;
-	}
-
-	System.out.println("does (" + input + ") equal (I AM username password)");
-	if (input.equals("I AM username password")) {
-	    output = "WAIT FOR THE TOURNAMENT TO BEGIN pid";
-	    return output;
-	}
-
-	if (input == null) {
-            output = "THANK YOU FOR PLAYING! GOODBYE";
+    public static void processInput(String input){
+        if (input.equals("ENTER THUNDERDOME heygang")){
+            out.println("TWO SHALL ENTER, ONE SHALL LEAVE");
         }
-        else output = null;
 
-        return output;
+        if (input.equals("I AM F F")){
+            out.println("WAIT FOR THE TOURNAMENT TO BEGIN 1");
+            out.println("NEW CHALLENGE 0 YOU WILL PLAY 7 MATCHES");
+            out.println("BEGIN ROUND 1 OF 7");
+            out.println("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 8");
+            out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
+        }
+
+        if (input.equals("GAME A MOVE 0 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")){
+            out.println("GAME A MOVE 0 PLAYER 1 PLACED GRASS+LAKE AT -2 2 0 1 FOUNDED SETTLEMENT AT 0 1 -1");
+            out.println("GAME B MOVE 0 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
+            out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE");
+        }
+
+        if (input.equals("GAME B MOVE 0 PLACE ROCK+JUNGLE")){
+
+        }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        try(
+
         ServerSocket serverSocket = new ServerSocket(4444);
         Socket clientSocket = serverSocket.accept();
-        PrintWriter out =
-                new PrintWriter(clientSocket.getOutputStream(), true);
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(clientSocket.getInputStream()));
-        ){
 
-            String inputLine, outputLine;
-            out.println("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
+        String inputLine;
 
-            while ((inputLine = in.readLine()) != null) {
+        out.println("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
 
-                outputLine = processInput(inputLine);
-                if (outputLine == null) {
-                    System.out.println("Had trouble processing input,"+
-                            " was null, exiting...");
-                    break;
-                }
-                if (outputLine.equals("THANK YOU FOR PLAYING! GOODBYE"))
-                            break;
-                out.println(outputLine);
-
-            }
-
-        } catch( IOException e)
-        {
-            System.out.println("Exception caught when trying to listen on port "
-                    + 4444 + " or listening for a connection");
-            System.out.println(e.getMessage());
+        while ((inputLine = in.readLine())!= null){
+            processInput(inputLine);
         }
+
     }
 
 }
