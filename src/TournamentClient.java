@@ -20,8 +20,10 @@ public class TournamentClient {
     public void waitReceiveAndDecode() throws IOException {
 
         String playerID = mainDecoder.getPlayerID1();
+        String roundID = mainDecoder.getCurrentRoundID();
         this.mainDecoder = new Decoder();
         mainDecoder.setPlayerID1(playerID);
+        mainDecoder.setCurrentRoundID(roundID);
 
         String fromServer;
         currentMessage = client.waitAndReceive();

@@ -16,43 +16,43 @@ public class TournamentMockServer {
 
         if (counter == 1 && input.equals("I AM F F")){
             out.println("WAIT FOR THE TOURNAMENT TO BEGIN 1");
-            out.println("NEW CHALLENGE 0 YOU WILL PLAY 7 MATCHES");
-            out.println("BEGIN ROUND 1 OF 7");
+            out.println("NEW CHALLENGE 0 YOU WILL PLAY 3 MATCHES");
+            out.println("BEGIN ROUND 1 OF 3");
             out.println("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 8");
             out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
         }
 
-        if (counter == 2 && input.equals("GAME A MOVE 0 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")){
+        if (counter == 2 && input.equals("GAME A MOVE 0 PLACE GRASS+LAKE AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3")){
             out.println("GAME A MOVE 0 PLAYER 1 PLACED GRASS+LAKE AT -2 2 0 1 FOUNDED SETTLEMENT AT 0 1 -1");
             out.println("GAME B MOVE 0 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
             out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE");
         }
 
-        if (counter == 3 && input.equals("GAME B MOVE 1 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")){
+        if (counter == 3 && input.equals("GAME B MOVE 0 PLACE ROCK+JUNGLE AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3")){
             out.println("GAME A MOVE 1 PLAYER 1 PLACED GRASS+LAKE AT -2 2 0 1 FOUNDED SETTLEMENT AT 0 1 -1");
             out.println("GAME B MOVE 1 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
             out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 2 PLACE GRASS+LAKE");
         }
 
-        if (counter == 4 && input.equals("GAME A MOVE 2 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")){
+        if (counter == 4 && input.equals("GAME A MOVE 2 PLACE GRASS+LAKE AT 2 -4 2 4 FOUND SETTLEMENT AT 0 -3 3")){
             out.println("GAME A MOVE 2 PLAYER 1 PLACED GRASS+LAKE AT -2 2 0 1 FOUNDED SETTLEMENT AT 0 1 -1");
             out.println("GAME B MOVE 2 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
             out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 3 PLACE GRASS+LAKE");
         }
 
-        if (counter == 5 && input.equals("GAME B MOVE 3 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")){
+        if (counter == 5 && input.equals("GAME B MOVE 3 PLACE GRASS+LAKE AT 2 -4 2 4 FOUND SETTLEMENT AT 0 -3 3")){
             out.println("GAME A MOVE 3 PLAYER 1 PLACED GRASS+LAKE AT -2 2 0 1 FOUNDED SETTLEMENT AT 0 1 -1");
             out.println("GAME B MOVE 3 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
             out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 4 PLACE GRASS+LAKE");
         }
 
-        if (counter == 6 && input.equals("GAME A MOVE 4 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")){
+        if (counter == 6 && input.equals("GAME A MOVE 4 PLACE GRASS+LAKE AT 4 -6 2 4 FOUND SETTLEMENT AT 1 -4 3")){
             out.println("GAME A MOVE 4 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
             out.println("GAME B MOVE 4 PLAYER 1 FORFEITED: TIMEOUT");
             out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 5 PLACE ROCK+JUNGLE");
         }
 
-        if (counter == 7 && input.equals("GAME A MOVE 5 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")) {
+        if (counter == 7 && input.equals("GAME A MOVE 5 PLACE ROCK+JUNGLE AT 6 -8 2 4 FOUND SETTLEMENT AT 2 -5 3")) {
             out.println("GAME A MOVE 5 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
             out.println("GAME A MOVE 5 PLAYER 1 FORFEITED: TIMEOUT");
             out.println("GAME A OVER PLAYER 1 FORFEITED PLAYER 8 WIN");
@@ -63,7 +63,7 @@ public class TournamentMockServer {
             out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
         }
 
-        if (counter == 8 && input.equals("GAME B MOVE 0 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")) {
+        if (counter == 8 && input.equals("GAME B MOVE 0 PLACE GRASS+LAKE AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3")) {
             out.println("GAME A MOVE 0 PLAYER 6 FORFEITED: TIMEOUT");
             out.println("GAME B MOVE 0 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
 
@@ -78,7 +78,7 @@ public class TournamentMockServer {
             out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
         }
 
-        if (counter == 9 && input.equals("GAME A MOVE 0 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")) {
+        if (counter == 9 && input.equals("GAME B MOVE 0 PLACE GRASS+LAKE AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3")) {
             out.println("GAME A MOVE 0 PLAYER 3 FORFEITED: TIMEOUT");
             out.println("GAME B MOVE 0 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
 
@@ -95,7 +95,7 @@ public class TournamentMockServer {
             out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
         }
 
-        if (counter == 10 && input.equals("GAME A MOVE 0 PLACE GRASS+LAKE AT -2 2 0 1 FOUND SETTLEMENT AT 0 1 -1")) {
+        if (counter == 10 && input.equals("GAME B MOVE 0 PLACE GRASS+LAKE AT 0 -2 2 4 FOUND SETTLEMENT AT -1 -2 3")) {
             out.println("GAME A MOVE 0 PLAYER 3 FORFEITED: TIMEOUT");
             out.println("GAME B MOVE 0 PLAYER 8 PLACED GRASS+LAKE AT 2 0 -2 3 FOUNDED SETTLEMENT AT 0 -1 1");
 
