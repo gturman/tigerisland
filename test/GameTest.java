@@ -55,8 +55,65 @@ public class GameTest {
         Assert.assertEquals(game.playerOne.getScore(),2);
     }
 
+    @Test
+    public void testAbilityToExpandSettlement() {
+
+       Tile placeTile = new Tile(game.gameBoard.getGameBoardTileID(), game.gameBoard.getGameBoardHexID(),
+                terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+
+        game.gameBoard.setTileAtPosition(102, 103, placeTile);
+
+        game.gameBoard.buildSettlement(102, 103, game.playerOne);
+
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[102][103].getSettlerCount(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[102][103].getPlayerID(),1);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),19);
+        Assert.assertEquals(game.playerOne.getScore(),1);
+
+        game.playerOne.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
+
+        game.gameBoard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, game.playerOne);
+
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[102][103].getSettlerCount(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[102][103].getPlayerID(),1);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),18);
+        Assert.assertEquals(game.playerOne.getScore(),2);
+
+    }
+    @Test
+    public void testAbilityToExpandSettlementMultipleTile() {
+
+       Tile firstTile = new Tile(game.gameBoard.getGameBoardTileID(), game.gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.GRASSLANDS,terrainTypes.VOLCANO);
+       Tile secondTile = new Tile(game.gameBoard.getGameBoardTileID(), game.gameBoard.getGameBoardHexID(),terrainTypes.GRASSLANDS,terrainTypes.VOLCANO,terrainTypes.GRASSLANDS);
+
+        firstTile.flip();
+        game.gameBoard.setTileAtPosition(99,98,firstTile);
+
+        secondTile.flip();
+        game.gameBoard.setTileAtPosition(99,100,secondTile);
+        game.gameBoard.buildSettlement(99,98,game.playerOne);
+
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[99][98].getPlayerID(),1);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),19);
+        Assert.assertEquals(game.playerOne.getScore(),1);
+
+        game.playerOne.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
 
+        game.gameBoard.buildSettlement(99,98,game.playerOne);
 
+        game.gameBoard.expandSettlement(99,98,terrainTypes.GRASSLANDS,game.playerOne);
+
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[99][99].getPlayerID(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount(),1);
+        Assert.assertEquals(game.gameBoard.getGameBoardPositionArray()[98][101].getPlayerID(),1);
+        Assert.assertEquals(game.playerOne.getSettlerCount(),16);
+        Assert.assertEquals(game.playerOne.getScore(),4);
+
+    }
 
 }
