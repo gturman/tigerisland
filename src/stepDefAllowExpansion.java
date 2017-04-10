@@ -81,7 +81,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^the hex is adjacent to my settlement$")
@@ -99,7 +99,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^I have enough villagers to expand fully$")
@@ -117,7 +117,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @When("^I try to expand to a hex$")
@@ -135,7 +135,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @Then("^I should see that each hex I can expand to has acquired the number of villagers equal to the hexes’ level$")
@@ -153,7 +153,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^for every empty hex adjacent to the settlement of the specified terrain, add as many villagers as the hex's level$")
@@ -171,7 +171,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^for each villager placed due to the expansion, I should see my villager count decrease by one$")
@@ -189,7 +189,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^for each villagers placed due to the expansion, I should see my score increase by the total villagers occupying the hex multiplied by the hexes’ level$")
@@ -207,7 +207,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
     }
 
     @And("^for each hex expanded to, increase the settlement size by one and merge those tiles into the original settlement expanded from$")
@@ -227,7 +227,7 @@ public class stepDefAllowExpansion {
 
         player.setTurnPhase(turnPhase.EXPAND_SETTLEMENT);
 
-        gameboard.expandSettlement(102, 103, terrainTypes.VOLCANO, player);
+        gameboard.expandSettlement(102, 103, terrainTypes.GRASSLANDS, player);
         gameboard.mergeSettlements();
     }
 }
