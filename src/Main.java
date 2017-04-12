@@ -112,48 +112,56 @@ public class Main {
 
                 //set game1 and game2 decoders, and get game IDs !!!!!!!
 
-                masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
-                if (masterDecoder.getGameID().equals(gameID1)){
-                    if(masterDecoder.getGameOverFlag() || masterDecoder.getTheyForfeitedFlag() || masterDecoder.getTheyLostFlag()){
-                        game1IsOver = true;
-                    }else {
-                        decoderForGame1 = masterDecoder;
-                        decoderForGame1.setGameID(gameID1);
-                        decoderForGame1.setPlayerID1(playerID1);
-                        decoderForGame1.setPlayerID2(playerID2);
-                    }
-                } else {
-                    gameID2 = masterDecoder.getGameID();
-                    if(masterDecoder.getGameOverFlag() || masterDecoder.getTheyForfeitedFlag() || masterDecoder.getTheyLostFlag()){
-                        game2IsOver = true;
-                    }else {
-                        decoderForGame2 = masterDecoder;
-                        decoderForGame2.setGameID(gameID2);
-                        decoderForGame2.setPlayerID1(playerID1);
-                        decoderForGame2.setPlayerID2(playerID2);
-                    }
-                }
+                masterDecoder.setGameOverFlag(false);
+                masterDecoder.setTheyForfeitedFlag(false);
+                masterDecoder.setTheyLostFlag(false);
 
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
                 if (masterDecoder.getGameID().equals(gameID1)){
                     if(masterDecoder.getGameOverFlag() || masterDecoder.getTheyForfeitedFlag() || masterDecoder.getTheyLostFlag()){
                         game1IsOver = true;
-                    }else {
+                    }//else {
                         decoderForGame1 = masterDecoder;
                         decoderForGame1.setGameID(gameID1);
                         decoderForGame1.setPlayerID1(playerID1);
                         decoderForGame1.setPlayerID2(playerID2);
-                    }
+                  //  }
                 } else {
                     gameID2 = masterDecoder.getGameID();
                     if(masterDecoder.getGameOverFlag() || masterDecoder.getTheyForfeitedFlag() || masterDecoder.getTheyLostFlag()){
                         game2IsOver = true;
-                    }else {
+                    }//else {
                         decoderForGame2 = masterDecoder;
                         decoderForGame2.setGameID(gameID2);
                         decoderForGame2.setPlayerID1(playerID1);
                         decoderForGame2.setPlayerID2(playerID2);
-                    }
+                  //  }
+                }
+
+                masterDecoder.setGameOverFlag(false);
+                masterDecoder.setTheyForfeitedFlag(false);
+                masterDecoder.setTheyLostFlag(false);
+
+                masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
+                if (masterDecoder.getGameID().equals(gameID1)){
+                    if(masterDecoder.getGameOverFlag() || masterDecoder.getTheyForfeitedFlag() || masterDecoder.getTheyLostFlag()){
+                        game1IsOver = true;
+                    }//else {
+                        decoderForGame1 = masterDecoder;
+                        decoderForGame1.setGameID(gameID1);
+                        decoderForGame1.setPlayerID1(playerID1);
+                        decoderForGame1.setPlayerID2(playerID2);
+                    //}
+                } else {
+                    gameID2 = masterDecoder.getGameID();
+                    if(masterDecoder.getGameOverFlag() || masterDecoder.getTheyForfeitedFlag() || masterDecoder.getTheyLostFlag()){
+                        game2IsOver = true;
+                    }//else {
+                        decoderForGame2 = masterDecoder;
+                        decoderForGame2.setGameID(gameID2);
+                        decoderForGame2.setPlayerID1(playerID1);
+                        decoderForGame2.setPlayerID2(playerID2);
+                    //}
                 }
 
                 if (!game2IsOver) {
@@ -184,13 +192,13 @@ public class Main {
                     //can be move type, update type (update, forfeit, or lost), or game over type
                     String message = clientForTournament.client.waitAndReceive();
                     masterDecoder.decodeString(message);
-
                     //we got a game1 message
                     if (masterDecoder.getGameID().equals(gameID1)) {
                         decoderForGame1.decodeString(message);
 
                         // we got a forfeit or lost message
-                        if (decoderForGame1.getTheyForfeitedFlag() || decoderForGame1.getTheyLostFlag() ) {
+                        //if (decoderForGame1.getTheyForfeitedFlag() || decoderForGame1.getTheyLostFlag() ) {
+                        if (decoderForGame1.getGameOverFlag() ) {
                             if (decoderForGame1.getGameID().equals(gameID1)) {
                                 game1IsOver = true;
                             }
@@ -247,11 +255,12 @@ public class Main {
                         decoderForGame2.decodeString(message);
 
                         // we got a forfeit or lost message
-                        if (decoderForGame2.getTheyForfeitedFlag() || decoderForGame2.getTheyLostFlag() ) {
-                            if (decoderForGame2.getGameID().equals(gameID2)) {
-                                game2IsOver = true;
+                        //if (decoderForGame2.getTheyForfeitedFlag() || decoderForGame2.getTheyLostFlag() ) {
+                            if (decoderForGame2.getGameOverFlag() ) {
+                                if (decoderForGame2.getGameID().equals(gameID2)) {
+                                    game2IsOver = true;
+                                }
                             }
-                        }
 
                         //we got an update message for other player
                         if (decoderForGame2.getPlayerID2().equals(playerID2) && game2IsOver == false){
@@ -301,9 +310,12 @@ public class Main {
                 }
 
                 //"GAME A OVER ..."
-                clientForTournament.client.waitAndReceive();
+                //clientForTournament.client.waitAndReceive();
+                //System.out.println("Should have got: GAME <gid1> OVER...");
                 //"GAME B OVER ..."
-                clientForTournament.client.waitAndReceive();
+                //clientForTournament.client.waitAndReceive();
+                //System.out.println("Should have got: GAME <gid2> OVER...");
+
                 //"END OF ROUND <rid> OF <rounds>" or  "END OF ROUND <rid> OF <rounds> WAIT FOR THE NEXT MATCH"
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
                 currentRoundID = masterDecoder.getCurrentRoundID(); //incrementing round
