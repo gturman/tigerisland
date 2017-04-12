@@ -1703,58 +1703,58 @@ public class GameBoard {
         this.gameBoardSettlementList[settlementID][3] -= 1;
     }
 
-    int findAdjacentSettlementWithoutTotoro(int colPos, int rowPos){
+    int findAdjacentSettlementWithoutTotoro(int colPos, int rowPos, Player player){
         if(isEven(rowPos)){
             int setID;
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos-1, rowPos-1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()) {return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos-1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos-1, rowPos));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos+1, rowPos));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos-1, rowPos+1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos+1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
         }else{
             int setID;
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos-1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos+1, rowPos-1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos-1, rowPos));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos+1, rowPos));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos, rowPos+1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
             try{
                 setID = getGameBoardPositionSettlementID(new Pair(colPos+1, rowPos+1));
-                if(gameBoardSettlementList[setID][2]==0 && setID != 0){return setID;}
+                if(gameBoardSettlementList[setID][2]==0 && setID != 0 && gameBoardSettlementList[setID][0]==player.getPlayerID()){return setID;}
             }catch(Exception e){}
         }
         return -1;

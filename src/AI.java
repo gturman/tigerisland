@@ -31,9 +31,9 @@ public class AI {
     }
 
     void placeForOtherPlayer(Tile tile, int colPos, int rowPos, boolean isFlipped){
+
         if(isFlipped){
             tile.flip();
-
         }
 
         if(gameBoard.getGameBoardPositionArray()[colPos][rowPos]!=null) {
@@ -56,7 +56,7 @@ public class AI {
             gameBoard.expandSettlement(colPos,rowPos,type,playerTwo);
         }
         if(buildType == BuildType.PLACE_TOTORO){
-            int settlementID = gameBoard.findAdjacentSettlementWithoutTotoro(colPos,rowPos);
+            int settlementID = gameBoard.findAdjacentSettlementWithoutTotoro(colPos,rowPos,playerTwo);
             if(settlementID != -1) {
                 gameBoard.placeTotoroSanctuary(colPos, rowPos, settlementID, playerTwo);
             }
@@ -98,17 +98,10 @@ public class AI {
             try{
                 if(settlementsBuiltInARow==5) {
                     int setID = gameBoard.getGameBoardPositionArray()[lastColBuilt][lastRowBuilt].getSettlementID();
-                    if(gameBoard.getGameBoardSettlementListSettlementSize(setID)>=5 && gameBoard.getGameBoardSettlementListTotoroCount(setID)==0){
-
+                    if(gameBoard.isValidTotoroPlacement(lastColBuilt+1,lastRowBuilt,setID,playerOne) && gameBoard.playerOwnsSettlementWithID(setID,playerOne.getPlayerID())){
                         returnString += "BUILD TOTORO SANCTUARY AT " + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
-
-                        gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setPlayerID(playerOne.getPlayerID());
-                        gameBoard.getGameBoardPositionArray()[lastColBuilt+1][lastRowBuilt].setTotoroCount(1);
-                        playerOne.decreaseTotoroCount();
-                        playerOne.increaseScore(200);
-
+                        gameBoard.placeTotoroSanctuary(lastColBuilt+1,lastRowBuilt,setID,playerOne);
                         lastColBuilt += 2;
-                        settlementsBuiltInARow = 0;
                     }
                     break;
                 }
