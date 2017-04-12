@@ -2554,77 +2554,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
     }
-/*
-    @Test
-    public void testIfNukeDecrementsTigerPenCountForHexC() {
-        GameBoard gameboard = new GameBoard();
-        Player player = new Player(1);
 
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
-
-        Tile firstTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.LAKE);
-        gameboard.setTileAtPosition(103, 103, firstTile);
-
-        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
-        gameboard.setTileAtPosition(105, 104, secondTile);
-
-        gameboard.buildSettlement(101, 103, player);
-        gameboard.buildSettlement(102, 103, player);
-        gameboard.getGameBoardPositionArray()[103][102].setLevel(3);
-        gameboard.getGameBoardPositionArray()[102][102].setLevel(3);
-        gameboard.getGameBoardPositionArray()[102][103].setLevel(3);
-        gameboard.placeTigerPen(103, 102, gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), player);
-
-        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 3);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
-
-        Tile thirdTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.JUNGLE, terrainTypes.VOLCANO, terrainTypes.LAKE);
-
-        gameboard.nukeTiles(102, 103, thirdTile);
-
-        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
-
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getTigerCount(), 0);
-    }
-
-    @Test
-    public void testIfNukeDecrementsTigerPenCountForHexA() {
-        GameBoard gameboard = new GameBoard();
-        Player player = new Player(1);
-
-        gameboard.placeFirstTileAndUpdateValidPlacementList();
-
-        Tile firstTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.LAKE);
-        gameboard.setTileAtPosition(103, 103, firstTile);
-
-        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.JUNGLE, terrainTypes.ROCKY);
-        gameboard.setTileAtPosition(105, 104, secondTile);
-
-        gameboard.buildSettlement(101, 103, player);
-        gameboard.buildSettlement(103, 102, player);
-        gameboard.getGameBoardPositionArray()[103][102].setLevel(3);
-        gameboard.getGameBoardPositionArray()[102][102].setLevel(3);
-        gameboard.getGameBoardPositionArray()[102][103].setLevel(3);
-        gameboard.placeTigerPen(102, 103, gameboard.getGameBoardPositionArray()[101][103].getSettlementID(), player);
-
-        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 3);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
-
-        Tile thirdTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.JUNGLE, terrainTypes.VOLCANO, terrainTypes.LAKE);
-
-        gameboard.nukeTiles(102, 103, thirdTile);
-
-        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 1);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
-        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(gameboard.getGameBoardPositionArray()[101][103].getSettlementID()), 0);
-
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getTigerCount(), 0);
-    }
-*/
     @Test
     public void testIfSplitSettlementsUpdatesSettlementListValuesForTotoroNextToNukedHexes() {
         GameBoard gameboard = new GameBoard();
@@ -2886,5 +2816,87 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(gameboard.getGameBoardPositionArray()[105][103].getSettlementID()), 5);
         Assert.assertEquals(gameboard.getGameBoardSettlementListTigerCount(gameboard.getGameBoardPositionArray()[105][103].getSettlementID()), 1);
+    }
+
+    @Test
+    public void testAbilityToPreventTotoroPlacementNextToOtherPlayerSettlementThatCanBuildATotoro() {
+        GameBoard gameboard = new GameBoard();
+        Player playerOne = new Player(1);
+        Player playerTwo = new Player(2);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        gameboard.setTileAtPosition(103, 103, firstTile);
+
+        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.JUNGLE);
+        secondTile.flip();
+        gameboard.setTileAtPosition(104, 100, secondTile);
+
+        gameboard.buildSettlement(101, 103, playerOne);
+        gameboard.buildSettlement(102, 103, playerOne);
+        gameboard.buildSettlement(103, 102, playerOne);
+        gameboard.buildSettlement(104, 102, playerOne);
+        gameboard.buildSettlement(104, 101, playerOne);
+
+        Assert.assertEquals(gameboard.getGameBoardSettlementListSettlementSize(1), 5);
+        Assert.assertEquals(gameboard.getGameBoardSettlementListTotoroCount(1), 0);
+        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(1, 1), true);
+        Assert.assertEquals(gameboard.playerOwnsSettlementWithID(1, 2), false);
+
+        Assert.assertEquals(gameboard.isValidTotoroPlacement(103, 101, 1, playerOne), true);
+        Assert.assertEquals(gameboard.isValidTotoroPlacement(103, 101, 1, playerTwo), false);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getTotoroCount(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getPlayerID(), 0);
+
+        gameboard.placeTotoroSanctuary(103, 101, 1, playerOne);
+
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getTotoroCount(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getPlayerID(), 1);
+    }
+
+    @Test
+    public void testAbilityToPreventTigerPlacementNextToOtherPlayerSettlementThatCanBuildATiger() {
+        GameBoard gameBoard = new GameBoard();
+
+        Player playerOne = new Player(1);
+        Player playerTwo = new Player(2);
+
+        gameBoard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile firstTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.LAKE, terrainTypes.VOLCANO, terrainTypes.GRASSLANDS);
+        firstTile.flip();
+        gameBoard.setTileAtPosition(102, 104, firstTile);
+
+        Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.LAKE, terrainTypes.VOLCANO);
+        gameBoard.setTileAtPosition(103, 103, secondTile);
+
+        gameBoard.buildSettlement(101, 103, playerOne);
+        gameBoard.buildSettlement(102, 103, playerOne);
+        gameBoard.buildSettlement(103, 102, playerOne);
+        gameBoard.buildSettlement(103, 103, playerOne);
+        gameBoard.buildSettlement(102, 104, playerOne);
+        gameBoard.buildSettlement(102, 101, playerOne);
+
+        Assert.assertEquals(gameBoard.getGameBoardSettlementListSettlementSize(2), 6);
+        Assert.assertEquals(gameBoard.getGameBoardSettlementListTotoroCount(2), 0);
+        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(2, 1), true);
+        Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(2, 2), false);
+
+        gameBoard.getGameBoardPositionArray()[101][105].setLevel(3);
+
+        Assert.assertEquals(gameBoard.getGameBoardSettlementListTigerCount(2), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTigerCount(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getPlayerID(), 0);
+
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 2, playerOne), true);
+        Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 2, playerTwo), false);
+
+        gameBoard.placeTigerPen(101, 105, 2, playerOne);
+
+        Assert.assertEquals(gameBoard.getGameBoardSettlementListTigerCount(2), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTigerCount(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getPlayerID(), 1);
     }
 }

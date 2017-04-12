@@ -1267,8 +1267,6 @@ public class GameBoard {
         Pair currentCoordinates = hexesBuiltOnThisTurn.lastElement();
         hexesBuiltOnThisTurn.remove(hexesBuiltOnThisTurn.size()-1);
 
-        System.out.println("start at " + currentCoordinates.getColumnPosition() + " " + currentCoordinates.getRowPosition());
-
         markGameBoardHexAsTraversed(currentCoordinates);
         hexesToResetTraversalValue.add(currentCoordinates);
 
