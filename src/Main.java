@@ -57,12 +57,10 @@ public class Main {
 
         playerID1 = clientForTournament.authenticateAndGetPlayerID();
 
-
         masterDecoder = new Decoder();
         //while we still have challenges to play
         while(!challengeIsDone){
             //"NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCHES" is message 4
-
             masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
 
             overallRoundID = masterDecoder.getOverallRoundID();
@@ -183,7 +181,6 @@ public class Main {
                 //After placing first move and their first move, if both games haven't ended due to a
                 //forfeit, lost, or game over message, enter while loop to process proceeding moves
                 while(!(game1IsOver && game2IsOver)) {
-
                     //can be move type, update type (update, forfeit, or lost), or game over type
                     String message = clientForTournament.client.waitAndReceive();
                     masterDecoder.decodeString(message);
@@ -318,6 +315,8 @@ public class Main {
 
             if(masterDecoder.getEndOfChallenges())
                 challengeIsDone = true;
+
+            currentRoundID = "ZERO";
         }
         //"THANK YOU FOR PLAYING! GOODBYE"
         clientForTournament.client.waitAndReceive();
