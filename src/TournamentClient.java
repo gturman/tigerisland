@@ -10,13 +10,13 @@ public class TournamentClient {
     public String tournamentPassword;
     public String username;
     public String password;
-    public Decoder mainDecoder;
+    //public Decoder mainDecoder;
     public String currentMessage;
 
     public void send(String message) {
         client.send(message);
     }
-
+/* depreciated
     public void waitReceiveAndDecode() throws IOException {
 
         String playerID = mainDecoder.getPlayerID1();
@@ -30,10 +30,10 @@ public class TournamentClient {
         mainDecoder.decodeString(currentMessage);
 
     }
+*/
+    public String authenticateAndGetPlayerID() throws IOException {
 
-    public boolean isAuthenticated() throws IOException {
-
-        this.mainDecoder = new Decoder();
+        Decoder mainDecoder = new Decoder();
         String messageFromServer;
         String messageFromClient;
 
@@ -53,14 +53,14 @@ public class TournamentClient {
                 mainDecoder.messageStartsWithWait(messageFromServer);
                 String pid = mainDecoder.getPlayerID1();
                 if (messageFromServer.equals("WAIT FOR THE TOURNAMENT TO BEGIN " + pid)) {
-                    return true;
+                    return pid;
                 }
             }
         }
 
         // if we don't get the messages correctly, in order
         System.out.println("Unable to authenticate...");
-        return false;
+        return "we're bad";
     }
 
     TournamentClient(String hostname, String port, String tournamentPassword,

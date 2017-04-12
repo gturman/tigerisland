@@ -276,6 +276,7 @@ public class Decoder {
                 convertBuildCoordinatesFromCubicToOddROffset(xCubicBuildCoordinate, yCubicBuildCoordinate, zCubicBuildCoordinate);
             } else if(currentWord.equals("FORFEITED:")){
                 setTheyForfeitedFlag(true);
+                break;
             }
             else if(currentWord.equals("LOST:")){
                 setTheyLostFlag(true);
