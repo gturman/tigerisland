@@ -1,12 +1,12 @@
-# Tiger Island v1.0
+# Tiger Island v3.2 Team F
 
 Tiger Island is a two-player tile-placement game assigned as a project by Dave Small. 
 
 The following concepts are currently in development:
 
 * ~~Game board~~
-  * ~~Tile~~
-    * ~~Hex~~
+  * ~~gameRules.Tile~~
+    * ~~gameRules.Hex~~
       * ~~Level~~
       * ~~Terrain~~
         * ~~Uninhabitable~~
@@ -18,7 +18,7 @@ The following concepts are currently in development:
   * ~~Totoro~~
   * ~~Tiger Pen~~
 
-* Player
+* ~~gameRules.Player~~
   * ~~Settlements~~
   * ~~Score~~
   * ~~Turn~~
@@ -32,15 +32,15 @@ The following concepts are currently in development:
       * ~~Place Totoro~~
       * ~~Place Tiger Pen~~
 
-* End Game
-  * Auto-Win
-    * Player only has one type of piece left at end of turn
-  * No unplayed tiles left
-    * Higher player score wins
-    * Tied Scores
-      * Player with most Totoros placed wins
-      * If Totoros are equal, player with most Tiger Pens placed wins
-      * If Tiger pens are equal, player with most Villagers placed wins
+* ~~End Game~~
+  * ~~Auto-Win~~
+    * ~~gameRules.Player only has one type of piece left at end of turn~~
+  * ~~No unplayed tiles left~~
+    * ~~Higher player score wins~~
+    * ~~Tied Scores~~
+      * ~~gameRules.Player with most Totoros placed wins~~
+      * ~~If Totoros are equal, player with most Tiger Pens placed wins~~
+      * ~~If Tiger pens are equal, player with most Villagers placed wins~~
   
-* AI
-* Server
+* tournament AI
+* Server connection

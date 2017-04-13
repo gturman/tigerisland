@@ -2,11 +2,98 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5cba8da-a8a5-4dab-a23a-d76e472c60c4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unitTests/AITest.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/AI.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/BuildType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Client.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Decoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Game.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/GameBoard.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Hex.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Pair.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Player.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Tile.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/TournamentClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/TournamentMockServer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowBuildingSettlement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowExpansion.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowPlacingOfTotoroSanctuary.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowTigerPlayground.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefDisallowBuildingSettlement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefDisallowExpansion.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefInvalidTigerPlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefInvalidTilePlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefInvalidTotoroPlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefTilePlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/terrainTypes$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/terrainTypes.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowBuildingSettlements.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowExpansion.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowPlacingOfTotoroSanctuary.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowTigerPlayground.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerDisallowBuildingSettlement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerDisallowExpansion.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerInvalidTigerPlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerInvalidTilePlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerInvalidTotoroPlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerValidTestPlacement.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/turnPhase$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/turnPhase.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerAllowExpansion.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerAllowPlacingOfTotoroSanctuary.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerAllowTigerPlayground.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerDisallowExpansion.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerInvalidTigerPlacement.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerInvalidTilePlacement.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerInvalidTotoroPlacement.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerValidTestPlacement.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/AITest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/GameTest.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/AI.java" afterPath="$PROJECT_DIR$/src/tournament/AI.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BuildType.java" afterPath="$PROJECT_DIR$/src/enums/BuildType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Client.java" afterPath="$PROJECT_DIR$/src/tournament/Client.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Decoder.java" afterPath="$PROJECT_DIR$/src/tournament/Decoder.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GameBoard.java" afterPath="$PROJECT_DIR$/src/gameRules/GameBoard.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Hex.java" afterPath="$PROJECT_DIR$/src/gameRules/Hex.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Pair.java" afterPath="$PROJECT_DIR$/src/dataStructures/Pair.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/gameRules/Player.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Tile.java" afterPath="$PROJECT_DIR$/src/gameRules/Tile.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TournamentClient.java" afterPath="$PROJECT_DIR$/src/tournament/TournamentClient.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TournamentMockServer.java" afterPath="$PROJECT_DIR$/src/tournament/TournamentMockServer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowExpansion.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowPlacingOfTotoroSanctuary.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowPlacingOfTotoroSanctuary.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowTigerPlayground.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowTigerPlayground.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowBuildingSettlement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefDisallowExpansion.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefInvalidTigerPlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTigerPlacement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefInvalidTilePlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTilePlacement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefInvalidTotoroPlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTotoroPlacement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefTilePlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefTilePlacement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/terrainTypes.java" afterPath="$PROJECT_DIR$/src/enums/terrainTypes.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/testRunnerAllowBuildingSettlements.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/testRunner.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/turnPhase.java" afterPath="$PROJECT_DIR$/src/enums/turnPhase.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/DecoderTest.java" afterPath="$PROJECT_DIR$/test/unitTests/DecoderTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/GameBoardTest.java" afterPath="$PROJECT_DIR$/test/unitTests/GameBoardTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/HexTest.java" afterPath="$PROJECT_DIR$/test/unitTests/HexTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/PlayerTest.java" afterPath="$PROJECT_DIR$/test/unitTests/PlayerTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/TileTest.java" afterPath="$PROJECT_DIR$/test/unitTests/TileTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowBuildingSettlements.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowBuildingSettlements.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowExpansion.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowExpansion.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowPlacingOfTotoroSanctuary.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowPlacingOfTotoroSanctuary.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowTigerPlayground.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowTigerPlayground.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/DisallowExpansion.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/DisallowExpansion.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/DisallowingBuildingSettlements.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/InvalidTigerPlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTigerPlacement.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/InvalidTilePlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTilePlacement.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/InvalidTotoroPlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTotoroPlacement.feature" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/ValidTilePlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/ValidTilePlacement.feature" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Main.class" afterPath="$PROJECT_DIR$/src/com/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Decoder.java" afterPath="$PROJECT_DIR$/src/Decoder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TournamentClient.java" afterPath="$PROJECT_DIR$/src/TournamentClient.java" />
     </list>
     <ignored path="$PROJECT_DIR$/src/com/" />
     <ignored path="C:/test/tigerisland/" />
@@ -26,49 +113,10 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="234" column="49" lean-forward="true" selection-start-line="234" selection-start-column="49" selection-end-line="234" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1097">
-              <caret line="98" column="21" lean-forward="false" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>allowed</find>
-      <find>merg</find>
-      <find>merge</find>
-      <find>testifsplit</find>
-      <find>split</find>
-      <find>totoro</find>
-      <find>wait</find>
-      <find>timeout</find>
-      <find>roun</find>
-      <find>begin round</find>
-      <find>at end of round</find>
-      <find>currentroundID =</find>
-      <find>at start of round</find>
-      <find>system</find>
-      <find>forfeit</find>
-      <find>player 2 forfeit</find>
-      <find>before main</find>
-      <find>system.out</find>
       <find>theylost</find>
       <find>gameID</find>
       <find>endofround</find>
@@ -81,7 +129,29 @@
       <find>player 1 lost</find>
       <find>player 1 win</find>
       <find>player 2 win</find>
+      <find>getgameboard</find>
+      <find>getgameboardpo</find>
+      <find>getovw</find>
+      <find>getplayerid</find>
+      <find>getgameboardtileID</find>
+      <find>messagestartswithwait</find>
+      <find>getgameboardsettlementlistto</find>
+      <find>get</find>
+      <find>assignsizeto</find>
+      <find>placeforotherplayer</find>
+      <find>playerOne.getSettlerCount</find>
+      <find>hexestoplacetileonarealreadyoccupied</find>
+      <find>isowned</find>
+      <find>setplayerowned</find>
+      <find>mergesettlements</find>
+      <find>system.out.println</find>
+      <find>syst</find>
+      <find>stringtotileobject</find>
     </findStrings>
+    <replaceStrings>
+      <replace>getCurrentAIGameBoardPositionArray</replace>
+      <replace>getPlayerOneVillagerCount</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,29 +164,68 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/test/HexTest.java" />
-        <option value="$PROJECT_DIR$/test/PlayerTest.java" />
-        <option value="$PROJECT_DIR$/test/DecoderTest.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerAllowTigerPlayground.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerDisallowExpansion.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerInvalidTigerPlacement.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerInvalidTilePlacement.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerInvalidTotoroPlacement.java" />
+        <option value="$PROJECT_DIR$/src/testRunnerValidTestPlacement.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/stepDefinitions/stepDefTilePlacement.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/testRunners/testRunnerValidTestPlacement.java" />
+        <option value="$PROJECT_DIR$/src/enums/terrainTypes.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/stepDefinitions/stepDefInvalidTotoroPlacement.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/stepDefinitions/stepDefAllowPlacingOfTotoroSanctuary.java" />
+        <option value="$PROJECT_DIR$/src/acceptanceTests/testRunners/testRunnerAllowBuildingSettlements.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowExpansion.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowPlacingOfTotoroSanctuary.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowTigerPlayground.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerDisallowBuildingSettlement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerDisallowExpansion.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerInvalidTigerPlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerInvalidTilePlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerInvalidTotoroPlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerValidTestPlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowBuildingSettlements.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunner.java" />
         <option value="$PROJECT_DIR$/test/AITest.java" />
-        <option value="$PROJECT_DIR$/src/Client.java" />
-        <option value="$PROJECT_DIR$/src/stepDefAllowExpansion.java" />
-        <option value="$PROJECT_DIR$/test/GameTest.java" />
-        <option value="$PROJECT_DIR$/src/TournamentMockServer.java" />
-        <option value="$PROJECT_DIR$/src/GameBoard.java" />
         <option value="$PROJECT_DIR$/test/GameBoardTest.java" />
-        <option value="$PROJECT_DIR$/src/AI.java" />
-        <option value="$PROJECT_DIR$/src/TournamentClient.java" />
-        <option value="$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java" />
-        <option value="$PROJECT_DIR$/src/Decoder.java" />
+        <option value="$PROJECT_DIR$/test/DecoderTest.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/testRunner.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/testRunner.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowPlacingOfTotoroSanctuary.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowTigerPlayground.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowBuildingSettlement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTigerPlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTilePlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTotoroPlacement.java" />
+        <option value="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefTilePlacement.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/test/unitTests/AITest.java" />
+        <option value="$PROJECT_DIR$/src/tournament/AI.java" />
+        <option value="$PROJECT_DIR$/src/gameRules/GameBoard.java" />
+        <option value="$PROJECT_DIR$/src/gameRules/Player.java" />
+        <option value="$PROJECT_DIR$/src/tournament/Client.java" />
+        <option value="$PROJECT_DIR$/src/tournament/Decoder.java" />
+        <option value="$PROJECT_DIR$/src/tournament/TournamentClient.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -141,16 +250,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="tigerisland" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -166,6 +265,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unitTests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="acceptanceTests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stepDefinitions" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="acceptanceTests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="acceptanceTestFeatures" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -193,19 +340,89 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="serverTests" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tournament" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameRules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enums" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dataStructures" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../TigerIslandServer/TigerIsland" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.3494253" />
+    <property name="last.edited.regexp" value="Sample Text" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KJ\Documents\GitHub\tigerisland\test\unitTests" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -219,7 +436,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.allTests">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -237,7 +454,7 @@
     </configuration>
     <configuration default="false" name="TournamentMockServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="TournamentMockServer" />
+      <option name="MAIN_CLASS_NAME" value="tournament.TournamentMockServer" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -326,6 +543,25 @@
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -426,6 +662,44 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -452,6 +726,38 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="executeSpecs" factoryName="Gauge Execution">
+      <setting name="environment" value="" />
+      <setting name="specsToExecute" value="" />
+      <setting name="tags" value="" />
+      <setting name="parallelNodes" value="" />
+      <setting name="execInParallel" value="false" />
+      <setting name="programParameters" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="moduleName" value="" />
+      <envMap />
+      <setting name="rowsRange" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
       <method />
     </configuration>
     <configuration default="false" name="allTests" type="JUnit" factoryName="JUnit">
@@ -506,40 +812,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="allTests - 2017.04.12 at 11h 55m 17s.xml">
+    <history-entry file="AITest - 2017.04.13 at 11h 59m 05s.xml">
+      <configuration name="AITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AITest - 2017.04.13 at 12h 03m 40s.xml">
+      <configuration name="AITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AITest - 2017.04.13 at 12h 04m 03s.xml">
+      <configuration name="AITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AITest - 2017.04.13 at 12h 05m 25s.xml">
+      <configuration name="AITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AITest - 2017.04.13 at 12h 09m 36s.xml">
+      <configuration name="AITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AITest - 2017.04.13 at 12h 09m 41s.xml">
+      <configuration name="AITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 12h 10m 52s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 11h 55m 36s.xml">
+    <history-entry file="allTests - 2017.04.13 at 12h 19m 18s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 11h 55m 56s.xml">
+    <history-entry file="allTests - 2017.04.13 at 12h 19m 46s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 11h 56m 25s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 11h 58m 25s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 12h 00m 06s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 12h 00m 16s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 12h 00m 45s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 12h 01m 24s.xml">
-      <configuration name="allTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="allTests - 2017.04.12 at 12h 30m 15s.xml">
+    <history-entry file="allTests - 2017.04.13 at 12h 20m 19s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -549,28 +854,59 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2781065" sideWeight="0.5021834" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3625793" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34042552" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.122395836" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24357034" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991323" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991323" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2781065" sideWeight="0.5021834" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991323" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32242227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23076923" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17776097" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -586,337 +922,624 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="96" column="22" lean-forward="false" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/InvalidTigerPlacement.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="37" lean-forward="false" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefInvalidTigerPlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-595">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefInvalidTilePlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/ValidTilePlacement.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="67" lean-forward="false" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefTilePlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/AllowExpansion.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="15" lean-forward="true" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefAllowTigerPlayground.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2890">
-          <caret line="173" column="46" lean-forward="true" selection-start-line="173" selection-start-column="46" selection-end-line="173" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/AllowTigerPlayground.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="50" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerAllowBuildingSettlements.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerAllowExpansion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerAllowPlacingOfTotoroSanctuary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerAllowTigerPlayground.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerInvalidTigerPlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerValidTestPlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefInvalidTotoroPlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="79" column="52" lean-forward="true" selection-start-line="79" selection-start-column="52" selection-end-line="79" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/InvalidTotoroPlacement.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="49" lean-forward="true" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerInvalidTotoroPlacement.java">
+    <entry file="file://$PROJECT_DIR$/test/GameTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/Game.java" />
+    <entry file="file://$PROJECT_DIR$/src/tournament/TournamentMockServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/InvalidTilePlacement.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerInvalidTilePlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefDisallowExpansion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="45" column="26" lean-forward="false" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testRunnerDisallowExpansion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="951">
-          <caret line="156" column="0" lean-forward="false" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Hex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/HexTest.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/TileTest.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowTigerPlayground.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/turnPhase.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowPlacingOfTotoroSanctuary.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="28" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/DisallowExpansion.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTigerPlacement.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTilePlacement.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-348">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/ValidTilePlacement.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowExpansion.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowPlacingOfTotoroSanctuary.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerAllowTigerPlayground.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerDisallowBuildingSettlement.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerDisallowExpansion.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerInvalidTigerPlacement.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerInvalidTilePlacement.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerInvalidTotoroPlacement.java" />
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/testRunners/testRunnerValidTestPlacement.java" />
+    <entry file="file://$PROJECT_DIR$/test/unitTests/GameBoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="2052" column="53" lean-forward="false" selection-start-line="2052" selection-start-column="53" selection-end-line="2052" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/testRunner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <caret line="10" column="94" lean-forward="true" selection-start-line="10" selection-start-column="94" selection-end-line="10" selection-end-column="94" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tournament.java" />
-    <entry file="file://$PROJECT_DIR$/AITest.java" />
-    <entry file="file://$PROJECT_DIR$/AI.java" />
-    <entry file="file://$PROJECT_DIR$/test/PlayerTest.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="13" column="31" lean-forward="false" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/DecoderTest.java" />
-    <entry file="file://$PROJECT_DIR$/test/AITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11025">
-          <caret line="441" column="3" lean-forward="false" selection-start-line="441" selection-start-column="3" selection-end-line="441" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefAllowExpansion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="209" column="40" lean-forward="true" selection-start-line="209" selection-start-column="40" selection-end-line="209" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/serverTests/twochallengetest.txt" />
-    <entry file="file://$PROJECT_DIR$/serverTests/TournamentClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-278">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/serverTests/TournamentTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/serverTests/ClientTest.java" />
-    <entry file="file://$PROJECT_DIR$/test/GameTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TournamentMockServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/GameBoardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16318">
-          <caret line="875" column="0" lean-forward="false" selection-start-line="875" selection-start-column="0" selection-end-line="875" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        <state relative-caret-position="-2482">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TournamentClient.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="289">
+          <caret line="236" column="5" lean-forward="true" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowPlacingOfTotoroSanctuary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        <state relative-caret-position="289">
+          <caret line="294" column="5" lean-forward="false" selection-start-line="294" selection-start-column="5" selection-end-line="294" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AI.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowTigerPlayground.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1097">
-          <caret line="98" column="21" lean-forward="false" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="21" />
+        <state relative-caret-position="289">
+          <caret line="234" column="5" lean-forward="true" selection-start-line="234" selection-start-column="5" selection-end-line="234" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Decoder.java">
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowBuildingSettlement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-595">
-          <caret line="186" column="38" lean-forward="true" selection-start-line="186" selection-start-column="38" selection-end-line="186" selection-end-column="38" />
+        <state relative-caret-position="320">
+          <caret line="127" column="5" lean-forward="true" selection-start-line="127" selection-start-column="5" selection-end-line="127" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="203" column="5" lean-forward="true" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTigerPlacement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="96" column="5" lean-forward="false" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTilePlacement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="204" column="5" lean-forward="true" selection-start-line="204" selection-start-column="5" selection-end-line="204" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTotoroPlacement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="160" column="5" lean-forward="true" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefTilePlacement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="176" column="5" lean-forward="true" selection-start-line="176" selection-start-column="5" selection-end-line="176" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-35">
+            <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-196">
+          <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowBuildingSettlements.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowExpansion.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTotoroPlacement.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/DisallowingBuildingSettlements.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-18">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataStructures/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/BuildType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/turnPhase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/terrainTypes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/GameBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="1756" column="41" lean-forward="true" selection-start-line="1756" selection-start-column="41" selection-end-line="1756" selection-end-column="41" />
+          <folding>
+            <element signature="method#GameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#placeFirstTileAndUpdateValidPlacementList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateGameBoardPositionArrayWithFirstTileHexes#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateValidPlacementArrayWithFirstTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexesToPlaceTileOnAreAlreadyOccupied#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereAreNoHexesUnderEvenAndFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereAreNoHexesUnderOddAndFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereAreNoHexesUnderEvenAndNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#thereAreNoHexesUnderOddAndNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexDoesNotOccupyPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setEvenFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setOddFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexACoordinateAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexBCoordinateAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexCCoordinateAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateValidTilePlacementList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setValidFlippedPositions#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setValidNotFlippedPositions#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#boardPositionsRelativeToHomeHexAreEmpty#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setBoardPositionsRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setBoardPositionAsOccupied#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#nukeAtPositionIsValid#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceEvenFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceOddFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceEvenNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#canValidlyPlaceOddNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noEmptySpacesBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#allHexesBelowEvenFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#allHexesBelowOddFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#allHexesBelowEvenNotFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#allHexesBelowOddNotFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#notCoveringEntireOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTigerPenBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noTotoroBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexAOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexBOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexCOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexBelowIsAVolcano#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementsGetCompletelyNukedForEvenFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementsGetCompletelyNukedForEvenFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementsGetCompletelyNukedForEvenFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForOddAndFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForOddAndFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForOddAndFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForEvenAndNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForEvenAndNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForEvenAndNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseEvenFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseOddFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseEvenNotFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexALevelAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexBLevelAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setHexCLevelAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#gameBoardPositionNotEmpty#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#buildSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isValidSettlementLocation#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isHabitable#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#placeTotoroSanctuary#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isValidTotoroPlacement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#placeTigerPen#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfValidTigerPlacement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexToPlaceSpecialPieceOnEvenRowIsNotAdjacentToSpecifiedSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexToPlaceSpecialPieceOnOddRowIsNotAdjacentToSpecifiedSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#adjacentHexToSpecialPieceIsNotNullAndIsCorrectSettlementID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#expandSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#expandSettlementDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#calculateVillagersForExpansion#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#calculateVillagersForExpansionDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#calculateScoreForExpansion#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#calculateScoreForExpansionDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#splitSettlements#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#splitSettlementsDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyAddAdjacentHexesToNewlySplitSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateGameBoardSettlementListValuesWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#mergeSettlements#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#mergeSettlementsDriver#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#addHexToNewlyMergedSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="e#86800#86912#0" expanded="false" />
+            <element signature="e#87148#87207#0" expanded="false" />
+            <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#tileIsOddAndNotFlipped#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getGameBoardPositionSettlementID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getGameBoardPositionPlayerID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setGameBoardPositionSettlementID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setGameBoardSettlementListPlayerID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#playerOwnsSettlementWithID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#gameBoardHexIsOwnedByPlayer#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getNewestAssignableSettlementID#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#assignPlayerNewSettlement#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setPlayerOwnedSettlementsListIsOwned#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#assignSizeToGameBoardSettlementList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#addHexToHexesBuiltOnList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#markGameBoardHexAsTraversed#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#unmarkGameBoardPositionAsTraversed#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexHasNotBeenTraversedYet#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#markCurrentCoordinateForRemovalFromBuiltOnThisTurnList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#deleteCurrentCoordinateFromHexesBuiltOnThisTurnList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#resetTraversalList#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#deleteSettlementFromGame#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#setPlayerOwnedSettlementsListIsNotOwned#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getGameBoardSettlementListOwner#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getGameBoardSettlementListSettlementSize#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getGameBoardSettlementListTotoroCount#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#getGameBoardSettlementListTigerCount#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#incrementGameBoardSettlementListSize#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#decrementGameBoardSettlementListSize#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#incrementGameBoardSettlementListTotoroCount#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#decrementGameBoardSettlementListTotoroCount#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#incrementGameBoardSettlementListTigerCount#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#decrementGameBoardSettlementListTigerCount#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#findAdjacentSettlementWithoutTotoro#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#findAdjacentSettlementWithoutTiger#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexHasSettlersOnIt#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexHasTotorosOnIt#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#hexHasTigersOnIt#0;class#GameBoard#0" expanded="false" />
+            <element signature="method#isNotBuiltOn#0;class#GameBoard#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/Hex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="71" lean-forward="true" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
+          <folding>
+            <element signature="docComment;class#Hex#0" expanded="false" />
+            <element signature="method#Hex#0;class#Hex#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="95" column="5" lean-forward="false" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+          <folding>
+            <element signature="docComment;class#Player#0" expanded="false" />
+            <element signature="method#Player#0;class#Player#0" expanded="false" />
+            <element signature="method#getTigerCount#0;class#Player#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-92">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#Tile#0" expanded="false" />
+            <element signature="method#Tile#0;class#Tile#0" expanded="false" />
+            <element signature="method#rotateTileClockwise#0;class#Tile#0" expanded="false" />
+            <element signature="method#flip#0;class#Tile#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tournament/AI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="145" column="0" lean-forward="true" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tournament/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-58">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tournament/Decoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="421" column="10" lean-forward="false" selection-start-line="421" selection-start-column="10" selection-end-line="421" selection-end-column="10" />
+          <folding>
+            <element signature="method#messageTypeDecode#0;class#Decoder#0" expanded="false" />
+            <element signature="method#messageStartsWithWait#0;class#Decoder#0" expanded="false" />
+            <element signature="method#messageStartsWithNew#0;class#Decoder#0" expanded="false" />
+            <element signature="method#messageStartsWithBegin#0;class#Decoder#0" expanded="false" />
+            <element signature="method#messageStartsWithMake#0;class#Decoder#0" expanded="false" />
+            <element signature="method#messageStartsWithGame#0;class#Decoder#0" expanded="false" />
+            <element signature="e#8486#8506#0" expanded="false" />
+            <element signature="method#setTheirExpansionTerrainType#0;class#Decoder#0" expanded="false" />
+            <element signature="method#messageStartsWithEnd#0;class#Decoder#0" expanded="false" />
+            <element signature="method#convertTileStringToTileObject#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirTileTerrainTypes#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setOurTileTerrainTypes#0;class#Decoder#0" expanded="false" />
+            <element signature="method#convertTileCoordinatesFromCubicToOddROffset#0;class#Decoder#0" expanded="false" />
+            <element signature="method#convertBuildCoordinatesFromCubicToOddROffset#0;class#Decoder#0" expanded="false" />
+            <element signature="method#convertCoordinatesBasedOnOrientation#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTileTerrainStringOfFormatAandB#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTerrainHexAFromMessage#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTerrainHexBFromMessage#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTerrainHexCFromMessage#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirTerrainTypeAtHexA#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirTerrainTypeAtHexB#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirTerrainTypeAtHexC#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirTileColumnPosition#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setOurTerrainTypeAtHexA#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setOurTerrainTypeAtHexB#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setOurTerrainTypeAtHexC#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setxCubicBuildCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setyCubicBuildCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setzCubicBuildCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirExpandedTerrainTypeFromMessage#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirExpandTerrainTypeIfExpansion#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setColOddRTileCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setRowOddRTileCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirColOddRBuildCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTheirRowOddRBuildCoordinate#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setWaitingForNextMatchFlag#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setTerrainOrderingOfTheirTile#0;class#Decoder#0" expanded="false" />
+            <element signature="method#setWaitingForNextChallengeFlag#0;class#Decoder#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unitTests/DecoderTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="103" column="46" lean-forward="true" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tournament/TournamentClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unitTests/AITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="303" column="4" lean-forward="false" selection-start-line="303" selection-start-column="4" selection-end-line="303" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="234" column="49" lean-forward="true" selection-start-line="234" selection-start-column="49" selection-end-line="234" selection-end-column="49" />
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>tigerisland</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3494253" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>cucumber-core-1.2.5</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
