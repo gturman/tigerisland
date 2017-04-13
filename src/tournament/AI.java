@@ -106,7 +106,6 @@ public class AI {
         String returnString = "";
 
         while(true) {
-
             if(playerOne.getVillagerCount() == 0) {
                 returnString += "UNABLE TO BUILD";
                 break;
@@ -142,8 +141,6 @@ public class AI {
             }
 
             settlementsBuiltInARow=1;
-
-
 
             //build on new tile (conflict)
             if(rowPos%2==0){

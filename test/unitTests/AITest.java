@@ -1,3 +1,5 @@
+package unitTests;
+
 import enums.BuildType;
 import enums.terrainTypes;
 import org.junit.*;

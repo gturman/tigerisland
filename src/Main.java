@@ -196,7 +196,7 @@ public class Main {
                                 tempTerrainTypeHexB = masterDecoder.getOurTerrainTypeAtHexB();
                                 tempTerrainTypeHexC = masterDecoder.getOurTerrainTypeAtHexC();
 
-                                ourPlacementMessage = aiForGame1.placeForOurPlayer(tempTerrainTypeHexA, tempTerrainTypeHexB, tempTerrainTypeHexC);
+                                ourPlacementMessage = aiForGame2.placeForOurPlayer(tempTerrainTypeHexA, tempTerrainTypeHexB, tempTerrainTypeHexC);
                                 ourBuildMessage = aiForGame2.buildForOurPlayer();
 
                                 //send message
