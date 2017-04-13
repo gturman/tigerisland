@@ -60,14 +60,15 @@ public class Decoder {
 
     private String terrainOrderingOfTheirTile = "";
 
-    Decoder() {
-
-    }
+    Decoder() {}
 
     void decodeString(String messageFromServer){
-
         messageTypeDecode(messageFromServer);
+    }
 
+    void resetDecoderFlags() {
+        theyForfeitedFlag = false;
+        theyLostFlag = false;
     }
 
     void messageTypeDecode(String messageFromServer){
@@ -270,23 +271,17 @@ public class Decoder {
                         setzCubicBuildCoordinate(Integer.parseInt(sc.next()));
                         setTheirMoveType(BuildType.PLACE_TIGER);
                     }
-
                 }
-
                 convertBuildCoordinatesFromCubicToOddROffset(xCubicBuildCoordinate, yCubicBuildCoordinate, zCubicBuildCoordinate);
             } else if(currentWord.equals("FORFEITED:")){
                 setTheyForfeitedFlag(true);
-                break;
+                return;
             }
             else if(currentWord.equals("LOST:")){
                 setTheyLostFlag(true);
+                return;
             }
-
-
         }
-
-
-
     }
 
     void setTheirExpansionTerrainType(String theirExpandedTerrainTypeFromMessage){

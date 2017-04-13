@@ -31,7 +31,7 @@ public class TournamentClient {
 
     }
 */
-    public String authenticateAndGetPlayerID() throws IOException {
+    public String authenticateConnectionAndGetPlayerID() throws IOException {
 
         Decoder mainDecoder = new Decoder();
         String messageFromServer;
