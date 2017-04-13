@@ -22,7 +22,7 @@ public class HexTest {
         Assert.assertEquals(testHex1.isNotBuiltOn(),true);
 
         Hex testHex2 = new Hex(0,0,terrainTypes.LAKE);
-        testHex2.setSettlerCount(1);
+        testHex2.setVillagerCount(1);
         Assert.assertEquals(testHex2.isNotBuiltOn(),false);
 
         Hex testHex3 = new Hex(0,0,terrainTypes.LAKE);
@@ -75,25 +75,25 @@ public class HexTest {
     @Test
     public void testGetSettlerCount(){
         Hex testHex = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        Assert.assertEquals(testHex.getSettlerCount(),0);
+        Assert.assertEquals(testHex.getVillagerCount(),0);
 
         Hex testHex1 = new Hex(0, 0, terrainTypes.JUNGLE);
-        Assert.assertEquals(testHex1.getSettlerCount(),0);
+        Assert.assertEquals(testHex1.getVillagerCount(),0);
 
     }
 
     @Test
     public void testSetSettlerCount(){
         Hex testHex = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        Assert.assertEquals(testHex.getSettlerCount(),0);
+        Assert.assertEquals(testHex.getVillagerCount(),0);
 
         Hex testHex1 = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        testHex1.setSettlerCount(1);
-        Assert.assertEquals(testHex1.getSettlerCount(),1);
+        testHex1.setVillagerCount(1);
+        Assert.assertEquals(testHex1.getVillagerCount(),1);
 
         Hex testHex2 = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        testHex2.setSettlerCount(5);
-        Assert.assertEquals(testHex2.getSettlerCount(),5);
+        testHex2.setVillagerCount(5);
+        Assert.assertEquals(testHex2.getVillagerCount(),5);
 
     }
 
@@ -150,25 +150,25 @@ public class HexTest {
     @Test
     public void testGetPlayerID(){
         Hex testHex = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        Assert.assertEquals(testHex.getPlayerID(),0);
+        Assert.assertEquals(testHex.getOwningPlayerID(),0);
 
         Hex testHex1 = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        Assert.assertEquals(testHex1.getPlayerID(),0);
+        Assert.assertEquals(testHex1.getOwningPlayerID(),0);
 
     }
 
     @Test
     public void testSetPlayerID(){
         Hex testHex = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        Assert.assertEquals(testHex.getPlayerID(),0);
+        Assert.assertEquals(testHex.getOwningPlayerID(),0);
 
         Hex testHex1 = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        testHex1.setPlayerID(1);
-        Assert.assertEquals(testHex1.getPlayerID(),1);
+        testHex1.setOwningPlayerID(1);
+        Assert.assertEquals(testHex1.getOwningPlayerID(),1);
 
         Hex testHex2 = new Hex(0, 0, terrainTypes.GRASSLANDS);
-        testHex2.setPlayerID(5);
-        Assert.assertEquals(testHex2.getPlayerID(),5);
+        testHex2.setOwningPlayerID(5);
+        Assert.assertEquals(testHex2.getOwningPlayerID(),5);
 
     }
 

@@ -49,7 +49,7 @@ public class stepDefAllowBuildingSettlement {
     @And("^I still have villagers$")
     public void iStillHaveVillagers() throws Throwable {
         Player player = new Player(1);
-        int villagerCount =  player.getSettlerCount();
+        int villagerCount =  player.getVillagerCount();
     }
 
     @Given("^the hex is habitable$")
@@ -140,7 +140,7 @@ public class stepDefAllowBuildingSettlement {
 
             gameboard.buildSettlement(103, 102, player);
 
-            int villageCount = player.getSettlerCount();
+            int villageCount = player.getVillagerCount();
         }
 
     }

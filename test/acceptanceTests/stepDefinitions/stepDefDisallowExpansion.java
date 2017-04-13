@@ -150,7 +150,7 @@ public class stepDefDisallowExpansion {
         GameBoard gameboard = new GameBoard();
         Player player = new Player(1);
 
-        player.setSettlerCount(1);
+        player.setVillagerCount(1);
 
         gameboard.placeFirstTileAndUpdateValidPlacementList();
 
@@ -188,7 +188,7 @@ public class stepDefDisallowExpansion {
         GameBoard gameboard = new GameBoard();
         Player player = new Player(1);
 
-        player.setSettlerCount(1);
+        player.setVillagerCount(1);
 
         gameboard.placeFirstTileAndUpdateValidPlacementList();
 

@@ -948,28 +948,28 @@ public class GameBoardTest {
         gameBoard.setTileAtPosition(99, 100, secondTile);
 
         gameBoard.buildSettlement(99, 98, player);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount(), 1);
-        Assert.assertEquals(player.getSettlerCount(), 19);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getVillagerCount(), 1);
+        Assert.assertEquals(player.getVillagerCount(), 19);
 
         gameBoard.buildSettlement(98, 99, player);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][99].getSettlerCount(), 0); //volcano
-        Assert.assertEquals(player.getSettlerCount(), 19);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][99].getVillagerCount(), 0); //volcano
+        Assert.assertEquals(player.getVillagerCount(), 19);
 
         gameBoard.buildSettlement(99, 99, player);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount(), 1);
-        Assert.assertEquals(player.getSettlerCount(), 18);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getVillagerCount(), 1);
+        Assert.assertEquals(player.getVillagerCount(), 18);
 
         gameBoard.buildSettlement(99, 100, player);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(), 1);
-        Assert.assertEquals(player.getSettlerCount(), 17);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getVillagerCount(), 1);
+        Assert.assertEquals(player.getVillagerCount(), 17);
 
         gameBoard.buildSettlement(98, 101, player);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount(), 1);
-        Assert.assertEquals(player.getSettlerCount(), 16);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getVillagerCount(), 1);
+        Assert.assertEquals(player.getVillagerCount(), 16);
 
         gameBoard.buildSettlement(99, 101, player);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][101].getSettlerCount(), 0); //volcano
-        Assert.assertEquals(player.getSettlerCount(), 16);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][101].getVillagerCount(), 0); //volcano
+        Assert.assertEquals(player.getVillagerCount(), 16);
 
         Assert.assertEquals(player.getScore(), 4);
 
@@ -982,9 +982,9 @@ public class GameBoardTest {
         gameBoard.buildSettlement(99, 99, player);
         gameBoard.buildSettlement(99, 100, player);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][99].getSettlerCount(), 0); //volcano + level 2
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(), 0); //level 2
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(), 0); //level 2
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][99].getVillagerCount(), 0); //volcano + level 2
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getVillagerCount(), 0); //level 2
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getVillagerCount(), 0); //level 2
     }
 
     @Test
@@ -1048,13 +1048,13 @@ public class GameBoardTest {
         gameBoard.expandSettlement(99, 98, terrainTypes.GRASSLANDS, playerOne);
 
         Assert.assertEquals(playerOne.getScore(), 10); //1 for settlement founding + 9 for expansion (4*2 + 1)
-        Assert.assertEquals(playerOne.getSettlerCount(), 14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(), 2);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getPlayerID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(), 2);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(), 1);
+        Assert.assertEquals(playerOne.getVillagerCount(), 14);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getVillagerCount(), 2);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getOwningPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getVillagerCount(), 2);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getOwningPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getVillagerCount(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getOwningPlayerID(), 1);
     }
 
     @Test
@@ -1077,19 +1077,19 @@ public class GameBoardTest {
         gameBoard.expandSettlement(99, 100, terrainTypes.GRASSLANDS, playerOne);
 
         Assert.assertEquals(playerOne.getScore(), 1); //1 for settlement founding + 9 for expansion (4*2 + 1)
-        Assert.assertEquals(playerOne.getSettlerCount(), 19);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
+        Assert.assertEquals(playerOne.getVillagerCount(), 19);//-1 settlement founding, -5 expansion (2 on lvl2 + 1 on lvl 1)
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getSettlerCount(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getVillagerCount(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][98].getOwningPlayerID(), 1);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getSettlerCount(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getPlayerID(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getVillagerCount(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][99].getOwningPlayerID(), 0);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getSettlerCount(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getVillagerCount(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getOwningPlayerID(), 0);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getSettlerCount(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getPlayerID(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[98][101].getVillagerCount(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[99][100].getOwningPlayerID(), 0);
     }
 
     @Test
@@ -1201,15 +1201,15 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][102].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
 
         gameBoard.assignSizeToGameBoardSettlementList(1, 4);
         gameBoard.setPlayerOwnedSettlementsListIsOwned(1, 1);
@@ -1225,10 +1225,10 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(1, 1), true);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getPlayerID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getPlayerID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getPlayerID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getOwningPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getOwningPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getOwningPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getOwningPlayerID(), 1);
 
         Tile secondTile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.ROCKY, terrainTypes.GRASSLANDS);
 
@@ -1243,10 +1243,10 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.playerOwnsSettlementWithID(1, 1), true);
 
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getPlayerID(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getPlayerID(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getPlayerID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getOwningPlayerID(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][103].getOwningPlayerID(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][102].getOwningPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[103][103].getOwningPlayerID(), 1);
     }
 
     @Test
@@ -1269,15 +1269,15 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][102].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 4);
@@ -1318,17 +1318,17 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
 
@@ -1367,19 +1367,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
 
@@ -1415,18 +1415,18 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
@@ -1456,19 +1456,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1500,19 +1500,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1542,19 +1542,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1586,19 +1586,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1634,19 +1634,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1677,15 +1677,15 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][102].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 4);
@@ -1724,17 +1724,17 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
 
@@ -1774,19 +1774,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
 
@@ -1822,18 +1822,18 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[103][103].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 5);
@@ -1863,19 +1863,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1909,19 +1909,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -1956,19 +1956,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -2001,19 +2001,19 @@ public class GameBoardTest {
         gameBoard.getGameBoardPositionArray()[102][104].setSettlementID(1);
         gameBoard.getGameBoardPositionArray()[102][101].setSettlementID(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setSettlerCount(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setSettlerCount(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setVillagerCount(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setVillagerCount(1);
 
-        gameBoard.getGameBoardPositionArray()[101][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][102].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[103][103].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][104].setPlayerID(1);
-        gameBoard.getGameBoardPositionArray()[102][101].setPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[101][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][102].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[103][103].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][104].setOwningPlayerID(1);
+        gameBoard.getGameBoardPositionArray()[102][101].setOwningPlayerID(1);
 
         gameBoard.setGameBoardSettlementListPlayerID(1, 1);
         gameBoard.assignSizeToGameBoardSettlementList(1, 6);
@@ -2177,19 +2177,19 @@ public class GameBoardTest {
 
         gameBoard.buildSettlement(101, 103, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getSettlementID(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][103].getOwningPlayerID(), 1);
 
         gameBoard.buildSettlement(102, 101, playerTwo);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getSettlementID(), 2);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getPlayerID(), 2);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][101].getOwningPlayerID(), 2);
 
         gameBoard.buildSettlement(102, 104, playerTwo);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getSettlementID(), 3);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getPlayerID(), 2);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[102][104].getOwningPlayerID(), 2);
 
         gameBoard.buildSettlement(104, 104, playerOne);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getSettlementID(), 4);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[104][104].getOwningPlayerID(), 1);
 
         gameBoard.expandSettlement(101, 103, terrainTypes.GRASSLANDS, playerOne);
 
@@ -2843,12 +2843,12 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.isValidTotoroPlacement(103, 101, 1, playerTwo), false);
 
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getTotoroCount(), 0);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getPlayerID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getOwningPlayerID(), 0);
 
         gameboard.placeTotoroSanctuary(103, 101, 1, playerOne);
 
         Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getTotoroCount(), 1);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getPlayerID(), 1);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getOwningPlayerID(), 1);
     }
 
     @Test
@@ -2883,7 +2883,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListTigerCount(2), 0);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTigerCount(), 0);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getPlayerID(), 0);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getOwningPlayerID(), 0);
 
         Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 2, playerOne), true);
         Assert.assertEquals(gameBoard.checkIfValidTigerPlacement(101, 105, 2, playerTwo), false);
@@ -2892,7 +2892,7 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.getGameBoardSettlementListTigerCount(2), 1);
         Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getTigerCount(), 1);
-        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getPlayerID(), 1);
+        Assert.assertEquals(gameBoard.getGameBoardPositionArray()[101][105].getOwningPlayerID(), 1);
     }
 
     @Test
@@ -2956,15 +2956,15 @@ public class GameBoardTest {
         Assert.assertEquals(gameboard.playerOwnsSettlementWithID(5, playerOne.getPlayerID()), true);
         Assert.assertEquals(gameboard.playerOwnsSettlementWithID(5, playerTwo.getPlayerID()), false);
 
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getPlayerID(), playerOne.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getPlayerID(), playerOne.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getPlayerID(), playerOne.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getPlayerID(), 0);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getPlayerID(), 0);
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][102].getPlayerID(), playerOne.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][103].getPlayerID(), playerOne.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[105][102].getPlayerID(), playerTwo.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][101].getPlayerID(), playerTwo.getPlayerID());
-        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getPlayerID(), playerTwo.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][103].getOwningPlayerID(), playerOne.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[101][101].getOwningPlayerID(), playerOne.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][101].getOwningPlayerID(), playerOne.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[102][103].getOwningPlayerID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][102].getOwningPlayerID(), 0);
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][102].getOwningPlayerID(), playerOne.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][103].getOwningPlayerID(), playerOne.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[105][102].getOwningPlayerID(), playerTwo.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[104][101].getOwningPlayerID(), playerTwo.getPlayerID());
+        Assert.assertEquals(gameboard.getGameBoardPositionArray()[103][101].getOwningPlayerID(), playerTwo.getPlayerID());
     }
 }

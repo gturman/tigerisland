@@ -1,6 +1,5 @@
 import enums.BuildType;
 import enums.terrainTypes;
-import gameRules.Tile;
 import org.junit.*;
 import tournament.AI;
 
@@ -49,8 +48,8 @@ public class AITest {
 
         game1.buildForOtherPlayer(BuildType.FOUND_SETTLEMENT, 102, 99, null);
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][99].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][99].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][99].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][99].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getPlayerTwoScore(), 1);
         Assert.assertEquals(game1.getPlayerTwoVillagerCount(), 19);
     }
@@ -68,12 +67,12 @@ public class AITest {
 
         game1.buildForOtherPlayer(BuildType.EXPAND_SETTLMENT, 103, 102, terrainTypes.GRASSLANDS);
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getPlayerTwoScore(), 4);
         Assert.assertEquals(game1.getPlayerTwoVillagerCount(), 16);
 
@@ -93,10 +92,10 @@ public class AITest {
 
         game1.buildForOtherPlayer(BuildType.EXPAND_SETTLMENT, 103, 102, terrainTypes.GRASSLANDS);
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getPlayerTwoScore(), 4);
         Assert.assertEquals(game1.getPlayerTwoVillagerCount(), 16);
     }
@@ -116,16 +115,16 @@ public class AITest {
 
         game1.buildForOtherPlayer(BuildType.EXPAND_SETTLMENT, 103, 102, terrainTypes.LAKE);
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][102].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][102].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][101].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][101].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][101].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][103].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][101].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][102].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][102].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][101].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][101].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getPlayerTwoScore(), 6);
         Assert.assertEquals(game1.getPlayerTwoVillagerCount(), 14);
 
@@ -149,7 +148,7 @@ public class AITest {
         game1.buildForOtherPlayer(BuildType.PLACE_TOTORO, 101, 101, null);
 
         Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[101][101].getTotoroCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[101][101].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[101][101].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getPlayerTwoScore(), 206);
         Assert.assertEquals(game1.getPlayerTwoTotoroCount(), 2);
 
@@ -157,7 +156,7 @@ public class AITest {
 
         //should not place, already has totoro
         Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[101][103].getTotoroCount(), 0);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[101][103].getPlayerID(), 0);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[101][103].getOwningPlayerID(), 0);
         Assert.assertEquals(game1.getPlayerTwoScore(), 206);
         Assert.assertEquals(game1.getPlayerTwoTotoroCount(), 2);
     }
@@ -192,12 +191,12 @@ public class AITest {
 
         game1.buildForOtherPlayer(BuildType.PLACE_TIGER, 105, 103, null);
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][102].getSettlerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][102].getPlayerID(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[106][102].getSettlerCount(), 2);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[106][102].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][102].getVillagerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][102].getOwningPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[106][102].getVillagerCount(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[106][102].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][103].getTigerCount(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][103].getPlayerID(), 2);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][103].getOwningPlayerID(), 2);
         Assert.assertEquals(game1.getPlayerTwoScore(), 80);
         Assert.assertEquals(game1.getPlayerTwoTigerCount(), 1);
         Assert.assertEquals(game1.getPlayerTwoVillagerCount(), 17);
@@ -247,8 +246,8 @@ public class AITest {
         //build one settlement
         game1.buildForOurPlayer();
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][105].getPlayerID(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][105].getSettlerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][105].getOwningPlayerID(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[102][105].getVillagerCount(), 1);
         Assert.assertEquals(game1.getPlayerOneScore(), 1);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(), 19);
 
@@ -258,22 +257,22 @@ public class AITest {
         //build again
         game1.buildForOurPlayer();
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][105].getPlayerID(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][105].getSettlerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][105].getOwningPlayerID(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[103][105].getVillagerCount(), 1);
         Assert.assertEquals(game1.getPlayerOneScore(), 2);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(), 18);
 
         game1.buildForOurPlayer();
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getPlayerID(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getSettlerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getOwningPlayerID(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getVillagerCount(), 1);
         Assert.assertEquals(game1.getPlayerOneScore(), 3);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(), 17);
 
         game1.buildForOurPlayer();
 
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getPlayerID(), 1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getSettlerCount(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getOwningPlayerID(), 1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getVillagerCount(), 1);
         Assert.assertEquals(game1.getPlayerOneScore(), 4);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(), 16);
     }
@@ -288,15 +287,15 @@ public class AITest {
         game1.placeForOurPlayer(terrainTypes.VOLCANO, terrainTypes.ROCKY, terrainTypes.LAKE);
         game1.buildForOurPlayer();
 
-        // Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getPlayerID(),1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getSettlerCount(), 1);
+        // Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getOwningPlayerID(),1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[104][105].getVillagerCount(), 1);
         Assert.assertEquals(game1.getPlayerOneScore(), 1);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(), 19);
 
         game1.buildForOurPlayer();
 
-        // Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getPlayerID(),1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getSettlerCount(), 1);
+        // Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getOwningPlayerID(),1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[105][105].getVillagerCount(), 1);
         Assert.assertEquals(game1.getPlayerOneScore(), 2);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(), 18);
     }
@@ -327,7 +326,7 @@ public class AITest {
         game1.buildForOurPlayer();
         game1.buildForOurPlayer();//should be totoro;
         Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][105].getTotoroCount(),1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][105].getPlayerID(),1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[107][105].getOwningPlayerID(),1);
         Assert.assertEquals(game1.getPlayerOneScore(),205);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(),15);
         Assert.assertEquals(game1.getPlayerOneTotoroCount(),2);
@@ -339,7 +338,7 @@ public class AITest {
         game1.buildForOurPlayer();
         game1.buildForOurPlayer();//should be totoro
         Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[114][105].getTotoroCount(),1);
-        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[114][105].getPlayerID(),1);
+        Assert.assertEquals(game1.getCurrentAIGameBoardPositionArray()[114][105].getOwningPlayerID(),1);
         Assert.assertEquals(game1.getPlayerOneScore(),410);
         Assert.assertEquals(game1.getPlayerOneVillagerCount(),10);
         Assert.assertEquals(game1.getPlayerOneTotoroCount(),1);

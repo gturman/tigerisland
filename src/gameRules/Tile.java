@@ -10,19 +10,19 @@ public class Tile {
     private Hex hexA;
     private Hex hexB;
     private Hex hexC;
-
     private boolean isFlipped;
 
     public Tile(int tileID, int hexID, terrainTypes hexTerrainA, terrainTypes hexTerrainB, terrainTypes hexTerrainC) {
         this.tileID = tileID;
 
-            hexA = new Hex(hexID, tileID, hexTerrainA);
-            hexID++;
-            hexB = new Hex(hexID, tileID, hexTerrainB);
-            hexID++;
-            hexC = new Hex(hexID, tileID, hexTerrainC);
-            hexID++;
+        hexA = new Hex(hexID, tileID, hexTerrainA);
+        hexID++;
 
+        hexB = new Hex(hexID, tileID, hexTerrainB);
+        hexID++;
+
+        hexC = new Hex(hexID, tileID, hexTerrainC);
+        hexID++;
     }
 
     public int getTileID() {
@@ -36,15 +36,18 @@ public class Tile {
     public Hex getHexA(){
         return this.hexA;
     }
+
     public Hex getHexB(){
         return this.hexB;
     }
+
     public Hex getHexC(){
         return this.hexC;
     }
 
     public void rotateTileClockwise(int numberOfRotations){
         terrainTypes temp;
+
         if(this.isFlipped()) {
             if(numberOfRotations%3 == 1){
                 temp = this.hexA.getTerrainType();
@@ -70,7 +73,6 @@ public class Tile {
                 this.hexC.setTerrainType(temp);
             }
         }
-
     }
 
     public void flip() {

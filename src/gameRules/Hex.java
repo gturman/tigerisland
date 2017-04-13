@@ -9,36 +9,40 @@ import dataStructures.Pair;
 
 public class Hex {
     private int hexID;
-    private int hexLevel;
     private int parentTileID;
     private Pair hexCoordinate = new Pair(0, 0);
+    private int hexLevel;
     private terrainTypes hexTerrainType;
-    private int playerID;
+    private int owningPlayerID;
     private int settlementID;
-    private int settlerCount;
+    private int villagerCount;
     private int totoroCount;
     private int tigerCount;
     private boolean alreadyTraversed;
 
     public Hex(int hexID, int parentTileID, terrainTypes hexTerrainType) {
         this.hexID = hexID;
-        this.hexLevel = 1;
         this.parentTileID = parentTileID;
+        this.hexLevel = 1;
         this.hexTerrainType = hexTerrainType;
-        this.settlerCount = 0;
+        this.owningPlayerID = 0;
+        this.settlementID = 0;
+        this.villagerCount = 0;
         this.totoroCount = 0;
         this.tigerCount = 0;
-        this.settlementID = 0;
-        this.playerID = 0;
         this.alreadyTraversed = false;
-    }
-
-    public boolean isNotBuiltOn(){
-        return (settlerCount == 0 && totoroCount == 0 && tigerCount == 0);
     }
 
     public int getHexID() {
         return hexID;
+    }
+
+    public int getParentTileID() {
+        return this.parentTileID;
+    }
+
+    public Pair getCoordinatePair(){
+        return hexCoordinate;
     }
 
     public int getLevel() {
@@ -49,10 +53,6 @@ public class Hex {
         this.hexLevel = hexLevel;
     }
 
-    public Pair getCoordinatePair(){
-        return hexCoordinate;
-    }
-
     public terrainTypes getTerrainType(){
         return this.hexTerrainType;
     }
@@ -61,16 +61,28 @@ public class Hex {
         this.hexTerrainType = newTerrain;
     }
 
-    public int getParentTileID() {
-        return this.parentTileID;
+    public int getOwningPlayerID() {
+        return owningPlayerID;
     }
 
-    public int getSettlerCount() {
-        return settlerCount;
+    public void setOwningPlayerID(int owningPlayerID) {
+        this.owningPlayerID = owningPlayerID;
     }
 
-    public void setSettlerCount(int settlerCount) {
-        this.settlerCount = settlerCount;
+    public int getSettlementID() {
+        return settlementID;
+    }
+
+    public void setSettlementID(int settlementID) {
+        this.settlementID = settlementID;
+    }
+
+    public int getVillagerCount() {
+        return villagerCount;
+    }
+
+    public void setVillagerCount(int villagerCount) {
+        this.villagerCount = villagerCount;
     }
 
     public int getTotoroCount() {
@@ -89,27 +101,15 @@ public class Hex {
         this.tigerCount = tigerCount;
     }
 
-    public int getSettlementID() {
-        return settlementID;
-    }
-
-    public void setSettlementID(int settlementID) {
-        this.settlementID = settlementID;
-    }
-
-    public int getPlayerID() {
-        return playerID;
-    }
-
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
-    }
-
     public boolean getIfAlreadyTraversed() {
         return this.alreadyTraversed;
     }
 
     public boolean setIfAlreadyTraversed(boolean value) {
         return this.alreadyTraversed = value;
+    }
+
+    public boolean isNotBuiltOn(){
+        return (villagerCount == 0 && totoroCount == 0 && tigerCount == 0);
     }
 }

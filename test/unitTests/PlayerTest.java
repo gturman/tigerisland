@@ -18,7 +18,7 @@ public class PlayerTest {
     @Test
     public void testGetVillagerCount(){
         Player P1 = new Player(1);
-        Assert.assertEquals(P1.getSettlerCount(),20);
+        Assert.assertEquals(P1.getVillagerCount(),20);
     }
 
     @Test
@@ -49,16 +49,16 @@ public class PlayerTest {
     @Test
     public void testModifiedMeepleCount(){
         Player P1 = new Player(1);
-        Assert.assertEquals(P1.getSettlerCount(),20);
-        P1.setSettlerCount(15);
-        Assert.assertEquals(P1.getSettlerCount(),15);
+        Assert.assertEquals(P1.getVillagerCount(),20);
+        P1.setVillagerCount(15);
+        Assert.assertEquals(P1.getVillagerCount(),15);
     }
 
     @Test
     public void testModifiedTotoroCount(){
         Player P1 = new Player(1);
         Assert.assertEquals(P1.getTotoroCount(), 3);
-        P1.decreaseTotoroCount();
+        P1.decrementTotoroCount();
         Assert.assertEquals(P1.getTotoroCount(),2);
     }
 

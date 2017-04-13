@@ -62,7 +62,6 @@ public class Main {
         while(!challengeIsDone){
             masterDecoder = new Decoder(); // need new decoder to reset flags
             //"NEW CHALLENGE <cid> YOU WILL PLAY <rounds> MATCHES" is message 4
-
             masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
             overallRoundID = masterDecoder.getOverallRoundID();
 
@@ -72,30 +71,31 @@ public class Main {
                 aiForGame1 = new AI();
                 aiForGame2 = new AI();
 
-                // reset game IDs each round
+                // reset game IDs for each round
                 gameID1 = "";
                 gameID2 = "";
 
-                game1IsOver = false; //resetting game 1 over flag for next round
-                game2IsOver = false; //resetting game 2 over flag for next round
+                // reset game over flags for each round
+                game1IsOver = false;
+                game2IsOver = false;
 
-        //        System.out.println("current before matches before set: "+currentRoundID);
+                //System.out.println("current before matches before set: "+currentRoundID);
                 //"BEGIN ROUND <rid> OF <rounds>" is message 5
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
-             //   currentRoundID = masterDecoder.getCurrentRoundID();
+                //currentRoundID = masterDecoder.getCurrentRoundID();
 
                 //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid>" is message 6
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
                 playerID2 = masterDecoder.getPlayerID2();
 
-         //       System.out.println("current before matches: "+currentRoundID);
-          //      System.out.println("overall before matches: "+overallRoundID);
+                //System.out.println("current before matches: "+currentRoundID);
+                //System.out.println("overall before matches: "+overallRoundID);
 
                 // start round and begin processing messages
-         //       System.out.println("got in a round!");
+                //System.out.println("got in a round!");
                 // while at least one game of the two in a round are proceeding
                 while(!(game1IsOver && game2IsOver)) {
-           //         System.out.println("we are in one or more matches in a round!");
+                //System.out.println("we are in one or more matches in a round!");
                     newestMessage = clientForTournament.client.waitAndReceive(); // get message
                     masterDecoder.decodeString(newestMessage); // extract message information for processing
 
@@ -103,26 +103,26 @@ public class Main {
                         break;
                     }
 
-         //           System.out.println("g1 is currently: "+gameID1);
-         //           System.out.println("g2 is currently: "+gameID2);
-         //           System.out.println("masterGameID = "+masterDecoder.getGameID());
+                    //System.out.println("g1 is currently: "+gameID1);
+                    //System.out.println("g2 is currently: "+gameID2);
+                    //System.out.println("masterGameID = "+masterDecoder.getGameID());
 
                     // set game IDs for each match in the round; if a game ID is empty, it has not been set yet
                     if(gameID1.isEmpty()) {
                         gameID1 = masterDecoder.getGameID();
-                   //     System.out.println("g1 set to: "+gameID1);
+                        //System.out.println("g1 set to: "+gameID1);
                     } else if(gameID2.isEmpty() && !(masterDecoder.getGameID().equals(gameID1))) {
                         gameID2 = masterDecoder.getGameID();
-                 //       System.out.println("g2 set to: "+gameID2);
+                        //System.out.println("g2 set to: "+gameID2);
                     }
 
                     if(masterDecoder.getGameOverFlag()) { // determine if a game is to be ended
                         if(masterDecoder.getGameID().equals(gameID1)) {
-            //                System.out.println("g1 lost set");
+                        //System.out.println("g1 lost set");
                             game1IsOver = true;
                         }
                         if(masterDecoder.getGameID().equals(gameID2)) {
-               //             System.out.println("g2 lost set");
+                        //System.out.println("g2 lost set");
                             game2IsOver = true;
                         }
                     }
@@ -176,7 +176,6 @@ public class Main {
                                 //make AIGame1 place for us, build for us
                                 currentMoveNumberForGame1 = masterDecoder.getCurrentMoveNum();
 
-
                                 tempTerrainTypeHexA = masterDecoder.getOurTerrainTypeAtHexA();
                                 tempTerrainTypeHexB = masterDecoder.getOurTerrainTypeAtHexB();
                                 tempTerrainTypeHexC = masterDecoder.getOurTerrainTypeAtHexC();
@@ -207,19 +206,19 @@ public class Main {
                     }
                 }
                 // get both game over messages
-             //   clientForTournament.client.waitAndReceive();
-             //   clientForTournament.client.waitAndReceive();
+                //clientForTournament.client.waitAndReceive();
+                //clientForTournament.client.waitAndReceive();
 
                 if(masterDecoder.getEndOfRoundFlag() == false){
                     //"END OF ROUND <rid> OF <rounds>" or  "END OF ROUND <rid> OF <rounds> WAIT FOR THE NEXT MATCH"
                     masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
                     currentRoundID = masterDecoder.getCurrentRoundID(); // get round number; exit loop if it's last round
-      //            System.out.println("we escaped the damned match loop!");
                 }
+                //System.out.println("we escaped the damned match loop!");
             }
             //"END OF CHALLENGES" or "WAIT FOR THE NEXT CHALLENGE TO BEGIN"
             masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
-       //     System.out.println("we escaped the damned round loop!");
+            //System.out.println("we escaped the damned round loop!");
             if(masterDecoder.getEndOfChallenges() == true)
                 challengeIsDone = true;
 

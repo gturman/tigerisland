@@ -2,98 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5cba8da-a8a5-4dab-a23a-d76e472c60c4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unitTests/AITest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/AI.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/BuildType.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Client.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Decoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Game.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/GameBoard.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Hex.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Pair.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Player.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/Tile.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/TournamentClient.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/TournamentMockServer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowBuildingSettlement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowExpansion.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowPlacingOfTotoroSanctuary.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefAllowTigerPlayground.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefDisallowBuildingSettlement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefDisallowExpansion.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefInvalidTigerPlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefInvalidTilePlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefInvalidTotoroPlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/stepDefTilePlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/terrainTypes$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/terrainTypes.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowBuildingSettlements.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowExpansion.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowPlacingOfTotoroSanctuary.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerAllowTigerPlayground.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerDisallowBuildingSettlement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerDisallowExpansion.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerInvalidTigerPlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerInvalidTilePlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerInvalidTotoroPlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/testRunnerValidTestPlacement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/turnPhase$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/turnPhase.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerAllowExpansion.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerAllowPlacingOfTotoroSanctuary.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerAllowTigerPlayground.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerDisallowExpansion.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerInvalidTigerPlacement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerInvalidTilePlacement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerInvalidTotoroPlacement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/testRunnerValidTestPlacement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/AITest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/GameTest.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/AI.java" afterPath="$PROJECT_DIR$/src/tournament/AI.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BuildType.java" afterPath="$PROJECT_DIR$/src/enums/BuildType.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Client.java" afterPath="$PROJECT_DIR$/src/tournament/Client.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Decoder.java" afterPath="$PROJECT_DIR$/src/tournament/Decoder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GameBoard.java" afterPath="$PROJECT_DIR$/src/gameRules/GameBoard.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Hex.java" afterPath="$PROJECT_DIR$/src/gameRules/Hex.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Pair.java" afterPath="$PROJECT_DIR$/src/dataStructures/Pair.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/gameRules/Player.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Tile.java" afterPath="$PROJECT_DIR$/src/gameRules/Tile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TournamentClient.java" afterPath="$PROJECT_DIR$/src/tournament/TournamentClient.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TournamentMockServer.java" afterPath="$PROJECT_DIR$/src/tournament/TournamentMockServer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowBuildingSettlement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowExpansion.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowPlacingOfTotoroSanctuary.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowPlacingOfTotoroSanctuary.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefAllowTigerPlayground.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowTigerPlayground.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefDisallowBuildingSettlement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowBuildingSettlement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefDisallowExpansion.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefInvalidTigerPlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTigerPlacement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefInvalidTilePlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTilePlacement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefInvalidTotoroPlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefInvalidTotoroPlacement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/stepDefTilePlacement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefTilePlacement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/terrainTypes.java" afterPath="$PROJECT_DIR$/src/enums/terrainTypes.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/testRunnerAllowBuildingSettlements.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/testRunner.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/turnPhase.java" afterPath="$PROJECT_DIR$/src/enums/turnPhase.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/DecoderTest.java" afterPath="$PROJECT_DIR$/test/unitTests/DecoderTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/GameBoardTest.java" afterPath="$PROJECT_DIR$/test/unitTests/GameBoardTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/HexTest.java" afterPath="$PROJECT_DIR$/test/unitTests/HexTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/PlayerTest.java" afterPath="$PROJECT_DIR$/test/unitTests/PlayerTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/TileTest.java" afterPath="$PROJECT_DIR$/test/unitTests/TileTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowBuildingSettlements.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowBuildingSettlements.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowExpansion.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowExpansion.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowPlacingOfTotoroSanctuary.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowPlacingOfTotoroSanctuary.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/AllowTigerPlayground.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/AllowTigerPlayground.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/DisallowExpansion.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/DisallowExpansion.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/DisallowingBuildingSettlements.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/DisallowingBuildingSettlements.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/InvalidTigerPlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTigerPlacement.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/InvalidTilePlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTilePlacement.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/InvalidTotoroPlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/InvalidTotoroPlacement.feature" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/acceptanceTests/ValidTilePlacement.feature" afterPath="$PROJECT_DIR$/test/acceptanceTests/acceptanceTestFeatures/ValidTilePlacement.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Main.class" afterPath="$PROJECT_DIR$/src/com/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gameRules/GameBoard.java" afterPath="$PROJECT_DIR$/src/gameRules/GameBoard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gameRules/Hex.java" afterPath="$PROJECT_DIR$/src/gameRules/Hex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gameRules/Player.java" afterPath="$PROJECT_DIR$/src/gameRules/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gameRules/Tile.java" afterPath="$PROJECT_DIR$/src/gameRules/Tile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tournament/AI.java" afterPath="$PROJECT_DIR$/src/tournament/AI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowBuildingSettlement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefAllowExpansion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java" afterPath="$PROJECT_DIR$/test/acceptanceTests/stepDefinitions/stepDefDisallowExpansion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/unitTests/AITest.java" afterPath="$PROJECT_DIR$/test/unitTests/AITest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/unitTests/GameBoardTest.java" afterPath="$PROJECT_DIR$/test/unitTests/GameBoardTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/unitTests/HexTest.java" afterPath="$PROJECT_DIR$/test/unitTests/HexTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/unitTests/PlayerTest.java" afterPath="$PROJECT_DIR$/test/unitTests/PlayerTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/src/com/" />
     <ignored path="C:/test/tigerisland/" />
@@ -113,7 +35,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -164,8 +86,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/testRunnerAllowTigerPlayground.java" />
-        <option value="$PROJECT_DIR$/src/testRunnerDisallowBuildingSettlement.java" />
         <option value="$PROJECT_DIR$/src/testRunnerDisallowExpansion.java" />
         <option value="$PROJECT_DIR$/src/testRunnerInvalidTigerPlacement.java" />
         <option value="$PROJECT_DIR$/src/testRunnerInvalidTilePlacement.java" />
@@ -210,11 +130,13 @@
         <option value="$PROJECT_DIR$/test/unitTests/AITest.java" />
         <option value="$PROJECT_DIR$/src/tournament/AI.java" />
         <option value="$PROJECT_DIR$/src/gameRules/GameBoard.java" />
-        <option value="$PROJECT_DIR$/src/gameRules/Player.java" />
         <option value="$PROJECT_DIR$/src/tournament/Client.java" />
         <option value="$PROJECT_DIR$/src/tournament/Decoder.java" />
         <option value="$PROJECT_DIR$/src/tournament/TournamentClient.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/gameRules/Tile.java" />
+        <option value="$PROJECT_DIR$/src/gameRules/Hex.java" />
+        <option value="$PROJECT_DIR$/src/gameRules/Player.java" />
       </list>
     </option>
   </component>
@@ -242,6 +164,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -265,54 +188,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unitTests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acceptanceTests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stepDefinitions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acceptanceTests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acceptanceTestFeatures" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -402,10 +277,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigerisland" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -812,24 +700,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AITest - 2017.04.13 at 11h 59m 05s.xml">
-      <configuration name="AITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AITest - 2017.04.13 at 12h 03m 40s.xml">
-      <configuration name="AITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AITest - 2017.04.13 at 12h 04m 03s.xml">
-      <configuration name="AITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AITest - 2017.04.13 at 12h 05m 25s.xml">
-      <configuration name="AITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AITest - 2017.04.13 at 12h 09m 36s.xml">
-      <configuration name="AITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AITest - 2017.04.13 at 12h 09m 41s.xml">
-      <configuration name="AITest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="allTests - 2017.04.13 at 12h 10m 52s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
@@ -840,6 +710,24 @@
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
     <history-entry file="allTests - 2017.04.13 at 12h 20m 19s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 14h 08m 42s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 14h 10m 30s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 14h 12m 35s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 14h 15m 04s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 14h 15m 14s.xml">
+      <configuration name="allTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="allTests - 2017.04.13 at 14h 18m 35s.xml">
       <configuration name="allTests" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -855,26 +743,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2781065" sideWeight="0.5021834" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22749591" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34042552" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24357034" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21633889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991323" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -922,16 +810,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/GameTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/Game.java" />
-    <entry file="file://$PROJECT_DIR$/src/tournament/TournamentMockServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1043,7 +921,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="127" column="5" lean-forward="true" selection-start-line="127" selection-start-column="5" selection-end-line="127" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,7 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="96" column="5" lean-forward="false" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1075,7 +951,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="160" column="5" lean-forward="true" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1083,7 +958,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="176" column="5" lean-forward="true" selection-start-line="176" selection-start-column="5" selection-end-line="176" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1108,7 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1116,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1124,7 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1132,15 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataStructures/Pair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1148,7 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1156,7 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1164,7 +1024,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1278,8 +1137,8 @@
             <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
             <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
             <element signature="method#addHexToNewlyMergedSettlement#0;class#GameBoard#0" expanded="false" />
-            <element signature="e#86800#86912#0" expanded="false" />
-            <element signature="e#87148#87207#0" expanded="false" />
+            <element signature="e#86832#86944#0" expanded="false" />
+            <element signature="e#87180#87239#0" expanded="false" />
             <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
             <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
             <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
@@ -1324,42 +1183,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameRules/Hex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" column="71" lean-forward="true" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
-          <folding>
-            <element signature="docComment;class#Hex#0" expanded="false" />
-            <element signature="method#Hex#0;class#Hex#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameRules/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="95" column="5" lean-forward="false" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
-          <folding>
-            <element signature="docComment;class#Player#0" expanded="false" />
-            <element signature="method#Player#0;class#Player#0" expanded="false" />
-            <element signature="method#getTigerCount#0;class#Player#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameRules/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-92">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#Tile#0" expanded="false" />
-            <element signature="method#Tile#0;class#Tile#0" expanded="false" />
-            <element signature="method#rotateTileClockwise#0;class#Tile#0" expanded="false" />
-            <element signature="method#flip#0;class#Tile#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tournament/AI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1374,16 +1197,65 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-58">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unitTests/DecoderTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="103" column="46" lean-forward="true" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/tournament/TournamentClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unitTests/AITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="303" column="4" lean-forward="false" selection-start-line="303" selection-start-column="4" selection-end-line="303" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataStructures/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/3dVsOdd_R.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/flipped.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/Nonflipped.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tournament/Decoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="421" column="10" lean-forward="false" selection-start-line="421" selection-start-column="10" selection-end-line="421" selection-end-column="10" />
+        <state relative-caret-position="-119">
+          <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
           <folding>
             <element signature="method#messageTypeDecode#0;class#Decoder#0" expanded="false" />
             <element signature="method#messageStartsWithWait#0;class#Decoder#0" expanded="false" />
@@ -1427,41 +1299,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/unitTests/DecoderTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="103" column="46" lean-forward="true" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tournament/TournamentClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/unitTests/AITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="303" column="4" lean-forward="false" selection-start-line="303" selection-start-column="4" selection-end-line="303" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="339">
+          <caret line="216" column="74" lean-forward="false" selection-start-line="216" selection-start-column="74" selection-end-line="216" selection-end-column="74" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="docComment;class#Tile#0" expanded="false" />
+            <element signature="method#Tile#0;class#Tile#0" expanded="false" />
+            <element signature="method#rotateTileClockwise#0;class#Tile#0" expanded="false" />
+            <element signature="method#flip#0;class#Tile#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/Hex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="114" column="1" lean-forward="true" selection-start-line="114" selection-start-column="1" selection-end-line="114" selection-end-column="1" />
+          <folding>
+            <element signature="docComment;class#Hex#0" expanded="false" />
+            <element signature="method#Hex#0;class#Hex#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameRules/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="97" column="1" lean-forward="true" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
+          <folding>
+            <element signature="docComment;class#Player#0" expanded="false" />
+            <element signature="method#Player#0;class#Player#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

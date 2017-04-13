@@ -107,7 +107,7 @@ public class AI {
 
         while(true) {
 
-            if(playerOne.getSettlerCount() == 0) {
+            if(playerOne.getVillagerCount() == 0) {
                 returnString += "UNABLE TO BUILD";
                 break;
             }
@@ -116,7 +116,7 @@ public class AI {
             try{
                 if(settlementsBuiltInARow==5) {
                     int setID = gameBoard.getGameBoardPositionArray()[lastColBuilt][lastRowBuilt].getSettlementID();
-                    if(gameBoard.isValidTotoroPlacement(lastColBuilt+1,lastRowBuilt,setID,playerOne) && gameBoard.playerOwnsSettlementWithID(setID,playerOne.getPlayerID())){
+                    if(gameBoard.isValidTotoroPlacement(lastColBuilt+1,lastRowBuilt,setID,playerOne) && gameBoard.playerOwnsSettlementWithID(setID,playerOne.getOwningPlayerID())){
                         returnString += "BUILD TOTORO SANCTUARY AT " + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
                         gameBoard.placeTotoroSanctuary(lastColBuilt+1,lastRowBuilt,setID,playerOne);
                         lastColBuilt += 1;
@@ -129,7 +129,7 @@ public class AI {
 
             //build on adjacent tile
             try {
-                if (gameBoard.isValidSettlementLocation(lastColBuilt+1, lastRowBuilt) && playerOne.getSettlerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(lastColBuilt+1, lastRowBuilt) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(lastColBuilt+1, lastRowBuilt, playerOne);
                     returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
                     lastColBuilt++;
@@ -147,14 +147,14 @@ public class AI {
 
             //build on new tile (conflict)
             if(rowPos%2==0){
-                if (gameBoard.isValidSettlementLocation(colPos-1, rowPos+1) && playerOne.getSettlerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(colPos-1, rowPos+1) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(colPos-1,rowPos+1,playerOne);
                     returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos-1,rowPos+1);
                     lastColBuilt = colPos-1;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
-                if(gameBoard.isValidSettlementLocation(colPos,rowPos+1) && playerOne.getSettlerCount() >= 1) {
+                if(gameBoard.isValidSettlementLocation(colPos,rowPos+1) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(colPos, rowPos + 1, playerOne);
                     returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos,rowPos+1);
                     lastColBuilt = colPos;
@@ -162,14 +162,14 @@ public class AI {
                     break;
                 }
             }else {
-                if (gameBoard.isValidSettlementLocation(colPos, rowPos + 1) && playerOne.getSettlerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(colPos, rowPos + 1) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(colPos, rowPos + 1, playerOne);
                     returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos,rowPos+1);
                     lastColBuilt = colPos;
                     lastRowBuilt = rowPos+1;
                     break;
                 }
-                if (gameBoard.isValidSettlementLocation(colPos+1, rowPos + 1) && playerOne.getSettlerCount() >= 1) {
+                if (gameBoard.isValidSettlementLocation(colPos+1, rowPos + 1) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(colPos+1, rowPos + 1, playerOne);
                     returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(colPos+1,rowPos+1);
                     lastColBuilt = colPos+1;
@@ -268,7 +268,7 @@ public class AI {
     }
 
     public int getPlayerOneVillagerCount(){
-        return playerOne.getSettlerCount();
+        return playerOne.getVillagerCount();
     }
 
     public int getPlayerOneTotoroCount(){
@@ -284,7 +284,7 @@ public class AI {
     }
 
     public int getPlayerTwoVillagerCount(){
-        return playerTwo.getSettlerCount();
+        return playerTwo.getVillagerCount();
     }
 
     public int getPlayerTwoTotoroCount(){

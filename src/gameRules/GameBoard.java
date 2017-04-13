@@ -763,8 +763,8 @@ public class GameBoard {
 
 
     public void buildSettlement(int colPos, int rowPos, Player playerBuilding) {
-        if (isValidSettlementLocation(colPos, rowPos) && playerBuilding.getSettlerCount() >= 1) {
-            gameBoardPositionArray[colPos][rowPos].setSettlerCount(1);
+        if (isValidSettlementLocation(colPos, rowPos) && playerBuilding.getVillagerCount() >= 1) {
+            gameBoardPositionArray[colPos][rowPos].setVillagerCount(1);
 
             int newSettlementID = getNewestAssignableSettlementID();
             setGameBoardPositionSettlementID(new Pair(colPos, rowPos) ,newSettlementID);
@@ -772,10 +772,10 @@ public class GameBoard {
             assignPlayerNewSettlement(playerBuilding, newSettlementID, 1);
             addHexToHexesBuiltOnList(colPos, rowPos);
 
-            gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+            gameBoardPositionArray[colPos][rowPos].setOwningPlayerID(playerBuilding.getPlayerID());
 
             playerBuilding.increaseSettlementCount();
-            playerBuilding.decreaseSettlerCount(1);
+            playerBuilding.decreaseVillagerCount(1);
             playerBuilding.increaseScore(1);
 
             mergeSettlements();
@@ -816,10 +816,10 @@ public class GameBoard {
     public void placeTotoroSanctuary(int colPos, int rowPos, int settlementID, Player playerBuilding) {
         if(isValidTotoroPlacement(colPos, rowPos, settlementID, playerBuilding)) {
             gameBoardPositionArray[colPos][rowPos].setTotoroCount(1);
-            gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+            gameBoardPositionArray[colPos][rowPos].setOwningPlayerID(playerBuilding.getPlayerID());
             gameBoardPositionArray[colPos][rowPos].setSettlementID(settlementID);
             playerBuilding.increaseScore(200);
-            playerBuilding.decreaseTotoroCount();
+            playerBuilding.decrementTotoroCount();
             incrementGameBoardSettlementListSize(settlementID);
             incrementGameBoardSettlementListTotoroCount(settlementID);
 
@@ -870,10 +870,10 @@ public class GameBoard {
     public void placeTigerPen(int colPos, int rowPos, int settlementID, Player playerBuilding) {
         if(checkIfValidTigerPlacement(colPos, rowPos, settlementID, playerBuilding)) {
             gameBoardPositionArray[colPos][rowPos].setTigerCount(1);
-            gameBoardPositionArray[colPos][rowPos].setPlayerID(playerBuilding.getPlayerID());
+            gameBoardPositionArray[colPos][rowPos].setOwningPlayerID(playerBuilding.getPlayerID());
             gameBoardPositionArray[colPos][rowPos].setSettlementID(settlementID);
             playerBuilding.increaseScore(75);
-            playerBuilding.decreaseTigerCount();
+            playerBuilding.decrementTigerCount();
             incrementGameBoardSettlementListSize(settlementID);
             incrementGameBoardSettlementListTigerCount(settlementID);
 
@@ -959,9 +959,9 @@ public class GameBoard {
         if(villagersNeededForExpansion == 0) {
             return;
         }
-        else if(villagersNeededForExpansion <= player.getSettlerCount()) {
+        else if(villagersNeededForExpansion <= player.getVillagerCount()) {
             player.increaseScore(calculateScoreForExpansion(colPos, rowPos, expansionType, player));
-            player.decreaseSettlerCount(villagersNeededForExpansion);
+            player.decreaseVillagerCount(villagersNeededForExpansion);
             resetTraversalList();
 
             try {
@@ -1030,12 +1030,12 @@ public class GameBoard {
                         hexesToResetTraversalValue.add(currentCoordinates);
 
                         int hexLevel = gameBoardPositionArray[colPos][rowPos].getLevel();
-                        gameBoardPositionArray[colPos][rowPos].setSettlerCount(hexLevel);
+                        gameBoardPositionArray[colPos][rowPos].setVillagerCount(hexLevel);
                         hexesBuiltOnThisTurn.add(currentCoordinates);
                         incrementGameBoardSettlementListSize(homeHexID);
 
                         setGameBoardPositionSettlementID(currentCoordinates, homeHexID);
-                        gameBoardPositionArray[colPos][rowPos].setPlayerID(player.getPlayerID());
+                        gameBoardPositionArray[colPos][rowPos].setOwningPlayerID(player.getPlayerID());
 
                         if (isEven(rowPos)) {
                             expandSettlementDriver(colPos - 1, rowPos - 1, expansionType, player, homeHexID);
@@ -1546,7 +1546,7 @@ public class GameBoard {
     }
 
     public int getGameBoardPositionPlayerID(Pair currentCoordinates) {
-        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getPlayerID();
+        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getOwningPlayerID();
     }
 
     public void setGameBoardPositionSettlementID(Pair currentCoordinates, int masterSettlementID) {
@@ -1574,7 +1574,7 @@ public class GameBoard {
     }
 
     public boolean gameBoardHexIsOwnedByPlayer(int playerID, int colPos, int rowPos) {
-        return gameBoardPositionArray[colPos][rowPos].getPlayerID() == playerID;
+        return gameBoardPositionArray[colPos][rowPos].getOwningPlayerID() == playerID;
     }
 
     private boolean isEven(int rowPos) {
@@ -1857,7 +1857,7 @@ public class GameBoard {
     }
 
     private boolean hexHasSettlersOnIt(Pair currentCoordinates) {
-        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getSettlerCount() != 0;
+        return gameBoardPositionArray[currentCoordinates.getColumnPosition()][currentCoordinates.getRowPosition()].getVillagerCount() != 0;
     }
 
     private boolean hexHasTotorosOnIt(Pair currentCoordinates) {

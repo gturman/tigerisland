@@ -6,23 +6,22 @@ import enums.turnPhase;
  * Created by William on 3/14/2017.
  */
 public class Player {
-
     private int playerID;
+    private turnPhase playerTurnPhase;
+    private int score;
     private int settlementCount;
-    private int settlerCount;
+    private int villagerCount;
     private int totoroCount;
     private int tigerCount;
-    private int score;
-    private turnPhase playerTurnPhase;
 
     public Player(int playerID){
-        this.tigerCount = 2;
         this.playerID = playerID;
-        this.score = 0;
-        this.settlerCount = 20;
-        this.totoroCount = 3;
-        this.settlementCount = 0;
         this.playerTurnPhase = turnPhase.TILE_PLACEMENT;
+        this.score = 0;
+        this.settlementCount = 0;
+        this.villagerCount = 20;
+        this.totoroCount = 3;
+        this.tigerCount = 2;
     }
 
     public int getPlayerID(){
@@ -41,38 +40,12 @@ public class Player {
         this.playerTurnPhase = playerTurnPhase;
     }
 
-    public int getSettlerCount(){
-        return settlerCount;
+    public int getScore(){
+        return score;
     }
 
-    public void setSettlerCount(int settlerCount) {
-        this.settlerCount = settlerCount;
-    }
-
-    public void decreaseSettlerCount(int modifier){
-        settlerCount -= modifier;
-    }
-
-    public int getTotoroCount(){
-        return totoroCount;
-    }
-
-    public void setTotoroCount(int totoroCount) {
-        this.totoroCount = totoroCount;
-    }
-
-    public void decreaseTotoroCount(){
-        this.totoroCount--;
-    }
-
-    public int getTigerCount(){return tigerCount;}
-
-    public void setTigerCount(int tigerCount) {
-        this.tigerCount = tigerCount;
-    }
-
-    public void decreaseTigerCount() {
-        this.tigerCount -= 1;
+    public void increaseScore(int points){
+        this.score += points;
     }
 
     public int getSettlementCount(){
@@ -87,12 +60,40 @@ public class Player {
         this.settlementCount++;
     }
 
-    public int getScore(){
-        return score;
+    public int getVillagerCount(){
+        return villagerCount;
     }
 
-    public void increaseScore(int points){
-        this.score += points;
+    public void setVillagerCount(int villagerCount) {
+        this.villagerCount = villagerCount;
+    }
+
+    public void decreaseVillagerCount(int modifier){
+        villagerCount -= modifier;
+    }
+
+    public int getTotoroCount(){
+        return totoroCount;
+    }
+
+    public void setTotoroCount(int totoroCount) {
+        this.totoroCount = totoroCount;
+    }
+
+    public void decrementTotoroCount(){
+        this.totoroCount--;
+    }
+
+    public int getTigerCount(){
+        return tigerCount;
+    }
+
+    public void setTigerCount(int tigerCount) {
+        this.tigerCount = tigerCount;
+    }
+
+    public void decrementTigerCount() {
+        this.tigerCount--;
     }
 }
 
