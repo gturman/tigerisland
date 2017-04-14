@@ -15,6 +15,6 @@ AI has the capabilities of placing the following:
  We also have an AI version with expansions but were not able to thoroughly test this version before 04/14/17 tournament.
 
 Server Connection:
- Our client connects to the server and plays through all rounds and challenges whether the opponent win/forfeits/loses or we   win/forfeit/loses.
+ Our client connects to the server and plays through all rounds and challenges whether the opponent win/forfeits/loses or we   win/forfeit/lose.
  
  There is a bug in server connection if there is an odd number of players.
