@@ -1,46 +1,20 @@
 # Tiger Island v3.2 Team F
-
 Tiger Island is a two-player tile-placement game assigned as a project by Dave Small. 
 
-The following concepts are currently in development:
+What we have done:
 
-* ~~Game board~~
-  * ~~gameRules.Tile~~
-    * ~~gameRules.Hex~~
-      * ~~Level~~
-      * ~~Terrain~~
-        * ~~Uninhabitable~~
-        * ~~Habitable~~
-      * ~~Edge~~
+Rules:
+ All rules are implemented as of version 3.2 on the website.
+ 
+AI:
+AI has the capabilities of placing the following:
+ Villagers
+ Totoros
+ 
+ We had a last minute bug that prevented us from implementing TigerPlayground. We chose staying connected to the server over this.
+ We also have an AI version with expansions but were not able to thoroughly test this version before 04/14/17 tournament.
 
-* ~~Piece~~
-  * ~~Villager~~
-  * ~~Totoro~~
-  * ~~Tiger Pen~~
-
-* ~~gameRules.Player~~
-  * ~~Settlements~~
-  * ~~Score~~
-  * ~~Turn~~
-    * ~~Action~~
-      * ~~Draw~~
-      * ~~Place tile~~
-      * ~~Place piece~~
-      * ~~Place villager~~
-        * ~~Expand~~
-        * ~~Found settlement~~
-      * ~~Place Totoro~~
-      * ~~Place Tiger Pen~~
-
-* ~~End Game~~
-  * ~~Auto-Win~~
-    * ~~gameRules.Player only has one type of piece left at end of turn~~
-  * ~~No unplayed tiles left~~
-    * ~~Higher player score wins~~
-    * ~~Tied Scores~~
-      * ~~gameRules.Player with most Totoros placed wins~~
-      * ~~If Totoros are equal, player with most Tiger Pens placed wins~~
-      * ~~If Tiger pens are equal, player with most Villagers placed wins~~
-  
-* tournament AI
-* Server connection
+Server Connection:
+ Our client connects to the server and plays through all rounds and challenges whether the opponent win/forfeits/loses or we   win/forfeit/loses.
+ 
+ There is a bug in server connection if there is an odd number of players.
