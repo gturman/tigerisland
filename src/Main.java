@@ -89,7 +89,6 @@ public class Main {
                 //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid> or END OF ROUND" is message 6
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
 
-
                 if(masterDecoder.getEndOfRoundFlag()) {
                     //System.out.println("should be END OF ROUND");
                     game1IsOver = true;

@@ -3050,4 +3050,73 @@ public class GameBoardTest {
 
         Assert.assertEquals(gameBoard.isValidTotoroPlacement(111, 105, gameBoard.getGameBoardPositionSettlementID(new Pair(110, 105)), playerOne), false);
     }
+
+    @Test
+    public void testIfIsValidSettlementLocationFailsForAlreadyBuiltOnPlacement() {
+        GameBoard gameboard = new GameBoard();
+        Player playerOne = new Player(1);
+        Player playerTwo = new Player(2);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile tile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+
+        gameboard.setTileAtPosition(103, 103, tile);
+
+        gameboard.buildSettlement(103, 102, playerOne);
+        gameboard.buildSettlement(102, 103, playerTwo);
+
+        Assert.assertEquals(gameboard.isValidSettlementLocation(103, 102), false);
+        Assert.assertEquals(gameboard.isValidSettlementLocation(102, 103), false);
+    }
+
+    @Test
+    public void testIfIsValidSettlementLocationFailsForNonLevelOnePlacement() {
+        GameBoard gameboard = new GameBoard();
+        Player playerOne = new Player(1);
+        Player playerTwo = new Player(2);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile tile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+        gameboard.setTileAtPosition(103, 103, tile);
+
+        Tile secondTile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.GRASSLANDS, terrainTypes.VOLCANO, terrainTypes.ROCKY);
+        gameboard.nukeTiles(102, 103, secondTile);
+
+        Assert.assertEquals(gameboard.isValidSettlementLocation(103, 102), false);
+        Assert.assertEquals(gameboard.isValidSettlementLocation(102, 103), false);
+    }
+
+    @Test
+    public void testIfIsValidSettlementLocationFailsForVolcanoPlacement() {
+        GameBoard gameboard = new GameBoard();
+        Player playerOne = new Player(1);
+        Player playerTwo = new Player(2);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile tile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+
+        gameboard.setTileAtPosition(103, 103, tile);
+
+        Assert.assertEquals(gameboard.isValidSettlementLocation(102, 102), false);
+        Assert.assertEquals(gameboard.isValidSettlementLocation(103, 103), false);
+    }
+
+    @Test
+    public void testIfIsValidSettlementLocationFailsForNullPlacement() {
+        GameBoard gameboard = new GameBoard();
+        Player playerOne = new Player(1);
+        Player playerTwo = new Player(2);
+
+        gameboard.placeFirstTileAndUpdateValidPlacementList();
+
+        Tile tile = new Tile(gameboard.getGameBoardTileID(), gameboard.getGameBoardHexID(), terrainTypes.VOLCANO, terrainTypes.GRASSLANDS, terrainTypes.LAKE);
+
+        gameboard.setTileAtPosition(103, 103, tile);
+
+        Assert.assertEquals(gameboard.isValidSettlementLocation(200, 102), false);
+        Assert.assertEquals(gameboard.isValidSettlementLocation(192, 53), false);
+    }
 }
