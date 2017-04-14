@@ -108,7 +108,7 @@ public class AI {
             try{
                 if(settlementsBuiltInARow==5) {
                     int setID = gameBoard.getGameBoardPositionArray()[lastColBuilt][lastRowBuilt].getSettlementID();
-                    if(gameBoard.isValidTotoroPlacement(lastColBuilt+1,lastRowBuilt,setID,playerOne) && gameBoard.playerOwnsSettlementWithID(setID,playerOne.getOwningPlayerID())){
+                    if(gameBoard.isValidTotoroPlacement(lastColBuilt+1,lastRowBuilt,setID,playerOne) && gameBoard.playerOwnsSettlementWithID(setID,playerOne.getPlayerID())){
                         returnString += "BUILD TOTORO SANCTUARY AT " + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
                         gameBoard.placeTotoroSanctuary(lastColBuilt+1,lastRowBuilt,setID,playerOne);
                         lastColBuilt += 1;
