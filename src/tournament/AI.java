@@ -9,12 +9,10 @@ import gameRules.Player;
 
 
 public class AI {
-    //Game vars
     Player playerOne;
     Player playerTwo;
     GameBoard gameBoard;
 
-    //tournament.AI vars
     int colPos=103;
     int rowPos=104;
     int lastColBuilt;
