@@ -5,10 +5,6 @@ import tournament.Decoder;
 
 import java.io.IOException;
 
-/**
- * Created by geoff on 4/6/17.
- */
-
 public class TournamentClient {
 
     public Client client;
@@ -21,21 +17,7 @@ public class TournamentClient {
     public void send(String message) {
         client.send(message);
     }
-/* deprecated
-    public void waitReceiveAndDecode() throws IOException {
 
-        String playerID = mainDecoder.getPlayerID1();
-        String roundID = mainDecoder.getCurrentRoundID();
-        this.mainDecoder = new tournament.Decoder();
-        mainDecoder.setPlayerID1(playerID);
-        mainDecoder.setCurrentRoundID(roundID);
-
-        String fromServer;
-        currentMessage = client.waitAndReceive();
-        mainDecoder.decodeString(currentMessage);
-
-    }
-*/
     public String authenticateConnectionAndGetPlayerID() throws IOException {
 
         Decoder mainDecoder = new Decoder();
