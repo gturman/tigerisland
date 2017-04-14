@@ -7,9 +7,7 @@ import gameRules.Tile;
 import gameRules.Hex;
 import gameRules.Player;
 
-/**
- * Created by William on 4/4/2017.
- */
+
 public class AI {
     //Game vars
     Player playerOne;
@@ -32,8 +30,6 @@ public class AI {
         gameBoard = new GameBoard();
         placeFirstTile();
     }
-
-    //input from server is parsed, and the appropriate methods called with the given input
 
     public void placeFirstTile(){
         gameBoard.placeFirstTileAndUpdateValidPlacementList();
@@ -80,25 +76,25 @@ public class AI {
         }
     }
 
-    //returns strings to send to server, describing our actions
+  
 
     public String placeForOurPlayer(terrainTypes terrainA, terrainTypes terrainB, terrainTypes terrainC){
         Tile tile = new Tile(gameBoard.getGameBoardTileID(), gameBoard.getGameBoardHexID(), terrainA, terrainB, terrainC);
         tile.flip();
 
         String returnString = "PLACE " + tileToString(tile) + " AT";
-        while(true) {//until we place a tile, in which case we will break to exit
+        while(true) {
             if (!gameBoard.hexesToPlaceTileOnAreAlreadyOccupied(colPos, rowPos, tile)) {
                 gameBoard.setTileAtPosition(colPos,rowPos,tile);
                 returnString += oddRToCubicString(colPos,rowPos);
                 returnString += " 4";
-                break;//we have placed tile
+                break;
             }else{
-                colPos++;//we move over one, until we find a space we can place
-                //System.out.println(rowPos);
+                colPos++;
+               
             }
         }
-        System.out.println(returnString);
+       
         return returnString;
     }
 
@@ -111,7 +107,6 @@ public class AI {
                 break;
             }
 
-     /*      //Totoro
             try{
                 if(settlementsBuiltInARow==5) {
                     int setID = gameBoard.getGameBoardPositionArray()[lastColBuilt][lastRowBuilt].getSettlementID();
@@ -123,26 +118,26 @@ public class AI {
                     break;
                 }
             }catch (Exception e){
-                //happens on first placement
-            }*/
+                
+            }
 
-            //build on adjacent tile
+        
             try {
                 if (gameBoard.isValidSettlementLocation(lastColBuilt+1, lastRowBuilt) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(lastColBuilt+1, lastRowBuilt, playerOne);
                     returnString += "FOUND SETTLEMENT AT" + oddRToCubicString(lastColBuilt+1,lastRowBuilt);
                     lastColBuilt++;
                     settlementsBuiltInARow++;
-                    // System.out.println("yay we placed in a line");
+                   
                     break;
                 }
             }catch (Exception e){
-                //happens on first placement;
+                
             }
 
             settlementsBuiltInARow=1;
 
-            //build on new tile (conflict)
+          
             if(rowPos%2==0){
                 if (gameBoard.isValidSettlementLocation(colPos-1, rowPos+1) && playerOne.getVillagerCount() >= 1) {
                     gameBoard.buildSettlement(colPos-1,rowPos+1,playerOne);
@@ -175,7 +170,7 @@ public class AI {
                 }
             }
         }
-        System.out.println(returnString);
+        
         return returnString;
     }
 
