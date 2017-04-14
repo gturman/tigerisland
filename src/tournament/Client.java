@@ -39,7 +39,6 @@ public class Client {
 
         String fromServer;
 
-        //System.out.println("Waiting on server...");
         fromServer = in.readLine();
         if (fromServer != null) {
             System.out.print("Got: ");
