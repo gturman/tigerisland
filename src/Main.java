@@ -94,6 +94,14 @@ public class Main {
                     game1IsOver = true;
                     game2IsOver = true;
                     currentRoundID = masterDecoder.getCurrentRoundID();
+
+                    // instantiate new AIs each round of each game
+                    aiForGame1 = new AI();
+                    aiForGame2 = new AI();
+
+                    // reset game IDs for each round
+                    gameID1 = "";
+                    gameID2 = "";
                 } else {
                     playerID2 = masterDecoder.getPlayerID2();
                     //System.out.println("should be NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER ");
@@ -111,7 +119,18 @@ public class Main {
                     masterDecoder.decodeString(newestMessage); // extract message information for processing
 
                     if(masterDecoder.getEndOfRoundFlag() == true){ // If for some reason round ends before match ends, immediately break out of this loop
+                        game1IsOver = true;
+                        game2IsOver = true;
                         currentRoundID = masterDecoder.getCurrentRoundID(); // get round number; exit loop if it's last round
+
+                        // instantiate new AIs each round of each game
+                        aiForGame1 = new AI();
+                        aiForGame2 = new AI();
+
+                        // reset game IDs for each round
+                        gameID1 = "";
+                        gameID2 = "";
+
                         break;
                     }
 
@@ -231,6 +250,16 @@ public class Main {
                     //"END OF ROUND <rid> OF <rounds>" or  "END OF ROUND <rid> OF <rounds> WAIT FOR THE NEXT MATCH"
                     masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
                     currentRoundID = masterDecoder.getCurrentRoundID(); // get round number; exit loop if it's last round
+                    game1IsOver = true;
+                    game2IsOver = true;
+
+                    // instantiate new AIs each round of each game
+                    aiForGame1 = new AI();
+                    aiForGame2 = new AI();
+
+                    // reset game IDs for each round
+                    gameID1 = "";
+                    gameID2 = "";
                 }
                 //System.out.println("we escaped the damned match loop!");
             }

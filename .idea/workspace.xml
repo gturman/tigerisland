@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f5cba8da-a8a5-4dab-a23a-d76e472c60c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/Main.class" afterPath="$PROJECT_DIR$/src/com/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tournament/AI.class" afterPath="$PROJECT_DIR$/src/com/tournament/AI.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tournament/Decoder.class" afterPath="$PROJECT_DIR$/src/com/tournament/Decoder.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tournament/AI.java" afterPath="$PROJECT_DIR$/src/tournament/AI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/unitTests/AITest.java" afterPath="$PROJECT_DIR$/test/unitTests/AITest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/src/com/" />
     <ignored path="C:/test/tigerisland/" />
@@ -28,238 +26,13 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="199" column="71" lean-forward="true" selection-start-line="199" selection-start-column="71" selection-end-line="199" selection-end-column="71" />
+            <state relative-caret-position="198">
+              <caret line="277" column="1" lean-forward="true" selection-start-line="277" selection-start-column="1" selection-end-line="277" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AI.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/tournament/AI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="104" column="38" lean-forward="true" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gameRules/GameBoard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6239">
-              <caret line="1870" column="0" lean-forward="false" selection-start-line="1870" selection-start-column="0" selection-end-line="1870" selection-end-column="0" />
-              <folding>
-                <element signature="method#GameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#placeFirstTileAndUpdateValidPlacementList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateGameBoardPositionArrayWithFirstTileHexes#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateValidPlacementArrayWithFirstTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setTileAtPosition#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexesToPlaceTileOnAreAlreadyOccupied#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#thereAreNoHexesUnderEvenAndFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#thereAreNoHexesUnderOddAndFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#thereAreNoHexesUnderEvenAndNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#thereAreNoHexesUnderOddAndNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexDoesNotOccupyPosition#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setEvenFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setOddFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setEvenNotFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setOddNotFlippedCoordinatesAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setHexACoordinateAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setHexBCoordinateAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setHexCCoordinateAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateValidTilePlacementList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setValidFlippedPositions#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setValidNotFlippedPositions#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#boardPositionsRelativeToHomeHexAreEmpty#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setBoardPositionsRelativeToHomeHexAsValid#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setBoardPositionAsOccupied#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#nukeTiles#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#nukeAtPositionIsValid#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#canValidlyPlaceEvenFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#canValidlyPlaceOddFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#canValidlyPlaceEvenNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#canValidlyPlaceOddNotFlippedTileInLocation#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noEmptySpacesBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noEmptySpacesBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noEmptySpacesBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noEmptySpacesBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#allHexesBelowEvenFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#allHexesBelowOddFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#allHexesBelowEvenNotFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#allHexesBelowOddNotFlippedTileAreAtSameLevel#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#notCoveringEntireEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#notCoveringEntireOddFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#notCoveringEntireEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#notCoveringEntireOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTigerPenBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTigerPenBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTigerPenBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTigerPenBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTotoroBelowEvenFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTotoroBelowOddFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTotoroBelowEvenNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noTotoroBelowOddNotFlippedTile#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexAOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexBOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexCOfNewTileIsTheVolcano#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexBelowIsAVolcano#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementsGetCompletelyNukedForEvenFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementsGetCompletelyNukedForEvenFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementsGetCompletelyNukedForEvenFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForOddAndFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForOddAndFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForOddAndFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForEvenAndNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForEvenAndNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForEvenAndNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtA#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtB#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#noSettlementGetsCompletelyNukedForOddAndNotFlippedTileWithVolcanoAtC#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#increaseEvenFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#increaseOddFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#increaseEvenNotFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#increaseOddNotFlippedTileLevelAndUpdateGameBoardPositionArray#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setHexALevelAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setHexBLevelAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setHexCLevelAndUpdateGameBoard#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#markHexIfSettlementAtPositionNeedsToBeSplitDueToNuke#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#gameBoardPositionNotEmpty#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#isOnLevelOne#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#isHabitable#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#placeTotoroSanctuary#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#isValidTotoroPlacement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#placeTigerPen#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#checkIfValidTigerPlacement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexToPlaceSpecialPieceOnEvenRowIsNotAdjacentToSpecifiedSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexToPlaceSpecialPieceOnOddRowIsNotAdjacentToSpecifiedSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#adjacentHexToSpecialPieceIsNotNullAndIsCorrectSettlementID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#expandSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#expandSettlementDriver#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#calculateVillagersForExpansion#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#calculateVillagersForExpansionDriver#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#calculateScoreForExpansion#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#calculateScoreForExpansionDriver#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#splitSettlements#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#splitSettlementsDriver#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyAddAdjacentHexesToNewlySplitSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyMoveToAdjacentHexesOfNewlySplitSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyMoveTodjacentHexesOfNewlySplitSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateGameBoardSettlementListValuesWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#updateGameBoardSettlementListValuesInDriverWhenThereIsAPieceAtPosition#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#mergeSettlements#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#mergeSettlementsDriver#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForEvenCoordinates#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#recursivelyAddAdjacentHexesToNewlyMergeSettlementForOddCoordinates#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#addHexToNewlyMergedSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="e#86832#86944#0" expanded="false" />
-                <element signature="e#87180#87239#0" expanded="false" />
-                <element signature="method#tileIsEvenAndFlipped#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#tileIsOddAndFlipped#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#tileIsEvenAndNotFlipped#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#tileIsOddAndNotFlipped#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getGameBoardPositionSettlementID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getGameBoardPositionPlayerID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setGameBoardPositionSettlementID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setGameBoardSettlementListPlayerID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#playerOwnsSettlementWithID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#gameBoardHexIsOwnedByPlayer#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getNewestAssignableSettlementID#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#assignPlayerNewSettlement#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setPlayerOwnedSettlementsListIsOwned#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#assignSizeToGameBoardSettlementList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#addHexToHexesBuiltOnList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#markGameBoardHexAsTraversed#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#unmarkGameBoardPositionAsTraversed#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexHasNotBeenTraversedYet#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#markCurrentCoordinateForRemovalFromBuiltOnThisTurnList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#deleteCurrentCoordinateFromHexesBuiltOnThisTurnList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#resetTraversalList#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#deleteSettlementFromGame#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#setPlayerOwnedSettlementsListIsNotOwned#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getGameBoardSettlementListOwner#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getGameBoardSettlementListSettlementSize#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getGameBoardSettlementListTotoroCount#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#getGameBoardSettlementListTigerCount#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#incrementGameBoardSettlementListSize#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#decrementGameBoardSettlementListSize#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#incrementGameBoardSettlementListTotoroCount#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#decrementGameBoardSettlementListTotoroCount#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#incrementGameBoardSettlementListTigerCount#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#decrementGameBoardSettlementListTigerCount#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#findAdjacentSettlementWithoutTotoro#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#findAdjacentSettlementWithoutTiger#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#checkIfTileBeingPlacedWillBeAdjacent#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexHasSettlersOnIt#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexHasTotorosOnIt#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#hexHasTigersOnIt#0;class#GameBoard#0" expanded="false" />
-                <element signature="method#isNotBuiltOn#0;class#GameBoard#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Decoder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tournament/Decoder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5729">
-              <caret line="643" column="0" lean-forward="true" selection-start-line="643" selection-start-column="0" selection-end-line="643" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gameRules/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1059">
-              <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-              <folding>
-                <element signature="e#630#631#0" expanded="true" />
-                <element signature="e#661#662#0" expanded="true" />
-                <element signature="e#705#706#0" expanded="true" />
-                <element signature="e#745#746#0" expanded="true" />
-                <element signature="e#784#785#0" expanded="true" />
-                <element signature="e#822#823#0" expanded="true" />
-                <element signature="e#881#882#0" expanded="true" />
-                <element signature="e#935#936#0" expanded="true" />
-                <element signature="e#963#964#0" expanded="true" />
-                <element signature="e#991#992#0" expanded="true" />
-                <element signature="e#1035#1036#0" expanded="true" />
-                <element signature="e#1071#1072#0" expanded="true" />
-                <element signature="e#1109#1110#0" expanded="true" />
-                <element signature="e#1147#1148#0" expanded="true" />
-                <element signature="e#1205#1206#0" expanded="true" />
-                <element signature="e#1259#1260#0" expanded="true" />
-                <element signature="e#1303#1304#0" expanded="true" />
-                <element signature="e#1341#1342#0" expanded="true" />
-                <element signature="e#1377#1378#0" expanded="true" />
-                <element signature="e#1413#1414#0" expanded="true" />
-                <element signature="e#1468#1469#0" expanded="true" />
-                <element signature="e#1518#1519#0" expanded="true" />
-                <element signature="e#1572#1573#0" expanded="true" />
-                <element signature="e#1613#1614#0" expanded="true" />
-                <element signature="e#1647#1648#0" expanded="true" />
-                <element signature="e#1681#1682#0" expanded="true" />
-                <element signature="e#1732#1733#0" expanded="true" />
-                <element signature="e#1778#1779#0" expanded="true" />
-                <element signature="e#1819#1820#0" expanded="true" />
-                <element signature="e#1853#1854#0" expanded="true" />
-                <element signature="e#1886#1887#0" expanded="true" />
-                <element signature="e#1919#1920#0" expanded="true" />
-                <element signature="e#1968#1969#0" expanded="true" />
-                <element signature="e#2012#2013#0" expanded="true" />
-                <element signature="e#2053#2054#0" expanded="true" />
-                <element signature="e#2086#2087#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -269,11 +42,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>gameID</find>
-      <find>endofround</find>
-      <find>waitingfornextchallenge</find>
-      <find>waitingfornextmatch</find>
-      <find>setwaitingfornextmatch</find>
       <find>malformed</find>
       <find>messagestartswithgame</find>
       <find>player 1 forfeited</find>
@@ -299,6 +67,11 @@
       <find>player 1 win</find>
       <find>player 2 win</find>
       <find>isvalidsettlementlocation</find>
+      <find>new challe</find>
+      <find>illegal tile</find>
+      <find>illegal</find>
+      <find>player 3 win</find>
+      <find>player 3 forfeited</find>
     </findStrings>
     <replaceStrings>
       <replace>getCurrentAIGameBoardPositionArray</replace>
@@ -394,6 +167,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -462,91 +238,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gameRules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="enums" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dataStructures" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tigerisland" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TigerIslandServer/TigerIsland" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3494253" />
@@ -992,14 +693,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2781065" sideWeight="0.5021834" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36824876" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40261865" sideWeight="0.4978166" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5340393" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15733737" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15960665" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1011,6 +711,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5340393" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1121,9 +822,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2482">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1131,7 +829,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="236" column="5" lean-forward="true" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1139,7 +836,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="294" column="5" lean-forward="false" selection-start-line="294" selection-start-column="5" selection-end-line="294" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,7 +843,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="234" column="5" lean-forward="true" selection-start-line="234" selection-start-column="5" selection-end-line="234" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1162,7 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="203" column="5" lean-forward="true" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1170,7 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="96" column="5" lean-forward="false" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1178,7 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="204" column="5" lean-forward="true" selection-start-line="204" selection-start-column="5" selection-end-line="204" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1186,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="160" column="5" lean-forward="true" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1198,12 +889,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-196">
-          <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="-35">
@@ -1211,6 +896,12 @@
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-196">
+          <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1298,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1306,15 +996,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tournament/Decoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5729">
-          <caret line="643" column="0" lean-forward="true" selection-start-line="643" selection-start-column="0" selection-end-line="643" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="10115">
+          <caret line="643" column="0" lean-forward="false" selection-start-line="643" selection-start-column="0" selection-end-line="643" selection-end-column="0" />
+          <folding>
+            <element signature="e#23302#23303#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1366,8 +1057,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gameRules/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1059">
-          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state relative-caret-position="391">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
           <folding>
             <element signature="e#630#631#0" expanded="true" />
             <element signature="e#661#662#0" expanded="true" />
@@ -1413,14 +1104,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gameRules/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6239">
-          <caret line="1870" column="0" lean-forward="false" selection-start-line="1870" selection-start-column="0" selection-end-line="1870" selection-end-column="0" />
+        <state relative-caret-position="6443">
+          <caret line="1827" column="102" lean-forward="false" selection-start-line="1827" selection-start-column="102" selection-end-line="1827" selection-end-column="102" />
           <folding>
             <element signature="method#GameBoard#0;class#GameBoard#0" expanded="false" />
             <element signature="method#placeFirstTileAndUpdateValidPlacementList#0;class#GameBoard#0" expanded="false" />
@@ -1571,20 +1261,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/tournament/AI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="199" column="71" lean-forward="true" selection-start-line="199" selection-start-column="71" selection-end-line="199" selection-end-column="71" />
+        <state relative-caret-position="-220">
+          <caret line="104" column="38" lean-forward="false" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tournament/AI.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="104" column="38" lean-forward="true" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="38" />
+        <state relative-caret-position="198">
+          <caret line="277" column="1" lean-forward="true" selection-start-line="277" selection-start-column="1" selection-end-line="277" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
