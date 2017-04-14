@@ -134,6 +134,7 @@ public class Decoder {
             if(currentWord.equals("ROUND")){
                 currentWord = sc.next();
                 setCurrentRoundID(currentWord);
+                setEndOfRoundFlag(false);
             }
         }
     }

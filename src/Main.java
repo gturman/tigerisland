@@ -47,7 +47,7 @@ public class Main {
         hostName = stdIn.readLine();
         System.out.print("Port: ");
         portNumber = stdIn.readLine();
-        System.out.print("tournament.TournamentClient password: ");
+        System.out.print("Tournament password: ");
         tournamentPassword = stdIn.readLine();
         System.out.print("Username: ");
         username = stdIn.readLine();
@@ -78,15 +78,27 @@ public class Main {
                 // reset game over flags for each round
                 game1IsOver = false;
                 game2IsOver = false;
+                masterDecoder.setGameOverFlag(false);
 
                 //System.out.println("current before matches before set: "+currentRoundID);
                 //"BEGIN ROUND <rid> OF <rounds>" is message 5
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
+                //System.out.println("should be BEGIN ROUND");
                 //currentRoundID = masterDecoder.getCurrentRoundID();
 
-                //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid>" is message 6
+                //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid> or END OF ROUND" is message 6
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
-                playerID2 = masterDecoder.getPlayerID2();
+
+
+                if(masterDecoder.getEndOfRoundFlag()) {
+                    //System.out.println("should be END OF ROUND");
+                    game1IsOver = true;
+                    game2IsOver = true;
+                    currentRoundID = masterDecoder.getCurrentRoundID();
+                } else {
+                    playerID2 = masterDecoder.getPlayerID2();
+                    //System.out.println("should be NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER ");
+                }
 
                 //System.out.println("current before matches: "+currentRoundID);
                 //System.out.println("overall before matches: "+overallRoundID);
@@ -95,17 +107,21 @@ public class Main {
                 //System.out.println("got in a round!");
                 // while at least one game of the two in a round are proceeding
                 while(!(game1IsOver && game2IsOver)) {
-                //System.out.println("we are in one or more matches in a round!");
+                    //System.out.println("we are in one or more matches in a round!");
                     newestMessage = clientForTournament.client.waitAndReceive(); // get message
                     masterDecoder.decodeString(newestMessage); // extract message information for processing
 
                     if(masterDecoder.getEndOfRoundFlag() == true){ // If for some reason round ends before match ends, immediately break out of this loop
+                        currentRoundID = masterDecoder.getCurrentRoundID(); // get round number; exit loop if it's last round
                         break;
                     }
 
                     //System.out.println("g1 is currently: "+gameID1);
                     //System.out.println("g2 is currently: "+gameID2);
                     //System.out.println("masterGameID = "+masterDecoder.getGameID());
+
+                    //System.out.println("game1isover: " + game1IsOver);
+                    //System.out.println("game2isover: " + game2IsOver);
 
                     // set game IDs for each match in the round; if a game ID is empty, it has not been set yet
                     if(gameID1.isEmpty()) {
@@ -118,11 +134,11 @@ public class Main {
 
                     if(masterDecoder.getGameOverFlag()) { // determine if a game is to be ended
                         if(masterDecoder.getGameID().equals(gameID1)) {
-                        //System.out.println("g1 lost set");
+                            //System.out.println("g1 lost set");
                             game1IsOver = true;
                         }
                         if(masterDecoder.getGameID().equals(gameID2)) {
-                        //System.out.println("g2 lost set");
+                            //System.out.println("g2 lost set");
                             game2IsOver = true;
                         }
                     }
@@ -171,7 +187,10 @@ public class Main {
 
                     // make your move
                     if (newestMessage.substring(0,4).equals("MAKE")) {
+                        //System.out.println("should be MAKE YOUR MOVE ");
+                        //System.out.println("is masterdecoder game ID = gameid1? :" + masterDecoder.getGameID().equals(gameID1));
                         if(masterDecoder.getGameID().equals(gameID1)) { // make move in game 1
+                            //System.out.println("is game1isover false? :" + (game1IsOver == false));
                             if(game1IsOver == false) {// only do move if game is still ongoing
                                 //make AIGame1 place for us, build for us
                                 currentMoveNumberForGame1 = masterDecoder.getCurrentMoveNum();
