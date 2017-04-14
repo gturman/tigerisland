@@ -73,7 +73,7 @@ public class AI {
             }
         }
         if(buildType == BuildType.PLACE_TIGER){
-            int settlementID = gameBoard.findAdjacentSettlementWithoutTiger(colPos,rowPos);
+            int settlementID = gameBoard.findAdjacentSettlementWithoutTiger(colPos,rowPos,playerTwo);
             if(settlementID != -1) {
                 gameBoard.placeTigerPen(colPos, rowPos, settlementID, playerTwo);
             }
@@ -178,6 +178,8 @@ public class AI {
         System.out.println(returnString);
         return returnString;
     }
+
+
 
     String tileToString(Tile tile){
         String returnString = "";
