@@ -84,9 +84,15 @@ public class Main {
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
                 //currentRoundID = masterDecoder.getCurrentRoundID();
 
-                //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid>" is message 6
+                //"NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER <pid> or END OF ROUND" is message 6
                 masterDecoder.decodeString(clientForTournament.client.waitAndReceive());
-                playerID2 = masterDecoder.getPlayerID2();
+
+                if(masterDecoder.getEndOfRoundFlag()) {
+                    game1IsOver = true;
+                    game2IsOver = true;
+                } else {
+                    playerID2 = masterDecoder.getPlayerID2();
+                }
 
                 //System.out.println("current before matches: "+currentRoundID);
                 //System.out.println("overall before matches: "+overallRoundID);
@@ -100,6 +106,7 @@ public class Main {
                     masterDecoder.decodeString(newestMessage); // extract message information for processing
 
                     if(masterDecoder.getEndOfRoundFlag() == true){ // If for some reason round ends before match ends, immediately break out of this loop
+                        currentRoundID = masterDecoder.getCurrentRoundID(); // get round number; exit loop if it's last round
                         break;
                     }
 
